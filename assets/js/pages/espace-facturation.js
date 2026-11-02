@@ -137,8 +137,14 @@
   }
   $('#inv-body').addEventListener('click', (e) => {
     const b = e.target.closest('[data-pdf]');
-    // Production : GET /invoices/:id/pdf (généré par le backend / Freda Pay)
-    if (b) FWUI.toast('Démo : la facture ' + esc(b.dataset.pdf) + ' serait téléchargée en PDF.', 'info');
+    if (!b) return;
+    const inv = FWSpace.ws().invoices.find((i) => i.id === b.dataset.pdf);
+    if (!inv) return;
+    FWUI.setLoading(b, true, 'PDF...');
+    FW.invoicePdf.download(inv)
+      .then(() => FWUI.toast('Facture ' + inv.id + ' téléchargée.'))
+      .catch((err) => FWUI.toast(err.message || 'Le PDF n’a pas pu être généré.', 'error'))
+      .finally(() => { FWUI.setLoading(b, false); FWUI.icons(); });
   });
 
   function render() { renderPlans(); renderPm(); renderInvoices(); FWUI.icons(); }

@@ -24,6 +24,16 @@ window.FW_CONFIG = {
 
   /* Adresse du webmail (ex. Roundcube / SnappyMail sur votre domaine). */
   WEBMAIL_URL: 'https://webmail.fredaworkspace.com',
+  /* Émetteur des factures PDF. Complétez l'adresse légale et le numéro fiscal (affichés seulement s'ils sont renseignés). */
+  BILLING: {
+    legalName: 'Freda Pay LLC',
+    brandLine: 'Freda Workspace · Freda Group',
+    address: '',
+    email: 'support@fredaworkspace.com',
+    website: 'fredaworkspace.com',
+    taxId: '',
+  },
+
   SUPPORT_EMAIL: 'support@fredaworkspace.com',
   SUPPORT_WHATSAPP: '+509 0000 0000',
 

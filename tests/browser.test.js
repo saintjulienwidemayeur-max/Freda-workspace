@@ -126,3 +126,17 @@ test('vue d’ensemble : pas de carte Abonnement', async () => {
   assert.strictEqual(await page.locator('#sub-title').count(), 0);
   await ctx.close();
 });
+
+test('facturation : téléchargement d’une facture PDF valide', async () => {
+  const { ctx, page, problems } = await open({ viewport: { width: 1280, height: 900 }, acceptDownloads: true });
+  await login(page);
+  await page.goto(`${url}/espace/facturation.html`);
+  await page.waitForSelector('[data-pdf]');
+  const [dl] = await Promise.all([page.waitForEvent('download'), page.click('[data-pdf="FW-2026-0118"]')]);
+  assert.strictEqual(dl.suggestedFilename(), 'Facture-FW-2026-0118.pdf');
+  const buf = require('fs').readFileSync(await dl.path());
+  assert.strictEqual(buf.subarray(0, 5).toString(), '%PDF-');
+  assert.ok(buf.length > 20000, 'PDF avec logo');
+  await ctx.close();
+  assert.deepStrictEqual(problems, []);
+});
