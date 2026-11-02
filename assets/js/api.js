@@ -44,17 +44,18 @@
   const uid = () => Math.random().toString(36).slice(2, 10);
 
   /* ---------- Requêtes réelles vers le backend ---------- */
-  async function request(path, { method = 'GET', body } = {}) {
-    const res = await fetch(C.API_BASE + path, {
-      method,
-      credentials: 'include',
-      headers: body ? { 'Content-Type': 'application/json' } : undefined,
-      body: body ? JSON.stringify(body) : undefined,
-    });
+  async function request(path, { method = 'GET', body, idempotencyKey } = {}) {
+    const headers = {};
+    if (body) headers['Content-Type'] = 'application/json';
+    const token = store.get('token');                       // jeton JWT fourni par la connexion (Authorization: Bearer)
+    if (token) headers.Authorization = 'Bearer ' + token;
+    if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;   // évite un double achat si la requête est rejouée
+    const res = await fetch(C.API_BASE + path, { method, credentials: 'include', headers, body: body ? JSON.stringify(body) : undefined });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.message || 'La requête a échoué (' + res.status + ').');
     return data;
   }
+  const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : 'k' + Date.now() + Math.random().toString(36).slice(2));
 
   /* ---------- Formatage ---------- */
   function money(amount, currency = 'USD') {
@@ -232,7 +233,7 @@
       const c = cart.get();
       const amount = kind === 'domain' ? cart.totals(c).domain : planPrice(plan, cycle);
       const payload = { kind, method, saved: !!saved, domain: domain || c.domain?.domain, years: kind === 'domain' ? cart.totals(c).years : undefined, plan, cycle, mailbox, amount, currency: 'USD', payer };
-      if (!C.DEMO_MODE) return request('/checkout', { method: 'POST', body: payload });
+      if (!C.DEMO_MODE) return request('/checkout', { method: 'POST', body: payload, idempotencyKey: newKey() });
       await wait(1600);
       if (method === 'card' && payer?.last4 === '0002') throw new Error('Paiement refusé par la banque. Essayez une autre carte ou MonCash.');
       return { status: 'succeeded', kind, reference: 'FP-' + Date.now().toString().slice(-8), amount, method };
@@ -369,7 +370,7 @@
     /** Achat d'un ou plusieurs domaines depuis l'espace client (moyen de paiement déjà enregistré). */
     async buy({ items, years, methodId }) {
       const amount = +items.reduce((sum, d) => sum + cart.priceOf(d, years), 0).toFixed(2);
-      if (!C.DEMO_MODE) return request('/checkout', { method: 'POST', body: { kind: 'domain', saved: true, methodId, domains: items.map((d) => d.domain), years, amount, currency: 'USD' } });
+      if (!C.DEMO_MODE) return request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', saved: true, methodId, domains: items.map((d) => d.domain), years, amount, currency: 'USD' } });
       await wait(1600);
       const s = workspace.get();
       const pm = s.paymentMethods.find((m) => m.id === methodId) || s.paymentMethods[0];
