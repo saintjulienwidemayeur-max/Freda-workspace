@@ -123,13 +123,6 @@
   /* ======================= INSCRIPTION ======================= */
   const signupForm = $('#signup-form');
   if (signupForm) {
-    /* Aperçu de l'adresse à partir du nom d'entreprise */
-    const company = $('#su-company');
-    company.addEventListener('input', () => {
-      const n = FW.normalizeDomain(company.value);
-      $('#preview-domain').textContent = n.error ? 'votreentreprise' : n.label.replace(/-/g, '');
-    });
-
     /* Force du mot de passe */
     const pass = $('#su-pass');
     pass.addEventListener('input', () => {
