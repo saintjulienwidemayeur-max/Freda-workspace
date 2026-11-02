@@ -54,7 +54,7 @@
       <p class="px-3 mt-7 mb-2 text-[11px] font-semibold uppercase tracking-[.1em] text-slate-500">Raccourcis</p>
       <ul class="space-y-1">
         <li><a href="${C.WEBMAIL_URL}" target="_blank" rel="noopener" class="side-link"><i data-lucide="inbox"></i>Ouvrir le webmail<i data-lucide="arrow-up-right" class="ml-auto !w-3.5 !h-3.5 opacity-60"></i></a></li>
-        <li><a href="${B}domaines.html" class="side-link"><i data-lucide="search"></i>Rechercher un domaine</a></li>
+        <li><a href="acheter-domaine.html" class="side-link"><i data-lucide="search"></i>Acheter un domaine</a></li>
         <li><a href="${B}support.html" class="side-link"><i data-lucide="life-buoy"></i>Support</a></li>
       </ul>
     </nav>
@@ -83,7 +83,7 @@
       <div class="lg:hidden -ml-2"><button type="button" class="btn btn-ghost btn-icon" data-sidebar-open aria-label="Ouvrir le menu"><i data-lucide="menu"></i></button></div>
       <h1 class="text-lg sm:text-xl font-bold truncate">${title}</h1>
       <div class="ml-auto flex items-center gap-1.5">
-        <div class="hidden sm:block"><a href="${B}domaines.html" class="btn btn-cta btn-sm"><i data-lucide="plus"></i>Nouveau domaine</a></div>
+        <div class="hidden sm:block"><a href="acheter-domaine.html" class="btn btn-cta btn-sm"><i data-lucide="plus"></i>Nouveau domaine</a></div>
         <button type="button" class="btn btn-ghost btn-icon relative" aria-label="Notifications" id="notif-btn"><i data-lucide="bell"></i><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cta"></span></button>
         <div class="relative">
           <button type="button" id="user-btn" class="flex items-center gap-2 rounded-full p-1 pr-2 hover:bg-mist focus-ring" aria-haspopup="menu" aria-expanded="false">

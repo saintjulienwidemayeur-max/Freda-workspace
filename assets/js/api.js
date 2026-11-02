@@ -13,6 +13,7 @@
  *   POST   /checkout                     -> crée le paiement via Freda Pay
  *   GET    /workspace                    -> domaines, boîtes, factures...
  *   GET/POST/PATCH/DELETE /domains/:d/dns[/:id]
+ *   POST   /checkout (kind 'domain')     -> achat depuis l'espace client avec un moyen de paiement enregistré
  *   POST   /domains/connect              -> ajoute un domaine existant {domain, mode: 'nameservers'|'records'}
  *   POST   /domains/:d/verify            -> vérifie les serveurs de noms / enregistrements -> {connected}
  *   POST   /domains/:d/dns/autofix       -> réaligne MX, SPF, DKIM, DMARC
@@ -112,7 +113,7 @@
     };
     const exact = toResult(n.label, primaryTld);
     const results = C.TLDS.filter((t) => t.tld !== primaryTld).map((t) => toResult(n.label, t.tld));
-    const variants = ['get' + n.label, 'mon' + n.label, n.label + '-ht', n.label + 'pro', n.label + 'group']
+    const variants = ['get' + n.label, 'mon' + n.label, n.label + '-online', n.label + 'pro', n.label + 'group']
       .filter((l) => l.length <= 63)
       .map((l) => toResult(l, '.com'))
       .filter((r) => r.available)
@@ -350,6 +351,30 @@
 
   /* ---------- Domaines existants (hébergés chez un autre registraire) ---------- */
   const domains = {
+    /** Achat d'un ou plusieurs domaines depuis l'espace client (moyen de paiement déjà enregistré). */
+    async buy({ items, years, methodId }) {
+      const amount = +items.reduce((sum, d) => sum + cart.priceOf(d, years), 0).toFixed(2);
+      if (!C.DEMO_MODE) return request('/checkout', { method: 'POST', body: { kind: 'domain', saved: true, methodId, domains: items.map((d) => d.domain), years, amount, currency: 'USD' } });
+      await wait(1600);
+      const s = workspace.get();
+      const pm = s.paymentMethods.find((m) => m.id === methodId) || s.paymentMethods[0];
+      if (!pm) throw new Error('Ajoutez d’abord un moyen de paiement dans Facturation.');
+      if (pm.type === 'card' && pm.last4 === '0002') throw new Error('Paiement refusé par la banque. Essayez un autre moyen de paiement.');
+      const today = new Date();
+      const exp = new Date(today); exp.setFullYear(exp.getFullYear() + years);
+      const iso = (d) => d.toISOString().slice(0, 10);
+      const reference = 'FP-' + Date.now().toString().slice(-8);
+      items.forEach((d) => {
+        if (s.domains.some((x) => x.name === d.domain)) return;
+        s.domains.push({ name: d.domain, status: 'active', registered: iso(today), expires: iso(exp), autoRenew: true, locked: true, primary: !s.domains.length });
+        s.dns[d.domain] = s.plan ? C.MAIL_DNS_TEMPLATE.map((t) => ({ id: uid(), ttl: 3600, ...t })) : [];
+        workspace.log(s, 'globe', 'Domaine ' + d.domain + ' enregistré');
+      });
+      const names = items.map((d) => d.domain).join(', ');
+      s.invoices.unshift({ id: 'FW-' + today.getFullYear() + '-' + reference.slice(-4), date: iso(today), label: (items.length > 1 ? 'Domaines ' : 'Domaine ') + names + ' (' + years + (years > 1 ? ' ans' : ' an') + ')', amount, method: pm.type === 'card' ? pm.brand + ' •••• ' + pm.last4 : (pm.type === 'moncash' ? 'MonCash' : 'NatCash'), status: 'paid' });
+      workspace.save(s);
+      return { status: 'succeeded', reference, amount };
+    },
     /** Ajoute un domaine existant et prépare sa zone DNS (enregistrements email inclus). */
     async connect(domain, mode = 'nameservers') {
       if (!C.DEMO_MODE) return request('/domains/connect', { method: 'POST', body: { domain, mode } });
