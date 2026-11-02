@@ -29,13 +29,18 @@
   const user = { ...ws.user, ...(session.provider !== 'demo' && session.user.email ? session.user : {}) };
   const initials = (user.name || 'FW').split(/\s+/).map((p) => p[0]).slice(0, 2).join('').toUpperCase();
 
-  const nav = [
-    { id: 'index', href: 'index.html', icon: 'layout-dashboard', label: 'Vue d’ensemble' },
-    { id: 'domaines', href: 'domaines.html', icon: 'globe', label: 'Domaines' },
-    { id: 'emails', href: 'emails.html', icon: 'mail', label: 'Boîtes mail' },
-    { id: 'dns', href: 'dns.html', icon: 'server-cog', label: 'DNS' },
-    { id: 'facturation', href: 'facturation.html', icon: 'receipt', label: 'Facturation' },
-    { id: 'parametres', href: 'parametres.html', icon: 'settings', label: 'Paramètres' },
+  /* Navigation par produit : Freda Connect (domaine) et Freda Mail (email). */
+  const navGroups = [
+    { label: 'Espace professionnel', items: [{ id: 'index', href: 'index.html', icon: 'layout-dashboard', label: 'Vue d’ensemble' }] },
+    { label: 'Freda Connect', items: [
+      { id: 'domaines', href: 'domaines.html', icon: 'globe', label: 'Domaines' },
+      { id: 'dns', href: 'dns.html', icon: 'server-cog', label: 'DNS' },
+    ] },
+    { label: 'Freda Mail', items: [{ id: 'emails', href: 'emails.html', icon: 'mail', label: 'Boîtes mail' }] },
+    { label: 'Compte', items: [
+      { id: 'facturation', href: 'facturation.html', icon: 'receipt', label: 'Facturation' },
+      { id: 'parametres', href: 'parametres.html', icon: 'settings', label: 'Paramètres' },
+    ] },
   ];
 
   /* ---------- Barre latérale ---------- */
@@ -47,10 +52,10 @@
       <button type="button" class="lg:hidden text-slate-300 p-1" data-sidebar-close aria-label="Fermer le menu"><i data-lucide="x"></i></button>
     </div>
     <nav class="flex-1 overflow-y-auto px-3 py-5">
-      <p class="px-3 mb-2 text-[11px] font-semibold uppercase tracking-[.1em] text-slate-500">Espace professionnel</p>
+      ${navGroups.map((g, i) => `<p class="px-3 ${i ? 'mt-6 ' : ''}mb-2 text-[11px] font-semibold uppercase tracking-[.1em] text-slate-500">${g.label}</p>
       <ul class="space-y-1">
-        ${nav.map((n) => `<li><a href="${n.href}" class="side-link" ${n.id === page ? 'aria-current="page"' : ''}><i data-lucide="${n.icon}"></i>${n.label}</a></li>`).join('')}
-      </ul>
+        ${g.items.map((n) => `<li><a href="${n.href}" class="side-link" ${n.id === page ? 'aria-current="page"' : ''}><i data-lucide="${n.icon}"></i>${n.label}</a></li>`).join('')}
+      </ul>`).join('')}
       <p class="px-3 mt-7 mb-2 text-[11px] font-semibold uppercase tracking-[.1em] text-slate-500">Raccourcis</p>
       <ul class="space-y-1">
         <li><a href="${C.WEBMAIL_URL}" target="_blank" rel="noopener" class="side-link"><i data-lucide="inbox"></i>Ouvrir le webmail<i data-lucide="arrow-up-right" class="ml-auto !w-3.5 !h-3.5 opacity-60"></i></a></li>
@@ -61,7 +66,7 @@
     <div class="p-4 border-t border-white/10 shrink-0" style="padding-bottom:calc(1rem + env(safe-area-inset-bottom,0px))">
       ${plan ? `<div class="rounded-xl bg-white/5 p-4">
         <div class="flex items-center justify-between">
-          <span class="text-sm font-semibold text-white">Offre ${plan.name}</span>
+          <span class="text-sm font-semibold text-white">Freda Mail ${plan.name}</span>
           <span class="badge" style="background:rgba(16,185,129,.15);color:#34D399">Active</span>
         </div>
         <p class="mt-2 text-xs text-slate-400 tabular">${ws.mailboxes.length} / ${plan.mailboxes} boîte${plan.mailboxes > 1 ? 's' : ''} mail utilisée${ws.mailboxes.length > 1 ? 's' : ''}</p>

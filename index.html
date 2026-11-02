@@ -116,23 +116,33 @@
     <section id="produits" class="gutter scroll-mt-20">
       <div class="max-w-site mx-auto py-20 md:py-28">
         <div class="max-w-2xl">
-          <p class="eyebrow">Produits</p>
-          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">L’infrastructure de communication de votre entreprise, sans service informatique dédié.</h2>
-          <p class="mt-4 text-lg text-slate-600">Nous enregistrons le domaine, provisionnons les boîtes mail et configurons le DNS. Vos équipes écrivent à vos clients et partenaires depuis l’adresse de l’entreprise dès le premier jour.</p>
+          <p class="eyebrow">Deux produits, une seule plateforme</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Le domaine et l’email de votre entreprise, sans service informatique dédié.</h2>
+          <p class="mt-4 text-lg text-slate-600">Freda Connect gère votre nom de domaine et son DNS. Freda Mail gère vos boîtes mail professionnelles. Utilisez-les ensemble ou séparément, avec un seul compte et une seule facture.</p>
         </div>
 
-        <div class="mt-12 grid gap-5 lg:grid-cols-3">
-          <!-- Carte principale -->
-          <article class="lg:col-span-2 lg:row-span-2 card p-7 sm:p-9 relative overflow-hidden">
+        <div class="mt-12 grid gap-6 lg:grid-cols-2">
+
+          <!-- Freda Mail -->
+          <article class="card p-7 sm:p-9 relative overflow-hidden flex flex-col">
             <div class="absolute inset-0 bg-grid opacity-60" aria-hidden="true"></div>
-            <div class="relative">
-              <span class="w-12 h-12 rounded-xl bg-freda text-white grid place-items-center"><i data-lucide="mail"></i></span>
+            <div class="relative flex flex-col flex-1">
+              <div class="flex items-center gap-3">
+                <span class="w-12 h-12 rounded-xl bg-freda text-white grid place-items-center"><i data-lucide="mail"></i></span>
+                <span class="badge badge-info">Freda Mail</span>
+              </div>
               <h3 class="mt-5 text-2xl font-bold">Email professionnel sur votre domaine</h3>
-              <p class="mt-3 text-slate-600 max-w-lg">Adresses de service (contact@, ventes@, direction@) et adresses nominatives pour vos collaborateurs, sur le domaine de l’entreprise. Infrastructure Purelymail, protocoles IMAP et SMTP chiffrés.</p>
+              <p class="mt-3 text-slate-600">Créez et administrez les boîtes mail de vos collaborateurs : adresses de service (contact@, ventes@) et adresses nominatives, sur le domaine de l’entreprise.</p>
+              <ul class="mt-6 space-y-3 text-[15px] text-slate-700">
+                <li class="flex gap-3"><i data-lucide="inbox" class="w-5 h-5 text-cta shrink-0 mt-0.5"></i><span>Boîtes mail, alias et redirections illimités selon l’offre</span></li>
+                <li class="flex gap-3"><i data-lucide="smartphone" class="w-5 h-5 text-cta shrink-0 mt-0.5"></i><span>Webmail et application iOS / Android avec notifications</span></li>
+                <li class="flex gap-3"><i data-lucide="shield-check" class="w-5 h-5 text-cta shrink-0 mt-0.5"></i><span>SPF, DKIM et DMARC configurés pour une bonne délivrabilité</span></li>
+                <li class="flex gap-3"><i data-lucide="lock" class="w-5 h-5 text-cta shrink-0 mt-0.5"></i><span>IMAP et SMTP chiffrés, double authentification</span></li>
+              </ul>
               <div class="mt-7 grid sm:grid-cols-2 gap-3 max-w-xl">
                 <div class="bg-white border border-line rounded-xl p-4">
                   <p class="text-xs text-muted">Boîtes</p>
-                  <ul class="mt-2 space-y-1.5 text-sm mono text-ink">
+                  <ul class="mt-2 space-y-1.5 text-[13px] mono text-ink">
                     <li class="flex items-center gap-2"><i data-lucide="inbox" class="w-4 h-4 text-freda"></i>contact@votreentreprise.com</li>
                     <li class="flex items-center gap-2"><i data-lucide="inbox" class="w-4 h-4 text-freda"></i>ventes@votreentreprise.com</li>
                     <li class="flex items-center gap-2"><i data-lucide="forward" class="w-4 h-4 text-muted"></i>info@ → contact@</li>
@@ -147,28 +157,39 @@
                   </ul>
                 </div>
               </div>
+              <a href="#tarifs" class="mt-8 btn btn-primary self-start">Voir les offres Freda Mail<i data-lucide="arrow-right"></i></a>
             </div>
           </article>
 
-          <article class="card p-7">
-            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="globe"></i></span>
-            <h3 class="mt-4 text-lg font-bold">Noms de domaine</h3>
-            <p class="mt-2 text-sm text-slate-600">Recherche en temps réel et enregistrement automatique en .com, .net, .org, .co, .io et plus.</p>
-          </article>
-          <article class="card p-7">
-            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="server-cog"></i></span>
-            <h3 class="mt-4 text-lg font-bold">DNS automatique</h3>
-            <p class="mt-2 text-sm text-slate-600">MX, SPF, DKIM et DMARC alignés dès l’achat, pour que les messages de votre entreprise arrivent en boîte de réception et non en courrier indésirable.</p>
-          </article>
-          <article class="card p-7">
-            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="smartphone"></i></span>
-            <h3 class="mt-4 text-lg font-bold">Application mobile</h3>
-            <p class="mt-2 text-sm text-slate-600">La messagerie de vos collaborateurs sur iOS et Android, avec notifications instantanées.</p>
-          </article>
-          <article class="card p-7 lg:col-span-2">
-            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="shield-check"></i></span>
-            <h3 class="mt-4 text-lg font-bold">Sécurité</h3>
-            <p class="mt-2 text-sm text-slate-600">Connexions chiffrées TLS, double authentification et verrouillage du domaine contre le transfert.</p>
+          <!-- Freda Connect -->
+          <article class="card p-7 sm:p-9 relative overflow-hidden flex flex-col">
+            <div class="absolute inset-0 bg-grid opacity-60" aria-hidden="true"></div>
+            <div class="relative flex flex-col flex-1">
+              <div class="flex items-center gap-3">
+                <span class="w-12 h-12 rounded-xl bg-midnight text-white grid place-items-center"><i data-lucide="link-2"></i></span>
+                <span class="badge badge-info">Freda Connect</span>
+              </div>
+              <h3 class="mt-5 text-2xl font-bold">Domaine et DNS, connectés pour vous</h3>
+              <p class="mt-3 text-slate-600">Achetez un nom de domaine ou ajoutez celui que vous possédez déjà. Nous gérons le DNS pour qu’il fonctionne avec votre email, votre site et vos services.</p>
+              <ul class="mt-6 space-y-3 text-[15px] text-slate-700">
+                <li class="flex gap-3"><i data-lucide="globe" class="w-5 h-5 text-cta shrink-0 mt-0.5"></i><span>Recherche en temps réel et enregistrement en .com, .net, .org, .co, .io et plus</span></li>
+                <li class="flex gap-3"><i data-lucide="server-cog" class="w-5 h-5 text-cta shrink-0 mt-0.5"></i><span>DNS automatique : MX, SPF, DKIM et DMARC alignés dès l’achat</span></li>
+                <li class="flex gap-3"><i data-lucide="link-2" class="w-5 h-5 text-cta shrink-0 mt-0.5"></i><span>Ajoutez un domaine existant, sans transfert, chez n’importe quel registraire</span></li>
+                <li class="flex gap-3"><i data-lucide="shield-check" class="w-5 h-5 text-cta shrink-0 mt-0.5"></i><span>Verrouillage du domaine et renouvellement automatique</span></li>
+              </ul>
+              <div class="mt-7 bg-white border border-line rounded-xl p-4 max-w-xl">
+                <div class="flex items-center justify-between gap-3">
+                  <p class="mono text-sm font-semibold text-ink">votreentreprise.com</p>
+                  <span class="badge badge-success"><span class="dot bg-cta"></span>Connecté</span>
+                </div>
+                <ul class="mt-3 space-y-1.5 text-sm">
+                  <li class="flex items-center justify-between"><span class="text-slate-600">Serveurs de noms</span><span class="mono text-xs text-ink">ns1.fredaworkspace.com</span></li>
+                  <li class="flex items-center justify-between"><span class="text-slate-600">Enregistrements email</span><span class="badge badge-success">6 / 6</span></li>
+                  <li class="flex items-center justify-between"><span class="text-slate-600">Verrouillage</span><span class="badge badge-success">Actif</span></li>
+                </ul>
+              </div>
+              <a href="domaines.html" class="mt-8 btn btn-cta self-start"><i data-lucide="search"></i>Rechercher un domaine</a>
+            </div>
           </article>
         </div>
       </div>
@@ -195,7 +216,7 @@
                 <span class="font-display text-5xl font-extrabold text-white/25 tabular">1</span>
                 <span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center text-sky"><i data-lucide="search"></i></span>
               </div>
-              <h3 class="mt-5 text-xl font-bold !text-white">Choisissez votre domaine</h3>
+              <h3 class="mt-5 text-xl font-bold !text-white">Choisissez votre domaine avec Freda Connect</h3>
               <p class="mt-2 text-slate-300 text-[15px] leading-relaxed">Saisissez le nom de votre entreprise ou de votre marque. Nous vérifions la disponibilité sur toutes les extensions et proposons des alternatives.</p>
             </li>
             <li class="md:px-8">
@@ -203,7 +224,7 @@
                 <span class="font-display text-5xl font-extrabold text-white/25 tabular">2</span>
                 <span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center text-sky"><i data-lucide="layers"></i></span>
               </div>
-              <h3 class="mt-5 text-xl font-bold !text-white">Sélectionnez votre offre</h3>
+              <h3 class="mt-5 text-xl font-bold !text-white">Activez Freda Mail</h3>
               <p class="mt-2 text-slate-300 text-[15px] leading-relaxed">Starter pour un professionnel, Business pour une équipe, Enterprise pour les organisations multi-domaines. Mensuel ou annuel avec deux mois offerts.</p>
             </li>
             <li class="md:pl-8">
@@ -225,7 +246,7 @@
     <section id="tarifs" class="gutter scroll-mt-20">
       <div class="max-w-site mx-auto py-20 md:py-28">
         <div class="text-center max-w-2xl mx-auto">
-          <p class="eyebrow">Tarifs</p>
+          <p class="eyebrow">Tarifs Freda Mail</p>
           <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Une tarification claire, selon la taille de votre équipe.</h2>
           <p class="mt-4 text-lg text-slate-600">Sans frais d’installation. Facturation par entreprise, résiliable à tout moment depuis votre espace.</p>
           <div class="mt-8 segmented" role="tablist" aria-label="Période de facturation">
@@ -238,7 +259,7 @@
 
         <p class="mt-8 text-center text-sm text-slate-500 flex items-center justify-center gap-2 flex-wrap">
           <i data-lucide="info" class="w-4 h-4"></i>
-          Le nom de domaine est facturé à part, au prix affiché lors de la recherche (à partir de $2.99 la première année).</p>
+          Freda Connect : le nom de domaine est facturé à part, au prix affiché lors de la recherche (à partir de $2.99 la première année).</p>
       </div>
     </section>
 

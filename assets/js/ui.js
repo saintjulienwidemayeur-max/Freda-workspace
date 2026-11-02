@@ -126,7 +126,7 @@
                 `<a href="#" aria-label="${n}" class="w-9 h-9 rounded-lg grid place-items-center bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"><i data-lucide="${i}" class="w-4 h-4"></i></a>`).join('')}
             </div>
           </div>
-          ${col('Produit', [[BASE + 'domaines.html', 'Recherche de domaine'], [BASE + 'index.html#produits', 'Email professionnel'], [BASE + 'index.html#app', 'Application mobile'], [BASE + 'index.html#tarifs', 'Tarifs']])}
+          ${col('Produits', [[BASE + 'domaines.html', 'Freda Connect · Domaine et DNS'], [BASE + 'index.html#produits', 'Freda Mail · Email professionnel'], [BASE + 'index.html#app', 'Application mobile'], [BASE + 'index.html#tarifs', 'Tarifs']])}
           ${col('Assistance', [[BASE + 'support.html', 'Centre d’aide'], [BASE + 'support.html#contact', 'Contacter le support'], [BASE + 'support.html#statut', 'État des services'], [BASE + 'connexion.html?mode=webmail', 'Webmail']])}
           ${col('Légal', [[BASE + 'legal.html#cgu', 'Conditions d’utilisation'], [BASE + 'legal.html#confidentialite', 'Confidentialité'], [BASE + 'legal.html#remboursement', 'Remboursement'], [BASE + 'legal.html#cookies', 'Cookies'], [BASE + 'legal.html#reglementaire', 'Informations réglementaires'], [BASE + 'legal.html#conformite', 'Conformité et sécurité']])}
         </div>
