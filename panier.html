@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mon panier · Freda Workspace</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2B64E4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-base="">
+  <header class="bg-white border-b border-line">
+    <div class="gutter">
+      <div class="max-w-site mx-auto h-16 flex items-center justify-between gap-4">
+        <a href="index.html" aria-label="Accueil"><img src="assets/img/logo-horizontal.svg" alt="Freda Workspace" class="h-10 w-auto"></a>
+        <p class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="lock" class="w-4 h-4 text-cta"></i><span class="hidden sm:inline">Paiement sécurisé par</span><strong class="text-ink">Freda Pay</strong></p>
+      </div>
+    </div>
+  </header>
+
+  <main class="gutter">
+    <div class="max-w-xl mx-auto py-8 md:py-12">
+      <a href="domaines.html" class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink"><i data-lucide="arrow-left" class="w-4 h-4"></i>Modifier le domaine</a>
+      <h1 class="mt-4 text-3xl font-extrabold tracking-tight flex items-center gap-3"><span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="shopping-cart" class="w-6 h-6"></i></span>Mon panier</h1>
+
+      <!-- Panier vide -->
+      <section id="empty" class="mt-8 card p-8 text-center" hidden>
+        <p class="font-semibold text-ink">Votre panier est vide.</p>
+        <p class="mt-1 text-sm text-slate-600">Choisissez d’abord un nom de domaine.</p>
+        <a href="domaines.html" class="mt-5 btn btn-cta"><i data-lucide="search"></i>Rechercher un domaine</a>
+      </section>
+
+      <section id="cart" class="mt-8 card-elevated p-6" hidden>
+        <div id="cart-domain"></div>
+
+        <div id="years-wrap" class="mt-5">
+          <label class="label" for="years-pick">Durée d’enregistrement</label>
+          <div class="relative">
+            <select id="years-pick" class="input appearance-none !border-2 !border-ink !rounded-lg !h-14 text-lg font-medium pr-12 cursor-pointer"></select>
+            <i data-lucide="chevron-down" class="w-6 h-6 text-ink absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          </div>
+          <p class="mt-2 text-xs text-muted" id="years-note"></p>
+        </div>
+
+        <div id="cart-upsell" class="mt-5" hidden></div>
+
+        <dl class="mt-6 pt-5 border-t border-line space-y-2.5 text-sm tabular" id="cart-lines"></dl>
+
+        <button type="button" id="next-btn" class="mt-6 btn btn-cta btn-lg w-full"><i data-lucide="shopping-bag"></i><span id="next-label">Acheter maintenant</span></button>
+        <p class="mt-3 text-xs text-muted flex items-start justify-center gap-1.5 text-center"><i data-lucide="mail" class="w-3.5 h-3.5 mt-0.5 shrink-0"></i>L’email professionnel est facultatif : vous pourrez l’ajouter après l’achat, ou plus tard.</p>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/panier.js"></script>
+</body>
+</html>

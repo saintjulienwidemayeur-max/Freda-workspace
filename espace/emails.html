@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Boîtes mail · Freda Workspace</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#061137">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="../assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-base="../" data-page="emails" data-title="Boîtes mail">
+  <div class="espace-layout">
+    <aside id="sidebar" class="espace-sidebar"></aside>
+    <div class="min-w-0">
+      <header id="topbar"></header>
+
+      <main class="gutter py-8">
+        <div class="max-w-[1180px] mx-auto space-y-6">
+
+          <!-- Résumé -->
+          <section class="card p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center gap-6 justify-between">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-3 flex-wrap">
+                <h2 class="text-lg font-bold">Boîtes et stockage</h2>
+                <span class="badge badge-info" id="plan-badge"></span>
+              </div>
+              <div class="mt-4 grid sm:grid-cols-2 gap-5 max-w-2xl">
+                <div>
+                  <div class="flex justify-between text-sm"><span class="text-muted">Boîtes</span><span class="font-semibold text-ink tabular" id="box-usage"></span></div>
+                  <div class="meter mt-2"><span id="box-meter"></span></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm"><span class="text-muted">Stockage</span><span class="font-semibold text-ink tabular" id="storage-usage"></span></div>
+                  <div class="meter mt-2"><span id="storage-meter" style="background:#10B981"></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" class="btn btn-outline btn-sm" data-open="modal-alias"><i data-lucide="forward"></i>Nouvel alias</button>
+              <button type="button" class="btn btn-primary btn-sm" id="new-box-btn"><i data-lucide="mail-plus"></i>Nouvelle boîte mail</button>
+            </div>
+          </section>
+
+          <!-- Liste des boîtes -->
+          <section class="card" aria-labelledby="boxes-title">
+            <div class="p-5 sm:p-6 border-b border-line flex items-center justify-between gap-3">
+              <h2 id="boxes-title" class="text-lg font-bold">Boîtes mail</h2>
+              <a href="#" target="_blank" rel="noopener" id="webmail-link" class="btn btn-ghost btn-sm"><i data-lucide="inbox"></i>Ouvrir le webmail</a>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Adresse</th><th>Rôle</th><th>Stockage</th><th>Dernière connexion</th><th class="text-right"><span class="sr-only">Actions</span></th></tr></thead>
+                <tbody id="box-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <div class="grid xl:grid-cols-2 gap-6">
+            <!-- Alias -->
+            <section class="card" aria-labelledby="alias-title">
+              <div class="p-5 sm:p-6 border-b border-line">
+                <h2 id="alias-title" class="text-lg font-bold">Alias et redirections</h2>
+                <p class="text-sm text-muted">Recevez les messages d’une adresse dans une boîte existante. Illimités et gratuits.</p>
+              </div>
+              <ul class="divide-y divide-line" id="alias-list"></ul>
+            </section>
+
+            <!-- Paramètres IMAP / SMTP -->
+            <section class="card" aria-labelledby="cfg-title">
+              <div class="p-5 sm:p-6 border-b border-line">
+                <h2 id="cfg-title" class="text-lg font-bold">Configurer un logiciel de messagerie</h2>
+                <p class="text-sm text-muted">Outlook, Apple Mail, Thunderbird, Gmail (application)...</p>
+              </div>
+              <dl class="p-5 sm:p-6 grid gap-3 text-sm" id="server-cfg"></dl>
+              <div class="px-5 sm:px-6 pb-6 text-xs text-muted flex gap-2"><i data-lucide="info" class="w-4 h-4 shrink-0"></i>Identifiant : l’adresse email complète. Mot de passe : celui de la boîte.</div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Nouvelle boîte -->
+  <div class="modal" id="modal-box" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <form class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="box-title" id="box-form" novalidate>
+      <div class="p-6 border-b border-line flex items-center justify-between">
+        <h2 id="box-title" class="text-lg font-bold">Nouvelle boîte mail</h2>
+        <button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Fermer"><i data-lucide="x"></i></button>
+      </div>
+      <div class="p-6 space-y-4">
+        <div>
+          <label for="box-local" class="label">Adresse</label>
+          <div class="flex items-stretch rounded-[10px] border border-slate-300 overflow-hidden focus-within:border-freda focus-within:ring-4 focus-within:ring-freda/15 bg-white">
+            <input id="box-local" class="flex-1 min-w-0 px-3.5 py-2.5 mono text-ink focus:outline-none" placeholder="ventes" autocapitalize="none" spellcheck="false">
+            <span class="px-2 py-2.5 bg-slate-50 border-l border-line mono text-slate-500">@</span>
+            <select id="box-domain" class="bg-slate-50 mono text-sm text-ink pr-2 focus:outline-none max-w-[55%]"></select>
+          </div>
+          <p class="field-error" data-for="box-local">Lettres, chiffres, points, tirets ou soulignés uniquement.</p>
+        </div>
+        <div>
+          <label for="box-name" class="label">Nom affiché</label>
+          <input id="box-name" class="input" placeholder="Service ventes">
+          <p class="hint">Visible par vos destinataires : « Service ventes &lt;ventes@...&gt; ».</p>
+        </div>
+        <div>
+          <label for="box-pass" class="label">Mot de passe initial</label>
+          <div class="flex gap-2">
+            <input id="box-pass" class="input mono flex-1 min-w-0" autocomplete="new-password">
+            <button type="button" class="btn btn-outline btn-icon" id="regen-pass" aria-label="Générer un autre mot de passe"><i data-lucide="refresh-cw"></i></button>
+            <button type="button" class="btn btn-outline btn-icon" id="copy-pass" aria-label="Copier le mot de passe"><i data-lucide="copy"></i></button>
+          </div>
+          <p class="hint">Communiquez-le à l’utilisateur ; il pourra le changer depuis le webmail.</p>
+        </div>
+        <p class="field-error p-3 rounded-lg bg-red-50" id="box-error" role="alert"></p>
+      </div>
+      <div class="p-6 pt-0 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+        <button type="button" class="btn btn-outline" data-close>Annuler</button>
+        <button type="submit" class="btn btn-primary"><i data-lucide="mail-plus"></i>Créer la boîte</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Nouvel alias -->
+  <div class="modal" id="modal-alias" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <form class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="alias-modal-title" id="alias-form" novalidate>
+      <div class="p-6 border-b border-line flex items-center justify-between">
+        <h2 id="alias-modal-title" class="text-lg font-bold">Nouvel alias</h2>
+        <button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Fermer"><i data-lucide="x"></i></button>
+      </div>
+      <div class="p-6 space-y-4">
+        <div>
+          <label for="alias-local" class="label">Adresse de l’alias</label>
+          <div class="flex items-stretch rounded-[10px] border border-slate-300 overflow-hidden focus-within:border-freda focus-within:ring-4 focus-within:ring-freda/15 bg-white">
+            <input id="alias-local" class="flex-1 min-w-0 px-3.5 py-2.5 mono text-ink focus:outline-none" placeholder="info" autocapitalize="none" spellcheck="false">
+            <span class="px-2 py-2.5 bg-slate-50 border-l border-line mono text-slate-500">@</span>
+            <select id="alias-domain" class="bg-slate-50 mono text-sm text-ink pr-2 focus:outline-none max-w-[55%]"></select>
+          </div>
+          <p class="field-error" data-for="alias-local">Adresse invalide.</p>
+        </div>
+        <div>
+          <label for="alias-to" class="label">Rediriger vers</label>
+          <select id="alias-to" class="select input mono text-sm"></select>
+        </div>
+        <p class="field-error p-3 rounded-lg bg-red-50" id="alias-error" role="alert"></p>
+      </div>
+      <div class="p-6 pt-0 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+        <button type="button" class="btn btn-outline" data-close>Annuler</button>
+        <button type="submit" class="btn btn-primary"><i data-lucide="forward"></i>Créer l’alias</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/espace.js"></script>
+  <script src="../assets/js/pages/espace-emails.js"></script>
+</body>
+</html>

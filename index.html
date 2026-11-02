@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Freda Workspace</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <meta name="description" content="Nom de domaine, messagerie professionnelle et DNS pour votre entreprise, au sein d’une seule plateforme. Règlement par carte, MonCash ou NatCash via Freda Pay.">
+  <meta property="og:title" content="Freda Workspace — Domaine et email professionnels en 2 minutes">
+  <meta property="og:description" content="Le domaine, la messagerie professionnelle et l’application mobile de votre entreprise, dans un seul espace.">
+  <meta property="og:image" content="og-image-1200x630.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#2B64E4">
+
+  <!-- Polices de la marque : Manrope (titres) + Inter (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+
+  <!-- Tailwind (Play CDN) + thème Freda -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-base="" data-nav="">
+  <a href="#contenu" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 btn btn-primary">Aller au contenu</a>
+
+  <!-- En-tête (rendu par ui.js) -->
+  <header id="site-header"></header>
+
+  <main id="contenu">
+
+    <!-- =====================================================
+         HERO — recherche de domaine
+         ===================================================== -->
+    <section class="relative z-20">
+      <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div class="absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full opacity-25 blur-3xl bg-brand-gradient"></div>
+      </div>
+
+      <div class="relative gutter">
+        <div class="max-w-site mx-auto pt-12 pb-16 md:pt-20 md:pb-24 grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-10 items-center">
+
+          <div class="min-w-0">
+
+            <h1 class="text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.6rem] font-extrabold tracking-tight">
+              Boostez votre entreprise avec <span class="text-gradient">Freda Workspace.</span>
+            </h1>
+            <p class="mt-5 text-lg sm:text-xl text-slate-600 max-w-xl">Nom de domaine, messagerie professionnelle et DNS configurés pour votre entreprise en quelques minutes. Règlement par carte, MonCash ou NatCash.</p>
+
+            <!-- Barre de recherche de domaine -->
+            <form id="hero-search" class="mt-8 max-w-xl" novalidate role="search" aria-label="Rechercher un nom de domaine">
+              <div class="card-elevated p-2 flex flex-col sm:flex-row gap-2" data-suggest-anchor>
+                <label for="hero-domain" class="sr-only">Nom de domaine</label>
+                <div class="relative flex-1 min-w-0">
+                  <i data-lucide="globe" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-freda pointer-events-none"></i>
+                  <input id="hero-domain" name="q" type="text" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false"
+                    placeholder="Nom de votre entreprise ou de votre marque..." class="w-full h-12 pl-11 pr-3 rounded-lg text-base text-ink placeholder:text-slate-400 focus:outline-none bg-transparent">
+                </div>
+                <button type="submit" class="btn btn-cta btn-lg h-12"><i data-lucide="search"></i>Rechercher Domaine</button>
+              </div>
+              <p id="hero-error" class="field-error mt-2" role="alert"></p>
+
+              <!-- Aperçu de l'adresse + exemples -->
+              <div class="mt-4 rounded-2xl border border-line bg-white/80 backdrop-blur overflow-hidden">
+                <div class="flex items-center gap-3 px-4 py-3.5 min-w-0">
+                  <span class="w-10 h-10 rounded-xl bg-emerald-50 text-cta grid place-items-center shrink-0"><i data-lucide="mail-check" class="w-5 h-5"></i></span>
+                  <div class="min-w-0">
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Votre future adresse</p>
+                    <p class="mono text-[15px] font-semibold text-ink truncate">contact@<span id="hero-preview" class="text-freda">votreentreprise.com</span></p>
+                  </div>
+                </div>
+                <div class="border-t border-line bg-slate-50/70 px-4 py-3 flex flex-wrap items-center gap-2" aria-label="Exemples de domaines">
+                  <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mr-1">Exemples</span>
+                  <button type="button" class="hero-example inline-flex items-center gap-1.5 text-xs mono px-2.5 py-1.5 rounded-lg bg-white border border-line text-slate-700 hover:border-freda hover:text-freda transition-colors"><i data-lucide="globe" class="w-3.5 h-3.5"></i>boulangerielakay</button>
+                  <button type="button" class="hero-example inline-flex items-center gap-1.5 text-xs mono px-2.5 py-1.5 rounded-lg bg-white border border-line text-slate-700 hover:border-freda hover:text-freda transition-colors"><i data-lucide="globe" class="w-3.5 h-3.5"></i>cabinet-joseph.com</button>
+                  <button type="button" class="hero-example inline-flex items-center gap-1.5 text-xs mono px-2.5 py-1.5 rounded-lg bg-white border border-line text-slate-700 hover:border-freda hover:text-freda transition-colors"><i data-lucide="globe" class="w-3.5 h-3.5"></i>ayiti-tech</button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Badges de confiance -->
+            <ul class="mt-9 grid sm:grid-cols-1 gap-3 max-w-xl">
+              <li class="flex items-center gap-2.5 text-sm font-medium text-ink"><span class="w-9 h-9 rounded-lg bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="at-sign" class="w-[18px] h-[18px]"></i></span>Email Pro Personnalisé</li>
+            </ul>
+          </div>
+
+          <!-- Visuel : provisionnement en direct -->
+          <div class="relative min-w-0" aria-hidden="true">
+            <div class="relative rounded-[24px] bg-brand-gradient p-6 sm:p-8 shadow-2xl overflow-hidden">
+              <img src="assets/img/symbole-blanc.svg" alt="" class="absolute -right-10 -bottom-12 w-64 opacity-[.07]">
+
+              <div class="bg-white rounded-2xl p-5 shadow-xl">
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="globe"></i></span>
+                  <div class="min-w-0">
+                    <p class="text-xs text-muted">Domaine</p>
+                    <p class="font-display font-bold text-ink mono truncate" id="viz-domain">boulangerielakay.com</p>
+                  </div>
+                  <span class="ml-auto badge badge-success"><i data-lucide="check"></i>Enregistré</span>
+                </div>
+                <ul class="mt-5 space-y-2.5 text-sm" id="viz-steps">
+                  <li class="flex items-center gap-3"><span class="viz-check"></span><span class="mono text-xs font-semibold w-14 text-deep">MX</span><span class="text-slate-500 truncate">mailserver.purelymail.com</span></li>
+                  <li class="flex items-center gap-3"><span class="viz-check"></span><span class="mono text-xs font-semibold w-14 text-deep">SPF</span><span class="text-slate-500 truncate">v=spf1 include:_spf…</span></li>
+                  <li class="flex items-center gap-3"><span class="viz-check"></span><span class="mono text-xs font-semibold w-14 text-deep">DKIM</span><span class="text-slate-500 truncate">3 clés de signature</span></li>
+                  <li class="flex items-center gap-3"><span class="viz-check"></span><span class="mono text-xs font-semibold w-14 text-deep">DMARC</span><span class="text-slate-500 truncate">Politique de protection</span></li>
+                </ul>
+              </div>
+
+              <div class="mt-4 bg-white/10 border border-white/15 backdrop-blur rounded-2xl p-4 flex items-center gap-3 text-white">
+                <span class="w-10 h-10 rounded-full bg-white text-freda grid place-items-center shrink-0"><i data-lucide="inbox"></i></span>
+                <div class="min-w-0">
+                  <p class="text-sm font-semibold truncate mono" id="viz-mail">contact@boulangerielakay.com</p>
+                  <p class="text-xs text-white/70">Boîte prête · Webmail, iOS et Android</p>
+                </div>
+                <i data-lucide="circle-check" class="ml-auto text-cta shrink-0"></i>
+              </div>
+            </div>
+
+            <!-- Carte flottante paiement -->
+            <div class="hidden sm:flex absolute -left-6 -bottom-6 card-elevated px-4 py-3 items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-emerald-50 text-cta grid place-items-center"><i data-lucide="badge-check" class="w-5 h-5"></i></span>
+              <div>
+                <p class="text-xs text-muted">Paiement confirmé</p>
+                <p class="text-sm font-bold text-ink tabular">$9.99 · <span id="viz-paymark"></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bande moyens de paiement -->
+    <section class="border-y border-line bg-white">
+      <div class="gutter">
+        <div class="max-w-site mx-auto py-6 flex items-center justify-center">
+          <div class="flex flex-wrap items-center justify-center gap-3" id="pay-marks"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PRODUITS
+         ===================================================== -->
+    <section id="produits" class="gutter scroll-mt-20">
+      <div class="max-w-site mx-auto py-20 md:py-28">
+        <div class="max-w-2xl">
+          <p class="eyebrow">Produits</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">L’infrastructure de communication de votre entreprise, sans service informatique dédié.</h2>
+          <p class="mt-4 text-lg text-slate-600">Nous enregistrons le domaine, provisionnons les boîtes mail et configurons le DNS. Vos équipes écrivent à vos clients et partenaires depuis l’adresse de l’entreprise dès le premier jour.</p>
+        </div>
+
+        <div class="mt-12 grid gap-5 lg:grid-cols-3">
+          <!-- Carte principale -->
+          <article class="lg:col-span-2 lg:row-span-2 card p-7 sm:p-9 relative overflow-hidden">
+            <div class="absolute inset-0 bg-grid opacity-60" aria-hidden="true"></div>
+            <div class="relative">
+              <span class="w-12 h-12 rounded-xl bg-freda text-white grid place-items-center"><i data-lucide="mail"></i></span>
+              <h3 class="mt-5 text-2xl font-bold">Email professionnel sur votre domaine</h3>
+              <p class="mt-3 text-slate-600 max-w-lg">Adresses de service (contact@, ventes@, direction@) et adresses nominatives pour vos collaborateurs, sur le domaine de l’entreprise. Infrastructure Purelymail, protocoles IMAP et SMTP chiffrés.</p>
+              <div class="mt-7 grid sm:grid-cols-2 gap-3 max-w-xl">
+                <div class="bg-white border border-line rounded-xl p-4">
+                  <p class="text-xs text-muted">Boîtes</p>
+                  <ul class="mt-2 space-y-1.5 text-sm mono text-ink">
+                    <li class="flex items-center gap-2"><i data-lucide="inbox" class="w-4 h-4 text-freda"></i>contact@lakay.com</li>
+                    <li class="flex items-center gap-2"><i data-lucide="inbox" class="w-4 h-4 text-freda"></i>ventes@lakay.com</li>
+                    <li class="flex items-center gap-2"><i data-lucide="forward" class="w-4 h-4 text-muted"></i>info@ → contact@</li>
+                  </ul>
+                </div>
+                <div class="bg-white border border-line rounded-xl p-4">
+                  <p class="text-xs text-muted">Délivrabilité</p>
+                  <ul class="mt-2 space-y-1.5 text-sm">
+                    <li class="flex items-center justify-between"><span class="mono">SPF</span><span class="badge badge-success">Valide</span></li>
+                    <li class="flex items-center justify-between"><span class="mono">DKIM</span><span class="badge badge-success">Signé</span></li>
+                    <li class="flex items-center justify-between"><span class="mono">DMARC</span><span class="badge badge-success">Actif</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card p-7">
+            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="globe"></i></span>
+            <h3 class="mt-4 text-lg font-bold">Noms de domaine</h3>
+            <p class="mt-2 text-sm text-slate-600">Recherche en temps réel et enregistrement automatique en .com, .net, .org, .co, .io et plus.</p>
+          </article>
+          <article class="card p-7">
+            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="server-cog"></i></span>
+            <h3 class="mt-4 text-lg font-bold">DNS automatique</h3>
+            <p class="mt-2 text-sm text-slate-600">MX, SPF, DKIM et DMARC alignés dès l’achat, pour que les messages de votre entreprise arrivent en boîte de réception et non en courrier indésirable.</p>
+          </article>
+          <article class="card p-7">
+            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="smartphone"></i></span>
+            <h3 class="mt-4 text-lg font-bold">Application mobile</h3>
+            <p class="mt-2 text-sm text-slate-600">La messagerie de vos collaborateurs sur iOS et Android, avec notifications instantanées.</p>
+          </article>
+          <article class="card p-7">
+            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="wallet"></i></span>
+            <h3 class="mt-4 text-lg font-bold">Paiement local</h3>
+            <p class="mt-2 text-sm text-slate-600">Carte bancaire, MonCash ou NatCash. Factures et reçus téléchargeables pour votre comptabilité.</p>
+          </article>
+          <article class="card p-7">
+            <span class="w-11 h-11 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="shield-check"></i></span>
+            <h3 class="mt-4 text-lg font-bold">Sécurité</h3>
+            <p class="mt-2 text-sm text-slate-600">Connexions chiffrées TLS, double authentification et verrouillage du domaine contre le transfert.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         FONCTIONNEMENT — 3 étapes
+         ===================================================== -->
+    <section id="fonctionnement" class="bg-midnight text-white relative overflow-hidden scroll-mt-20">
+      <div class="absolute inset-0 opacity-40 bg-grid" aria-hidden="true"></div>
+      <div class="relative gutter">
+        <div class="max-w-site mx-auto py-20 md:py-28">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="max-w-xl">
+              <p class="eyebrow !text-sky">Comment ça marche</p>
+              <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight !text-white">Trois étapes pour équiper votre entreprise.</h2>
+            </div>
+            <a href="domaines.html" class="btn btn-cta self-start md:self-auto"><i data-lucide="rocket"></i>Commencer maintenant</a>
+          </div>
+
+          <ol class="mt-14 grid md:grid-cols-3 gap-6 md:gap-0 md:divide-x md:divide-white/10">
+            <li class="md:pr-8">
+              <div class="flex items-center gap-3">
+                <span class="font-display text-5xl font-extrabold text-white/25 tabular">1</span>
+                <span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center text-sky"><i data-lucide="search"></i></span>
+              </div>
+              <h3 class="mt-5 text-xl font-bold !text-white">Choisissez votre domaine</h3>
+              <p class="mt-2 text-slate-300 text-[15px] leading-relaxed">Saisissez le nom de votre entreprise ou de votre marque. Nous vérifions la disponibilité sur toutes les extensions et proposons des alternatives.</p>
+            </li>
+            <li class="md:px-8">
+              <div class="flex items-center gap-3">
+                <span class="font-display text-5xl font-extrabold text-white/25 tabular">2</span>
+                <span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center text-sky"><i data-lucide="layers"></i></span>
+              </div>
+              <h3 class="mt-5 text-xl font-bold !text-white">Sélectionnez votre offre</h3>
+              <p class="mt-2 text-slate-300 text-[15px] leading-relaxed">Starter pour un professionnel, Business pour une équipe, Enterprise pour les organisations multi-domaines. Mensuel ou annuel avec deux mois offerts.</p>
+            </li>
+            <li class="md:pl-8">
+              <div class="flex items-center gap-3">
+                <span class="font-display text-5xl font-extrabold text-white/25 tabular">3</span>
+                <span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center text-sky"><i data-lucide="credit-card"></i></span>
+              </div>
+              <h3 class="mt-5 text-xl font-bold !text-white">Payez via Freda Pay et connectez-vous</h3>
+              <p class="mt-2 text-slate-300 text-[15px] leading-relaxed">Carte, MonCash ou NatCash. Le domaine est enregistré, le DNS réglé et votre boîte mail ouverte automatiquement.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         TARIFS
+         ===================================================== -->
+    <section id="tarifs" class="gutter scroll-mt-20">
+      <div class="max-w-site mx-auto py-20 md:py-28">
+        <div class="text-center max-w-2xl mx-auto">
+          <p class="eyebrow">Tarifs</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Une tarification claire, selon la taille de votre équipe.</h2>
+          <p class="mt-4 text-lg text-slate-600">Sans frais d’installation. Facturation par entreprise, résiliable à tout moment depuis votre espace.</p>
+          <div class="mt-8 segmented" role="tablist" aria-label="Période de facturation">
+            <button type="button" role="tab" aria-selected="true" data-cycle="monthly">Mensuel</button>
+            <button type="button" role="tab" aria-selected="false" data-cycle="yearly">Annuel <span class="badge badge-success">2 mois offerts</span></button>
+          </div>
+        </div>
+
+        <div class="mt-12 grid md:grid-cols-3 gap-6 max-w-6xl mx-auto items-stretch" id="pricing-cards"></div>
+
+        <p class="mt-8 text-center text-sm text-slate-500 flex items-center justify-center gap-2 flex-wrap">
+          <i data-lucide="info" class="w-4 h-4"></i>
+          Le nom de domaine est facturé à part, au prix affiché lors de la recherche (à partir de $2.99 la première année).</p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         APPLICATION MOBILE
+         ===================================================== -->
+    <section id="app" class="gutter scroll-mt-20">
+      <div class="max-w-site mx-auto pb-20 md:pb-28">
+        <div class="rounded-[28px] bg-mist border border-[#DCE6FA] overflow-hidden">
+          <div class="grid lg:grid-cols-2 items-center">
+            <div class="p-8 sm:p-12 lg:p-14 min-w-0">
+              <p class="eyebrow">App Mobile</p>
+              <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">La messagerie de l’entreprise, dans la poche de vos équipes.</h2>
+              <p class="mt-4 text-lg text-slate-600">L’application Freda Workspace pour iOS et Android reçoit vos messages en temps réel, gère plusieurs boîtes de l’entreprise et fonctionne même avec une connexion lente.</p>
+              <ul class="mt-6 space-y-3 text-[15px]">
+                <li class="flex gap-3"><i data-lucide="bell-ring" class="w-5 h-5 text-freda shrink-0 mt-0.5"></i>Notifications instantanées pour chaque nouveau message</li>
+                <li class="flex gap-3"><i data-lucide="users" class="w-5 h-5 text-freda shrink-0 mt-0.5"></i>Plusieurs boîtes (contact@, ventes@...) dans une seule app</li>
+                <li class="flex gap-3"><i data-lucide="lock" class="w-5 h-5 text-freda shrink-0 mt-0.5"></i>IMAP et SMTP sécurisés, déverrouillage biométrique</li>
+              </ul>
+
+              <div class="mt-8 flex flex-col sm:flex-row gap-5 sm:items-center">
+                <!-- QR code (généré dans le navigateur) -->
+                <div class="bg-white rounded-2xl p-3 border border-line shadow-sm self-start">
+                  <div id="qr-code" class="w-[120px] h-[120px]" role="img" aria-label="QR code pour télécharger l’application"></div>
+                </div>
+                <div class="flex flex-col gap-2.5">
+                  <button type="button" class="btn btn-cta" data-open="modal-qr"><i data-lucide="scan-line"></i>Scan pour Télécharger</button>
+                  <div class="flex gap-2">
+                    <a id="appstore-link" href="#" target="_blank" rel="noopener" class="btn btn-navy btn-sm flex-1"><span class="w-4 h-4" data-brand="apple"></span>App Store</a>
+                    <a id="playstore-link" href="#" target="_blank" rel="noopener" class="btn btn-navy btn-sm flex-1"><i data-lucide="play"></i>Google Play</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maquette téléphone -->
+            <div class="relative flex justify-center px-8 pt-4 pb-0 lg:py-14 min-w-0" aria-hidden="true">
+              <div class="absolute inset-0 bg-grid opacity-70"></div>
+              <div class="phone relative">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <div class="bg-brand-gradient text-white px-4 pt-10 pb-4">
+                    <div class="flex items-center justify-between">
+                      <img src="assets/img/symbole-blanc.svg" alt="" class="w-6 h-6">
+                      <i data-lucide="search" class="w-4 h-4 opacity-80"></i>
+                    </div>
+                    <p class="mt-3 text-[11px] text-white/70">contact@boulangerielakay.com</p>
+                    <p class="font-display font-bold text-lg">Boîte de réception</p>
+                  </div>
+                  <ul class="flex-1 divide-y divide-slate-100 text-[11px]">
+                    <li class="px-4 py-3 flex gap-2.5"><span class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 grid place-items-center font-bold shrink-0">HT</span><div class="min-w-0"><p class="font-semibold text-ink truncate">Hôtel Montana</p><p class="text-slate-500 truncate">Commande de 120 pains pour samedi</p></div><span class="ml-auto text-[10px] text-freda font-semibold">09:12</span></li>
+                    <li class="px-4 py-3 flex gap-2.5"><span class="w-7 h-7 rounded-full bg-blue-100 text-freda grid place-items-center font-bold shrink-0">FP</span><div class="min-w-0"><p class="font-semibold text-ink truncate">Freda Pay</p><p class="text-slate-500 truncate">Reçu de paiement FW-2026-0118</p></div><span class="ml-auto text-[10px] text-slate-400">08:00</span></li>
+                    <li class="px-4 py-3 flex gap-2.5"><span class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center font-bold shrink-0">JL</span><div class="min-w-0"><p class="text-ink truncate">Jean Louis</p><p class="text-slate-500 truncate">Devis pour le traiteur du mariage</p></div><span class="ml-auto text-[10px] text-slate-400">Hier</span></li>
+                    <li class="px-4 py-3 flex gap-2.5"><span class="w-7 h-7 rounded-full bg-violet-100 text-violet-700 grid place-items-center font-bold shrink-0">CB</span><div class="min-w-0"><p class="text-ink truncate">Caribe Bank</p><p class="text-slate-500 truncate">Relevé mensuel disponible</p></div><span class="ml-auto text-[10px] text-slate-400">Lun</span></li>
+                  </ul>
+                  <div class="m-3 mt-auto rounded-full bg-freda text-white text-[11px] font-semibold py-2 text-center flex items-center justify-center gap-1.5"><i data-lucide="pen-line" class="w-3.5 h-3.5"></i>Nouveau message</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         FAQ
+         ===================================================== -->
+    <section class="gutter bg-white border-t border-line">
+      <div class="max-w-site mx-auto py-20 grid lg:grid-cols-[.8fr_1.2fr] gap-10">
+        <div>
+          <p class="eyebrow">Questions fréquentes</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight">Avant de vous lancer</h2>
+          <p class="mt-4 text-slate-600">Une autre question ? Notre équipe répond en français et en créole.</p>
+          <a href="support.html" class="mt-6 btn btn-outline"><i data-lucide="life-buoy"></i>Centre d’aide</a>
+        </div>
+        <div class="divide-y divide-line border-y border-line">
+          <details class="accordion-item group py-5">
+            <summary class="flex items-center justify-between gap-4 font-semibold text-ink">J’ai déjà un nom de domaine. Puis-je l’utiliser ?<i data-lucide="plus" class="acc-icon w-5 h-5 text-freda shrink-0"></i></summary>
+            <p class="mt-3 text-slate-600 leading-relaxed">Oui. Depuis votre espace, choisissez « Connecter un domaine existant ». Vous pouvez soit pointer vos serveurs DNS vers les nôtres, soit ajouter les enregistrements MX, SPF et DKIM que nous affichons.</p>
+          </details>
+          <details class="accordion-item group py-5">
+            <summary class="flex items-center justify-between gap-4 font-semibold text-ink">Comment payer avec MonCash ou NatCash ?<i data-lucide="plus" class="acc-icon w-5 h-5 text-freda shrink-0"></i></summary>
+            <p class="mt-3 text-slate-600 leading-relaxed">Au paiement, choisissez MonCash ou NatCash et entrez votre numéro. Le montant est converti en gourdes et vous confirmez la transaction sur votre téléphone. Le paiement est traité par Freda Pay.</p>
+          </details>
+          <details class="accordion-item group py-5">
+            <summary class="flex items-center justify-between gap-4 font-semibold text-ink">Puis-je utiliser Gmail, Outlook ou Apple Mail ?<i data-lucide="plus" class="acc-icon w-5 h-5 text-freda shrink-0"></i></summary>
+            <p class="mt-3 text-slate-600 leading-relaxed">Oui, vos boîtes fonctionnent avec tout logiciel compatible IMAP et SMTP. Les paramètres de connexion sont affichés dans votre espace, rubrique Boîtes mail.</p>
+          </details>
+          <details class="accordion-item group py-5">
+            <summary class="flex items-center justify-between gap-4 font-semibold text-ink">Que se passe-t-il si j’annule ?<i data-lucide="plus" class="acc-icon w-5 h-5 text-freda shrink-0"></i></summary>
+            <p class="mt-3 text-slate-600 leading-relaxed">Votre domaine vous appartient. Vous gardez l’accès jusqu’à la fin de la période payée et pouvez transférer le domaine chez un autre registraire avec le code d’autorisation fourni dans votre espace.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appel final -->
+    <section class="gutter">
+      <div class="max-w-site mx-auto py-16">
+        <div class="relative rounded-[28px] bg-brand-gradient p-8 sm:p-14 overflow-hidden">
+          <img src="assets/img/symbole-blanc.svg" alt="" class="absolute -right-16 -top-10 w-80 opacity-[.08]" aria-hidden="true">
+          <div class="relative grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight !text-white">Le nom de votre entreprise est peut-être encore disponible.</h2>
+              <p class="mt-3 text-white/80 text-lg">Vérifiez maintenant, cela prend quelques secondes.</p>
+            </div>
+            <form id="cta-search" class="bg-white rounded-2xl p-2 flex flex-col sm:flex-row gap-2" novalidate role="search">
+              <label for="cta-domain" class="sr-only">Nom de domaine</label>
+              <input id="cta-domain" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="monentreprise.com" class="flex-1 min-w-0 h-12 px-4 rounded-lg text-ink focus:outline-none">
+              <button type="submit" class="btn btn-cta h-12"><i data-lucide="search"></i>Rechercher</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <!-- Modale QR (mobile et desktop) -->
+  <div class="modal" id="modal-qr" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel p-7 text-center max-w-sm" role="dialog" aria-modal="true" aria-labelledby="qr-title">
+      <button type="button" class="absolute top-4 right-4 btn btn-ghost btn-icon" data-close aria-label="Fermer"><i data-lucide="x"></i></button>
+      <img src="assets/img/symbole.svg" alt="" class="w-10 h-10 mx-auto">
+      <h2 id="qr-title" class="mt-3 text-xl font-bold">Téléchargez l’application</h2>
+      <p class="mt-1 text-sm text-muted">Scannez avec l’appareil photo de votre téléphone.</p>
+      <div id="qr-code-lg" class="mx-auto mt-5 w-[200px] h-[200px]"></div>
+      <p class="mt-4 text-xs text-muted">Disponible sur iOS 14+ et Android 8+</p>
+    </div>
+  </div>
+
+  <style>
+    /* Coches animées du visuel hero */
+    .viz-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #CBD5E6; flex-shrink: 0; position: relative; transition: all .3s; }
+    .viz-check.done { background: #10B981; border-color: #10B981; }
+    .viz-check.done::after { content: ""; position: absolute; left: 5px; top: 2px; width: 6px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+    #qr-code svg, #qr-code-lg svg { width: 100%; height: 100%; }
+  </style>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/home.js"></script>
+</body>
+</html>

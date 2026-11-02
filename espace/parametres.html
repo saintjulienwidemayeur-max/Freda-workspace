@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Paramètres · Freda Workspace</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#061137">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="../assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-base="../" data-page="parametres" data-title="Paramètres">
+  <div class="espace-layout">
+    <aside id="sidebar" class="espace-sidebar"></aside>
+    <div class="min-w-0">
+      <header id="topbar"></header>
+
+      <main class="gutter py-8">
+        <div class="max-w-[960px] mx-auto">
+          <div class="tabs" role="tablist" aria-label="Paramètres">
+            <button type="button" role="tab" data-tab="profil" aria-selected="true"><i data-lucide="user"></i>Profil</button>
+            <button type="button" role="tab" data-tab="entreprise" aria-selected="false"><i data-lucide="building-2"></i>Entreprise</button>
+            <button type="button" role="tab" data-tab="securite" aria-selected="false"><i data-lucide="shield"></i>Sécurité</button>
+            <button type="button" role="tab" data-tab="notifications" aria-selected="false"><i data-lucide="bell"></i>Notifications</button>
+          </div>
+
+          <!-- Profil -->
+          <form class="mt-6 card" data-panel="profil" novalidate>
+            <div class="p-5 sm:p-6 border-b border-line flex items-center gap-4">
+              <span class="w-16 h-16 rounded-full bg-brand-gradient text-white text-xl font-bold grid place-items-center" id="avatar"></span>
+              <div><h2 class="text-lg font-bold">Informations personnelles</h2><p class="text-sm text-muted">Utilisées pour votre compte et vos factures.</p></div>
+            </div>
+            <div class="p-5 sm:p-6 grid sm:grid-cols-2 gap-4">
+              <div><label for="pf-name" class="label">Nom complet</label><input id="pf-name" class="input" autocomplete="name"></div>
+              <div><label for="pf-email" class="label">Email de contact</label><input id="pf-email" type="email" class="input" autocomplete="email"></div>
+              <div><label for="pf-phone" class="label">Téléphone</label><input id="pf-phone" class="input mono" autocomplete="tel"></div>
+              <div><label for="pf-lang" class="label">Langue</label><select id="pf-lang" class="select input"><option>Français</option><option>Kreyòl ayisyen</option><option>English</option></select></div>
+            </div>
+            <div class="px-5 sm:px-6 pb-6 flex justify-end"><button type="submit" class="btn btn-primary"><i data-lucide="check"></i>Enregistrer</button></div>
+          </form>
+
+          <!-- Entreprise -->
+          <form class="mt-6 card" data-panel="entreprise" hidden novalidate>
+            <div class="p-5 sm:p-6 border-b border-line"><h2 class="text-lg font-bold">Entreprise</h2><p class="text-sm text-muted">Apparaît sur vos factures et dans le WHOIS du domaine (masqué publiquement).</p></div>
+            <div class="p-5 sm:p-6 grid sm:grid-cols-2 gap-4">
+              <div class="sm:col-span-2"><label for="co-name" class="label">Raison sociale</label><input id="co-name" class="input" autocomplete="organization"></div>
+              <div><label for="co-nif" class="label">NIF <span class="text-muted font-normal">(facultatif)</span></label><input id="co-nif" class="input mono" placeholder="000-000-000-0"></div>
+              <div><label for="co-city" class="label">Ville</label><input id="co-city" class="input"></div>
+              <div class="sm:col-span-2"><label for="co-address" class="label">Adresse</label><input id="co-address" class="input" placeholder="Rue, numéro"></div>
+            </div>
+            <div class="px-5 sm:px-6 pb-6 flex justify-end"><button type="submit" class="btn btn-primary"><i data-lucide="check"></i>Enregistrer</button></div>
+          </form>
+
+          <!-- Sécurité -->
+          <div class="mt-6 space-y-6" data-panel="securite" hidden>
+            <section class="card divide-y divide-line">
+              <div class="p-5 sm:p-6 flex items-center gap-4 justify-between flex-wrap">
+                <div class="flex gap-4"><span class="w-10 h-10 rounded-lg bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="smartphone"></i></span><div><h2 class="font-bold">Double authentification</h2><p class="text-sm text-muted">Code à usage unique depuis une application (Google Authenticator, Authy).</p></div></div>
+                <label class="flex items-center gap-2"><span class="switch"><input type="checkbox" id="mfa-toggle"><span></span></span><span class="text-sm font-medium" id="mfa-label">Désactivée</span></label>
+              </div>
+              <form class="p-5 sm:p-6 grid sm:grid-cols-3 gap-4 items-end" id="pass-form" novalidate>
+                <div><label for="pw-old" class="label">Mot de passe actuel</label><input id="pw-old" type="password" class="input" autocomplete="current-password"></div>
+                <div><label for="pw-new" class="label">Nouveau mot de passe</label><input id="pw-new" type="password" class="input" autocomplete="new-password"></div>
+                <button type="submit" class="btn btn-outline"><i data-lucide="key-round"></i>Changer</button>
+                <p class="field-error sm:col-span-3" id="pw-error"></p>
+              </form>
+            </section>
+
+            <section class="card">
+              <div class="p-5 sm:p-6 border-b border-line"><h2 class="font-bold">Comptes connectés</h2><p class="text-sm text-muted">Connectez-vous en un clic avec Google ou Apple.</p></div>
+              <ul class="divide-y divide-line" id="oauth-list"></ul>
+            </section>
+
+            <section class="card border-red-200">
+              <div class="p-5 sm:p-6 flex items-center justify-between gap-4 flex-wrap">
+                <div><h2 class="font-bold text-red-700">Supprimer le compte</h2><p class="text-sm text-muted">Résilie l’abonnement et supprime vos boîtes mail. Vos domaines restent à votre nom jusqu’à leur échéance.</p></div>
+                <button type="button" class="btn btn-outline !text-red-600 !border-red-200 hover:!bg-red-50" id="delete-account"><i data-lucide="trash-2"></i>Supprimer</button>
+              </div>
+            </section>
+          </div>
+
+          <!-- Notifications -->
+          <section class="mt-6 card divide-y divide-line" data-panel="notifications" hidden id="notif-list"></section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/espace.js"></script>
+  <script>
+    /* Espace client — paramètres du compte. */
+    (function () {
+      if (!window.FWSpace) return;
+      const $ = (s) => document.querySelector(s);
+      const ws = FWSpace.ws();
+      const u = ws.user;
+
+      /* Onglets */
+      const tabs = document.querySelectorAll('[data-tab]');
+      function show(id) {
+        tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === id)));
+        document.querySelectorAll('[data-panel]').forEach((p) => { p.hidden = p.dataset.panel !== id; });
+      }
+      tabs.forEach((t) => t.addEventListener('click', () => show(t.dataset.tab)));
+
+      /* Profil & entreprise */
+      $('#avatar').textContent = u.name.split(/\s+/).map((p) => p[0]).slice(0, 2).join('').toUpperCase();
+      $('#pf-name').value = u.name; $('#pf-email').value = u.email; $('#pf-phone').value = u.phone || '';
+      $('#co-name').value = u.company || ''; $('#co-city').value = u.city || '';
+      document.querySelectorAll('[data-panel="profil"], [data-panel="entreprise"]').forEach((f) => f.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const s = FWSpace.ws();
+        Object.assign(s.user, { name: $('#pf-name').value.trim() || s.user.name, email: $('#pf-email').value.trim() || s.user.email, phone: $('#pf-phone').value.trim(), company: $('#co-name').value.trim(), city: $('#co-city').value.trim() });
+        const btn = f.querySelector('[type=submit]');
+        FWUI.setLoading(btn, true, 'Enregistrement...');
+        await FW.wait(500);
+        FW.workspace.save(s);
+        FWUI.setLoading(btn, false);
+        FWUI.toast('Modifications enregistrées');
+      }));
+
+      /* Sécurité */
+      $('#mfa-toggle').addEventListener('change', (e) => {
+        $('#mfa-label').textContent = e.target.checked ? 'Activée' : 'Désactivée';
+        FWUI.toast(e.target.checked ? 'Double authentification activée. Scannez le QR code reçu par email.' : 'Double authentification désactivée', e.target.checked ? 'success' : 'info');
+      });
+      $('#pass-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const err = $('#pw-error');
+        if (!$('#pw-old').value || $('#pw-new').value.length < 8) { err.textContent = 'Entrez votre mot de passe actuel et un nouveau mot de passe de 8 caractères minimum.'; err.classList.add('show'); return; }
+        err.classList.remove('show'); e.target.reset(); FWUI.toast('Mot de passe mis à jour');
+      });
+
+      const linked = { google: true, apple: false };
+      function renderOauth() {
+        $('#oauth-list').innerHTML = ['google', 'apple'].map((p) => `
+          <li class="p-5 sm:p-6 flex items-center gap-4">
+            <span class="w-10 h-10 rounded-lg border border-line grid place-items-center shrink-0 ${p === 'apple' ? 'text-ink' : ''}">${FWUI.BRAND[p]}</span>
+            <div class="flex-1 min-w-0"><p class="font-semibold text-ink">${p === 'google' ? 'Google' : 'Apple'}</p><p class="text-sm text-muted truncate">${linked[p] ? 'Connecté · ' + FWUI.esc(u.email) : 'Non connecté'}</p></div>
+            <button type="button" class="btn ${linked[p] ? 'btn-ghost' : 'btn-outline'} btn-sm" data-link="${p}">${linked[p] ? 'Dissocier' : 'Connecter'}</button>
+          </li>`).join('');
+      }
+      $('#oauth-list').addEventListener('click', async (e) => {
+        const b = e.target.closest('[data-link]');
+        if (!b) return;
+        const p = b.dataset.link;
+        if (!linked[p]) { FWUI.setLoading(b, true, 'Connexion...'); await FW.wait(800); }
+        linked[p] = !linked[p];
+        renderOauth();
+        FWUI.toast((p === 'google' ? 'Google' : 'Apple') + (linked[p] ? ' connecté' : ' dissocié'));
+      });
+      renderOauth();
+
+      $('#delete-account').addEventListener('click', async () => {
+        const ok = await FWUI.confirmDialog({ title: 'Supprimer définitivement le compte ?', message: 'Toutes vos boîtes mail et leurs messages seront effacés sous 30 jours. Cette action ne peut pas être annulée.', confirmLabel: 'Je comprends, supprimer', danger: true });
+        if (ok) FWUI.toast('Demande de suppression enregistrée. Un email de confirmation vous a été envoyé.', 'info');
+      });
+
+      /* Notifications */
+      const NOTIFS = [
+        ['Renouvellement à venir', 'Rappel 30 jours et 7 jours avant chaque échéance.', true],
+        ['Reçus de paiement', 'Un reçu après chaque paiement carte, MonCash ou NatCash.', true],
+        ['Alertes de stockage', 'Quand une boîte dépasse 85 % de son espace.', true],
+        ['Problèmes DNS', 'Si un enregistrement email devient invalide.', true],
+        ['Nouveautés Freda Workspace', 'Nouvelles fonctionnalités, au plus une fois par mois.', false],
+      ];
+      $('#notif-list').innerHTML = NOTIFS.map(([t, d, on], i) => `
+        <label class="p-5 sm:p-6 flex items-center justify-between gap-4 cursor-pointer">
+          <span><span class="block font-semibold text-ink">${t}</span><span class="block text-sm text-muted">${d}</span></span>
+          <span class="switch"><input type="checkbox" ${on ? 'checked' : ''} data-notif="${i}"><span></span></span>
+        </label>`).join('');
+      $('#notif-list').addEventListener('change', () => FWUI.toast('Préférences enregistrées'));
+
+      FWUI.icons();
+    })();
+  </script>
+</body>
+</html>

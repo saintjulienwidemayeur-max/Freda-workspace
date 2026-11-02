@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Email professionnel · Freda Workspace</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2B64E4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-base="" data-stage="email">
+  <!-- En-tête simplifié du tunnel de commande -->
+  <header class="bg-white border-b border-line">
+    <div class="gutter">
+      <div class="max-w-site mx-auto h-16 flex items-center justify-between gap-4">
+        <a href="index.html" aria-label="Accueil"><img src="assets/img/logo-horizontal.svg" alt="Freda Workspace" class="h-10 w-auto"></a>
+        <p class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="lock" class="w-4 h-4 text-cta"></i><span class="hidden sm:inline">Paiement sécurisé par</span><strong class="text-ink">Freda Pay</strong></p>
+      </div>
+    </div>
+  </header>
+
+  <main class="gutter">
+    <div class="max-w-site mx-auto py-8 md:py-12">
+
+      <!-- Étapes -->
+      <nav aria-label="Étapes" id="stepper">
+        <ol class="flex items-center gap-2 text-sm flex-wrap" id="stepper-list"></ol>
+      </nav>
+
+      <!-- Panier vide -->
+      <section id="empty-cart" class="mt-10 card p-10 text-center" hidden>
+        <span class="w-14 h-14 mx-auto rounded-2xl bg-mist text-freda grid place-items-center"><i data-lucide="shopping-cart"></i></span>
+        <h1 class="mt-4 text-2xl font-bold">Votre sélection est vide</h1>
+        <p class="mt-2 text-slate-600">Choisissez d’abord un nom de domaine.</p>
+        <a href="domaines.html" class="mt-6 btn btn-cta"><i data-lucide="search"></i>Rechercher un domaine</a>
+      </section>
+
+      <!-- Formulaire de paiement -->
+      <form id="checkout" class="mt-8 grid lg:grid-cols-[minmax(0,1fr)_380px] gap-8 items-start" novalidate>
+        <div class="space-y-6 min-w-0">
+          <div id="stage-banner" class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5" hidden></div>
+          <div>
+            <h1 class="text-3xl font-extrabold tracking-tight" id="co-title">Finaliser votre commande</h1>
+            <p class="mt-1.5 text-slate-600" id="co-sub"></p>
+          </div>
+
+          <!-- Étape 2 : offre email -->
+          <section class="card p-6 sm:p-7" aria-labelledby="plan-title" id="plan-section" hidden>
+            <div class="flex items-center justify-between gap-3 flex-wrap">
+              <h2 id="plan-title" class="text-lg font-bold flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-freda"></i>Offre de messagerie</h2>
+              <div class="segmented" role="tablist" aria-label="Facturation">
+                <button type="button" role="tab" data-pcycle="monthly">Mensuel</button>
+                <button type="button" role="tab" data-pcycle="yearly">Annuel −17 %</button>
+              </div>
+            </div>
+            <div class="mt-4 grid gap-2" id="plan-pick" role="radiogroup" aria-label="Offre"></div>
+          </section>
+
+          <section class="card p-6 sm:p-7" aria-labelledby="mail-title" id="mail-section" hidden>
+            <h2 id="mail-title" class="text-lg font-bold flex items-center gap-2"><i data-lucide="at-sign" class="w-5 h-5 text-freda"></i>Première adresse de l’entreprise</h2>
+            <p class="mt-1 text-sm text-slate-600" id="mail-hint">Vous pourrez créer les adresses de vos collaborateurs depuis votre espace.</p>
+            <div class="mt-4" id="dom-pick" hidden>
+              <label for="dom-select" class="label" id="dom-label">Domaine</label>
+              <select id="dom-select" class="input" hidden></select>
+              <input id="dom-input" class="input mono" placeholder="monentreprise.com" autocapitalize="none" spellcheck="false" hidden>
+              <p class="field-error" data-for="dom-input">Entrez un nom de domaine valide (ex. monentreprise.com).</p>
+            </div>
+            <div class="mt-4">
+              <label for="mail-local" class="sr-only">Nom de la boîte</label>
+              <div class="flex items-stretch rounded-[10px] border border-slate-300 overflow-hidden focus-within:border-freda focus-within:ring-4 focus-within:ring-freda/15 bg-white">
+                <input id="mail-local" class="flex-1 min-w-0 px-3.5 py-3 mono text-ink focus:outline-none" value="contact" autocomplete="off" autocapitalize="none" spellcheck="false">
+                <span class="px-3.5 py-3 bg-slate-50 border-l border-line mono text-slate-600 truncate max-w-[60%]" id="mail-domain">@domaine.com</span>
+              </div>
+              <p class="field-error" data-for="mail-local">Utilisez seulement des lettres, chiffres, points ou tirets.</p>
+            </div>
+          </section>
+
+          <!-- 3. Paiement -->
+          <section class="card p-6 sm:p-7" aria-labelledby="pay-title" id="pay-section">
+            <h2 id="pay-title" class="text-lg font-bold flex items-center gap-2"><i data-lucide="wallet" class="w-5 h-5 text-freda"></i>Moyen de paiement</h2>
+
+            <label id="saved-pay" class="mt-4 flex items-center gap-3 rounded-xl border border-freda/40 bg-mist/50 p-4 cursor-pointer" hidden>
+              <input type="checkbox" id="use-saved" class="checkbox" checked>
+              <span class="flex-1 min-w-0 text-sm"><span class="block font-semibold text-ink">Utiliser le même moyen de paiement</span><span class="block text-muted" id="saved-label"></span></span>
+              <span id="saved-mark"></span>
+            </label>
+            <div id="pay-fields">
+
+            <div class="mt-4 grid grid-cols-3 gap-2 sm:gap-3" role="radiogroup" aria-label="Moyen de paiement" id="method-picker">
+              <button type="button" role="radio" data-method="card" class="method-btn">
+                <i data-lucide="credit-card" class="w-6 h-6"></i><span>Carte bancaire</span>
+              </button>
+              <button type="button" role="radio" data-method="moncash" class="method-btn">
+                <i data-lucide="smartphone" class="w-6 h-6"></i><span class="method-mark" data-mark="moncash"></span><span>MonCash</span>
+              </button>
+              <button type="button" role="radio" data-method="natcash" class="method-btn">
+                <i data-lucide="smartphone" class="w-6 h-6"></i><span class="method-mark" data-mark="natcash"></span><span>NatCash</span>
+              </button>
+            </div>
+
+            <!-- Carte -->
+            <div data-panel="card" class="mt-6">
+              <div class="grid gap-4">
+                <div>
+                  <label for="cc-number" class="label">Numéro de carte</label>
+                  <div class="relative">
+                    <input id="cc-number" class="input pr-24 mono tabular" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23">
+                    <span id="cc-brand" class="absolute right-3 top-1/2 -translate-y-1/2"></span>
+                  </div>
+                  <p class="field-error" data-for="cc-number">Numéro de carte invalide.</p>
+                </div>
+                <div>
+                  <label for="cc-name" class="label">Nom sur la carte</label>
+                  <input id="cc-name" class="input" autocomplete="cc-name" placeholder="MARIE-ANGE PIERRE">
+                  <p class="field-error" data-for="cc-name">Indiquez le nom inscrit sur la carte.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label for="cc-exp" class="label">Expiration</label>
+                    <input id="cc-exp" class="input mono tabular" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" maxlength="5">
+                    <p class="field-error" data-for="cc-exp">Date invalide ou expirée.</p>
+                  </div>
+                  <div>
+                    <label for="cc-cvc" class="label">Code de sécurité</label>
+                    <input id="cc-cvc" class="input mono tabular" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4">
+                    <p class="field-error" data-for="cc-cvc">3 ou 4 chiffres au dos de la carte.</p>
+                  </div>
+                </div>
+                <label class="flex items-center gap-2.5 text-sm text-slate-700"><input type="checkbox" id="cc-save" class="checkbox" checked>Enregistrer cette carte pour les renouvellements automatiques</label>
+              </div>
+              <p class="mt-4 text-xs text-muted flex items-start gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cta shrink-0"></i>Les données de carte sont chiffrées et traitées par Freda Pay. Freda Workspace ne stocke jamais votre numéro complet.</p>
+            </div>
+
+            <!-- MonCash / NatCash (même formulaire, libellés adaptés) -->
+            <div data-panel="mobile" class="mt-6" hidden>
+              <div class="rounded-xl bg-mist p-4 flex items-center justify-between gap-3 flex-wrap">
+                <div>
+                  <p class="text-xs text-muted">Montant à confirmer</p>
+                  <p class="font-display text-2xl font-extrabold text-ink tabular" id="mm-amount">0 HTG</p>
+                </div>
+                <p class="text-xs text-muted tabular" id="mm-rate"></p>
+              </div>
+              <div class="mt-4">
+                <label for="mm-phone" class="label"><span id="mm-label">Numéro MonCash</span></label>
+                <div class="flex items-stretch rounded-[10px] border border-slate-300 overflow-hidden focus-within:border-freda focus-within:ring-4 focus-within:ring-freda/15 bg-white">
+                  <span class="px-3.5 py-3 bg-slate-50 border-r border-line text-slate-600 mono">+509</span>
+                  <input id="mm-phone" class="flex-1 min-w-0 px-3.5 py-3 mono tabular text-ink focus:outline-none" inputmode="tel" autocomplete="tel-national" placeholder="37 12 34 56" maxlength="11">
+                </div>
+                <p class="field-error" data-for="mm-phone">Entrez un numéro haïtien à 8 chiffres.</p>
+              </div>
+              <ol class="mt-5 space-y-3 text-sm text-slate-700" id="mm-steps"></ol>
+            </div>
+
+            </div>
+
+            <label class="mt-6 pt-5 border-t border-line flex items-start gap-2.5 text-sm text-slate-700">
+              <input type="checkbox" id="terms" class="checkbox mt-0.5">
+              <span id="terms-text">J’accepte les <a href="legal.html#cgu" class="text-freda font-medium hover:underline" target="_blank">conditions d’utilisation</a> et la <a href="legal.html#remboursement" class="text-freda font-medium hover:underline" target="_blank">politique de remboursement</a>. L’abonnement se renouvelle automatiquement, annulable à tout moment.</span>
+            </label>
+            <p class="field-error" data-for="terms">Vous devez accepter les conditions pour continuer.</p>
+            <p class="field-error mt-3 p-3 rounded-lg bg-red-50" id="pay-error" role="alert"></p>
+          </section>
+        </div>
+
+        <!-- Récapitulatif -->
+        <aside class="lg:sticky lg:top-6 min-w-0" aria-label="Récapitulatif de la commande">
+          <div class="card-elevated overflow-hidden">
+            <div class="bg-brand-gradient p-6 text-white relative overflow-hidden">
+              <img src="assets/img/symbole-blanc.svg" alt="" class="absolute -right-6 -bottom-8 w-32 opacity-10" aria-hidden="true">
+              <p class="text-sm text-white/75">Récapitulatif</p>
+              <p class="mt-1 font-display text-xl font-bold mono break-all" id="sum-domain">—</p>
+              <p class="mt-1 text-sm text-white/75" id="sum-plan"></p>
+            </div>
+            <div class="p-6">
+              <dl class="space-y-3 text-sm tabular" id="sum-lines"></dl>
+              <button type="submit" id="pay-btn" class="mt-6 btn btn-cta btn-lg w-full"><i data-lucide="lock"></i><span id="pay-label">Payer</span></button>
+              <button type="button" id="skip-btn" class="mt-3 btn btn-outline w-full" hidden><i data-lucide="clock"></i>Plus tard, accéder à mon espace</button>
+              <ul class="mt-5 space-y-2 text-xs text-muted" id="sum-notes"></ul>
+            </div>
+          </div>
+          <p class="mt-4 text-xs text-center text-muted">Test : la carte se terminant par 0002 simule un refus.</p>
+        </aside>
+      </form>
+
+      <!-- Succès + configuration automatique -->
+      <section id="success" class="mt-10 max-w-2xl mx-auto" hidden aria-live="polite">
+        <div class="card-elevated p-8 sm:p-10 text-center">
+          <span class="w-16 h-16 mx-auto rounded-full bg-emerald-50 text-cta grid place-items-center"><i data-lucide="circle-check-big" class="w-9 h-9"></i></span>
+          <h1 class="mt-5 text-3xl font-extrabold tracking-tight">Paiement confirmé</h1>
+          <p class="mt-2 text-slate-600">Référence Freda Pay <span class="mono font-semibold text-ink" id="ok-ref"></span> · <span id="ok-amount" class="tabular"></span></p>
+
+          <div class="mt-8 text-left rounded-2xl border border-line p-5 sm:p-6">
+            <p class="font-semibold text-ink flex items-center gap-2"><span class="spinner text-freda" id="prov-spinner"></span><span id="prov-title">Configuration de votre espace...</span></p>
+            <ul class="mt-4 space-y-3 text-sm" id="prov-steps"></ul>
+          </div>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="espace/index.html" class="btn btn-cta btn-lg" id="go-space"><i data-lucide="layout-dashboard"></i>Accéder à mon espace</a>
+            <a href="index.html#app" class="btn btn-outline btn-lg"><i data-lucide="smartphone"></i>Installer l’application</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    </main>
+
+
+
+  <!-- Attente de confirmation MonCash / NatCash / 3-D Secure -->
+  <div class="modal" id="modal-processing" hidden>
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel p-8 text-center max-w-sm" role="dialog" aria-modal="true" aria-labelledby="proc-title">
+      <span class="w-14 h-14 mx-auto rounded-full bg-mist text-freda grid place-items-center"><span class="spinner !w-7 !h-7"></span></span>
+      <h2 id="proc-title" class="mt-5 text-xl font-bold">Traitement du paiement</h2>
+      <p id="proc-text" class="mt-2 text-sm text-slate-600">Ne fermez pas cette page.</p>
+    </div>
+  </div>
+
+  <style>
+    .method-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem; min-height: 92px; padding: .85rem .5rem; border: 1.5px solid var(--fw-line); border-radius: 14px; background: #fff; font-weight: 600; font-size: .8125rem; color: var(--fw-ink); text-align: center; transition: border-color .15s, background .15s, box-shadow .15s; }
+    .method-btn:hover { border-color: var(--fw-line-strong); }
+    .method-btn[aria-checked="true"] { border-color: var(--fw-blue); background: var(--fw-mist); box-shadow: 0 0 0 3px rgba(43, 100, 228, .12); }
+    .method-btn:focus-visible { outline: 3px solid rgba(43, 100, 228, .45); outline-offset: 2px; }
+    .method-btn > span:last-child { line-height: 1.2; }
+    /* Logos de paiement masqués ici, en attendant les logos officiels */
+    .method-mark, #cc-brand, #saved-mark { display: none !important; }
+  </style>
+
+
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/paiement.js"></script>
+</body>
+</html>

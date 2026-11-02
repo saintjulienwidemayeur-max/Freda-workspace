@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Recherche de domaine · Freda Workspace</title>
+  <meta name="description" content="Vérifiez la disponibilité de votre nom de domaine et ajoutez votre email professionnel.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2B64E4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-base="" data-nav="">
+  <header id="site-header"></header>
+
+  <main>
+    <!-- Bandeau de recherche -->
+    <section class="bg-midnight relative z-20">
+      <div class="absolute inset-0 bg-grid opacity-40" aria-hidden="true"></div>
+      <div class="relative gutter">
+        <div class="max-w-site mx-auto py-10 md:py-14">
+          <nav aria-label="Étapes" class="mb-6">
+            <ol class="flex items-center gap-2 text-sm flex-wrap">
+              <li class="flex items-center gap-2 text-white font-semibold"><span class="w-6 h-6 rounded-full bg-cta text-white grid place-items-center text-xs">1</span>Domaine</li>
+              <li aria-hidden="true" class="w-8 h-px bg-white/20"></li>
+              <li class="flex items-center gap-2 text-slate-400"><span class="w-6 h-6 rounded-full border border-white/25 grid place-items-center text-xs">2</span>Paiement</li>
+              <li aria-hidden="true" class="w-8 h-px bg-white/20"></li>
+              <li class="flex items-center gap-2 text-slate-400"><span class="w-6 h-6 rounded-full border border-white/25 grid place-items-center text-xs">3</span>Messagerie pro <span class="text-xs text-slate-500">(optionnel)</span></li>
+            </ol>
+          </nav>
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight !text-white">Choisissez le nom de domaine de votre entreprise</h1>
+          <form id="search-form" data-suggest-anchor class="mt-6 bg-white rounded-2xl p-2 flex flex-col sm:flex-row gap-2 max-w-3xl" novalidate role="search">
+            <label for="q" class="sr-only">Nom de domaine</label>
+            <div class="relative flex-1 min-w-0">
+              <i data-lucide="globe" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-freda pointer-events-none"></i>
+              <input id="q" name="q" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Nom de votre entreprise ou de votre marque..." class="w-full h-12 pl-11 pr-3 rounded-lg text-base text-ink focus:outline-none">
+            </div>
+            <button type="submit" class="btn btn-cta btn-lg h-12"><i data-lucide="search"></i>Rechercher Domaine</button>
+          </form>
+          <p id="search-error" class="field-error !text-red-300 mt-2" role="alert"></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="gutter">
+      <div class="max-w-site mx-auto py-10 grid lg:grid-cols-[minmax(0,1fr)_360px] gap-8 items-start">
+
+        <!-- Résultats -->
+        <section aria-live="polite" aria-busy="false" id="results" class="min-w-0">
+          <div id="results-empty" class="card p-10 text-center">
+            <span class="w-14 h-14 mx-auto rounded-2xl bg-mist text-freda grid place-items-center"><i data-lucide="search"></i></span>
+            <h2 class="mt-4 text-xl font-bold">Commencez par le nom de votre entreprise</h2>
+            <p class="mt-2 text-slate-600 max-w-md mx-auto">Nous vérifions .com, .net, .org et d’autres extensions en même temps, puis nous vous proposons des alternatives disponibles.</p>
+          </div>
+        </section>
+
+        <!-- Récapitulatif -->
+        <aside class="lg:sticky lg:top-24" aria-label="Mon panier">
+          <div class="card-elevated p-6">
+            <div class="flex items-center justify-between gap-3">
+              <h2 class="text-lg font-bold flex items-center gap-2.5"><span class="relative w-10 h-10 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="shopping-cart" class="w-5 h-5"></i><span id="cart-count" class="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-cta text-white text-xs font-bold grid place-items-center tabular">0</span></span>Mon panier</h2>
+              <span class="text-sm text-muted" id="cart-total-top"></span>
+            </div>
+
+            <div id="cart-domain" class="mt-4"></div>
+            <div id="cart-years" class="mt-4">
+              <label class="label" for="years-pick">Durée d’enregistrement</label>
+              <div class="relative">
+                <select id="years-pick" class="input appearance-none !border-2 !border-ink !rounded-lg !h-14 text-lg font-medium pr-12 cursor-pointer"></select>
+                <i data-lucide="chevron-down" class="w-6 h-6 text-ink absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+              </div>
+              <p class="mt-2 text-xs text-muted" id="years-note"></p>
+            </div>
+
+            <div id="cart-upsell" class="mt-5" hidden></div>
+
+            <dl class="mt-6 pt-5 border-t border-line space-y-2.5 text-sm tabular" id="cart-lines"></dl>
+
+            <button type="button" id="checkout-btn" class="mt-6 btn btn-cta btn-lg w-full" disabled><i data-lucide="shopping-bag"></i>Acheter maintenant</button>
+            <p class="mt-3 text-xs text-muted flex items-start justify-center gap-1.5 text-center"><i data-lucide="mail" class="w-3.5 h-3.5 mt-0.5 shrink-0"></i>La messagerie professionnelle est facultative : vous pourrez l’ajouter après l’achat, ou plus tard.</p>
+          </div>
+
+          <div class="mt-4 card p-5 flex gap-3">
+            <i data-lucide="link-2" class="w-5 h-5 text-freda shrink-0 mt-0.5"></i>
+            <div class="text-sm">
+              <p class="font-semibold text-ink">Vous avez déjà un domaine ?</p>
+              <p class="text-slate-600 mt-1">Activez la messagerie professionnelle sur le domaine existant de votre entreprise, puis connectez-le depuis votre espace.</p>
+              <a href="configurer-email.html" id="own-domain" class="mt-2 inline-block font-semibold text-freda hover:underline">Configurer mon email pro sur ce domaine</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Barre panier fixe (mobile) -->
+  <div id="cart-bar" class="lg:hidden fixed left-0 right-0 bottom-0 z-40 bg-white border-t border-line shadow-[0_-8px_24px_-12px_rgba(7,22,83,.25)] gutter" style="padding-top:.75rem;padding-bottom:calc(.75rem + env(safe-area-inset-bottom,0px))" hidden>
+    <div class="flex items-center gap-3">
+      <div class="min-w-0 flex-1"><p class="text-xs text-muted flex items-center gap-1.5"><i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i><span id="bar-label"></span></p><p class="font-extrabold text-ink tabular text-lg" id="bar-total"></p></div>
+      <button type="button" id="bar-buy" class="btn btn-cta">Suivant<i data-lucide="arrow-right"></i></button>
+    </div>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/domaines.js"></script>
+</body>
+</html>

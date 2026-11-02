@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Connexion · Freda Workspace</title>
+  <meta name="description" content="Connectez-vous à votre espace Freda Workspace ou à votre webmail professionnel.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#2B64E4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-base="">
+  <div class="min-h-screen grid lg:grid-cols-[1fr_1.05fr]">
+
+    <!-- Panneau de marque -->
+    <aside class="hidden lg:flex relative bg-brand-gradient text-white p-12 flex-col justify-between overflow-hidden">
+      <div class="absolute inset-0 bg-grid opacity-30" aria-hidden="true"></div>
+      <img src="assets/img/symbole-blanc.svg" alt="" class="absolute -right-24 -bottom-24 w-[460px] opacity-[.07]" aria-hidden="true">
+      <a href="index.html" class="relative"><img src="assets/img/logo-horizontal-blanc.svg" alt="Freda Workspace" class="h-11 w-auto"></a>
+      <div class="relative max-w-md">
+        <h2 class="text-4xl font-extrabold tracking-tight leading-tight !text-white">La messagerie et l’identité numérique de votre entreprise, au même endroit.</h2>
+        <ul class="mt-8 space-y-4 text-white/85">
+          <li class="flex gap-3"><span class="w-9 h-9 rounded-lg bg-white/10 grid place-items-center shrink-0"><i data-lucide="mail" class="w-[18px] h-[18px]"></i></span><span class="pt-1.5">Créez et administrez les boîtes mail de vos collaborateurs</span></li>
+          <li class="flex gap-3"><span class="w-9 h-9 rounded-lg bg-white/10 grid place-items-center shrink-0"><i data-lucide="server-cog" class="w-[18px] h-[18px]"></i></span><span class="pt-1.5">Administrez votre DNS sans compétence technique</span></li>
+          <li class="flex gap-3"><span class="w-9 h-9 rounded-lg bg-white/10 grid place-items-center shrink-0"><i data-lucide="receipt" class="w-[18px] h-[18px]"></i></span><span class="pt-1.5">Centralisez factures et paiements (carte, MonCash, NatCash)</span></li>
+        </ul>
+      </div>
+      <p class="relative text-sm text-white/60">Propulsé par Freda Pay LLC · Freda Group</p>
+    </aside>
+
+    <!-- Formulaire -->
+    <main class="flex flex-col gutter">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <a href="index.html" class="lg:hidden"><img src="assets/img/logo-horizontal.svg" alt="Freda Workspace" class="h-10 w-auto"></a>
+        <a href="index.html" class="hidden lg:inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink"><i data-lucide="arrow-left" class="w-4 h-4"></i>Retour au site</a>
+        <p class="text-sm text-slate-600">Nouveau ? <a href="inscription.html" class="font-semibold text-freda hover:underline">Créer un compte</a></p>
+      </div>
+
+      <div class="flex-1 flex items-center justify-center py-10">
+        <div class="w-full max-w-[420px]">
+
+          <div class="segmented w-full mb-8" role="tablist" aria-label="Type de connexion">
+            <button type="button" role="tab" id="tab-client" class="flex-1 justify-center" aria-selected="true" aria-controls="panel-client"><i data-lucide="layout-dashboard" class="w-4 h-4"></i>Espace client</button>
+            <button type="button" role="tab" id="tab-webmail" class="flex-1 justify-center" aria-selected="false" aria-controls="panel-webmail"><i data-lucide="inbox" class="w-4 h-4"></i>Webmail</button>
+          </div>
+
+          <!-- Espace client -->
+          <section id="panel-client" role="tabpanel" aria-labelledby="tab-client">
+            <h1 class="text-3xl font-extrabold tracking-tight">Bon retour</h1>
+            <p class="mt-2 text-slate-600">Connectez-vous pour administrer les domaines, la messagerie et la facturation de votre entreprise.</p>
+
+            <div class="mt-7 grid gap-3">
+              <button type="button" class="btn btn-outline btn-lg w-full" data-oauth="google"><span data-brand="google"></span>Continuer avec Google</button>
+              <button type="button" class="btn btn-lg w-full bg-black text-white hover:bg-slate-800" data-oauth="apple"><span data-brand="apple"></span>Continuer avec Apple</button>
+            </div>
+            <div class="my-6 flex items-center gap-3 text-xs text-muted"><span class="h-px flex-1 bg-line"></span>ou<span class="h-px flex-1 bg-line"></span></div>
+
+            <form id="login-form" novalidate class="space-y-4">
+              <div>
+                <label for="login-email" class="label">Adresse email</label>
+                <div class="input-group"><i data-lucide="mail" class="input-icon"></i><input id="login-email" type="email" class="input" autocomplete="email" placeholder="vous@entreprise.com" required></div>
+                <p class="field-error" data-for="login-email">Entrez une adresse email valide.</p>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5"><label for="login-pass" class="label !mb-0">Mot de passe</label><button type="button" id="forgot-link" class="text-sm font-medium text-freda hover:underline">Mot de passe oublié ?</button></div>
+                <div class="input-group">
+                  <i data-lucide="lock" class="input-icon"></i>
+                  <input id="login-pass" type="password" class="input pr-11" autocomplete="current-password" placeholder="Votre mot de passe" required>
+                  <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-muted hover:text-ink" data-toggle-password="login-pass" aria-label="Afficher le mot de passe"><i data-lucide="eye" class="w-[18px] h-[18px]"></i></button>
+                </div>
+                <p class="field-error" data-for="login-pass">Entrez votre mot de passe.</p>
+              </div>
+              <label class="flex items-center gap-2.5 text-sm text-slate-700"><input type="checkbox" id="remember" class="checkbox" checked>Rester connecté sur cet appareil</label>
+              <p class="field-error p-3 rounded-lg bg-red-50" id="login-error" role="alert"></p>
+              <button type="submit" class="btn btn-primary btn-lg w-full">Se connecter<i data-lucide="arrow-right"></i></button>
+            </form>
+          </section>
+
+          <!-- Réinitialisation -->
+          <section id="panel-reset" hidden>
+            <button type="button" id="back-login" class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink"><i data-lucide="arrow-left" class="w-4 h-4"></i>Retour</button>
+            <h1 class="mt-4 text-3xl font-extrabold tracking-tight">Mot de passe oublié</h1>
+            <p class="mt-2 text-slate-600">Nous vous envoyons un lien pour choisir un nouveau mot de passe.</p>
+            <form id="reset-form" class="mt-7 space-y-4" novalidate>
+              <div>
+                <label for="reset-email" class="label">Adresse email du compte</label>
+                <div class="input-group"><i data-lucide="mail" class="input-icon"></i><input id="reset-email" type="email" class="input" autocomplete="email" placeholder="vous@entreprise.com"></div>
+                <p class="field-error" data-for="reset-email">Entrez une adresse email valide.</p>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg w-full"><i data-lucide="send"></i>Envoyer le lien</button>
+            </form>
+            <div id="reset-done" class="mt-6 p-4 rounded-xl bg-emerald-50 text-sm text-emerald-800 flex gap-3" hidden><i data-lucide="mail-check" class="w-5 h-5 shrink-0"></i><p>Si un compte existe pour cette adresse, un lien valable 30 minutes vient d’être envoyé.</p></div>
+          </section>
+
+          <!-- Webmail -->
+          <section id="panel-webmail" role="tabpanel" aria-labelledby="tab-webmail" hidden>
+            <h1 class="text-3xl font-extrabold tracking-tight">Webmail</h1>
+            <p class="mt-2 text-slate-600">Lisez et envoyez vos emails professionnels depuis le navigateur.</p>
+            <form id="webmail-form" class="mt-7 space-y-4" novalidate>
+              <div>
+                <label for="wm-email" class="label">Adresse email professionnelle</label>
+                <div class="input-group"><i data-lucide="at-sign" class="input-icon"></i><input id="wm-email" type="email" class="input" autocomplete="username" placeholder="contact@votreentreprise.com"></div>
+                <p class="field-error" data-for="wm-email">Entrez votre adresse complète, par exemple contact@entreprise.com.</p>
+              </div>
+              <div>
+                <label for="wm-pass" class="label">Mot de passe de la boîte</label>
+                <div class="input-group">
+                  <i data-lucide="key-round" class="input-icon"></i>
+                  <input id="wm-pass" type="password" class="input pr-11" autocomplete="current-password" placeholder="Mot de passe de la boîte mail">
+                  <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-muted hover:text-ink" data-toggle-password="wm-pass" aria-label="Afficher le mot de passe"><i data-lucide="eye" class="w-[18px] h-[18px]"></i></button>
+                </div>
+                <p class="field-error" data-for="wm-pass">Entrez le mot de passe de la boîte.</p>
+              </div>
+              <button type="submit" class="btn btn-navy btn-lg w-full"><i data-lucide="inbox"></i>Ouvrir ma boîte</button>
+            </form>
+            <div class="mt-6 p-4 rounded-xl bg-mist text-sm text-slate-700 flex gap-3">
+              <i data-lucide="info" class="w-5 h-5 text-freda shrink-0"></i>
+              <p>Le mot de passe du webmail est celui de la boîte mail, différent de celui de votre espace client. L’administrateur peut le réinitialiser depuis <strong>Boîtes mail</strong>.</p>
+            </div>
+          </section>
+
+          <p class="mt-10 text-xs text-center text-muted">En vous connectant, vous acceptez nos <a href="legal.html#cgu" class="underline">conditions</a> et notre <a href="legal.html#confidentialite" class="underline">politique de confidentialité</a>.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/pages/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Facturation · Freda Workspace</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#061137">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="../assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-base="../" data-page="facturation" data-title="Facturation">
+  <div class="espace-layout">
+    <aside id="sidebar" class="espace-sidebar"></aside>
+    <div class="min-w-0">
+      <header id="topbar"></header>
+
+      <main class="gutter py-8">
+        <div class="max-w-[1180px] mx-auto space-y-6">
+
+          <div class="grid xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-6">
+            <!-- Offre actuelle -->
+            <section class="card p-5 sm:p-6 scroll-mt-24" id="offre" aria-labelledby="plan-title">
+              <div class="flex items-center justify-between gap-3">
+                <h2 id="plan-title" class="text-lg font-bold">Votre offre</h2>
+                <div class="segmented" role="tablist" aria-label="Cycle">
+                  <button type="button" role="tab" data-cycle="monthly">Mensuel</button>
+                  <button type="button" role="tab" data-cycle="yearly">Annuel</button>
+                </div>
+              </div>
+              <div class="mt-5 grid grid-cols-1 gap-3" id="plan-cards"></div>
+              <p class="mt-4 text-sm text-muted flex items-center gap-2" id="renew-line"></p>
+            </section>
+
+            <!-- Moyens de paiement -->
+            <section class="card p-5 sm:p-6" aria-labelledby="pm-title">
+              <div class="flex items-center justify-between">
+                <h2 id="pm-title" class="text-lg font-bold">Moyens de paiement</h2>
+                <button type="button" class="btn btn-outline btn-sm" data-open="modal-pm"><i data-lucide="plus"></i>Ajouter</button>
+              </div>
+              <ul class="mt-5 space-y-3" id="pm-list"></ul>
+              <p class="mt-4 text-xs text-muted flex items-start gap-2"><i data-lucide="info" class="w-4 h-4 shrink-0"></i>Avec MonCash ou NatCash, vous recevez une demande de paiement 7 jours avant chaque échéance.</p>
+            </section>
+          </div>
+
+          <!-- Factures -->
+          <section class="card" aria-labelledby="inv-title">
+            <div class="p-5 sm:p-6 border-b border-line flex items-center justify-between gap-3 flex-wrap">
+              <div>
+                <h2 id="inv-title" class="text-lg font-bold">Historique des factures</h2>
+                <p class="text-sm text-muted">Paiements traités par Freda Pay LLC.</p>
+              </div>
+              <p class="text-sm text-muted tabular" id="inv-total"></p>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Facture</th><th>Date</th><th>Description</th><th>Moyen</th><th class="text-right">Montant</th><th>Statut</th><th class="text-right"><span class="sr-only">Télécharger</span></th></tr></thead>
+                <tbody id="inv-body"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Ajouter un moyen de paiement -->
+  <div class="modal" id="modal-pm" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <form class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="pm-modal-title" id="pm-form" novalidate>
+      <div class="p-6 border-b border-line flex items-center justify-between">
+        <h2 id="pm-modal-title" class="text-lg font-bold">Ajouter un moyen de paiement</h2>
+        <button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Fermer"><i data-lucide="x"></i></button>
+      </div>
+      <div class="p-6">
+        <div class="segmented w-full" role="tablist" aria-label="Type">
+          <button type="button" role="tab" class="flex-1 justify-center" data-pm="card" aria-selected="true"><i data-lucide="credit-card" class="w-4 h-4"></i>Carte</button>
+          <button type="button" role="tab" class="flex-1 justify-center" data-pm="moncash" aria-selected="false">MonCash</button>
+          <button type="button" role="tab" class="flex-1 justify-center" data-pm="natcash" aria-selected="false">NatCash</button>
+        </div>
+        <div class="mt-5 space-y-4" id="pm-card">
+          <div><label for="pm-number" class="label">Numéro de carte</label><input id="pm-number" class="input mono tabular" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="23"></div>
+          <div class="grid grid-cols-2 gap-4">
+            <div><label for="pm-exp" class="label">Expiration</label><input id="pm-exp" class="input mono" inputmode="numeric" placeholder="MM/AA" maxlength="5"></div>
+            <div><label for="pm-cvc" class="label">CVC</label><input id="pm-cvc" class="input mono" inputmode="numeric" placeholder="123" maxlength="4"></div>
+          </div>
+        </div>
+        <div class="mt-5" id="pm-mobile" hidden>
+          <label for="pm-phone" class="label" id="pm-phone-label">Numéro MonCash</label>
+          <div class="flex items-stretch rounded-[10px] border border-slate-300 overflow-hidden focus-within:border-freda focus-within:ring-4 focus-within:ring-freda/15 bg-white">
+            <span class="px-3.5 py-3 bg-slate-50 border-r border-line text-slate-600 mono">+509</span>
+            <input id="pm-phone" class="flex-1 min-w-0 px-3.5 py-3 mono text-ink focus:outline-none" inputmode="tel" placeholder="37 12 34 56" maxlength="11">
+          </div>
+          <p class="hint">Un code de vérification sera envoyé par SMS.</p>
+        </div>
+        <p class="field-error mt-3" id="pm-error"></p>
+      </div>
+      <div class="p-6 pt-0 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+        <button type="button" class="btn btn-outline" data-close>Annuler</button>
+        <button type="submit" class="btn btn-primary"><i data-lucide="check"></i>Enregistrer</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/espace.js"></script>
+  <script src="../assets/js/pages/espace-facturation.js"></script>
+</body>
+</html>

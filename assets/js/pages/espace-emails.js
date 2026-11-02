@@ -1,0 +1,180 @@
+/**
+ * Espace client — boîtes mail, alias et paramètres IMAP / SMTP.
+ * En production, la création passe par le backend qui appelle l'API Purelymail.
+ */
+(function () {
+  if (!window.FWSpace) return;
+  const C = FW.config;
+  const $ = (s) => document.querySelector(s);
+  const esc = FWUI.esc;
+  let ws = FWSpace.ws();
+  const plan = FWSpace.plan();
+  const perBox = plan ? C.perBoxGb(plan) : 1;
+
+  /* Sans offre : écran d'activation à la place des boîtes */
+  if (!plan) {
+    const main = document.querySelector('main > div');
+    main.innerHTML = `<section class="card p-8 sm:p-12 text-center max-w-2xl mx-auto">
+      <span class="w-14 h-14 mx-auto rounded-2xl bg-mist text-freda grid place-items-center"><i data-lucide="mail-plus" class="w-7 h-7"></i></span>
+      <h2 class="mt-5 text-2xl font-bold">Activez votre email professionnel</h2>
+      <p class="mt-2 text-slate-600">Votre domaine est prêt. Choisissez une offre pour créer vos adresses (contact@, ventes@...). Le DNS est configuré automatiquement et l’application mobile est incluse.</p>
+      <a href="../configurer-email.html" class="mt-6 btn btn-cta btn-lg"><i data-lucide="mail-plus"></i>Activer l’email pro</a>
+      <p class="mt-3 text-xs text-muted">À partir de $2.99/mois · sans engagement</p>
+    </section>`;
+    FWUI.icons();
+    return;
+  }
+
+  $('#webmail-link').href = C.WEBMAIL_URL;
+
+  function render() {
+    ws = FWSpace.ws();
+    const used = ws.mailboxes.reduce((s, m) => s + m.usedGb, 0);
+    const totalGb = C.storageTotal(plan, ws.mailboxes.length);
+    $('#plan-badge').textContent = 'Offre ' + plan.name;
+    $('#box-usage').textContent = C.boxUsage(plan, ws.mailboxes.length);
+    $('#box-meter').style.width = (plan.mailboxes === Infinity ? 100 : C.boxPct(plan, ws.mailboxes.length)) + '%';
+    $('#storage-usage').textContent = used.toFixed(1) + ' / ' + totalGb + ' Go';
+    $('#storage-meter').style.width = Math.min(100, (used / totalGb) * 100) + '%';
+
+    $('#box-body').innerHTML = ws.mailboxes.map((m) => {
+      const pct = Math.min(100, (m.usedGb / perBox) * 100);
+      return `<tr>
+        <td>
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-full bg-mist text-freda grid place-items-center font-bold text-sm shrink-0">${esc(m.address[0].toUpperCase())}</span>
+            <div class="min-w-0"><p class="font-medium mono text-sm whitespace-nowrap">${esc(m.address)}</p><p class="text-xs text-muted">${esc(m.name)}</p></div>
+          </div>
+        </td>
+        <td><span class="badge ${m.role === 'Propriétaire' ? 'badge-info' : 'badge-neutral'}">${esc(m.role)}</span></td>
+        <td class="min-w-[160px]"><div class="flex items-center gap-2"><div class="meter flex-1"><span style="width:${pct}%;${pct > 85 ? 'background:#DC2626' : ''}"></span></div><span class="text-xs text-muted tabular whitespace-nowrap">${m.usedGb.toFixed(1)} / ${perBox.toFixed(0)} Go</span></div></td>
+        <td class="text-sm text-muted tabular whitespace-nowrap">${m.lastLogin ? FW.date(m.lastLogin) : 'Jamais'}</td>
+        <td class="text-right whitespace-nowrap">
+          <button type="button" class="btn btn-ghost btn-sm" data-reset="${m.id}"><i data-lucide="key-round"></i><span class="hidden md:inline">Mot de passe</span></button>
+          <button type="button" class="btn btn-ghost btn-icon hover:!text-red-600 hover:!bg-red-50" data-del="${m.id}" ${m.role === 'Propriétaire' ? 'disabled title="La boîte propriétaire ne peut pas être supprimée"' : ''} aria-label="Supprimer"><i data-lucide="trash-2"></i></button>
+        </td>
+      </tr>`;
+    }).join('');
+
+    $('#alias-list').innerHTML = ws.aliases.length
+      ? ws.aliases.map((a) => `
+        <li class="px-5 sm:px-6 py-4 flex items-center gap-3">
+          <i data-lucide="forward" class="w-4 h-4 text-freda shrink-0"></i>
+          <div class="min-w-0 flex-1 text-sm"><p class="mono text-ink truncate">${esc(a.from)}</p><p class="mono text-xs text-muted truncate">→ ${esc(a.to)}</p></div>
+          <button type="button" class="btn btn-ghost btn-icon hover:!text-red-600" data-del-alias="${a.id}" aria-label="Supprimer l’alias"><i data-lucide="x"></i></button>
+        </li>`).join('')
+      : '<li class="p-6 text-sm text-muted text-center">Aucun alias pour le moment.</li>';
+
+    const domOpts = ws.domains.map((d) => `<option>${esc(d.name)}</option>`).join('');
+    $('#box-domain').innerHTML = domOpts;
+    $('#alias-domain').innerHTML = domOpts;
+    $('#alias-to').innerHTML = ws.mailboxes.map((m) => `<option>${esc(m.address)}</option>`).join('');
+    FWUI.icons();
+  }
+
+  /* ---------- Paramètres serveur ---------- */
+  const S = C.MAIL_SERVERS;
+  const row = (label, host, port, sec) => `
+    <div class="rounded-xl border border-line p-4">
+      <dt class="text-xs font-semibold uppercase tracking-wider text-muted">${label}</dt>
+      <dd class="mt-1.5 flex items-center gap-2 justify-between flex-wrap">
+        <span class="mono text-sm text-ink break-all">${host}</span>
+        <span class="flex items-center gap-2"><span class="badge badge-neutral tabular">Port ${port}</span><span class="badge badge-success">${sec}</span>
+        <button type="button" class="p-1 text-muted hover:text-freda" data-copy="${host}" data-copy-label="Serveur copié" aria-label="Copier ${host}"><i data-lucide="copy" class="w-4 h-4"></i></button></span>
+      </dd>
+    </div>`;
+  $('#server-cfg').innerHTML = row('Entrant · IMAP', S.imap.host, S.imap.port, S.imap.security) + row('Sortant · SMTP', S.smtp.host, S.smtp.port, S.smtp.security) + `<p class="text-xs text-muted">SMTP alternatif : port ${S.smtp.alt}. POP3 : ${S.pop.host}, port ${S.pop.port}.</p>`;
+
+  /* ---------- Nouvelle boîte ---------- */
+  function openBox() {
+    if (ws.mailboxes.length >= plan.mailboxes) {
+      if (plan.extraMailboxMonthly) {
+        // Business : boîte supplémentaire payante
+        FWUI.confirmDialog({ title: 'Ajouter une boîte supplémentaire ?', message: 'Votre offre ' + plan.name + ' inclut ' + plan.mailboxes + ' boîtes. Chaque boîte supplémentaire coûte ' + FW.money(plan.extraMailboxMonthly) + ' par mois, ajouté à votre prochaine facture.', confirmLabel: 'Ajouter (+' + FW.money(plan.extraMailboxMonthly) + '/mois)' })
+          .then((ok) => { if (ok) showBoxForm(); });
+        return;
+      }
+      FWUI.confirmDialog({ title: 'Limite de votre offre atteinte', message: 'L’offre ' + plan.name + ' inclut ' + plan.mailboxes + ' boîte' + (plan.mailboxes > 1 ? 's' : '') + '. Créez plutôt un alias gratuit, ou changez d’offre.', confirmLabel: 'Voir les offres' })
+        .then((ok) => { if (ok) location.href = 'facturation.html#offre'; });
+      return;
+    }
+    showBoxForm();
+  }
+  function showBoxForm() {
+    $('#box-form').reset();
+    $('#box-pass').value = FW.generatePassword();
+    $('#box-error').classList.remove('show');
+    FWUI.openModal('modal-box');
+  }
+  $('#new-box-btn').addEventListener('click', openBox);
+  $('#regen-pass').addEventListener('click', () => { $('#box-pass').value = FW.generatePassword(); });
+  $('#copy-pass').addEventListener('click', () => FWUI.copy($('#box-pass').value, 'Mot de passe copié'));
+
+  const localOk = (v) => /^[a-z0-9]([a-z0-9._-]{0,62})$/.test(v) && !/\.\./.test(v) && !/\.$/.test(v);
+
+  $('#box-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const local = $('#box-local').value.trim().toLowerCase();
+    const bad = !localOk(local);
+    $('#box-local').closest('div').classList.toggle('!border-red-500', bad);
+    document.querySelector('[data-for="box-local"]').classList.toggle('show', bad);
+    if (bad) return;
+    const btn = e.target.querySelector('[type=submit]');
+    FWUI.setLoading(btn, true, 'Création...');
+    try {
+      const box = await FW.mailboxes.create({ local, domain: $('#box-domain').value, name: $('#box-name').value.trim() });
+      FWUI.closeModal('modal-box');
+      render();
+      FWUI.toast(esc(box.address) + ' est prête');
+    } catch (err) {
+      $('#box-error').textContent = err.message;
+      $('#box-error').classList.add('show');
+    } finally { FWUI.setLoading(btn, false); }
+  });
+
+  /* ---------- Alias ---------- */
+  $('#alias-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const local = $('#alias-local').value.trim().toLowerCase();
+    const bad = !localOk(local);
+    document.querySelector('[data-for="alias-local"]').classList.toggle('show', bad);
+    if (bad) return;
+    const btn = e.target.querySelector('[type=submit]');
+    FWUI.setLoading(btn, true, 'Création...');
+    try {
+      await FW.mailboxes.addAlias(local + '@' + $('#alias-domain').value, $('#alias-to').value);
+      FWUI.closeModal('modal-alias');
+      e.target.reset();
+      render();
+      FWUI.toast('Alias créé');
+    } catch (err) {
+      $('#alias-error').textContent = err.message;
+      $('#alias-error').classList.add('show');
+    } finally { FWUI.setLoading(btn, false); }
+  });
+
+  /* ---------- Actions sur les lignes ---------- */
+  document.addEventListener('click', async (e) => {
+    const reset = e.target.closest('[data-reset]');
+    if (reset) {
+      const m = ws.mailboxes.find((x) => x.id === reset.dataset.reset);
+      const pass = FW.generatePassword();
+      const ok = await FWUI.confirmDialog({ title: 'Réinitialiser le mot de passe', message: `Nouveau mot de passe pour <span class="mono">${esc(m.address)}</span> :<br><span class="mono text-ink font-semibold select-all break-all">${esc(pass)}</span><br>Les appareils connectés devront se reconnecter.`, confirmLabel: 'Copier et appliquer' });
+      if (ok) FWUI.copy(pass, 'Nouveau mot de passe appliqué et copié');
+    }
+    const del = e.target.closest('[data-del]');
+    if (del && !del.disabled) {
+      const m = ws.mailboxes.find((x) => x.id === del.dataset.del);
+      const ok = await FWUI.confirmDialog({ title: 'Supprimer cette boîte ?', message: `Tous les messages de <span class="mono">${esc(m.address)}</span> seront définitivement effacés. Cette action est irréversible.`, confirmLabel: 'Supprimer la boîte', danger: true });
+      if (!ok) return;
+      await FW.mailboxes.remove(m.id);
+      render();
+      FWUI.toast('Boîte supprimée');
+    }
+    const da = e.target.closest('[data-del-alias]');
+    if (da) { await FW.mailboxes.removeAlias(da.dataset.delAlias); render(); FWUI.toast('Alias supprimé'); }
+  });
+
+  render();
+  if (new URLSearchParams(location.search).get('new')) openBox();
+})();
