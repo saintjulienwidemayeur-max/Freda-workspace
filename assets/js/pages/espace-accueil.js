@@ -62,25 +62,6 @@
     </li>`;
   }).join('');
 
-  /* ---------- Abonnement ---------- */
-  if (!plan) {
-    const sec = $('#sub-title').closest('section');
-    sec.innerHTML = `<div class="flex items-center justify-between"><h2 id="sub-title" class="text-lg font-bold">Abonnement</h2><span class="badge badge-neutral">Aucun</span></div>
-      <div class="mt-5 rounded-2xl border border-dashed border-line-strong p-5 flex-1">
-        <p class="font-semibold text-ink">Email professionnel</p>
-        <p class="mt-1 text-sm text-muted">Pas encore activé. Dès $2.99/mois, créez des adresses comme contact@${esc((ws.domains[0] || { name: 'votre-domaine.com' }).name)}.</p>
-      </div>
-      <a href="facturation.html#offre" class="mt-5 btn btn-cta w-full"><i data-lucide="mail-plus"></i>Choisir une offre</a>`;
-  } else {
-    $('#sub-plan').textContent = plan.name + (ws.plan.cycle === 'yearly' ? ' · Annuel' : ' · Mensuel');
-    $('#sub-renew').textContent = 'Renouvellement le ' + FW.date(ws.plan.renews) + ' · ' + FW.money(FW.planPrice(ws.plan.id, ws.plan.cycle));
-    const pm = ws.paymentMethods.find((p) => p.default) || ws.paymentMethods[0];
-    $('#sub-usage').innerHTML = `
-      <div class="flex justify-between gap-3"><dt class="text-slate-600">Boîtes utilisées</dt><dd class="font-semibold text-ink tabular">${C.boxUsage(plan, ws.mailboxes.length)}</dd></div>
-      <div class="flex justify-between gap-3"><dt class="text-slate-600">Stockage</dt><dd class="font-semibold text-ink tabular">${used.toFixed(1)} / ${totalGb} Go</dd></div>
-      <div class="flex justify-between gap-3 items-center"><dt class="text-slate-600">Moyen de paiement</dt><dd class="flex items-center gap-2">${pm.type === 'card' ? FWUI.payMark(pm.brand.toLowerCase(), 'sm') + '<span class="tabular text-ink font-medium">•••• ' + pm.last4 + '</span>' : FWUI.payMark(pm.type, 'sm')}</dd></div>`;
-  }
-
   /* ---------- Boîtes ---------- */
   const perBox = plan ? C.perBoxGb(plan) : 1;
   $('#mb-list').innerHTML = !ws.mailboxes.length ? '<li class="p-6 text-sm text-muted text-center">Aucune boîte mail pour le moment.</li>' : ws.mailboxes.slice(0, 4).map((m) => `
