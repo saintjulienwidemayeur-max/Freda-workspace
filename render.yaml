@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: freda-workspace
+    runtime: static
+    buildCommand: echo "no build"
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
