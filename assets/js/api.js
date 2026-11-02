@@ -13,6 +13,8 @@
  *   POST   /checkout                     -> crée le paiement via Freda Pay
  *   GET    /workspace                    -> domaines, boîtes, factures...
  *   GET/POST/PATCH/DELETE /domains/:d/dns[/:id]
+ *   POST   /domains/connect              -> ajoute un domaine existant {domain, mode: 'nameservers'|'records'}
+ *   POST   /domains/:d/verify            -> vérifie les serveurs de noms / enregistrements -> {connected}
  *   POST   /domains/:d/dns/autofix       -> réaligne MX, SPF, DKIM, DMARC
  *   GET    /domains/:d/dns/check         -> diagnostic + propagation
  *   GET/POST/DELETE /mailboxes[/:id]     -> API Purelymail
@@ -346,6 +348,42 @@
     },
   };
 
+  /* ---------- Domaines existants (hébergés chez un autre registraire) ---------- */
+  const domains = {
+    /** Ajoute un domaine existant et prépare sa zone DNS (enregistrements email inclus). */
+    async connect(domain, mode = 'nameservers') {
+      if (!C.DEMO_MODE) return request('/domains/connect', { method: 'POST', body: { domain, mode } });
+      await wait(600);
+      const s = workspace.get();
+      const existing = s.domains.find((d) => d.name === domain);
+      if (existing && existing.status !== 'pending') throw new Error('Ce domaine est déjà dans votre espace.');
+      if (existing) existing.dnsMode = mode;
+      else s.domains.push({ name: domain, status: 'pending', external: true, dnsMode: mode, registered: new Date().toISOString().slice(0, 10), expires: '', autoRenew: false, locked: false, primary: !s.domains.length });
+      const list = s.dns[domain] || (s.dns[domain] = []);
+      C.MAIL_DNS_TEMPLATE.forEach((t) => { if (!list.some((r) => r.type === t.type && r.name === t.name && r.value === t.value)) list.push({ id: uid(), ttl: 3600, ...t }); });
+      if (!existing) workspace.log(s, 'link-2', 'Domaine existant ' + domain + ' ajouté');
+      workspace.save(s);
+      return { domain, mode };
+    },
+    /** Change la méthode de connexion d'un domaine en attente. */
+    setMode(domain, mode) {
+      const s = workspace.get();
+      const d = s.domains.find((x) => x.name === domain);
+      if (d) { d.dnsMode = mode; workspace.save(s); }
+    },
+    /** Vérifie que le domaine pointe bien vers Freda (simulé en mode démo). */
+    async verify(domain) {
+      if (!C.DEMO_MODE) return request('/domains/' + domain + '/verify', { method: 'POST' });
+      await wait(1600);
+      const s = workspace.get();
+      const d = s.domains.find((x) => x.name === domain);
+      if (d) { d.status = 'active'; d.connectedAt = new Date().toISOString().slice(0, 10); }
+      workspace.log(s, 'badge-check', 'Domaine ' + domain + ' connecté');
+      workspace.save(s);
+      return { connected: true };
+    },
+  };
+
   /* ---------- DNS ---------- */
   const dns = {
     async list(domain) {
@@ -460,5 +498,5 @@
     return Array.from(arr, (n) => chars[n % chars.length]).join('');
   }
 
-  window.FW = { config: C, store, money, date, planPrice, normalizeDomain, searchDomains, cart, auth, payments, workspace, dns, mailboxes, generatePassword, wait };
+  window.FW = { config: C, store, money, date, planPrice, normalizeDomain, searchDomains, cart, auth, payments, workspace, domains, dns, mailboxes, generatePassword, wait };
 })();
