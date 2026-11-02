@@ -228,33 +228,33 @@
     const tpl = C.MAIL_DNS_TEMPLATE;
     const mk = (r) => ({ id: uid(), ttl: 3600, ...r });
     return {
-      user: { name: 'Marie-Ange Pierre', email: 'marie@boulangerielakay.com', company: 'Boulangerie Lakay', phone: '+509 3712 4418', city: 'Pétion-Ville' },
+      user: { name: 'Claire Martin', email: 'claire@monentreprise.com', company: 'Mon Entreprise', phone: '+509 3712 4418', city: 'Port-au-Prince' },
       plan: { id: 'business', cycle: 'monthly', renews: '2026-12-01', status: 'active' },
       domains: [
-        { name: 'boulangerielakay.com', status: 'active', registered: '2026-03-14', expires: '2027-03-14', autoRenew: true, locked: true, primary: true },
-        { name: 'lakaygroup.net', status: 'active', registered: '2026-09-02', expires: '2027-09-02', autoRenew: false, locked: true },
+        { name: 'monentreprise.com', status: 'active', registered: '2026-03-14', expires: '2027-03-14', autoRenew: true, locked: true, primary: true },
+        { name: 'monentreprise.net', status: 'active', registered: '2026-09-02', expires: '2027-09-02', autoRenew: false, locked: true },
       ],
       dns: {
-        'boulangerielakay.com': [
+        'monentreprise.com': [
           mk({ type: 'A', name: '@', value: '76.76.21.21' }),
-          mk({ type: 'CNAME', name: 'www', value: 'boulangerielakay.com' }),
+          mk({ type: 'CNAME', name: 'www', value: 'monentreprise.com' }),
           ...tpl.map(mk),
           mk({ type: 'TXT', name: '@', value: 'purelymail_ownership_proof=7f3c9a12b8e4', managed: true, role: 'Vérification' }),
         ],
         // Domaine volontairement incomplet (pas de DKIM 3 ni DMARC) pour montrer la réparation auto.
-        'lakaygroup.net': [
+        'monentreprise.net': [
           mk({ type: 'A', name: '@', value: '185.199.108.153' }),
           ...tpl.filter((r) => r.name !== 'purelymail3._domainkey' && r.role !== 'DMARC').map(mk),
         ],
       },
       mailboxes: [
-        { id: uid(), address: 'contact@boulangerielakay.com', name: 'Accueil', usedGb: 2.1, created: '2026-03-14', lastLogin: '2026-10-31', role: 'Propriétaire' },
-        { id: uid(), address: 'ventes@boulangerielakay.com', name: 'Service ventes', usedGb: 0.8, created: '2026-04-02', lastLogin: '2026-10-30', role: 'Utilisateur' },
-        { id: uid(), address: 'direction@boulangerielakay.com', name: 'Marie-Ange Pierre', usedGb: 3.4, created: '2026-03-14', lastLogin: '2026-11-01', role: 'Administrateur' },
+        { id: uid(), address: 'contact@monentreprise.com', name: 'Accueil', usedGb: 2.1, created: '2026-03-14', lastLogin: '2026-10-31', role: 'Propriétaire' },
+        { id: uid(), address: 'ventes@monentreprise.com', name: 'Service ventes', usedGb: 0.8, created: '2026-04-02', lastLogin: '2026-10-30', role: 'Utilisateur' },
+        { id: uid(), address: 'direction@monentreprise.com', name: 'Claire Martin', usedGb: 3.4, created: '2026-03-14', lastLogin: '2026-11-01', role: 'Administrateur' },
       ],
       aliases: [
-        { id: uid(), from: 'info@boulangerielakay.com', to: 'contact@boulangerielakay.com' },
-        { id: uid(), from: 'commandes@boulangerielakay.com', to: 'ventes@boulangerielakay.com' },
+        { id: uid(), from: 'info@monentreprise.com', to: 'contact@monentreprise.com' },
+        { id: uid(), from: 'commandes@monentreprise.com', to: 'ventes@monentreprise.com' },
       ],
       paymentMethods: [
         { id: uid(), type: 'card', brand: 'Visa', last4: '4242', exp: '08/28', default: true },
@@ -263,15 +263,15 @@
       invoices: [
         { id: 'FW-2026-0118', date: '2026-11-01', label: 'Business — mensuel', amount: 9.99, method: 'Visa •••• 4242', status: 'paid' },
         { id: 'FW-2026-0094', date: '2026-10-01', label: 'Business — mensuel', amount: 9.99, method: 'MonCash', status: 'paid' },
-        { id: 'FW-2026-0081', date: '2026-09-02', label: 'Domaine lakaygroup.net (1 an)', amount: 13.99, method: 'NatCash', status: 'paid' },
+        { id: 'FW-2026-0081', date: '2026-09-02', label: 'Domaine monentreprise.net (1 an)', amount: 13.99, method: 'NatCash', status: 'paid' },
         { id: 'FW-2026-0067', date: '2026-09-01', label: 'Business — mensuel', amount: 9.99, method: 'Visa •••• 4242', status: 'paid' },
         { id: 'FW-2026-0042', date: '2026-08-01', label: 'Business — mensuel', amount: 9.99, method: 'Visa •••• 4242', status: 'refunded' },
       ],
       activity: [
-        { icon: 'mail-plus', text: 'Boîte ventes@boulangerielakay.com créée', at: '2026-10-30 14:12' },
+        { icon: 'mail-plus', text: 'Boîte ventes@monentreprise.com créée', at: '2026-10-30 14:12' },
         { icon: 'receipt', text: 'Facture FW-2026-0118 payée par carte', at: '2026-11-01 08:00' },
-        { icon: 'shield-check', text: 'Enregistrements DKIM vérifiés pour boulangerielakay.com', at: '2026-10-29 09:41' },
-        { icon: 'globe', text: 'Domaine lakaygroup.net enregistré', at: '2026-09-02 16:20' },
+        { icon: 'shield-check', text: 'Enregistrements DKIM vérifiés pour monentreprise.com', at: '2026-10-29 09:41' },
+        { icon: 'globe', text: 'Domaine monentreprise.net enregistré', at: '2026-09-02 16:20' },
       ],
     };
   }
