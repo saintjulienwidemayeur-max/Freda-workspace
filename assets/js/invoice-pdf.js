@@ -92,7 +92,8 @@
     label('Émetteur', L); label('Facturé à', 112);
     const lines = (arr, x, y0) => { let y = y0; arr.filter(Boolean).forEach((t, i) => { doc.setFont('helvetica', i === 0 ? 'bold' : 'normal').setFontSize(i === 0 ? 10.5 : 9.5).setTextColor(...(i === 0 ? INK : MUTED)); const parts = doc.splitTextToSize(t, 76); doc.text(parts, x, y); y += parts.length * 4.7 + (i === 0 ? 0.6 : 0); }); return y; };
     lines([B.legalName || 'Freda Pay LLC', B.brandLine || 'Freda Workspace · Freda Group', B.address, B.email || C.SUPPORT_EMAIL, B.website, B.taxId ? 'N° fiscal : ' + B.taxId : ''], L, colY + 6);
-    lines([user.company || user.name, user.company ? user.name : '', user.email, user.city], 112, colY + 6);
+    const place = [user.city, user.country].filter(Boolean).join(', ');
+    lines([user.company || user.name, user.company ? user.name : '', user.address, place, user.taxId ? 'NIF : ' + user.taxId : '', user.billingEmail || user.email], 112, colY + 6);
 
     /* Bandeau d'informations */
     const my = 96;

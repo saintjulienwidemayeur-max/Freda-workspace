@@ -16,18 +16,36 @@
   /* Profil & entreprise */
   $('#avatar').textContent = u.name.split(/\s+/).map((p) => p[0]).slice(0, 2).join('').toUpperCase();
   $('#pf-name').value = u.name; $('#pf-email').value = u.email; $('#pf-phone').value = u.phone || '';
-  $('#co-name').value = u.company || ''; $('#co-city').value = u.city || '';
-  document.querySelectorAll('[data-panel="profil"], [data-panel="entreprise"]').forEach((f) => f.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const s = FWSpace.ws();
-    Object.assign(s.user, { name: $('#pf-name').value.trim() || s.user.name, email: $('#pf-email').value.trim() || s.user.email, phone: $('#pf-phone').value.trim(), company: $('#co-name').value.trim(), city: $('#co-city').value.trim() });
+  $('#co-name').value = u.company || ''; $('#co-city').value = u.city || ''; $('#co-nif').value = u.taxId || '';
+  $('#co-address').value = u.address || ''; $('#co-billing').value = u.billingEmail || '';
+  $('#co-country').innerHTML = FW.config.COUNTRIES.map((c) => `<option ${c === (u.country || 'Haïti') ? 'selected' : ''}>${c}</option>`).join('');
+
+  /* Ouverture directe sur un onglet : parametres.html?tab=entreprise */
+  const wanted = new URLSearchParams(location.search).get('tab');
+  if (wanted && document.querySelector(`[data-tab="${wanted}"]`)) show(wanted);
+
+  async function save(f, patch) {
     const btn = f.querySelector('[type=submit]');
     FWUI.setLoading(btn, true, 'Enregistrement...');
-    await FW.wait(500);
-    FW.workspace.save(s);
+    try {
+      await FW.auth.updateProfile(patch);
+      const s = FWSpace.ws(); Object.assign(s.user, patch); FW.workspace.save(s);
+      FWUI.toast('Modifications enregistrées');
+    } catch (err) { FWUI.toast(err.message, 'error'); }
     FWUI.setLoading(btn, false);
-    FWUI.toast('Modifications enregistrées');
-  }));
+  }
+  document.querySelector('[data-panel="profil"]').addEventListener('submit', (e) => {
+    e.preventDefault();
+    save(e.target, { name: $('#pf-name').value.trim() || u.name, email: $('#pf-email').value.trim() || u.email, phone: $('#pf-phone').value.trim() });
+  });
+  document.querySelector('[data-panel="entreprise"]').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const billing = $('#co-billing').value.trim();
+    const bad = billing && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(billing);
+    document.querySelector('[data-for="co-billing"]').classList.toggle('show', !!bad);
+    if (bad) { $('#co-billing').focus(); return; }
+    save(e.target, { company: $('#co-name').value.trim(), taxId: $('#co-nif').value.trim(), address: $('#co-address').value.trim(), city: $('#co-city').value.trim(), country: $('#co-country').value, billingEmail: billing });
+  });
 
   /* Sécurité */
   $('#mfa-toggle').addEventListener('change', (e) => {

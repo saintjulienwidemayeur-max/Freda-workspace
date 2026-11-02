@@ -34,6 +34,8 @@ window.FW_CONFIG = {
     taxId: '',
   },
 
+  COUNTRIES: ['Haïti', 'République dominicaine', 'États-Unis', 'Canada', 'France', 'Autre'],
+
   SUPPORT_EMAIL: 'support@fredaworkspace.com',
   SUPPORT_WHATSAPP: '+509 0000 0000',
 

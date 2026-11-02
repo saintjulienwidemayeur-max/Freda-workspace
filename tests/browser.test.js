@@ -140,3 +140,55 @@ test('facturation : téléchargement d’une facture PDF valide', async () => {
   await ctx.close();
   assert.deepStrictEqual(problems, []);
 });
+
+test('inscription : étape entreprise facultative, puis infos reprises dans Paramètres', async () => {
+  const { ctx, page, problems } = await open({ viewport: { width: 1280, height: 900 } });
+  await page.goto(`${url}/inscription.html`);
+  await page.evaluate(() => localStorage.clear());
+  assert.strictEqual(await page.locator('#su-company').count(), 0, 'plus de champ entreprise à l’inscription');
+  await page.fill('#su-name', 'Paul Test');
+  await page.fill('#su-email', 'paul@example.com');
+  await page.fill('#su-pass', 'Motdepasse#2026');
+  await page.check('#su-terms');
+  await page.click('#signup-form [type=submit]');
+  await page.waitForURL('**/entreprise.html');
+  await page.fill('#co-name', 'Atelier Test');
+  await page.fill('#co-address', '12 rue des Fleurs');
+  await page.fill('#co-city', 'Pétion-Ville');
+  await page.fill('#co-nif', '123-456-789-0');
+  await page.click('#company-form [type=submit]');
+  await page.waitForURL('**/domaines.html**');
+  assert.match(page.url(), /q=ateliertest/);
+  const session = await page.evaluate(() => JSON.parse(localStorage.getItem('fw:session')));
+  assert.strictEqual(session.user.company, 'Atelier Test');
+  assert.strictEqual(session.user.taxId, '123-456-789-0');
+  await ctx.close();
+  assert.deepStrictEqual(problems, []);
+});
+
+test('inscription : l’étape entreprise peut être passée', async () => {
+  const { ctx, page } = await open({ viewport: { width: 1280, height: 900 } });
+  await page.goto(`${url}/connexion.html`);
+  await page.evaluate(() => localStorage.setItem('fw:session', JSON.stringify({ user: { name: 'A B', email: 'a@b.co' }, provider: 'email' })));
+  await page.goto(`${url}/entreprise.html`);
+  await page.click('#skip-bottom');
+  await page.waitForURL('**/domaines.html');
+  await ctx.close();
+});
+
+test('paramètres : infos entreprise enregistrées et bannière de l’accueil', async () => {
+  const { ctx, page, problems } = await open({ viewport: { width: 1280, height: 900 } });
+  await login(page);
+  assert.ok(await page.locator('a[href="parametres.html?tab=entreprise"]').count(), 'bannière profil incomplet');
+  await page.goto(`${url}/espace/parametres.html?tab=entreprise`);
+  assert.strictEqual(await page.locator('[data-panel="entreprise"]').isVisible(), true);
+  await page.fill('#co-address', '5 avenue Test');
+  await page.fill('#co-nif', '111-222-333-4');
+  await page.click('[data-panel="entreprise"] [type=submit]');
+  await page.waitForSelector('.toast');
+  await page.goto(`${url}/espace/index.html`);
+  await page.waitForSelector('#stats');
+  assert.strictEqual(await page.locator('a[href="parametres.html?tab=entreprise"]').count(), 0, 'bannière masquée une fois complété');
+  await ctx.close();
+  assert.deepStrictEqual(problems, []);
+});

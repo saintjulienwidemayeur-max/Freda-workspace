@@ -40,6 +40,18 @@
       <p class="mt-1.5 text-xs text-muted tabular">${s.sub}</p>
     </a>`).join('');
 
+  /* ---------- Profil entreprise incomplet : invitation à le compléter (utilisé sur les factures) ---------- */
+  const profile = ws.user || {};
+  const missing = [!profile.company && 'raison sociale', !profile.address && 'adresse'].filter(Boolean);
+  if (missing.length) {
+    $('#stats').insertAdjacentHTML('beforebegin', `
+      <a href="parametres.html?tab=entreprise" class="flex items-center gap-4 rounded-2xl border border-freda/25 bg-mist p-4 sm:p-5 hover:border-freda/50 transition-colors">
+        <span class="w-11 h-11 rounded-xl bg-white text-freda grid place-items-center shrink-0 shadow-sm"><i data-lucide="building-2"></i></span>
+        <span class="min-w-0 flex-1"><span class="block font-semibold text-ink">Complétez les informations de votre entreprise</span><span class="block text-sm text-slate-600">Il manque la ${missing.join(' et l’')} : elles apparaissent sur vos factures PDF.</span></span>
+        <span class="btn btn-primary btn-sm shrink-0 hidden sm:inline-flex">Compléter<i data-lucide="arrow-right"></i></span>
+      </a>`);
+  }
+
   /* ---------- Santé messagerie ---------- */
   const label = { ok: ['Valide', 'badge-success', 'circle-check'], partial: ['Incomplet', 'badge-warn', 'triangle-alert'], missing: ['Manquant', 'badge-danger', 'circle-x'] };
   $('#health-list').innerHTML = !plan ? `<li class="p-6 sm:p-8 text-center">

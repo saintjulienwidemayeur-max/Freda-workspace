@@ -48,12 +48,14 @@
 
           <!-- Entreprise -->
           <form class="mt-6 card" data-panel="entreprise" hidden novalidate>
-            <div class="p-5 sm:p-6 border-b border-line"><h2 class="text-lg font-bold">Entreprise</h2><p class="text-sm text-muted">Apparaît sur vos factures et dans le WHOIS du domaine (masqué publiquement).</p></div>
+            <div class="p-5 sm:p-6 border-b border-line"><h2 class="text-lg font-bold">Entreprise</h2><p class="text-sm text-muted">Ces informations apparaissent sur vos factures PDF (bloc « Facturé à »). Tous les champs sont facultatifs.</p></div>
             <div class="p-5 sm:p-6 grid sm:grid-cols-2 gap-4">
               <div class="sm:col-span-2"><label for="co-name" class="label">Raison sociale</label><input id="co-name" class="input" autocomplete="organization"></div>
-              <div><label for="co-nif" class="label">NIF <span class="text-muted font-normal">(facultatif)</span></label><input id="co-nif" class="input mono" placeholder="000-000-000-0"></div>
-              <div><label for="co-city" class="label">Ville</label><input id="co-city" class="input"></div>
+              <div><label for="co-nif" class="label">Numéro fiscal <span class="text-muted font-normal">(NIF)</span></label><input id="co-nif" class="input mono" placeholder="000-000-000-0"></div>
+              <div><label for="co-billing" class="label">Email de facturation</label><input id="co-billing" type="email" class="input" autocomplete="email" placeholder="compta@monentreprise.com"><p class="field-error" data-for="co-billing">Entrez une adresse email valide.</p></div>
               <div class="sm:col-span-2"><label for="co-address" class="label">Adresse</label><input id="co-address" class="input" placeholder="Rue, numéro"></div>
+              <div><label for="co-city" class="label">Ville</label><input id="co-city" class="input"></div>
+              <div><label for="co-country" class="label">Pays</label><select id="co-country" class="select input"></select></div>
             </div>
             <div class="px-5 sm:px-6 pb-6 flex justify-end"><button type="submit" class="btn btn-primary"><i data-lucide="check"></i>Enregistrer</button></div>
           </form>

@@ -156,16 +156,12 @@
       try {
         await FW.auth.signup({
           name: $('#su-name').value.trim(),
-          company: company.value.trim(),
           email: $('#su-email').value.trim(),
           phone: $('#su-phone').value ? '+509' + $('#su-phone').value.replace(/\D/g, '') : '',
           password: pass.value,
         });
-        FWUI.toast('Compte créé. Choisissons maintenant votre domaine.');
-        setTimeout(() => {
-          const n = FW.normalizeDomain(company.value);
-          location.href = next || ('domaines.html' + (n.error ? '' : '?q=' + encodeURIComponent(n.label.replace(/-/g, ''))));
-        }, 600);
+        FWUI.toast('Compte créé. Configurons maintenant votre entreprise.');
+        setTimeout(() => { location.href = 'entreprise.html' + (next ? '?next=' + encodeURIComponent(next) : ''); }, 600);
       } catch (err) {
         FWUI.setLoading(btn, false);
         $('#signup-error').textContent = err.message;

@@ -5,6 +5,7 @@ Disallow: /paiement.html
 Disallow: /panier.html
 Disallow: /connexion.html
 Disallow: /inscription.html
+Disallow: /entreprise.html
 Disallow: /configurer-email.html
 Disallow: /email-pro.html
 

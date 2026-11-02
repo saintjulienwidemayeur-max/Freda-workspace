@@ -170,7 +170,7 @@
     async signup(data) {
       if (!C.DEMO_MODE) return request('/auth/signup', { method: 'POST', body: data });
       await wait(800);
-      const s = { user: { name: data.name, email: data.email, company: data.company }, provider: 'email' };
+      const s = { user: { name: data.name, email: data.email, company: data.company || '', phone: data.phone || '' }, provider: 'email' };
       store.set('session', s);
       return s;
     },
@@ -192,6 +192,21 @@
       if (!C.DEMO_MODE) return request('/auth/reset', { method: 'POST', body: { email } });
       await wait(700);
       return { ok: true };
+    },
+
+    /**
+     * Profil de l'entreprise (étape facultative après l'inscription, modifiable dans Paramètres).
+     * Champs : company, taxId (NIF), address, city, country, billingEmail, phone. Ils figurent sur les factures PDF.
+     * Production : PATCH /me/company
+     */
+    async updateProfile(patch) {
+      if (!C.DEMO_MODE) return request('/me/company', { method: 'PATCH', body: patch });
+      await wait(500);
+      const s = store.get('session');
+      if (s) { s.user = { ...s.user, ...patch }; store.set('session', s); }
+      const w = store.get('workspace');
+      if (w) { w.user = { ...w.user, ...patch }; store.set('workspace', w); }
+      return s;
     },
 
     logout() { store.remove('session'); if (!C.DEMO_MODE) request('/auth/logout', { method: 'POST' }).catch(() => {}); },
@@ -231,7 +246,7 @@
     const tpl = C.MAIL_DNS_TEMPLATE;
     const mk = (r) => ({ id: uid(), ttl: 3600, ...r });
     return {
-      user: { name: 'Claire Martin', email: 'claire@monentreprise.com', company: 'Mon Entreprise', phone: '+509 3712 4418', city: 'Port-au-Prince' },
+      user: { name: 'Claire Martin', email: 'claire@monentreprise.com', company: 'Mon Entreprise', phone: '+509 3712 4418', city: 'Port-au-Prince', address: '', country: 'Haïti', taxId: '', billingEmail: '' },
       plan: { id: 'business', cycle: 'monthly', renews: '2026-12-01', status: 'active' },
       domains: [
         { name: 'monentreprise.com', status: 'active', registered: '2026-03-14', expires: '2027-03-14', autoRenew: true, locked: true, primary: true },
@@ -304,7 +319,7 @@
       const next = new Date(); next.setFullYear(next.getFullYear() + years);
       const mk = (r) => ({ id: uid(), ttl: 3600, ...r });
       const s = {
-        user: { name: user.name || '', email: user.email || '', company: user.company || '', phone: '', city: '' },
+        user: { name: user.name || '', email: user.email || '', company: user.company || '', phone: user.phone || '', city: user.city || '', address: user.address || '', country: user.country || '', taxId: user.taxId || '', billingEmail: user.billingEmail || '' },
         plan: null,
         domains: [], dns: {}, mailboxes: [], aliases: [], paymentMethods: [], invoices: [], activity: [],
       };
