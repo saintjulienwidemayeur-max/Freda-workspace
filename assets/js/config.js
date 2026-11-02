@@ -17,6 +17,11 @@ window.FW_CONFIG = {
      Passez à false une fois les routes du backend en place (voir api.js). */
   DEMO_MODE: true,
 
+  /* Site public, mesure d'audience et suivi d'erreurs (laisser vide pour désactiver). */
+  SITE_URL: 'https://fredaworkspace.com',
+  ANALYTICS_DOMAIN: '',   // ex. 'fredaworkspace.com' : active Plausible (sans cookie, respecte Do Not Track)
+  ERROR_ENDPOINT: '',     // ex. '/api/client-errors' : reçoit les erreurs JavaScript (JSON via sendBeacon)
+
   /* Adresse du webmail (ex. Roundcube / SnappyMail sur votre domaine). */
   WEBMAIL_URL: 'https://webmail.fredaworkspace.com',
   SUPPORT_EMAIL: 'support@fredaworkspace.com',

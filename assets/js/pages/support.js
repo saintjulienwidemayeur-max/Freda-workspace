@@ -75,6 +75,7 @@
     document.querySelector('[data-for="' + id + '"]').classList.toggle('show', show);
     return !show;
   }
+  document.querySelectorAll('form[role=search]').forEach((f) => f.addEventListener('submit', (e) => e.preventDefault()));
   $('#contact-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     let ok = err('ct-name', $('#ct-name').value.trim().length < 2);

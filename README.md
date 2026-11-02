@@ -61,3 +61,20 @@ assets/
 
 Les données de l'espace client sont des exemples stockés dans le navigateur. Le bouton « Réinitialiser » du bandeau les remet à zéro.
 Carte de test refusée : tout numéro valide se terminant par `0002` (ex. `4000 0000 0000 0002`).
+
+## Tests et intégration continue
+
+```bash
+npm install
+npx playwright install chromium   # une seule fois
+npm test                          # tests statiques (SEO, CSP, liens) + parcours navigateur
+```
+
+Les tests démarrent un serveur local avec **les mêmes en-têtes que la production** (lus dans `render.yaml`, dont la CSP stricte) et échouent à la moindre erreur JavaScript, violation CSP, lien cassé, débordement horizontal ou page privée indexable. La CI GitHub (`.github/workflows/ci.yml`) les exécute à chaque push et vérifie que `assets/css/tailwind.css` et `assets/js/icons.js` sont à jour.
+
+## Sécurité, SEO et suivi
+
+- **CSP stricte** (`render.yaml`) : `script-src 'self'` seulement, aucun script ni gestionnaire inline, tout est auto-hébergé (polices, icônes, QR code). N'ajoutez pas de script tiers sans mettre à jour la CSP.
+- **Validation côté serveur obligatoire** : les contrôles du frontend (formats de domaine, champs, montants, prix) sont une aide pour l'utilisateur, jamais une protection. Le backend doit revalider chaque entrée, recalculer les prix et vérifier les droits de l'utilisateur.
+- **SEO** : `robots.txt`, `sitemap.xml`, canonical et Open Graph absolus (`https://fredaworkspace.com`). Les pages de connexion, paiement et espace client sont en `noindex`. Si le domaine change, mettez à jour ces fichiers (les tests le signalent).
+- **Audience et erreurs** : renseignez `ANALYTICS_DOMAIN` (Plausible, sans cookie, respecte Do Not Track) et `ERROR_ENDPOINT` (reçoit les erreurs JS en JSON) dans `assets/js/config.js`. Évènements : `domain_search`, `signup`, `login`, `purchase`, `domain_connect`, `domain_verified`. `FW.track(nom, props)` pour en ajouter ; n'y mettez jamais de donnée personnelle.

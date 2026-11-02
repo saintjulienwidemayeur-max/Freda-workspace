@@ -523,5 +523,21 @@
     return Array.from(arr, (n) => chars[n % chars.length]).join('');
   }
 
-  window.FW = { config: C, store, money, date, planPrice, normalizeDomain, searchDomains, cart, auth, payments, workspace, domains, dns, mailboxes, generatePassword, wait };
+  /* ---------- Évènements de parcours (mesure d'audience, voir monitor.js) ---------- */
+  const trackAfter = (obj, name, evt, props) => {
+    const fn = obj[name];
+    obj[name] = async function (...args) {
+      const res = await fn.apply(this, args);
+      try { if (window.FW && window.FW.track) window.FW.track(evt, props ? props(args, res) : undefined); } catch (e) { /* ignore */ }
+      return res;
+    };
+  };
+  trackAfter(auth, 'signup', 'signup');
+  trackAfter(auth, 'login', 'login');
+  trackAfter(payments, 'checkout', 'purchase', (a) => ({ kind: a[0].kind, method: a[0].method }));
+  trackAfter(domains, 'buy', 'purchase', () => ({ kind: 'domain', source: 'dashboard' }));
+  trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
+  trackAfter(domains, 'verify', 'domain_verified');
+
+  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, searchDomains: async (q) => { const r = await searchDomains(q); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, dns, mailboxes, generatePassword, wait });
 })();

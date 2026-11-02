@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Informations légales · Freda Workspace</title>
   <meta name="description" content="Conditions d’utilisation, confidentialité, remboursement, cookies, informations réglementaires et conformité de Freda Workspace, service de Freda Pay LLC.">
+  <link rel="canonical" href="https://fredaworkspace.com/legal.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Freda Workspace">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://fredaworkspace.com/legal.html">
+  <meta property="og:title" content="Informations légales · Freda Workspace">
+  <meta property="og:description" content="Conditions d’utilisation, confidentialité, remboursement, cookies, informations réglementaires et conformité de Freda Workspace, service de Freda Pay LLC.">
+  <meta property="og:image" content="https://fredaworkspace.com/og-image-1200x630.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Informations légales · Freda Workspace">
+  <meta name="twitter:description" content="Conditions d’utilisation, confidentialité, remboursement, cookies, informations réglementaires et conformité de Freda Workspace, service de Freda Pay LLC.">
+  <meta name="twitter:image" content="https://fredaworkspace.com/og-image-1200x630.png">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#2B64E4">
@@ -149,20 +163,9 @@
   </style>
   <script src="assets/js/icons.js"></script>
   <script src="assets/js/config.js"></script>
+  <script src="assets/js/monitor.js"></script>
   <script src="assets/js/api.js"></script>
   <script src="assets/js/ui.js"></script>
-  <script>
-    /* Affiche la section correspondant à l'ancre (#cgu, #confidentialite...). */
-    (function () {
-      function show() {
-        const id = (location.hash || '#cgu').slice(1);
-        const target = document.getElementById(id) ? id : 'cgu';
-        document.querySelectorAll('.legal-section').forEach((s) => { s.hidden = s.id !== target; });
-        document.querySelectorAll('.legal-link').forEach((a) => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + target)));
-      }
-      window.addEventListener('hashchange', () => { show(); window.scrollTo({ top: 0 }); });
-      show();
-    })();
-  </script>
+  <script src="assets/js/pages/legal.js"></script>
 </body>
 </html>

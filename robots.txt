@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /espace/
+Disallow: /paiement.html
+Disallow: /panier.html
+Disallow: /connexion.html
+Disallow: /inscription.html
+Disallow: /configurer-email.html
+Disallow: /email-pro.html
+
+Sitemap: https://fredaworkspace.com/sitemap.xml

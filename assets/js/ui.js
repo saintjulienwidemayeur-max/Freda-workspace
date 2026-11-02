@@ -25,7 +25,7 @@
       const name = type === 'moncash' ? 'MonCash' : 'NatCash';
       const h = size === 'sm' ? 'h-5' : 'h-7';
       const fb = type === 'moncash' ? 'background:#FDECEC;color:#B4121B' : 'background:#FFF1E2;color:#B45309';
-      return `<img src="${BASE}assets/img/pay/${type}.png" alt="${name}" class="${h} w-auto object-contain" onerror="this.outerHTML='<span class=&quot;inline-flex items-center rounded-md font-extrabold tracking-tight ${s}&quot; style=&quot;${fb}&quot;>${name}</span>'">`;
+      return `<img src="${BASE}assets/img/pay/${type}.png" alt="${name}" class="${h} w-auto object-contain" data-fallback="${name}" data-fallback-style="${fb}" data-fallback-class="${s}">`;
     }
     /* Visa, Mastercard et American Express : logos vectoriels dans assets/img/pay/ */
     const cards = { visa: ['Visa', 'h-4', 'h-3'], mastercard: ['Mastercard', 'h-6', 'h-5'], amex: ['American Express', 'h-6', 'h-5'] };
@@ -35,6 +35,17 @@
     }
     return '';
   }
+
+  /* Logo absent : affiche le nom en texte (compatible CSP, sans gestionnaire inline). */
+  document.addEventListener('error', (e) => {
+    const img = e.target;
+    if (!img || img.tagName !== 'IMG' || !img.dataset.fallback) return;
+    const span = document.createElement('span');
+    span.className = 'inline-flex items-center rounded-md font-extrabold tracking-tight ' + (img.dataset.fallbackClass || '');
+    span.style.cssText = img.dataset.fallbackStyle || '';
+    span.textContent = img.dataset.fallback;
+    img.replaceWith(span);
+  }, true);
 
   /* ---------- En-tête du site public ---------- */
   function renderHeader(active = '') {
