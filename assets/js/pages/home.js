@@ -8,7 +8,6 @@
 
   /* ---------- Marques de paiement ---------- */
   $('#pay-marks').innerHTML = ['visa', 'mastercard', 'amex', 'moncash', 'natcash'].map((t) => FWUI.payMark(t)).join('');
-  $('#viz-paymark').innerHTML = FWUI.payMark('moncash', 'sm');
   document.querySelectorAll('[data-brand]').forEach((el) => { el.outerHTML = FWUI.BRAND[el.dataset.brand].replace('width="20" height="20"', 'width="16" height="16"'); });
 
   /* ---------- Recherche de domaine ---------- */
@@ -25,22 +24,13 @@
   const heroInput = $('#hero-domain');
   const heroError = $('#hero-error');
   const preview = $('#hero-preview');
-  const vizDomain = $('#viz-domain');
-  const vizMail = $('#viz-mail');
 
   /* Aperçu en direct : contact@<domaine> */
-  let replayTimer;
   heroInput.addEventListener('input', () => {
     heroError.classList.remove('show');
     const n = FW.normalizeDomain(heroInput.value);
     const domain = n.error ? 'votreentreprise.com' : n.label + (n.tld || '.com');
     preview.textContent = domain;
-    if (!n.error) {
-      vizDomain.textContent = domain;
-      vizMail.textContent = 'contact@' + domain;
-      clearTimeout(replayTimer);
-      replayTimer = setTimeout(replaySteps, 500);
-    }
   });
 
   FWUI.attachSuggest(heroInput, { onPick: (d) => goSearch(d, heroError, heroInput) });
@@ -52,14 +42,6 @@
     heroInput.dispatchEvent(new Event('input'));
     heroInput.focus();
   }));
-
-  /* Coches MX / SPF / DKIM / DMARC du visuel (état final visible dès le chargement) */
-  const checks = [...document.querySelectorAll('.viz-check')];
-  checks.forEach((c) => c.classList.add('done'));
-  function replaySteps() {
-    checks.forEach((c) => c.classList.remove('done'));
-    checks.forEach((c, i) => setTimeout(() => c.classList.add('done'), 300 + i * 350));
-  }
 
   /* ---------- Tarifs ---------- */
   let cycle = 'monthly';

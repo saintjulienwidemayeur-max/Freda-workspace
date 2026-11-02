@@ -42,23 +42,23 @@
       </div>
 
       <div class="relative gutter">
-        <div class="max-w-site mx-auto pt-12 pb-16 md:pt-20 md:pb-24 grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-10 items-center">
+        <div class="max-w-site mx-auto pt-12 pb-16 md:pt-20 md:pb-24 ">
 
-          <div class="min-w-0">
+          <div class="min-w-0 max-w-3xl mx-auto text-center">
 
             <h1 class="text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.6rem] font-extrabold tracking-tight">
               Boostez votre entreprise avec <span class="text-gradient">Freda Workspace.</span>
             </h1>
-            <p class="mt-5 text-lg sm:text-xl text-slate-600 max-w-xl">Nom de domaine, messagerie professionnelle et DNS configurés pour votre entreprise en quelques minutes. Règlement par carte, MonCash ou NatCash.</p>
+            <p class="mt-5 text-lg sm:text-xl text-slate-600 max-w-xl mx-auto">Nom de domaine, messagerie professionnelle et DNS configurés pour votre entreprise en quelques minutes. Règlement par carte, MonCash ou NatCash.</p>
 
             <!-- Barre de recherche de domaine -->
-            <form id="hero-search" class="mt-8 max-w-xl" novalidate role="search" aria-label="Rechercher un nom de domaine">
+            <form id="hero-search" class="mt-8 max-w-xl mx-auto text-left" novalidate role="search" aria-label="Rechercher un nom de domaine">
               <div class="card-elevated p-2 flex flex-col sm:flex-row gap-2" data-suggest-anchor>
                 <label for="hero-domain" class="sr-only">Nom de domaine</label>
                 <div class="relative flex-1 min-w-0">
                   <i data-lucide="globe" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-freda pointer-events-none"></i>
                   <input id="hero-domain" name="q" type="text" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false"
-                    placeholder="Nom de votre entreprise ou de votre marque..." class="w-full h-12 pl-11 pr-3 rounded-lg text-base text-ink placeholder:text-slate-400 focus:outline-none bg-transparent">
+                    placeholder="Votre entreprise ou marque..." class="w-full h-12 pl-11 pr-3 rounded-lg text-base text-ink placeholder:text-slate-400 focus:outline-none bg-transparent">
                 </div>
                 <button type="submit" class="btn btn-cta btn-lg h-12"><i data-lucide="search"></i>Rechercher Domaine</button>
               </div>
@@ -83,51 +83,9 @@
             </form>
 
             <!-- Badges de confiance -->
-            <ul class="mt-9 grid sm:grid-cols-1 gap-3 max-w-xl">
+            <ul class="mt-9 flex justify-center gap-3">
               <li class="flex items-center gap-2.5 text-sm font-medium text-ink"><span class="w-9 h-9 rounded-lg bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="at-sign" class="w-[18px] h-[18px]"></i></span>Email Pro Personnalisé</li>
             </ul>
-          </div>
-
-          <!-- Visuel : provisionnement en direct -->
-          <div class="relative min-w-0" aria-hidden="true">
-            <div class="relative rounded-[24px] bg-brand-gradient p-6 sm:p-8 shadow-2xl overflow-hidden">
-              <img src="assets/img/symbole-blanc.svg" alt="" class="absolute -right-10 -bottom-12 w-64 opacity-[.07]">
-
-              <div class="bg-white rounded-2xl p-5 shadow-xl">
-                <div class="flex items-center gap-3">
-                  <span class="w-10 h-10 rounded-xl bg-mist text-freda grid place-items-center"><i data-lucide="globe"></i></span>
-                  <div class="min-w-0">
-                    <p class="text-xs text-muted">Domaine</p>
-                    <p class="font-display font-bold text-ink mono truncate" id="viz-domain">boulangerielakay.com</p>
-                  </div>
-                  <span class="ml-auto badge badge-success"><i data-lucide="check"></i>Enregistré</span>
-                </div>
-                <ul class="mt-5 space-y-2.5 text-sm" id="viz-steps">
-                  <li class="flex items-center gap-3"><span class="viz-check"></span><span class="mono text-xs font-semibold w-14 text-deep">MX</span><span class="text-slate-500 truncate">mailserver.purelymail.com</span></li>
-                  <li class="flex items-center gap-3"><span class="viz-check"></span><span class="mono text-xs font-semibold w-14 text-deep">SPF</span><span class="text-slate-500 truncate">v=spf1 include:_spf…</span></li>
-                  <li class="flex items-center gap-3"><span class="viz-check"></span><span class="mono text-xs font-semibold w-14 text-deep">DKIM</span><span class="text-slate-500 truncate">3 clés de signature</span></li>
-                  <li class="flex items-center gap-3"><span class="viz-check"></span><span class="mono text-xs font-semibold w-14 text-deep">DMARC</span><span class="text-slate-500 truncate">Politique de protection</span></li>
-                </ul>
-              </div>
-
-              <div class="mt-4 bg-white/10 border border-white/15 backdrop-blur rounded-2xl p-4 flex items-center gap-3 text-white">
-                <span class="w-10 h-10 rounded-full bg-white text-freda grid place-items-center shrink-0"><i data-lucide="inbox"></i></span>
-                <div class="min-w-0">
-                  <p class="text-sm font-semibold truncate mono" id="viz-mail">contact@boulangerielakay.com</p>
-                  <p class="text-xs text-white/70">Boîte prête · Webmail, iOS et Android</p>
-                </div>
-                <i data-lucide="circle-check" class="ml-auto text-cta shrink-0"></i>
-              </div>
-            </div>
-
-            <!-- Carte flottante paiement -->
-            <div class="hidden sm:flex absolute -left-6 -bottom-6 card-elevated px-4 py-3 items-center gap-3">
-              <span class="w-9 h-9 rounded-lg bg-emerald-50 text-cta grid place-items-center"><i data-lucide="badge-check" class="w-5 h-5"></i></span>
-              <div>
-                <p class="text-xs text-muted">Paiement confirmé</p>
-                <p class="text-sm font-bold text-ink tabular">$9.99 · <span id="viz-paymark"></span></p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -410,9 +368,6 @@
 
   <style>
     /* Coches animées du visuel hero */
-    .viz-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #CBD5E6; flex-shrink: 0; position: relative; transition: all .3s; }
-    .viz-check.done { background: #10B981; border-color: #10B981; }
-    .viz-check.done::after { content: ""; position: absolute; left: 5px; top: 2px; width: 6px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
     #qr-code svg, #qr-code-lg svg { width: 100%; height: 100%; }
   </style>
 
