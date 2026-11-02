@@ -16,7 +16,7 @@
     apple: '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M16.37 1.43c0 1.14-.5 2.27-1.18 3.08-.74.9-1.99 1.57-2.99 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.57-2.27 1.21-2.98.8-.94 2.14-1.64 3.25-1.68.03.13.05.28.05.43zm4.56 15.71c-.03.07-.46 1.58-1.52 3.12-.94 1.34-1.94 2.71-3.43 2.71-1.52 0-1.9-.88-3.63-.88-1.7 0-2.3.91-3.67.91-1.38 0-2.33-1.26-3.43-2.8-1.29-1.82-2.32-4.63-2.32-7.28 0-4.28 2.8-6.55 5.55-6.55 1.45 0 2.68.95 3.6.95.87 0 2.22-1.01 3.9-1.01.61 0 2.89.06 4.37 2.19-.13.09-2.38 1.37-2.38 4.19 0 3.26 2.85 4.42 2.96 4.45z"/></svg>',
   };
 
-  /* Marques des moyens de paiement (texte stylisé, à remplacer par les logos officiels fournis par les opérateurs). */
+  /* Marques des moyens de paiement. */
   function payMark(type, size = 'md') {
     const s = size === 'sm' ? 'text-[11px] px-1.5 py-0.5' : 'text-xs px-2 py-1';
     /* Vrais logos : déposez assets/img/pay/moncash.png et natcash.png (fond transparent conseillé).
@@ -27,9 +27,12 @@
       const fb = type === 'moncash' ? 'background:#FDECEC;color:#B4121B' : 'background:#FFF1E2;color:#B45309';
       return `<img src="${BASE}assets/img/pay/${type}.png" alt="${name}" class="${h} w-auto object-contain" onerror="this.outerHTML='<span class=&quot;inline-flex items-center rounded-md font-extrabold tracking-tight ${s}&quot; style=&quot;${fb}&quot;>${name}</span>'">`;
     }
-    if (type === 'visa') return `<span class="inline-flex items-center rounded-md font-extrabold italic tracking-tight ${s}" style="background:#EEF2FF;color:#1A1F71">VISA</span>`;
-    if (type === 'mastercard') return `<span class="inline-flex items-center gap-0.5 rounded-md ${s}" style="background:#F4F4F5" aria-label="Mastercard"><span class="w-3 h-3 rounded-full" style="background:#EB001B"></span><span class="w-3 h-3 -ml-1.5 rounded-full opacity-90" style="background:#F79E1B"></span></span>`;
-    if (type === 'amex') return `<span class="inline-flex items-center rounded-md font-extrabold tracking-tight ${s}" style="background:#E6F1FB;color:#1F6FB2">AMEX</span>`;
+    /* Visa, Mastercard et American Express : logos vectoriels dans assets/img/pay/ */
+    const cards = { visa: ['Visa', 'h-4', 'h-3'], mastercard: ['Mastercard', 'h-6', 'h-5'], amex: ['American Express', 'h-6', 'h-5'] };
+    if (cards[type]) {
+      const [name, hMd, hSm] = cards[type];
+      return `<span class="inline-flex items-center justify-center rounded-md bg-white border border-slate-200 ${size === 'sm' ? 'px-1.5 py-1' : 'px-2.5 py-1.5'}"><img src="${BASE}assets/img/pay/${type}.svg" alt="${name}" class="${size === 'sm' ? hSm : hMd} w-auto"></span>`;
+    }
     return '';
   }
 
