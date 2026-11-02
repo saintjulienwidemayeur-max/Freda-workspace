@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 120 120" width="96" height="96" role="img" aria-label="Chargement">
+<defs>
+<linearGradient id="g" gradientUnits="userSpaceOnUse" x1="14" y1="14" x2="86" y2="86"><stop offset="0" stop-color="#2F9BFF"/><stop offset="1" stop-color="#3B6FF5"/></linearGradient>
+</defs>
+<style>
+.r{fill:none;stroke:url(#g);stroke-width:9;stroke-linecap:round;animation-duration:3.2s;animation-iteration-count:infinite}
+.a{animation-name:a}.b{animation-name:b}
+.p{fill:#2F9BFF;opacity:0;animation:p 3.2s infinite;animation-delay:var(--d)}
+@keyframes a{0%{stroke-dasharray:100.00 0.00;stroke-dashoffset:50.00;opacity:1;animation-timing-function:linear}12%{stroke-dasharray:100.00 0.00;stroke-dashoffset:50.00;opacity:1;animation-timing-function:cubic-bezier(.65,0,.35,1)}38%{stroke-dasharray:1.20 98.80;stroke-dashoffset:0.60;opacity:1;animation-timing-function:linear}41%{stroke-dasharray:0.01 99.99;stroke-dashoffset:0.01;opacity:0;animation-timing-function:linear}100%{stroke-dasharray:0.01 99.99;stroke-dashoffset:0.01;opacity:0;animation-timing-function:linear}}
+@keyframes b{0%{stroke-dasharray:0.01 99.99;stroke-dashoffset:-49.99;opacity:0;animation-timing-function:linear}45%{stroke-dasharray:0.01 99.99;stroke-dashoffset:-49.99;opacity:0;animation-timing-function:linear}46%{stroke-dasharray:1.20 98.80;stroke-dashoffset:-49.40;opacity:1;animation-timing-function:cubic-bezier(.2,.7,.3,1)}80%{stroke-dasharray:92.00 8.00;stroke-dashoffset:-4.00;opacity:1;animation-timing-function:cubic-bezier(.2,.7,.3,1)}90%{stroke-dasharray:100.00 0.00;stroke-dashoffset:0.00;opacity:1;animation-timing-function:linear}100%{stroke-dasharray:100.00 0.00;stroke-dashoffset:0.00;opacity:1;animation-timing-function:linear}}
+@keyframes p{0%,58%{opacity:0;transform:translate(0,0) scale(1)}62%{opacity:1}90%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.4)}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.r,.p{animation:none}.a{stroke-dasharray:100 0;opacity:1}.b,.p{opacity:0}}
+</style>
+<g transform="rotate(-90 50 50)">
+<circle class="r a" cx="50" cy="50" r="40" pathLength="100"/>
+<circle class="r b" cx="50" cy="50" r="40" pathLength="100"/>
+</g>
+<g transform="rotate(0)"><circle class="p" cx="46.5" cy="6.9" r="1.6" style="--dx:4.8px;--dy:-19.0px;--d:0.04s"/><circle class="p" cx="41.2" cy="9.0" r="0.9" style="--dx:-14.8px;--dy:-13.9px;--d:0.01s"/><circle class="p" cx="48.5" cy="11.0" r="1.7" style="--dx:-12.0px;--dy:-16.9px;--d:0.11s"/><circle class="p" cx="51.5" cy="8.4" r="2.0" style="--dx:15.2px;--dy:-19.3px;--d:0.03s"/><circle class="p" cx="42.9" cy="6.7" r="1.1" style="--dx:-6.1px;--dy:-8.6px;--d:0.07s"/><circle class="p" cx="52.8" cy="8.2" r="0.9" style="--dx:1.5px;--dy:-19.1px;--d:0.02s"/><circle class="p" cx="53.6" cy="8.6" r="1.4" style="--dx:-5.9px;--dy:-11.8px;--d:0.04s"/><circle class="p" cx="55.9" cy="10.2" r="1.5" style="--dx:-8.2px;--dy:-12.0px;--d:0.11s"/><circle class="p" cx="54.6" cy="7.7" r="1.4" style="--dx:15.4px;--dy:-18.3px;--d:0.09s"/><circle class="p" cx="43.0" cy="8.9" r="1.9" style="--dx:-14.7px;--dy:-10.6px;--d:0.07s"/><circle class="p" cx="57.5" cy="7.9" r="1.6" style="--dx:6.2px;--dy:-11.7px;--d:0.05s"/><circle class="p" cx="56.8" cy="11.7" r="0.9" style="--dx:-0.8px;--dy:-10.7px;--d:0.08s"/><circle class="p" cx="52.9" cy="12.0" r="1.3" style="--dx:10.3px;--dy:-16.0px;--d:0.08s"/><circle class="p" cx="40.5" cy="8.8" r="0.9" style="--dx:-10.6px;--dy:-18.4px;--d:0.09s"/></g>
+</svg>
