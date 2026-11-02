@@ -47,6 +47,17 @@
     report({ type: 'unhandledrejection', message: String(r && r.message ? r.message : r).slice(0, 300), source: '', line: 0, stack: r && r.stack ? String(r.stack).slice(0, 1500) : '' });
   });
 
+  /* ----- Écran de chargement : retiré quand la page et les polices sont prêtes ----- */
+  function hideLoader() {
+    const l = document.getElementById('page-loader');
+    if (!l || l.classList.contains('done')) return;
+    l.classList.add('done');
+    setTimeout(() => l.remove(), 450);
+  }
+  const ready = new Promise((res) => { if (document.readyState === 'complete') res(); else window.addEventListener('load', res, { once: true }); });
+  Promise.race([Promise.all([ready, document.fonts && document.fonts.ready]).catch(() => {}), new Promise((r) => setTimeout(r, 4000))]).then(hideLoader);
+  window.addEventListener('pageshow', (e) => { if (e.persisted) hideLoader(); });
+
   window.FW_MONITOR = { track };
   window.FW = window.FW || {};
   window.FW.track = track;
