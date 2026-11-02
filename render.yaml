@@ -2,12 +2,27 @@ services:
   - type: web
     name: freda-workspace
     runtime: static
-    buildCommand: echo "no build"
+    buildCommand: echo ok
     staticPublishPath: .
     headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
       - path: /*
         name: X-Frame-Options
         value: SAMEORIGIN
       - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /assets/fonts/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /assets/img/*
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /assets/css/*
+        name: Cache-Control
+        value: public, max-age=3600
+      - path: /assets/js/*
+        name: Cache-Control
+        value: public, max-age=3600

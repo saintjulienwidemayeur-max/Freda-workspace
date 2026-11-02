@@ -5,7 +5,7 @@ HTML5 + Tailwind CSS + JavaScript pur (sans build), icônes Lucide, polices Manr
 
 ## Démarrer
 
-Aucune installation n'est nécessaire. Servez le dossier avec n'importe quel serveur statique :
+Le CSS Tailwind et les icônes sont déjà compilés et versionnés (`assets/css/tailwind.css`, `assets/js/icons.js`) : aucune installation n'est nécessaire pour déployer. Servez le dossier avec n'importe quel serveur statique :
 
 ```bash
 npx serve .            # ou
@@ -37,7 +37,8 @@ Puis ouvrez `http://localhost:8080`. Netlify, Vercel ou Render (site statique) f
 ```
 assets/
   css/styles.css          Composants de la marque (boutons, cartes, formulaires, modales...)
-  js/tailwind-config.js   Couleurs et polices Freda pour Tailwind
+  tailwind.css (généré)    CSS Tailwind compilé ; fonts.css = polices auto-hébergées
+  js/icons.js (généré)    Icônes Lucide utilisées uniquement
   js/config.js            Offres, prix, extensions, taux HTG, serveurs mail, DNS
   js/api.js               Couche de données (mode démo + appels REST)
   js/ui.js                En-tête, pied de page, notifications, modales, copie
@@ -53,7 +54,7 @@ assets/
 3. **Carte bancaire** : utilisez le formulaire sécurisé ou le SDK de Freda Pay pour tokeniser la carte. N'envoyez jamais le numéro complet à votre serveur (PCI-DSS).
 4. **MonCash / NatCash** : le backend crée la transaction via Freda Pay et renvoie l'URL de redirection ou déclenche la demande sur le téléphone.
 5. **Google / Apple** : `FW.auth.oauth()` redirige vers `/auth/oauth/google|apple`. Avec Supabase, remplacez par `supabase.auth.signInWithOAuth({ provider })`.
-6. **Tailwind** : remplacez le CDN par une compilation (`npx tailwindcss -i in.css -o assets/css/tailwind.css --minify`) avec le thème de `tailwind-config.js`.
+6. **Régénérer le CSS / les icônes** après une modification de classes ou d'icônes : `npm install && npm run build` (thème dans `tailwind.config.js`).
 7. **À compléter** : liens App Store / Play Store, adresse de support, serveurs de noms, textes légaux, taux HTG dynamique.
 
 ## Mode démonstration

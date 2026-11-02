@@ -1,10 +1,6 @@
-/**
- * Configuration Tailwind (Play CDN).
- * À charger juste APRÈS <script src="https://cdn.tailwindcss.com/3.4.17">.
- * En production, compilez Tailwind (CLI ou PostCSS) avec ce même thème
- * plutôt que d'utiliser le CDN.
- */
-tailwind.config = {
+/** Thème Tailwind Freda (compilé via `npm run build:css`). */
+module.exports = {
+  content: ["./*.html", "./espace/*.html", "./assets/js/**/*.js"],
   theme: {
     extend: {
       colors: {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Freda Workspace</title>
+  <title>Freda Workspace · Domaine et email professionnels pour votre entreprise</title>
   <meta name="claude:viewport-fit-sides" content="cover">
   <meta name="description" content="Nom de domaine, messagerie professionnelle et DNS pour votre entreprise, au sein d’une seule plateforme. Règlement par carte, MonCash ou NatCash via Freda Pay.">
   <meta property="og:title" content="Freda Workspace — Domaine et email professionnels en 2 minutes">
@@ -13,16 +13,12 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
+  <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#2B64E4">
-
-  <!-- Polices de la marque : Manrope (titres) + Inter (texte) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
-
-  <!-- Tailwind (Play CDN) + thème Freda -->
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/tailwind.css">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body data-base="" data-nav="">
@@ -373,7 +369,7 @@
     #qr-code svg, #qr-code-lg svg { width: 100%; height: 100%; }
   </style>
 
-  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/js/icons.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
   <script src="assets/js/config.js"></script>
   <script src="assets/js/api.js"></script>
