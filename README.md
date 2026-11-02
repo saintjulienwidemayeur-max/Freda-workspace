@@ -78,3 +78,7 @@ Les tests démarrent un serveur local avec **les mêmes en-têtes que la product
 - **Validation côté serveur obligatoire** : les contrôles du frontend (formats de domaine, champs, montants, prix) sont une aide pour l'utilisateur, jamais une protection. Le backend doit revalider chaque entrée, recalculer les prix et vérifier les droits de l'utilisateur.
 - **SEO** : `robots.txt`, `sitemap.xml`, canonical et Open Graph absolus (`https://fredaworkspace.com`). Les pages de connexion, paiement et espace client sont en `noindex`. Si le domaine change, mettez à jour ces fichiers (les tests le signalent).
 - **Audience et erreurs** : renseignez `ANALYTICS_DOMAIN` (Plausible, sans cookie, respecte Do Not Track) et `ERROR_ENDPOINT` (reçoit les erreurs JS en JSON) dans `assets/js/config.js`. Évènements : `domain_search`, `signup`, `login`, `purchase`, `domain_connect`, `domain_verified`. `FW.track(nom, props)` pour en ajouter ; n'y mettez jamais de donnée personnelle.
+
+## Backend
+
+L'API (recherche et achat de domaines via NameSilo) est dans un dépôt séparé : [Freda-workspace-backend](https://github.com/saintjulienwidemayeur-max/Freda-workspace-backend). Quand elle est en ligne, mettez dans `assets/js/config.js` : `API_BASE: 'https://api.fredaworkspace.com/api'` et `DEMO_MODE: false`. La CSP (`render.yaml`) autorise déjà `https://api.fredaworkspace.com`. Les routes attendues sont listées en tête de `assets/js/api.js`.

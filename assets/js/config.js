@@ -11,7 +11,7 @@ window.FW_CONFIG = {
   /* URL de votre backend (Node, Laravel, Supabase Edge Functions...).
      Le frontend n'appelle JAMAIS directement le Registrar, Purelymail
      ou Freda Pay : les clés API restent côté serveur. */
-  API_BASE: '/api',   // production : 'https://api.fredaworkspace.com/api' (voir backend/README.md ; ajouter l'origine à connect-src dans render.yaml)
+  API_BASE: '/api',   // production : 'https://api.fredaworkspace.com/api' (voir le dépôt Freda-workspace-backend ; ajouter l'origine à connect-src dans render.yaml)
 
   /* true = données simulées dans le navigateur (démo / maquette).
      Passez à false une fois les routes du backend en place (voir api.js). */
