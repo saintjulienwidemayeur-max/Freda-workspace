@@ -326,6 +326,8 @@
     if (stage === 'email') {
       ok = setError('mail-local', !/^[a-z0-9]([a-z0-9._-]{0,62})$/i.test($('#mail-local').value.trim())) && ok;
       if (domainMode === 'input') ok = setError('dom-input', !/^([a-z0-9-]+\.)+[a-z]{2,}$/i.test($('#dom-input').value.trim())) && ok;
+      const pw = $('#mail-pass').value;
+      ok = setError('mail-pass', pw.length < 10 || pw.length > 128) && ok;
     }
     const needsPay = !(stage === 'domain' && domainFree) && !useSaved();
     if (needsPay) {
@@ -399,7 +401,8 @@
       const local = $('#mail-local').value.trim().toLowerCase();
       const res = await FW.payments.checkout({
         kind: 'subscription', method: saved ? savedMethod.type : method, saved, payer: saved ? null : payerInfo(),
-        domain: dom, plan: selPlan, cycle: selCycle, mailbox: local + '@' + dom,
+        domain: dom, plan: selPlan, cycle: selCycle, mailbox: local + '@' + dom, mailboxPassword: $('#mail-pass').value,
+        methodId: saved && savedMethod ? savedMethod.id : undefined,
       });
       if (FW.config.DEMO_MODE) FW.workspace.subscribe({ domain: dom, plan: selPlan, cycle: selCycle, local, method: saved ? savedMethod.type : method, payer: saved ? null : payerInfo(), saved, reference: res.reference, amount: res.amount });
       FWUI.closeModal('modal-processing');
@@ -449,7 +452,7 @@
     const external = domainMode === 'input';
     const steps = external
       ? ['Offre ' + C.PLANS[selPlan].name + ' activée', 'Boîte ' + mailbox + ' préparée', 'Instructions DNS générées pour ' + dom]
-      : ['Offre ' + C.PLANS[selPlan].name + ' activée', 'Enregistrements MX, SPF, DKIM et DMARC ajoutés à ' + dom, 'Boîte ' + mailbox + ' créée', 'Identifiants envoyés par email'];
+      : ['Offre ' + C.PLANS[selPlan].name + ' activée', 'Enregistrements MX, SPF, DKIM et DMARC ajoutés à ' + dom, 'Boîte ' + mailbox + ' créée', 'Connectez-vous dans l’application avec cette adresse et votre mot de passe'];
     const list = $('#prov-steps');
     list.innerHTML = steps.map((s) => `<li class="flex items-center gap-3 text-slate-400"><span class="w-5 h-5 rounded-full border-2 border-slate-300 shrink-0 grid place-items-center"></span><span class="break-all">${esc(s)}</span></li>`).join('');
     const items = [...list.children];

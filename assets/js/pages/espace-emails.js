@@ -122,7 +122,7 @@
     const btn = e.target.querySelector('[type=submit]');
     FWUI.setLoading(btn, true, 'Création...');
     try {
-      const box = await FW.mailboxes.create({ local, domain: $('#box-domain').value, name: $('#box-name').value.trim() });
+      const box = await FW.mailboxes.create({ local, domain: $('#box-domain').value, name: $('#box-name').value.trim(), password: $('#box-pass').value });
       FWUI.closeModal('modal-box');
       render();
       FWUI.toast(esc(box.address) + (box.providerReady === false ? ' est enregistrée (en attente du serveur de messagerie)' : ' est prête'));
@@ -164,7 +164,10 @@
       const m = ws.mailboxes.find((x) => x.id === reset.dataset.reset);
       const pass = FW.generatePassword();
       const ok = await FWUI.confirmDialog({ title: 'Réinitialiser le mot de passe', message: `Nouveau mot de passe pour <span class="mono">${esc(m.address)}</span> :<br><span class="mono text-ink font-semibold select-all break-all">${esc(pass)}</span><br>Les appareils connectés devront se reconnecter.`, confirmLabel: 'Copier et appliquer' });
-      if (ok) FWUI.copy(pass, 'Nouveau mot de passe appliqué et copié');
+      if (ok) {
+        try { await FW.mailboxes.setPassword(m.id, pass); FWUI.copy(pass, 'Nouveau mot de passe appliqué et copié'); }
+        catch (err) { FWUI.toast(err.message, 'error'); }
+      }
     }
     const del = e.target.closest('[data-del]');
     if (del && !del.disabled) {

@@ -266,14 +266,14 @@
      * kind = 'subscription' : offre email + première boîte (étape 2, facultative)
      * saved = true : réutilise le moyen de paiement déjà enregistré (jeton Freda Pay)
      */
-    async checkout({ kind, method, payer, saved, domain, plan, cycle, mailbox }) {
+    async checkout({ kind, method, payer, saved, domain, plan, cycle, mailbox, mailboxPassword, methodId }) {
       const c = cart.get();
       const amount = kind === 'domain' ? cart.totals(c).domain : planPrice(plan, cycle);
       if (!C.DEMO_MODE) {
         // Le navigateur n'envoie QUE le choix : le serveur recalcule prix, durée et disponibilité. Aucune donnée de carte ne part vers notre API.
         const body = kind === 'domain'
           ? { kind, method, domains: domainsOf(c).map((d) => d.domain), years: cart.totals(c).years }
-          : { kind, method, plan, cycle, domain, mailbox: mailbox ? { local: String(mailbox).split('@')[0] } : null };
+          : { kind, method, methodId, plan, cycle, domain, mailbox: mailbox ? { local: String(mailbox).split('@')[0], password: mailboxPassword } : null };
         return payments.settle(await request('/checkout', { method: 'POST', body, idempotencyKey: newKey() }));
       }
       const payload = { kind, method, saved: !!saved, domain: domain || c.domain?.domain, years: kind === 'domain' ? cart.totals(c).years : undefined, plan, cycle, mailbox, amount, currency: 'USD', payer };
@@ -620,8 +620,8 @@
 
   /* ---------- Boîtes mail (Purelymail via backend) ---------- */
   const mailboxes = {
-    async create({ local, domain, name }) {
-      if (!C.DEMO_MODE) { const r = await request('/mailboxes', { method: 'POST', body: { local, domain, name } }); await workspace.load(); return { ...r.mailbox, initialPassword: r.initialPassword, providerReady: r.providerReady }; }
+    async create({ local, domain, name, password }) {
+      if (!C.DEMO_MODE) { const r = await request('/mailboxes', { method: 'POST', body: { local, domain, name, password } }); await workspace.load(); return { ...r.mailbox, initialPassword: r.initialPassword, providerReady: r.providerReady }; }
       await wait(900);
       const s = workspace.get();
       const address = local + '@' + domain;
@@ -636,6 +636,8 @@
       workspace.save(s);
       return box;
     },
+    /** Le titulaire du compte change le mot de passe d'une boîte (l'utilisateur de l'application se reconnecte avec le nouveau). */
+    async setPassword(id, password) { if (!C.DEMO_MODE) await request('/mailboxes/' + id + '/password', { method: 'POST', body: { password } }); },
     async remove(id) {
       if (!C.DEMO_MODE) { await request('/mailboxes/' + id, { method: 'DELETE' }); await workspace.load(); return; }
       await wait(500);
