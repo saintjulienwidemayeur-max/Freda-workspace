@@ -504,7 +504,7 @@
     },
     /** Renouvellement : paiement Pay'm puis renewDomain côté serveur. */
     async renew(name, years = 1) {
-      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'renewal', domain: name, years, method: 'all' } }));
+      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'renewal', domain: name, years, ...preferredPayment() } }));
       await wait(1200);
       const s = workspace.get();
       const d = s.domains.find((x) => x.name === name);
@@ -537,9 +537,19 @@
     async remove(id) { const r = await request('/payment-methods/' + id, { method: 'DELETE' }); await workspace.load(); return r; },
   };
 
-  /** Changement d'offre en production : nouvelle commande « subscription » payée via Pay'm. */
+  /**
+   * Moyen de paiement par défaut du client : une carte enregistrée est débitée directement (Stripe) ; sinon MonCash / NatCash (Pay'm, avec page de paiement).
+   * Le serveur revérifie que le moyen appartient bien au compte ; le navigateur n'envoie jamais de montant.
+   */
+  function preferredPayment() {
+    const list = (workspace.get().paymentMethods || []);
+    const d = list.find((m) => m.default) || list[0];
+    return d && d.type === 'card' ? { method: 'card', methodId: d.id } : { method: 'all' };
+  }
+
+  /** Changement d'offre en production : nouvelle commande « subscription » (carte enregistrée si elle existe, sinon Pay'm). */
   const plans = {
-    async change({ plan, cycle }) { return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, method: 'all' } })); },
+    async change({ plan, cycle }) { return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, ...preferredPayment() } })); },
     /** Résiliation : plus de prélèvement, boîtes utilisables jusqu'à la fin de la période payée ; reprise possible avant la fin. */
     async cancel() { if (C.DEMO_MODE) return { cancelAtPeriodEnd: true }; const r = await request('/subscription/cancel', { method: 'POST' }); await workspace.load().catch(() => {}); return r; },
     async resume() { if (C.DEMO_MODE) return { cancelAtPeriodEnd: false }; const r = await request('/subscription/resume', { method: 'POST' }); await workspace.load().catch(() => {}); return r; },
