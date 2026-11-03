@@ -300,13 +300,13 @@
           <span class="w-8 h-8 rounded-lg ${it.kind === 'idea' ? 'bg-amber-50 text-amber-600' : 'bg-mist text-freda'} grid place-items-center shrink-0"><i data-lucide="${it.kind === 'idea' ? 'lightbulb' : 'globe'}" class="w-4 h-4"></i></span>
           <span class="mono text-sm font-semibold text-ink flex-1 min-w-0 truncate">${esc(it.domain)}</span>
           ${it.promo ? '<span class="badge badge-success">Promo</span>' : ''}
-          <span class="text-xs text-muted tabular shrink-0">dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>
+          ${C.DEMO_MODE ? `<span class="text-xs text-muted tabular shrink-0">dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>` : '<span class="text-xs text-muted shrink-0">prix à la recherche</span>'}
         </button>`;
       const ext = items.filter((x) => x.kind === 'tld'), ideas = items.filter((x) => x.kind === 'idea');
       box.innerHTML = `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Extensions populaires</p>`
         + ext.map((it) => row(it, items.indexOf(it))).join('')
         + (ideas.length ? `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400 border-t border-line mt-1">Idées de noms</p>` + ideas.map((it) => row(it, items.indexOf(it))).join('') : '')
-        + `<p class="px-4 py-2.5 text-xs text-slate-500 bg-slate-50 border-t border-line flex items-center gap-2"><i data-lucide="mail-check" class="w-3.5 h-3.5 text-cta"></i>Email pro inclus avec chaque offre. Disponibilité vérifiée à l’étape suivante.</p>`;
+        + `<p class="px-4 py-2.5 text-xs text-slate-500 bg-slate-50 border-t border-line flex items-center gap-2"><i data-lucide="mail-check" class="w-3.5 h-3.5 text-cta"></i>Email pro inclus avec chaque offre. Prix et disponibilité réels affichés après la recherche.</p>`;
       box.hidden = false;
       icons();
     }
