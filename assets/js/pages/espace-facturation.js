@@ -28,9 +28,27 @@
         </div>
       </div>`;
     }).join('');
-    $('#renew-line').innerHTML = !ws.plan ? '<i data-lucide="info" class="w-4 h-4"></i>Aucun abonnement email pour le moment. Votre domaine est déjà actif, vous pouvez ajouter l’email pro quand vous voulez.' : `<i data-lucide="calendar-clock" class="w-4 h-4"></i>Prochain renouvellement le ${FW.date(ws.plan.renews)} · ${FW.money(FW.planPrice(ws.plan.id, ws.plan.cycle))}`;
+    const pl = ws.plan;
+    const ended = pl && ['cancelled', 'suspended'].includes(pl.status);
+    $('#renew-line').innerHTML = !pl ? '<i data-lucide="info" class="w-4 h-4"></i>Aucun abonnement email pour le moment. Votre domaine est déjà actif, vous pouvez ajouter l’email pro quand vous voulez.'
+      : ended ? '<i data-lucide="alert-triangle" class="w-4 h-4"></i>Offre terminée : vos boîtes sont suspendues (vos messages sont conservés). Choisissez une offre ci-dessus pour les réactiver.'
+      : pl.cancelAtPeriodEnd ? `<i data-lucide="circle-slash" class="w-4 h-4"></i>Offre résiliée : vos boîtes restent actives jusqu’au ${FW.date(pl.renews)}, sans nouveau prélèvement. <button type="button" class="underline font-semibold" data-resume>Reprendre l’offre</button>`
+      : `<i data-lucide="calendar-clock" class="w-4 h-4"></i>Prochain renouvellement le ${FW.date(pl.renews)} · ${FW.money(FW.planPrice(pl.id, pl.cycle))} <button type="button" class="underline text-muted" data-cancel-plan>Résilier</button>`;
   }
   document.querySelectorAll('[data-cycle]').forEach((b) => b.addEventListener('click', () => { viewCycle = b.dataset.cycle; renderPlans(); FWUI.icons(); }));
+
+  $('#renew-line').addEventListener('click', async (e) => {
+    const ws = FWSpace.ws();
+    try {
+      if (e.target.closest('[data-cancel-plan]')) {
+        const ok = await FWUI.confirmDialog({ title: 'Résilier l’offre', message: `Vos boîtes restent utilisables jusqu’au <strong>${FW.date(ws.plan.renews)}</strong>, puis elles sont suspendues (aucun message n’est supprimé). Plus aucun prélèvement n’aura lieu. Vous pouvez reprendre l’offre avant cette date.`, confirmLabel: 'Résilier l’offre' });
+        if (!ok) return;
+        await FW.plans.cancel(); ws.plan.cancelAtPeriodEnd = true; FWUI.toast('Offre résiliée'); renderPlans(); FWUI.icons();
+      } else if (e.target.closest('[data-resume]')) {
+        await FW.plans.resume(); ws.plan.cancelAtPeriodEnd = false; FWUI.toast('Offre reprise'); renderPlans(); FWUI.icons();
+      }
+    } catch (err) { FWUI.toast(err.message, 'error'); }
+  });
 
   $('#plan-cards').addEventListener('click', async (e) => {
     const b = e.target.closest('[data-switch]');

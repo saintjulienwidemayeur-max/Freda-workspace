@@ -540,6 +540,9 @@
   /** Changement d'offre en production : nouvelle commande « subscription » payée via Pay'm. */
   const plans = {
     async change({ plan, cycle }) { return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, method: 'all' } })); },
+    /** Résiliation : plus de prélèvement, boîtes utilisables jusqu'à la fin de la période payée ; reprise possible avant la fin. */
+    async cancel() { if (C.DEMO_MODE) return { cancelAtPeriodEnd: true }; const r = await request('/subscription/cancel', { method: 'POST' }); await workspace.load().catch(() => {}); return r; },
+    async resume() { if (C.DEMO_MODE) return { cancelAtPeriodEnd: false }; const r = await request('/subscription/resume', { method: 'POST' }); await workspace.load().catch(() => {}); return r; },
   };
 
   /* ---------- DNS ---------- */
