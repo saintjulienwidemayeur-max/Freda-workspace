@@ -52,7 +52,7 @@
     if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;   // évite un double achat si la requête est rejouée
     const res = await fetch(C.API_BASE + path, { method, credentials: 'include', headers, body: body ? JSON.stringify(body) : undefined });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) { const err = new Error(data.message || 'La requête a échoué (' + res.status + ').'); err.status = res.status; err.code = data.code; throw err; }
+    if (!res.ok) { const err = new Error(data.message || 'La requête a échoué (' + res.status + ').'); err.status = res.status; err.code = data.code; err.details = data.details; throw err; }
     return data;
   }
   const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : 'k' + Date.now() + Math.random().toString(36).slice(2));
@@ -301,6 +301,17 @@
       done();
       throw new Error('Paiement non confirmé pour le moment. Si vous avez payé, il sera pris en compte automatiquement dans quelques minutes.');
     },
+    /** Retour de Stripe (?payment=success&order=…) : attend la confirmation serveur de la commande (le webhook et ce sondage la confirment, jamais le navigateur). */
+    async awaitOrder(orderId, { timeoutMs = 180000 } = {}) {
+      if (C.DEMO_MODE) return { status: 'succeeded' };
+      const end = Date.now() + timeoutMs;
+      while (Date.now() < end) {
+        const s = await request('/orders/' + encodeURIComponent(orderId));
+        if (s.status === 'succeeded' || s.status === 'failed') return s;
+        await wait(2500);
+      }
+      return { status: 'pending' };
+    },
     onPending: null,
     onSettled: null,
   };
@@ -442,6 +453,11 @@
 
   /* ---------- Domaines existants (hébergés chez un autre registraire) ---------- */
   const domains = {
+    /** Vérification du domaine pour l'email : enregistrement TXT à publier + état (pending | dns_ok | verified). Zone Freda : publié automatiquement ; domaine externe : à ajouter chez l'hébergeur DNS. */
+    async mailOwnership(domain) {
+      if (C.DEMO_MODE) return { domain, external: false, managedByFreda: true, status: 'verified', record: null };
+      return request('/domains/' + encodeURIComponent(domain) + '/mail-ownership');
+    },
     /** Achat d'un ou plusieurs domaines depuis l'espace client (moyen de paiement déjà enregistré). */
     async buy({ items, years, methodId }) {
       const amount = +items.reduce((sum, d) => sum + cart.priceOf(d, years), 0).toFixed(2);

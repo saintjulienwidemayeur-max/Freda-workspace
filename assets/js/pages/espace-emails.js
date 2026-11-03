@@ -100,11 +100,40 @@
     }
     showBoxForm();
   }
+  /* ---------- Vérification du domaine pour l'email (TXT de propriété) ---------- */
+  const ownBox = $('#own-box');
+  let ownSeq = 0;
+  function renderOwn(r) {
+    if (!r || r.status === 'verified' || r.status === 'dns_ok') { ownBox.hidden = true; return; }
+    ownBox.hidden = false;
+    const external = !!r.external || !r.managedByFreda;
+    $('#own-record').hidden = !external || !r.record;
+    $('#own-check').hidden = !external;
+    if (external && r.record) {
+      $('#own-type').textContent = r.record.type; $('#own-name').textContent = r.record.name === '@' ? '@ (la racine du domaine)' : r.record.name; $('#own-value').textContent = r.record.value;
+      ownBox.dataset.name = r.record.name; ownBox.dataset.value = r.record.value;
+    }
+    $('#own-text').textContent = external
+      ? 'Ce domaine n’est pas hébergé chez Freda : ajoutez cet enregistrement TXT chez l’hébergeur de votre DNS (là où vous avez acheté le domaine), puis cliquez sur « Vérifier maintenant ». La propagation peut prendre jusqu’à 15 minutes.'
+      : 'La vérification de votre domaine est automatique : elle peut prendre jusqu’à 15 minutes. La boîte pourra être créée dès qu’elle est terminée.';
+  }
+  async function checkOwnership() {
+    const dom = $('#box-domain').value, seq = ++ownSeq;
+    ownBox.hidden = true;
+    if (FW.config.DEMO_MODE || !dom) return;
+    try { const r = await FW.domains.mailOwnership(dom); if (seq === ownSeq) renderOwn(r); }
+    catch (e) { /* messagerie non configurée : la création de la boîte affichera l'erreur précise */ }
+  }
+  $('#box-domain').addEventListener('change', checkOwnership);
+  $('#own-check').addEventListener('click', async (e) => { const btn = e.currentTarget; FWUI.setLoading(btn, true, 'Vérification...'); await checkOwnership(); FWUI.setLoading(btn, false); if (!ownBox.hidden) FWUI.toast('Pas encore visible : réessayez dans quelques minutes.'); else FWUI.toast('Domaine vérifié. Vous pouvez créer la boîte.'); });
+  ownBox.addEventListener('click', (e) => { const b = e.target.closest('[data-copy-own]'); if (b) FWUI.copy(ownBox.dataset[b.dataset.copyOwn], 'Copié'); });
+
   function showBoxForm() {
     $('#box-form').reset();
     $('#box-pass').value = FW.generatePassword();
     $('#box-error').classList.remove('show');
     FWUI.openModal('modal-box');
+    checkOwnership();
   }
   $('#new-box-btn').addEventListener('click', openBox);
   $('#regen-pass').addEventListener('click', () => { $('#box-pass').value = FW.generatePassword(); });
@@ -133,6 +162,8 @@
     } catch (err) {
       $('#box-error').textContent = err.message;
       $('#box-error').classList.add('show');
+      if (err.code === 'domain_ownership_required' && err.details && err.details.record) renderOwn({ external: true, managedByFreda: false, status: 'pending', record: err.details.record });
+      else if (err.code === 'domain_pending_verification') renderOwn({ external: false, managedByFreda: true, status: 'pending' });
     } finally { FWUI.setLoading(btn, false); }
   });
 
