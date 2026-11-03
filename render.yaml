@@ -2,7 +2,14 @@ services:
   - type: web
     name: freda-workspace
     runtime: static
-    buildCommand: echo ok
+    buildCommand: node scripts/build-config.js     # écrit DEMO_MODE / API_BASE depuis FW_DEMO_MODE / FW_API_BASE ci-dessous (sans elles : le site reste en démo)
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: FW_DEMO_MODE
+        value: "false"
+      - key: FW_API_BASE
+        value: https://freda-workspace-api.onrender.com/api     # remplacer par https://api.fredaworkspace.com/api une fois le domaine associé
     staticPublishPath: .
     headers:
       - path: /*
@@ -13,7 +20,7 @@ services:
         value: DENY
       - path: /*
         name: Content-Security-Policy
-        value: "default-src 'self'; script-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://plausible.io https://api.fredaworkspace.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+        value: "default-src 'self'; script-src 'self' https://plausible.io https://js.stripe.com https://*.js.stripe.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.stripe.com; font-src 'self'; connect-src 'self' https://plausible.io https://api.fredaworkspace.com https://freda-workspace-api.onrender.com https://api.stripe.com https://checkout.stripe.com; frame-src https://js.stripe.com https://*.js.stripe.com https://hooks.stripe.com https://checkout.stripe.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
       - path: /*
         name: Strict-Transport-Security
         value: max-age=31536000; includeSubDomains

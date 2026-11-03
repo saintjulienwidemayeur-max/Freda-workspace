@@ -25,7 +25,7 @@
     return;
   }
 
-  $('#webmail-link').href = C.WEBMAIL_URL;
+  if (C.WEBMAIL_URL) $('#webmail-link').href = C.WEBMAIL_URL; else $('#webmail-link').hidden = true;
 
   function render() {
     ws = FWSpace.ws();
@@ -34,8 +34,10 @@
     $('#plan-badge').textContent = 'Offre ' + plan.name;
     $('#box-usage').textContent = C.boxUsage(plan, ws.mailboxes.length);
     $('#box-meter').style.width = (plan.mailboxes === Infinity ? 100 : C.boxPct(plan, ws.mailboxes.length)) + '%';
-    $('#storage-usage').textContent = used.toFixed(1) + ' / ' + totalGb + ' Go';
+    // Hors démo, la consommation réelle n'est pas mesurée : on n'affiche que le stockage inclus (jamais un faux « 0 Go utilisé »).
+    $('#storage-usage').textContent = C.DEMO_MODE ? used.toFixed(1) + ' / ' + totalGb + ' Go' : totalGb + ' Go inclus';
     $('#storage-meter').style.width = Math.min(100, (used / totalGb) * 100) + '%';
+    if (!C.DEMO_MODE && $('#storage-meter').parentElement) $('#storage-meter').parentElement.hidden = true;
 
     $('#box-body').innerHTML = ws.mailboxes.map((m) => {
       const pct = Math.min(100, (m.usedGb / perBox) * 100);
@@ -47,7 +49,7 @@
           </div>
         </td>
         <td><span class="badge ${m.role === 'Propriétaire' ? 'badge-info' : 'badge-neutral'}">${esc(m.role)}</span></td>
-        <td class="min-w-[160px]"><div class="flex items-center gap-2"><div class="meter flex-1"><span style="width:${pct}%;${pct > 85 ? 'background:#DC2626' : ''}"></span></div><span class="text-xs text-muted tabular whitespace-nowrap">${m.usedGb.toFixed(1)} / ${perBox.toFixed(0)} Go</span></div></td>
+        <td class="min-w-[160px]">${C.DEMO_MODE ? `<div class="flex items-center gap-2"><div class="meter flex-1"><span style="width:${pct}%;${pct > 85 ? 'background:#DC2626' : ''}"></span></div><span class="text-xs text-muted tabular whitespace-nowrap">${m.usedGb.toFixed(1)} / ${perBox.toFixed(0)} Go</span></div>` : `<span class="text-xs text-muted tabular whitespace-nowrap">${perBox.toFixed(0)} Go inclus</span>`}</td>
         <td class="text-sm text-muted tabular whitespace-nowrap">${m.lastLogin ? FW.date(m.lastLogin) : 'Jamais'}</td>
         <td class="text-right whitespace-nowrap">
           <button type="button" class="btn btn-ghost btn-sm" data-reset="${m.id}"><i data-lucide="key-round"></i><span class="hidden md:inline">Mot de passe</span></button>
@@ -100,11 +102,40 @@
     }
     showBoxForm();
   }
+  /* ---------- Vérification du domaine pour l'email (TXT de propriété) ---------- */
+  const ownBox = $('#own-box');
+  let ownSeq = 0;
+  function renderOwn(r) {
+    if (!r || r.status === 'verified' || r.status === 'dns_ok') { ownBox.hidden = true; return; }
+    ownBox.hidden = false;
+    const external = !!r.external || !r.managedByFreda;
+    $('#own-record').hidden = !external || !r.record;
+    $('#own-check').hidden = !external;
+    if (external && r.record) {
+      $('#own-type').textContent = r.record.type; $('#own-name').textContent = r.record.name === '@' ? '@ (la racine du domaine)' : r.record.name; $('#own-value').textContent = r.record.value;
+      ownBox.dataset.name = r.record.name; ownBox.dataset.value = r.record.value;
+    }
+    $('#own-text').textContent = external
+      ? 'Ce domaine n’est pas hébergé chez Freda : ajoutez cet enregistrement TXT chez l’hébergeur de votre DNS (là où vous avez acheté le domaine), puis cliquez sur « Vérifier maintenant ». La propagation peut prendre jusqu’à 15 minutes.'
+      : 'La vérification de votre domaine est automatique : elle peut prendre jusqu’à 15 minutes. La boîte pourra être créée dès qu’elle est terminée.';
+  }
+  async function checkOwnership() {
+    const dom = $('#box-domain').value, seq = ++ownSeq;
+    ownBox.hidden = true;
+    if (FW.config.DEMO_MODE || !dom) return;
+    try { const r = await FW.domains.mailOwnership(dom); if (seq === ownSeq) renderOwn(r); }
+    catch (e) { /* messagerie non configurée : la création de la boîte affichera l'erreur précise */ }
+  }
+  $('#box-domain').addEventListener('change', checkOwnership);
+  $('#own-check').addEventListener('click', async (e) => { const btn = e.currentTarget; FWUI.setLoading(btn, true, 'Vérification...'); await checkOwnership(); FWUI.setLoading(btn, false); if (!ownBox.hidden) FWUI.toast('Pas encore visible : réessayez dans quelques minutes.'); else FWUI.toast('Domaine vérifié. Vous pouvez créer la boîte.'); });
+  ownBox.addEventListener('click', (e) => { const b = e.target.closest('[data-copy-own]'); if (b) FWUI.copy(ownBox.dataset[b.dataset.copyOwn], 'Copié'); });
+
   function showBoxForm() {
     $('#box-form').reset();
     $('#box-pass').value = FW.generatePassword();
     $('#box-error').classList.remove('show');
     FWUI.openModal('modal-box');
+    checkOwnership();
   }
   $('#new-box-btn').addEventListener('click', openBox);
   $('#regen-pass').addEventListener('click', () => { $('#box-pass').value = FW.generatePassword(); });
@@ -122,7 +153,7 @@
     const btn = e.target.querySelector('[type=submit]');
     FWUI.setLoading(btn, true, 'Création...');
     try {
-      const box = await FW.mailboxes.create({ local, domain: $('#box-domain').value, name: $('#box-name').value.trim() });
+      const box = await FW.mailboxes.create({ local, domain: $('#box-domain').value, name: $('#box-name').value.trim(), password: $('#box-pass').value });
       FWUI.closeModal('modal-box');
       render();
       FWUI.toast(esc(box.address) + (box.providerReady === false ? ' est enregistrée (en attente du serveur de messagerie)' : ' est prête'));
@@ -133,6 +164,8 @@
     } catch (err) {
       $('#box-error').textContent = err.message;
       $('#box-error').classList.add('show');
+      if (err.code === 'domain_ownership_required' && err.details && err.details.record) renderOwn({ external: true, managedByFreda: false, status: 'pending', record: err.details.record });
+      else if (err.code === 'domain_pending_verification') renderOwn({ external: false, managedByFreda: true, status: 'pending' });
     } finally { FWUI.setLoading(btn, false); }
   });
 
@@ -164,7 +197,10 @@
       const m = ws.mailboxes.find((x) => x.id === reset.dataset.reset);
       const pass = FW.generatePassword();
       const ok = await FWUI.confirmDialog({ title: 'Réinitialiser le mot de passe', message: `Nouveau mot de passe pour <span class="mono">${esc(m.address)}</span> :<br><span class="mono text-ink font-semibold select-all break-all">${esc(pass)}</span><br>Les appareils connectés devront se reconnecter.`, confirmLabel: 'Copier et appliquer' });
-      if (ok) FWUI.copy(pass, 'Nouveau mot de passe appliqué et copié');
+      if (ok) {
+        try { await FW.mailboxes.setPassword(m.id, pass); FWUI.copy(pass, 'Nouveau mot de passe appliqué et copié'); }
+        catch (err) { FWUI.toast(err.message, 'error'); }
+      }
     }
     const del = e.target.closest('[data-del]');
     if (del && !del.disabled) {

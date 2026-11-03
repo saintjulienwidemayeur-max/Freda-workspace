@@ -52,6 +52,7 @@
     if (key !== upKey) { upKey = key; FWUI.renderUpsell($('#cart-upsell'), cart, (c) => { cart = c; render(); }); }
   }
 
+  FWUI.bindWhoisPrivacy(() => cart.whoisPrivacy, (v) => { cart = FW.cart.set({ whoisPrivacy: v }); });
   $('#years-pick').addEventListener('change', (e) => { cart = FW.cart.set({ years: +e.target.value }); render(); });
   $('#next-btn').addEventListener('click', () => { location.href = 'paiement.html'; });
   render();

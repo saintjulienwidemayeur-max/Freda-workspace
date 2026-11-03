@@ -52,7 +52,7 @@
     if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;   // évite un double achat si la requête est rejouée
     const res = await fetch(C.API_BASE + path, { method, credentials: 'include', headers, body: body ? JSON.stringify(body) : undefined });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) { const err = new Error(data.message || 'La requête a échoué (' + res.status + ').'); err.status = res.status; err.code = data.code; throw err; }
+    if (!res.ok) { const err = new Error(data.message || 'La requête a échoué (' + res.status + ').'); err.status = res.status; err.code = data.code; err.details = data.details; throw err; }
     return data;
   }
   const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : 'k' + Date.now() + Math.random().toString(36).slice(2));
@@ -101,10 +101,28 @@
     return hash(label + tld) % 10 >= 3; // ~70 % disponibles
   }
 
-  async function searchDomains(raw) {
+  /** Tarifs de vente réels (API) pour les suggestions de saisie ; mis en cache. Hors démo uniquement. */
+  let pricesPromise = null;
+  function domainPrices() {
+    if (C.DEMO_MODE) return Promise.resolve(C.TLDS.map((t) => ({ tld: t.tld, price: t.price, renew: t.renew })));
+    if (!pricesPromise) pricesPromise = request('/domains/prices').then((r) => r.tlds).catch((e) => { pricesPromise = null; throw e; });
+    return pricesPromise;
+  }
+
+  /** Recherche en deux temps (hors démo) : onPartial(main) reçoit tout de suite le nom + .com/.net/.org ; la promesse renvoie le résultat complet. */
+  async function searchDomains(raw, opts = {}) {
     const n = normalizeDomain(raw);
     if (n.error) throw new Error(n.error);
-    if (!C.DEMO_MODE) return request('/domains/search?q=' + encodeURIComponent(n.label + (n.tld || '')));
+    if (!C.DEMO_MODE) {
+      const q = encodeURIComponent(n.label + (n.tld || n.unknownTld || ''));
+      if (!opts.onPartial) return request('/domains/search?q=' + q);
+      const main = await request('/domains/search?q=' + q + '&part=main');
+      opts.onPartial(main);
+      let more;
+      try { more = await request('/domains/search?q=' + q + '&part=more'); }
+      catch (e) { return { ...main, partial: false, moreFailed: true }; }   // le résultat principal reste utilisable
+      return { query: main.query, unknownTld: main.unknownTld, exact: main.exact, results: [...main.results, ...more.results], suggestions: more.suggestions };
+    }   // une extension absente de C.TLDS (ex. .dev) est transmise telle quelle : c'est l'API qui décide
 
     await wait(650);
     const primaryTld = n.tld || '.com';
@@ -266,14 +284,14 @@
      * kind = 'subscription' : offre email + première boîte (étape 2, facultative)
      * saved = true : réutilise le moyen de paiement déjà enregistré (jeton Freda Pay)
      */
-    async checkout({ kind, method, payer, saved, domain, plan, cycle, mailbox }) {
+    async checkout({ kind, method, payer, saved, domain, plan, cycle, mailbox, mailboxPassword, methodId }) {
       const c = cart.get();
       const amount = kind === 'domain' ? cart.totals(c).domain : planPrice(plan, cycle);
       if (!C.DEMO_MODE) {
         // Le navigateur n'envoie QUE le choix : le serveur recalcule prix, durée et disponibilité. Aucune donnée de carte ne part vers notre API.
         const body = kind === 'domain'
-          ? { kind, method, domains: domainsOf(c).map((d) => d.domain), years: cart.totals(c).years }
-          : { kind, method, plan, cycle, domain, mailbox: mailbox ? { local: String(mailbox).split('@')[0] } : null };
+          ? { kind, method, domains: domainsOf(c).map((d) => d.domain), years: cart.totals(c).years, whoisPrivacy: c.whoisPrivacy !== false }
+          : { kind, method, methodId, plan, cycle, domain, mailbox: mailbox ? { local: String(mailbox).split('@')[0], password: mailboxPassword } : null };
         return payments.settle(await request('/checkout', { method: 'POST', body, idempotencyKey: newKey() }));
       }
       const payload = { kind, method, saved: !!saved, domain: domain || c.domain?.domain, years: kind === 'domain' ? cart.totals(c).years : undefined, plan, cycle, mailbox, amount, currency: 'USD', payer };
@@ -290,7 +308,8 @@
     async settle(res) {
       const done = () => { if (payments.onSettled) payments.onSettled(); };
       if (res.status !== 'pending') { await workspace.load().catch(() => {}); return res; }
-      if (payments.onPending) payments.onPending(res);
+      if (res.embedded && payments.onEmbedded) payments.onEmbedded(res);          // Stripe Embedded Checkout : le formulaire s'affiche dans une fenêtre du site
+      else if (payments.onPending) payments.onPending(res);
       const deadline = Date.now() + 25 * 60 * 1000;
       while (Date.now() < deadline) {
         await wait(3000);
@@ -301,7 +320,21 @@
       done();
       throw new Error('Paiement non confirmé pour le moment. Si vous avez payé, il sera pris en compte automatiquement dans quelques minutes.');
     },
+    /** Retour de Stripe (?payment=success&order=…) : attend la confirmation serveur de la commande (le webhook et ce sondage la confirment, jamais le navigateur). */
+    async awaitOrder(orderId, { timeoutMs = 180000 } = {}) {
+      if (C.DEMO_MODE) return { status: 'succeeded' };
+      const end = Date.now() + timeoutMs;
+      while (Date.now() < end) {
+        const s = await request('/orders/' + encodeURIComponent(orderId));
+        if (s.status === 'succeeded' || s.status === 'failed') return s;
+        await wait(2500);
+      }
+      return { status: 'pending' };
+    },
+    /** Reprise d'un paiement intégré fermé par erreur : le serveur relit le client_secret chez Stripe (jamais stocké). */
+    async resumeEmbedded(orderId) { return request('/orders/' + encodeURIComponent(orderId) + '/payment'); },
     onPending: null,
+    onEmbedded: null,
     onSettled: null,
   };
 
@@ -442,10 +475,15 @@
 
   /* ---------- Domaines existants (hébergés chez un autre registraire) ---------- */
   const domains = {
+    /** Vérification du domaine pour l'email : enregistrement TXT à publier + état (pending | dns_ok | verified). Zone Freda : publié automatiquement ; domaine externe : à ajouter chez l'hébergeur DNS. */
+    async mailOwnership(domain) {
+      if (C.DEMO_MODE) return { domain, external: false, managedByFreda: true, status: 'verified', record: null };
+      return request('/domains/' + encodeURIComponent(domain) + '/mail-ownership');
+    },
     /** Achat d'un ou plusieurs domaines depuis l'espace client (moyen de paiement déjà enregistré). */
-    async buy({ items, years, methodId }) {
+    async buy({ items, years, methodId, whoisPrivacy = true }) {
       const amount = +items.reduce((sum, d) => sum + cart.priceOf(d, years), 0).toFixed(2);
-      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', methodId, domains: items.map((d) => d.domain), years } }));
+      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', methodId, domains: items.map((d) => d.domain), years, whoisPrivacy: whoisPrivacy !== false } }));
       await wait(1600);
       const s = workspace.get();
       const pm = s.paymentMethods.find((m) => m.id === methodId) || s.paymentMethods[0];
@@ -504,7 +542,7 @@
     },
     /** Renouvellement : paiement Pay'm puis renewDomain côté serveur. */
     async renew(name, years = 1) {
-      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'renewal', domain: name, years, method: 'all' } }));
+      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'renewal', domain: name, years, ...preferredPayment() } }));
       await wait(1200);
       const s = workspace.get();
       const d = s.domains.find((x) => x.name === name);
@@ -537,9 +575,22 @@
     async remove(id) { const r = await request('/payment-methods/' + id, { method: 'DELETE' }); await workspace.load(); return r; },
   };
 
-  /** Changement d'offre en production : nouvelle commande « subscription » payée via Pay'm. */
+  /**
+   * Moyen de paiement par défaut du client : une carte enregistrée est débitée directement (Stripe) ; sinon MonCash / NatCash (Pay'm, avec page de paiement).
+   * Le serveur revérifie que le moyen appartient bien au compte ; le navigateur n'envoie jamais de montant.
+   */
+  function preferredPayment() {
+    const list = (workspace.get().paymentMethods || []);
+    const d = list.find((m) => m.default) || list[0];
+    return d && d.type === 'card' ? { method: 'card', methodId: d.id } : { method: 'all' };
+  }
+
+  /** Changement d'offre en production : nouvelle commande « subscription » (carte enregistrée si elle existe, sinon Pay'm). */
   const plans = {
-    async change({ plan, cycle }) { return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, method: 'all' } })); },
+    async change({ plan, cycle }) { return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, ...preferredPayment() } })); },
+    /** Résiliation : plus de prélèvement, boîtes utilisables jusqu'à la fin de la période payée ; reprise possible avant la fin. */
+    async cancel() { if (C.DEMO_MODE) return { cancelAtPeriodEnd: true }; const r = await request('/subscription/cancel', { method: 'POST' }); await workspace.load().catch(() => {}); return r; },
+    async resume() { if (C.DEMO_MODE) return { cancelAtPeriodEnd: false }; const r = await request('/subscription/resume', { method: 'POST' }); await workspace.load().catch(() => {}); return r; },
   };
 
   /* ---------- DNS ---------- */
@@ -607,8 +658,8 @@
 
   /* ---------- Boîtes mail (Purelymail via backend) ---------- */
   const mailboxes = {
-    async create({ local, domain, name }) {
-      if (!C.DEMO_MODE) { const r = await request('/mailboxes', { method: 'POST', body: { local, domain, name } }); await workspace.load(); return { ...r.mailbox, initialPassword: r.initialPassword, providerReady: r.providerReady }; }
+    async create({ local, domain, name, password }) {
+      if (!C.DEMO_MODE) { const r = await request('/mailboxes', { method: 'POST', body: { local, domain, name, password } }); await workspace.load(); return { ...r.mailbox, initialPassword: r.initialPassword, providerReady: r.providerReady }; }
       await wait(900);
       const s = workspace.get();
       const address = local + '@' + domain;
@@ -623,6 +674,8 @@
       workspace.save(s);
       return box;
     },
+    /** Le titulaire du compte change le mot de passe d'une boîte (l'utilisateur de l'application se reconnecte avec le nouveau). */
+    async setPassword(id, password) { if (!C.DEMO_MODE) await request('/mailboxes/' + id + '/password', { method: 'POST', body: { password } }); },
     async remove(id) {
       if (!C.DEMO_MODE) { await request('/mailboxes/' + id, { method: 'DELETE' }); await workspace.load(); return; }
       await wait(500);
@@ -673,5 +726,5 @@
   trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
   trackAfter(domains, 'verify', 'domain_verified');
 
-  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, searchDomains: async (q) => { const r = await searchDomains(q); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
+  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, dnsConfig: () => { const w = workspace.get() || {}; return w.dnsConfig || { nameservers: C.DEMO_MODE ? C.NAMESERVERS : [], nameserversAvailable: !!C.DEMO_MODE }; }, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
 })();

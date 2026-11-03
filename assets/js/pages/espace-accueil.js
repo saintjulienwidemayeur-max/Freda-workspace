@@ -14,6 +14,8 @@
   $('#company-line').textContent = ws.user.company ? ws.user.company + ' · ' + ws.domains.length + ' domaine' + (ws.domains.length > 1 ? 's' : '') : '';
   $('#dl-ios').href = C.APP_STORE_URL;
   $('#dl-android').href = C.PLAY_STORE_URL;
+  const genericStore = (u) => !u || /^https:\/\/(apps\.apple\.com|play\.google\.com)\/(store\/)?$/.test(u);
+  if (!C.DEMO_MODE && (genericStore(C.APP_STORE_URL) || genericStore(C.PLAY_STORE_URL))) { const sec = $('#dl-ios').closest('section'); if (sec) sec.hidden = true; }
 
   /* ---------- Indicateurs ---------- */
   const used = ws.mailboxes.reduce((s, m) => s + m.usedGb, 0);
@@ -24,7 +26,8 @@
     { icon: 'globe', label: 'Domaines', value: ws.domains.length, sub: nextExpiry ? 'Prochaine échéance dans ' + daysTo(nextExpiry) + ' j' : 'Aucune échéance', href: 'domaines.html' },
     plan ? { icon: 'mail', label: 'Boîtes mail', value: C.boxUsage(plan, ws.mailboxes.length), sub: ws.aliases.length + ' alias actifs', href: 'emails.html' }
       : { icon: 'mail', label: 'Boîtes mail', value: '—', sub: 'Messagerie non activée', href: 'emails.html' },
-    plan ? { icon: 'hard-drive', label: 'Stockage', value: used.toFixed(1) + ' Go', sub: 'sur ' + totalGb + ' Go inclus', meter: used / totalGb, href: 'emails.html' }
+    plan ? (C.DEMO_MODE ? { icon: 'hard-drive', label: 'Stockage', value: used.toFixed(1) + ' Go', sub: 'sur ' + totalGb + ' Go inclus', meter: used / totalGb, href: 'emails.html' }
+      : { icon: 'hard-drive', label: 'Stockage', value: totalGb + ' Go', sub: 'inclus dans votre offre', href: 'emails.html' })   // consommation réelle non mesurée : pas de faux « 0 Go utilisé »
       : { icon: 'hard-drive', label: 'Stockage', value: '—', sub: 'Aucune offre email', href: 'emails.html' },
     plan ? { icon: 'calendar-clock', label: 'Prochaine facture', value: FW.money(FW.planPrice(ws.plan.id, ws.plan.cycle)), sub: 'le ' + FW.date(ws.plan.renews), href: 'facturation.html' }
       : { icon: 'calendar-clock', label: 'Abonnement', value: 'Aucun', sub: 'Domaine payé à l’année', href: 'facturation.html' },
@@ -81,7 +84,7 @@
       <span class="w-9 h-9 rounded-full bg-mist text-freda grid place-items-center font-bold text-sm shrink-0">${esc(m.address[0].toUpperCase())}</span>
       <div class="min-w-0 flex-1">
         <p class="font-medium mono text-sm text-ink truncate">${esc(m.address)}</p>
-        <div class="mt-1.5 flex items-center gap-2"><div class="meter flex-1 max-w-[160px]"><span style="width:${Math.min(100, (m.usedGb / perBox) * 100).toFixed(0)}%"></span></div><span class="text-xs text-muted tabular">${m.usedGb.toFixed(1)} Go</span></div>
+        ${C.DEMO_MODE ? `<div class="mt-1.5 flex items-center gap-2"><div class="meter flex-1 max-w-[160px]"><span style="width:${Math.min(100, (m.usedGb / perBox) * 100).toFixed(0)}%"></span></div><span class="text-xs text-muted tabular">${m.usedGb.toFixed(1)} Go</span></div>` : ''}
       </div>
       <span class="hidden sm:block"><span class="badge badge-neutral">${esc(m.role)}</span></span>
     </li>`).join('');

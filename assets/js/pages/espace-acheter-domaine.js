@@ -3,7 +3,7 @@
   if (!window.FWSpace) return;
   const C = FW.config, esc = FWUI.esc, $ = (s) => document.querySelector(s);
   let selected = [];      // [{ domain, label, tld, price, renew }]
-  let years = 1;
+  let years = 1, whoisPrivacy = true;
   let methodId = null;
   const owned = () => new Set(FWSpace.ws().domains.map((d) => d.name));
 
@@ -15,7 +15,7 @@
       : `<button type="button" class="btn ${isSel ? 'btn-outline' : 'btn-primary'} btn-sm" data-toggle="${esc(r.domain)}" aria-pressed="${isSel}">${isSel ? '<i data-lucide="check"></i>Ajouté' : '<i data-lucide="plus"></i>Ajouter'}</button>`;
     return `<li class="flex items-center gap-3 px-4 py-3 ${r.available && !isOwned ? '' : 'opacity-60'}">
       <span class="mono font-semibold text-ink truncate min-w-0 flex-1">${esc(r.domain)}</span>
-      ${r.available && !isOwned ? `<span class="text-right text-sm tabular shrink-0"><span class="font-bold text-ink">${FW.money(r.price)}</span><span class="block text-xs text-muted">puis ${FW.money(r.renew)}/an</span></span>` : ''}
+      ${r.available && !isOwned ? `<span class="text-right text-sm tabular shrink-0">${r.compare > r.price ? `<span class="text-xs text-muted line-through mr-1">${FW.money(r.compare)}</span>` : ''}<span class="font-bold text-ink">${FW.money(r.price)}</span><span class="block text-xs text-muted">puis ${FW.money(r.renew)}/an</span></span>` : ''}
       <span class="shrink-0">${action}</span>
     </li>`;
   }
@@ -74,6 +74,7 @@
     $('#buy-pay span').textContent = total ? 'Payer ' + FW.money(total) : 'Payer';
     FWUI.icons();
   }
+  FWUI.bindWhoisPrivacy(() => whoisPrivacy, (v) => { whoisPrivacy = v; });
   $('#buy-years').addEventListener('change', (e) => { years = +e.target.value; renderCart(); });
   document.addEventListener('change', (e) => { if (e.target.name === 'buy-method') methodId = e.target.value; });
 
@@ -82,7 +83,7 @@
     FWUI.setLoading(btn, true, 'Paiement en cours...');
     try {
       const items = selected.slice();
-      await FW.domains.buy({ items, years, methodId });
+      await FW.domains.buy({ items, years, methodId, whoisPrivacy });
       $('#buy-form').hidden = true; $('#buy-done').hidden = false;
       $('#buy-done-text').innerHTML = items.map((d) => `<span class="mono font-semibold text-ink">${esc(d.domain)}</span>`).join(', ') + (items.length > 1 ? ' sont enregistrés' : ' est enregistré') + ' sur votre compte.';
       $('#buy-done-dns').href = 'dns.html?domain=' + encodeURIComponent(items[0].domain);

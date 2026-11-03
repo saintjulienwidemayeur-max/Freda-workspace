@@ -114,7 +114,7 @@
             <span class="truncate" title="${esc(r.value)}">${esc(r.value)}</span>
             <button type="button" class="p-1 text-muted hover:text-freda shrink-0" data-copy="${esc(r.value)}" data-copy-label="Valeur copiée" aria-label="Copier la valeur"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
           </div>
-          ${r.role ? `<span class="text-[11px] text-muted font-sans">${esc(r.role)}</span>` : ''}
+          ${r.role ? `<span class="text-[11px] text-muted font-sans">${esc(r.role === 'OWNERSHIP' ? 'Vérification email' : r.role)}</span>` : ''}
         </td>
         <td class="text-sm text-muted tabular whitespace-nowrap">${ttlLabel(r.ttl)}</td>
         <td><span class="badge badge-success"><span class="dot bg-cta"></span>Actif</span></td>
@@ -129,7 +129,10 @@
   function render() { renderDiag(); renderFilter(); renderTable(); renderNs(); FWUI.icons(); }
 
   function renderNs() {
-    $('#ns-list').innerHTML = C.NAMESERVERS.map((ns, i) => `
+    const nsCfg = FW.dnsConfig();
+    const nsCard = document.getElementById('ns-card');
+    if (nsCard) nsCard.hidden = !nsCfg.nameserversAvailable;   // pas de serveurs de noms Freda : on n'affiche pas de faux serveurs
+    $('#ns-list').innerHTML = nsCfg.nameservers.map((ns, i) => `
       <li class="flex items-center gap-3 rounded-lg border border-line px-4 py-3">
         <span class="text-xs text-muted w-10 tabular">NS${i + 1}</span>
         <span class="mono text-sm text-ink flex-1 truncate">${ns}</span>

@@ -74,7 +74,7 @@
             ${session
               ? `<a href="${BASE}espace/index.html" class="btn btn-ghost btn-sm"><i data-lucide="layout-dashboard"></i>Mon espace</a>`
               : `<a href="${BASE}inscription.html" class="btn btn-ghost btn-sm">Créer un compte</a>`}
-            <a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy btn-sm"><i data-lucide="mail"></i>Connexion Webmail</a>
+            ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy btn-sm"><i data-lucide="mail"></i>Connexion Webmail</a>` : `<a href="${BASE}connexion.html" class="btn btn-navy btn-sm"><i data-lucide="log-in"></i>Connexion</a>`}
           </div>
           <div class="lg:hidden">
             <button type="button" id="menu-toggle" class="btn btn-ghost btn-icon" aria-expanded="false" aria-controls="mobile-menu" aria-label="Ouvrir le menu">
@@ -87,7 +87,7 @@
         <ul class="max-w-site mx-auto py-3 flex flex-col">
           ${links.map((l) => `<li><a href="${l.href}" class="flex items-center justify-between py-3 text-base font-medium text-ink border-b border-line/70">${l.label}<i data-lucide="chevron-right" class="w-4 h-4 text-muted"></i></a></li>`).join('')}
           <li class="pt-4 grid gap-2">
-            <a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy w-full"><i data-lucide="mail"></i>Connexion Webmail</a>
+            ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy w-full"><i data-lucide="mail"></i>Connexion Webmail</a>` : ""}
             <a href="${session ? BASE + 'espace/index.html' : BASE + 'connexion.html'}" class="btn btn-outline w-full"><i data-lucide="${session ? 'layout-dashboard' : 'log-in'}"></i>${session ? 'Mon espace' : 'Espace client'}</a>
           </li>
         </ul>
@@ -127,7 +127,7 @@
             </div>
           </div>
           ${col('Produits', [[BASE + 'domaines.html', 'Freda Connect · Domaine et DNS'], [BASE + 'index.html#produits', 'Freda Mail · Email professionnel'], [BASE + 'index.html#app', 'Application mobile'], [BASE + 'index.html#tarifs', 'Tarifs']])}
-          ${col('Assistance', [[BASE + 'support.html', 'Centre d’aide'], [BASE + 'support.html#contact', 'Contacter le support'], [BASE + 'support.html#statut', 'État des services'], [BASE + 'connexion.html?mode=webmail', 'Webmail']])}
+          ${col('Assistance', [[BASE + 'support.html', 'Centre d’aide'], [BASE + 'support.html#contact', 'Contacter le support'], [BASE + 'support.html#statut', 'État des services']].concat(C.WEBMAIL_URL ? [[BASE + 'connexion.html?mode=webmail', 'Webmail']] : []))}
           ${col('Légal', [[BASE + 'legal.html#cgu', 'Conditions d’utilisation'], [BASE + 'legal.html#confidentialite', 'Confidentialité'], [BASE + 'legal.html#remboursement', 'Remboursement'], [BASE + 'legal.html#cookies', 'Cookies'], [BASE + 'legal.html#reglementaire', 'Informations réglementaires'], [BASE + 'legal.html#conformite', 'Conformité et sécurité']])}
         </div>
         <div class="max-w-site mx-auto py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-slate-400" style="padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px))">
@@ -281,14 +281,20 @@
     anchor.appendChild(box);
     let items = [], active = -1;
 
-    const promo = new Set(['.site', '.online']);
+    const promo = C.DEMO_MODE ? new Set(['.site', '.online']) : new Set();   // pas de « Promo » inventée avec les vrais prix
+    let book = null;                                                       // tarifs réels (API) ; null tant qu'ils ne sont pas chargés
+    window.FW.domainPrices().then((t) => { book = t; if (document.activeElement === input) render(); }).catch(() => { /* sans tarifs : aucune suggestion plutôt qu'un faux prix */ });
     function build(raw) {
-      const n = FW.normalizeDomain(raw);
-      if (n.error) return [];
+      const n = window.FW.normalizeDomain(raw);
+      if (n.error || !book || !book.length) return [];
       const label = n.label;
-      const tlds = C.TLDS.slice().sort((a, b) => (n.tld === b.tld) - (n.tld === a.tld) || a.price - b.price);
-      const list = tlds.slice(0, 5).map((t) => ({ domain: label + t.tld, price: t.price, promo: promo.has(t.tld), kind: 'tld' }));
-      const variants = ['get' + label, 'mon' + label, label + 'pro'].filter((v) => v.length <= 63).map((v) => ({ domain: v + (n.tld || '.com'), price: (C.TLDS.find((t) => t.tld === (n.tld || '.com')) || C.TLDS[0]).price, kind: 'idea' }));
+      const tld = n.tld || n.unknownTld;
+      const first = ['.com', '.net', '.org'];   // le .com toujours en tête, puis .net, .org, puis le moins cher
+      const rank = (t) => (t === tld ? -2 : first.includes(t) ? first.indexOf(t) - 1 : 3);
+      const tlds = book.slice().sort((a, b) => rank(a.tld) - rank(b.tld) || a.price - b.price);
+      const list = tlds.slice(0, 5).map((t) => ({ domain: label + t.tld, price: t.price, compare: t.compare, promo: promo.has(t.tld), kind: 'tld' }));
+      const base = book.find((t) => t.tld === (n.tld || '.com')) || book.find((t) => t.tld === '.com') || book[0];
+      const variants = ['get' + label, 'mon' + label, label + 'pro'].filter((v) => v.length <= 63).map((v) => ({ domain: v + base.tld, price: base.price, compare: base.compare, kind: 'idea' }));
       return [...list, ...variants.slice(0, 2)];
     }
     function render() {
@@ -300,7 +306,7 @@
           <span class="w-8 h-8 rounded-lg ${it.kind === 'idea' ? 'bg-amber-50 text-amber-600' : 'bg-mist text-freda'} grid place-items-center shrink-0"><i data-lucide="${it.kind === 'idea' ? 'lightbulb' : 'globe'}" class="w-4 h-4"></i></span>
           <span class="mono text-sm font-semibold text-ink flex-1 min-w-0 truncate">${esc(it.domain)}</span>
           ${it.promo ? '<span class="badge badge-success">Promo</span>' : ''}
-          <span class="text-xs text-muted tabular shrink-0">dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>
+          <span class="text-xs text-muted tabular shrink-0">${it.compare > it.price ? `<s class="mr-1">$${it.compare.toFixed(2)}</s>` : ''}dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>
         </button>`;
       const ext = items.filter((x) => x.kind === 'tld'), ideas = items.filter((x) => x.kind === 'idea');
       box.innerHTML = `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Extensions populaires</p>`
@@ -424,7 +430,8 @@
   function showPaymentLink(res) {
     const text = document.getElementById('proc-text');
     const link = res.redirectUrl ? '<a class="btn btn-cta mt-4" target="_blank" rel="noopener noreferrer" href="' + esc(res.redirectUrl) + '">Ouvrir la page de paiement</a>' : '';
-    const msg = 'Terminez le paiement sur la page MonCash / NatCash qui vient de s’ouvrir, puis <strong>revenez ici</strong> : cette page se met à jour toute seule.';
+    const card = /stripe\.com/.test(res.redirectUrl || '');
+    const msg = 'Terminez le paiement sur la page ' + (card ? 'sécurisée Stripe' : 'MonCash / NatCash') + ' qui vient de s’ouvrir, puis <strong>revenez ici</strong> : cette page se met à jour toute seule.';
     if (text) text.innerHTML = msg + '<br>' + link;
     else {                                   // pages sans fenêtre « traitement » : bandeau fixe
       let b = document.getElementById('pay-wait-banner');
@@ -434,9 +441,96 @@
     if (res.redirectUrl) { try { window.open(res.redirectUrl, '_blank', 'noopener'); } catch (e) { /* bloqué : le bouton reste disponible */ } }
   }
   function hidePaymentLink() { const b = document.getElementById('pay-wait-banner'); if (b) b.remove(); }
-  if (window.FW && window.FW.payments) { window.FW.payments.onPending = showPaymentLink; window.FW.payments.onSettled = hidePaymentLink; }
+  /* ---------- Paiement intégré (Stripe Embedded Checkout) : le formulaire Stripe s'affiche dans une fenêtre du site ----------
+   * Les champs (numéro, date, CVC) sont dans une iframe Stripe : ils ne passent jamais par nos pages ni nos serveurs.
+   * La confirmation vient du serveur (webhook + sondage de payments.settle), jamais du navigateur : onComplete ne fait qu'informer. */
+  let embedded = null;
+  function loadStripeScript(url) {
+    return new Promise((resolve, reject) => {
+      if (window.Stripe) return resolve();
+      if (!/^https:\/\/js\.stripe\.com\//.test(String(url))) return reject(new Error('Module de paiement non autorisé.'));
+      const sc = document.createElement('script');
+      sc.src = url; sc.async = true;
+      sc.onload = () => resolve();
+      sc.onerror = () => reject(new Error('Impossible de charger le module de paiement Stripe. Vérifiez votre connexion et réessayez.'));
+      document.head.appendChild(sc);
+    });
+  }
+  function closeEmbedded() {
+    if (!embedded) return;
+    const e = embedded; embedded = null;
+    try { e.checkout && e.checkout.destroy(); } catch (x) { /* déjà détruit */ }
+    document.removeEventListener('keydown', e.onKey);
+    e.overlay.remove();
+    document.body.style.overflow = e.prevOverflow;
+    if (e.lastFocus && e.lastFocus.focus) e.lastFocus.focus();
+  }
+  function hideResumeBanner() { const b = document.getElementById('pay-resume-banner'); if (b) b.remove(); }
+  function showResumeBanner(res) {
+    hideResumeBanner();
+    const b = document.createElement('div');
+    b.id = 'pay-resume-banner'; b.setAttribute('role', 'status');
+    b.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;max-width:440px;margin:0 auto;z-index:9999;background:#fff;border-radius:14px;box-shadow:0 10px 40px rgba(15,23,42,.25);padding:16px;text-align:center';
+    b.innerHTML = '<p style="font-size:14px;color:#334155">Votre paiement n’est pas terminé.</p><button type="button" class="btn btn-cta btn-sm" style="margin-top:10px" data-resume>Reprendre le paiement</button>';
+    b.addEventListener('click', async (ev) => {
+      if (!ev.target.closest('[data-resume]')) return;
+      try { const r = await window.FW.payments.resumeEmbedded(res.orderId); hideResumeBanner(); showEmbeddedCheckout({ ...res, embedded: r.embedded }); }
+      catch (err) { toast(err.message, 'error'); }
+    });
+    document.body.appendChild(b);
+  }
+  async function showEmbeddedCheckout(res) {
+    closeEmbedded(); hidePaymentLink(); hideResumeBanner();
+    const overlay = document.createElement('div');
+    overlay.id = 'fw-embedded-overlay'; overlay.setAttribute('role', 'dialog'); overlay.setAttribute('aria-modal', 'true'); overlay.setAttribute('aria-label', 'Paiement sécurisé');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,.6);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px';
+    overlay.innerHTML = '<div style="width:min(560px,100%);background:#fff;border-radius:16px;box-shadow:0 30px 70px rgba(15,23,42,.45);padding:16px 16px 12px">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 4px 10px"><strong style="font-size:16px;color:#0f172a">Paiement sécurisé</strong>'
+      + '<button type="button" data-fw-close aria-label="Fermer le paiement" style="border:0;background:transparent;font-size:26px;line-height:1;cursor:pointer;color:#64748b;padding:2px 8px">×</button></div>'
+      + '<div id="fw-embedded-mount" style="min-height:360px"><p style="padding:24px;text-align:center;color:#64748b;font-size:14px">Chargement du paiement sécurisé…</p></div>'
+      + '<p id="fw-embedded-status" role="status" style="margin:8px 4px 0;font-size:13px;color:#0f766e;font-weight:600"></p>'
+      + '<p style="margin:6px 4px 0;font-size:12px;color:#64748b">Paiement sécurisé par Stripe. Vos informations bancaires ne passent jamais par nos serveurs.</p></div>';
+    const state = { overlay, checkout: null, prevOverflow: document.body.style.overflow, lastFocus: document.activeElement, res };
+    const userClose = () => { closeEmbedded(); showResumeBanner(res); };
+    state.onKey = (ev) => { if (ev.key === 'Escape') userClose(); };
+    overlay.addEventListener('click', (ev) => { if (ev.target.closest('[data-fw-close]')) userClose(); });
+    document.addEventListener('keydown', state.onKey);
+    document.body.appendChild(overlay); document.body.style.overflow = 'hidden';
+    embedded = state;
+    const closeBtn = overlay.querySelector('[data-fw-close]'); if (closeBtn) closeBtn.focus();
+    try {
+      const info = res.embedded;
+      await loadStripeScript(info.scriptUrl);
+      const stripe = window.Stripe(info.publishableKey);
+      const checkout = await stripe.createEmbeddedCheckoutPage({
+        fetchClientSecret: async () => info.clientSecret,
+        onComplete: () => { const st = document.getElementById('fw-embedded-status'); if (st) st.textContent = 'Paiement reçu. Confirmation en cours…'; },
+      });
+      if (embedded !== state) { try { checkout.destroy(); } catch (x) { /* fermé entre-temps */ } return; }
+      state.checkout = checkout;
+      const mount = document.getElementById('fw-embedded-mount'); if (mount) mount.innerHTML = '';
+      checkout.mount('#fw-embedded-mount');
+    } catch (err) {
+      const mount = document.getElementById('fw-embedded-mount');
+      if (mount) mount.innerHTML = '<p role="alert" style="padding:20px;color:#b91c1c;font-size:14px"></p>';
+      if (mount) mount.firstChild.textContent = err.message || 'Le paiement n’a pas pu s’afficher. Réessayez.';
+    }
+  }
+  if (window.FW && window.FW.payments) {
+    window.FW.payments.onPending = showPaymentLink;
+    window.FW.payments.onEmbedded = showEmbeddedCheckout;
+    window.FW.payments.onSettled = () => { hidePaymentLink(); closeEmbedded(); hideResumeBanner(); };
+  }
 
-  window.FWUI = { showPaymentLink, hidePaymentLink, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
+  /** Case « Confidentialité Whois gratuite » (cochée par défaut) : lit/écrit le choix via get()/set(valeur). */
+  function bindWhoisPrivacy(get, set) {
+    const el = document.getElementById('whois-privacy');
+    if (!el) return;
+    el.checked = get() !== false;
+    el.addEventListener('change', () => set(el.checked));
+  }
+
+  window.FWUI = { bindWhoisPrivacy, showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
 
   /* Initialisation automatique */
   document.addEventListener('DOMContentLoaded', () => {

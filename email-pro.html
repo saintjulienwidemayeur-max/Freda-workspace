@@ -82,6 +82,12 @@
               </div>
               <p class="field-error" data-for="mail-local">Utilisez seulement des lettres, chiffres, points ou tirets.</p>
             </div>
+            <div class="mt-4">
+              <label for="mail-pass" class="label">Mot de passe de votre boîte</label>
+              <input id="mail-pass" type="password" class="input" autocomplete="new-password" placeholder="10 caractères minimum">
+              <p class="hint">Vous l’utiliserez avec cette adresse pour ouvrir votre email dans l’application Freda Mail. Il ne vous sera jamais envoyé par e-mail.</p>
+              <p class="field-error" data-for="mail-pass">Entre 10 et 128 caractères.</p>
+            </div>
           </section>
 
           <!-- 3. Paiement -->
@@ -187,7 +193,6 @@
               <ul class="mt-5 space-y-2 text-xs text-muted" id="sum-notes"></ul>
             </div>
           </div>
-          <p class="mt-4 text-xs text-center text-muted">Test : la carte se terminant par 0002 simule un refus.</p>
         </aside>
       </form>
 

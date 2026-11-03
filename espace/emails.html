@@ -106,19 +106,29 @@
           </div>
           <p class="field-error" data-for="box-local">Lettres, chiffres, points, tirets ou soulignés uniquement.</p>
         </div>
+        <div id="own-box" class="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900" hidden>
+          <p class="font-semibold flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i>Vérification du domaine pour l’email</p>
+          <p class="mt-1" id="own-text"></p>
+          <dl class="mt-3 grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-3 gap-y-2 items-center" id="own-record" hidden>
+            <dt class="text-xs uppercase tracking-wide text-amber-700">Type</dt><dd class="mono" id="own-type"></dd><dd></dd>
+            <dt class="text-xs uppercase tracking-wide text-amber-700">Nom</dt><dd class="mono" id="own-name"></dd><dd><button type="button" class="btn btn-ghost btn-icon" data-copy-own="name" aria-label="Copier le nom"><i data-lucide="copy"></i></button></dd>
+            <dt class="text-xs uppercase tracking-wide text-amber-700">Valeur</dt><dd class="mono break-all select-all" id="own-value"></dd><dd><button type="button" class="btn btn-ghost btn-icon" data-copy-own="value" aria-label="Copier la valeur"><i data-lucide="copy"></i></button></dd>
+          </dl>
+          <button type="button" class="btn btn-outline btn-sm mt-3" id="own-check" hidden>Vérifier maintenant</button>
+        </div>
         <div>
           <label for="box-name" class="label">Nom affiché</label>
           <input id="box-name" class="input" placeholder="Service ventes">
           <p class="hint">Visible par vos destinataires : « Service ventes &lt;ventes@...&gt; ».</p>
         </div>
         <div>
-          <label for="box-pass" class="label">Mot de passe initial</label>
+          <label for="box-pass" class="label">Mot de passe de la boîte</label>
           <div class="flex gap-2">
             <input id="box-pass" class="input mono flex-1 min-w-0" autocomplete="new-password">
             <button type="button" class="btn btn-outline btn-icon" id="regen-pass" aria-label="Générer un autre mot de passe"><i data-lucide="refresh-cw"></i></button>
             <button type="button" class="btn btn-outline btn-icon" id="copy-pass" aria-label="Copier le mot de passe"><i data-lucide="copy"></i></button>
           </div>
-          <p class="hint">Communiquez-le à l’utilisateur ; il pourra le changer depuis le webmail.</p>
+          <p class="hint">10 caractères minimum. L’utilisateur se connecte à l’application Freda Mail avec cette adresse et ce mot de passe : communiquez-le lui de façon sûre.</p>
         </div>
         <p class="field-error p-3 rounded-lg bg-red-50" id="box-error" role="alert"></p>
       </div>

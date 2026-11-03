@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Prix des domaines — administration</title>
+  <meta name="description" content="Page d’administration : coût NameSilo, prix de vente et marge par extension de domaine.">
+  <link rel="stylesheet" href="assets/css/admin-prix.css">
+</head>
+<body>
+<main>
+  <h1>Prix des domaines</h1>
+  <p class="hint">Coût NameSilo (prix revendeur), prix de vente affiché aux clients et marge, par extension. Le jeton administrateur n’est ni enregistré ni stocké.</p>
+  <form id="f" autocomplete="off">
+    <input id="token" type="password" placeholder="Jeton administrateur (ADMIN_TOKEN)" required>
+    <button type="submit">Afficher</button>
+  </form>
+  <p id="msg" role="status"></p>
+  <div class="wrap"><table id="t" hidden>
+    <thead><tr><th>Extension</th><th>Coût 1re année</th><th>Vente 1re année</th><th>Marge</th><th>Coût renouv.</th><th>Vente renouv.</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/pages/admin-prix.js"></script>
+</body>
+</html>

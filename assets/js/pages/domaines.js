@@ -14,6 +14,7 @@
   if (['monthly', 'yearly'].includes(params.get('cycle'))) init.cycle = params.get('cycle');
   let cart = FW.cart.set(init);
   let lastResults = [];
+  let runId = 0;
 
   /* ---------- Recherche ---------- */
   const input = $('#q');
@@ -25,12 +26,18 @@
     results.setAttribute('aria-busy', 'true');
     results.innerHTML = skeleton();
     try {
-      const data = await FW.searchDomains(query);
+      const me = ++runId;
+      const showUrl = (d) => { const url = new URL(location.href); url.searchParams.set('q', d.exact.domain); history.replaceState(null, '', url); };
+      // Le nom demandé + .com/.net/.org s'affichent tout de suite ; les autres extensions arrivent ensuite.
+      const data = await FW.searchDomains(query, { onPartial: (m) => {
+        if (me !== runId) return;
+        lastResults = [m.exact, ...m.results];
+        render(m, true); showUrl(m);
+        if (scroll && window.innerWidth < 1024) results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } });
+      if (me !== runId) return;   // une recherche plus récente a pris le relais
       lastResults = [data.exact, ...data.results, ...data.suggestions];
-      render(data);
-      const url = new URL(location.href);
-      url.searchParams.set('q', data.exact.domain);
-      history.replaceState(null, '', url);
+      render(data); showUrl(data);
       if (scroll && window.innerWidth < 1024) results.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (e) {
       errorEl.textContent = e.message;
@@ -48,7 +55,7 @@
 
   const priceTag = (r) => r.included
     ? `<span class="badge badge-success"><i data-lucide="gift"></i>Inclus avec l’offre</span><span class="text-xs text-muted line-through tabular">${FW.money(r.price)}</span>`
-    : `<span class="text-sm font-semibold text-ink tabular">${FW.money(r.price)}<span class="text-muted font-normal">/1re année</span></span>`;
+    : `${r.compare > r.price ? `<span class="text-sm text-muted line-through tabular">${FW.money(r.compare)}</span>` : ''}<span class="text-sm font-semibold text-ink tabular">${FW.money(r.price)}<span class="text-muted font-normal">/1re année</span></span>`;
 
   function isSelected(r) { return cart.domain && cart.domain.domain === r.domain; }
 
@@ -59,7 +66,7 @@
       <i data-lucide="${sel ? 'check' : 'shopping-cart'}"></i>${sel ? 'Sélectionné' : 'Choisir'}</button>`;
   }
 
-  function render(data) {
+  function render(data, loadingMore) {
     const r = data.exact;
     const head = r.available
       ? `<div class="card-elevated p-6 sm:p-7 border-cta/40 relative overflow-hidden">
@@ -95,6 +102,8 @@
       ${head}
       <h3 class="mt-9 mb-3 text-sm font-semibold uppercase tracking-wider text-muted">Autres extensions</h3>
       <ul class="card divide-y divide-line">${data.results.map(row).join('')}</ul>
+      ${loadingMore ? '<p class="mt-3 text-sm text-muted flex items-center gap-2" role="status"><span class="skeleton h-3 w-3 rounded-full"></span>Recherche des autres extensions…</p>' : ''}
+      ${data.moreFailed ? '<p class="mt-3 text-sm text-muted">Les autres extensions n’ont pas pu être chargées. Relancez la recherche pour les voir.</p>' : ''}
       ${data.suggestions.length ? `
         <h3 class="mt-9 mb-3 text-sm font-semibold uppercase tracking-wider text-muted">Suggestions disponibles</h3>
         <ul class="card divide-y divide-line">${data.suggestions.map(row).join('')}</ul>` : ''}`;
@@ -183,6 +192,7 @@
     ro && ro.addEventListener('click', () => { cart = FW.cart.set({ ownDomain: false }); renderCart(); });
   }
 
+  FWUI.bindWhoisPrivacy(() => cart.whoisPrivacy, (v) => { cart = FW.cart.set({ whoisPrivacy: v }); });
   $('#years-pick').addEventListener('change', (e) => {
     cart = FW.cart.set({ years: +e.target.value });
     renderCart();

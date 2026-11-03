@@ -28,9 +28,27 @@
         </div>
       </div>`;
     }).join('');
-    $('#renew-line').innerHTML = !ws.plan ? '<i data-lucide="info" class="w-4 h-4"></i>Aucun abonnement email pour le moment. Votre domaine est déjà actif, vous pouvez ajouter l’email pro quand vous voulez.' : `<i data-lucide="calendar-clock" class="w-4 h-4"></i>Prochain renouvellement le ${FW.date(ws.plan.renews)} · ${FW.money(FW.planPrice(ws.plan.id, ws.plan.cycle))}`;
+    const pl = ws.plan;
+    const ended = pl && ['cancelled', 'suspended'].includes(pl.status);
+    $('#renew-line').innerHTML = !pl ? '<i data-lucide="info" class="w-4 h-4"></i>Aucun abonnement email pour le moment. Votre domaine est déjà actif, vous pouvez ajouter l’email pro quand vous voulez.'
+      : ended ? '<i data-lucide="alert-triangle" class="w-4 h-4"></i>Offre terminée : vos boîtes sont suspendues (vos messages sont conservés). Choisissez une offre ci-dessus pour les réactiver.'
+      : pl.cancelAtPeriodEnd ? `<i data-lucide="circle-slash" class="w-4 h-4"></i>Offre résiliée : vos boîtes restent actives jusqu’au ${FW.date(pl.renews)}, sans nouveau prélèvement. <button type="button" class="underline font-semibold" data-resume>Reprendre l’offre</button>`
+      : `<i data-lucide="calendar-clock" class="w-4 h-4"></i>Prochain renouvellement le ${FW.date(pl.renews)} · ${FW.money(FW.planPrice(pl.id, pl.cycle))} <button type="button" class="underline text-muted" data-cancel-plan>Résilier</button>`;
   }
   document.querySelectorAll('[data-cycle]').forEach((b) => b.addEventListener('click', () => { viewCycle = b.dataset.cycle; renderPlans(); FWUI.icons(); }));
+
+  $('#renew-line').addEventListener('click', async (e) => {
+    const ws = FWSpace.ws();
+    try {
+      if (e.target.closest('[data-cancel-plan]')) {
+        const ok = await FWUI.confirmDialog({ title: 'Résilier l’offre', message: `Vos boîtes restent utilisables jusqu’au <strong>${FW.date(ws.plan.renews)}</strong>, puis elles sont suspendues (aucun message n’est supprimé). Plus aucun prélèvement n’aura lieu. Vous pouvez reprendre l’offre avant cette date.`, confirmLabel: 'Résilier l’offre' });
+        if (!ok) return;
+        await FW.plans.cancel(); ws.plan.cancelAtPeriodEnd = true; FWUI.toast('Offre résiliée'); renderPlans(); FWUI.icons();
+      } else if (e.target.closest('[data-resume]')) {
+        await FW.plans.resume(); ws.plan.cancelAtPeriodEnd = false; FWUI.toast('Offre reprise'); renderPlans(); FWUI.icons();
+      }
+    } catch (err) { FWUI.toast(err.message, 'error'); }
+  });
 
   $('#plan-cards').addEventListener('click', async (e) => {
     const b = e.target.closest('[data-switch]');
@@ -85,8 +103,19 @@
     }
   });
 
-  /* Ajout */
+  /* Ajout. Production : la carte se saisit chez Stripe lors d'un paiement (elle est enregistrée à ce moment-là) ; aucun champ de carte ici. */
+  const hostedCard = !FW.config.DEMO_MODE;
   let pmType = 'card';
+  const syncPmForm = () => { const hideSave = hostedCard && pmType === 'card'; const sb = $('#pm-form [type=submit]'); if (sb) sb.hidden = hideSave; };
+  if (hostedCard) {
+    const card = $('#pm-card');
+    Array.from(card.children).forEach((c) => { c.hidden = true; });
+    const note = document.createElement('p');
+    note.className = 'text-sm text-slate-600';
+    note.textContent = 'Une carte bancaire s’enregistre automatiquement lors de votre prochain paiement par carte : vous la saisissez sur la page sécurisée de Stripe (nous ne voyons jamais votre numéro). Elle servira ensuite à renouveler votre offre et vos domaines ; vous pouvez la supprimer ici à tout moment.';
+    card.appendChild(note);
+    syncPmForm();
+  }
   document.querySelectorAll('[data-pm]').forEach((b) => b.addEventListener('click', () => {
     pmType = b.dataset.pm;
     document.querySelectorAll('[data-pm]').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
@@ -94,6 +123,7 @@
     $('#pm-mobile').hidden = pmType === 'card';
     $('#pm-phone-label').textContent = 'Numéro ' + (pmType === 'moncash' ? 'MonCash' : 'NatCash');
     $('#pm-error').classList.remove('show');
+    syncPmForm();
   }));
   $('#pm-number').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 19).replace(/(\d{4})(?=\d)/g, '$1 '); });
   $('#pm-exp').addEventListener('input', (e) => { let v = e.target.value.replace(/\D/g, '').slice(0, 4); if (v.length >= 3) v = v.slice(0, 2) + '/' + v.slice(2); e.target.value = v; });
@@ -174,4 +204,27 @@
       try { await FW.plans.change({ plan: cur.id, cycle: cur.cycle }); FWUI.toast('Offre renouvelée.'); setTimeout(() => location.reload(), 700); } catch (err) { FWUI.toast(err.message, 'error'); }
     });
   }
+
+  /* ---------- Retour de Stripe : ?payment=success|cancelled&order=… ---------- */
+  (async function paymentReturn() {
+    const q = new URLSearchParams(location.search);
+    const state = q.get('payment');
+    if (!state) return;
+    const order = q.get('order');
+    history.replaceState(null, '', location.pathname + location.hash);        // l'URL de retour ne doit pas rester dans l'historique
+    if (state === 'cancelled') { FWUI.toast('Paiement annulé : aucun montant n’a été débité.'); return; }
+    const banner = document.createElement('div');
+    banner.id = 'pay-return-banner'; banner.setAttribute('role', 'status');
+    banner.className = 'fixed bottom-4 left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 sm:max-w-md z-50 card-elevated p-5 text-center';
+    const show = (html, closable) => { banner.innerHTML = '<p class="text-sm text-slate-700">' + html + '</p>' + (closable ? '<button type="button" class="btn btn-outline btn-sm mt-3" data-close-banner>Fermer</button>' : ''); if (!banner.isConnected) document.body.appendChild(banner); };
+    banner.addEventListener('click', (e) => { if (e.target.closest('[data-close-banner]')) banner.remove(); });
+    if (!order) { FWUI.toast('Paiement reçu. Votre commande est en cours de traitement.'); return; }
+    show('Confirmation de votre paiement en cours…');
+    try {
+      const r = await FW.payments.awaitOrder(order);
+      if (r.status === 'succeeded') { banner.remove(); FWUI.toast('Paiement confirmé. Merci !'); setTimeout(() => location.reload(), 900); }
+      else if (r.status === 'failed') show('Le paiement n’a pas abouti' + (r.error ? ' : ' + esc(r.error) : '') + '. Aucun montant n’a été débité.', true);
+      else show('Votre paiement est en cours de confirmation. Il sera pris en compte automatiquement dans quelques minutes ; vous recevrez un reçu par e-mail.', true);
+    } catch (err) { show(esc(err.message), true); }
+  })();
 })();

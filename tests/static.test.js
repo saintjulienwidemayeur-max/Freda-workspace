@@ -104,6 +104,10 @@ test('en-têtes de sécurité de production (render.yaml)', () => {
   assert.match(csp, /frame-ancestors 'none'/);
   assert.match(csp, /object-src 'none'/);
   assert.doesNotMatch(csp.match(/script-src[^;]*/)[0], /unsafe-inline|unsafe-eval/, 'script-src doit rester strict');
+  assert.match(csp.match(/script-src[^;]*/)[0], /https:\/\/js\.stripe\.com/, 'Stripe.js autorisé');
+  assert.match(csp.match(/frame-src[^;]*/)[0], /https:\/\/js\.stripe\.com[^;]*https:\/\/hooks\.stripe\.com/, 'iframe Stripe + 3-D Secure autorisés');
+  assert.doesNotMatch(csp.match(/frame-src[^;]*/)[0], /\*(?!\.js\.stripe)/, 'frame-src : pas de joker hors *.js.stripe.com');
+  assert.match(csp.match(/connect-src[^;]*/)[0], /https:\/\/api\.stripe\.com/);
   assert.strictEqual(h['X-Frame-Options'], 'DENY');
   assert.strictEqual(h['X-Content-Type-Options'], 'nosniff');
   assert.ok(h['Strict-Transport-Security']);
