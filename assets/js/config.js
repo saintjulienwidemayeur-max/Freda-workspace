@@ -112,6 +112,10 @@ window.FW_CONFIG = {
   },
   YEARLY_MONTHS_BILLED: 10,
 
+  /* Certificat SSL offert avec chaque offre. SSL_VALUE_USD = valeur de référence annuelle affichée barrée (0 = pas de prix barré).
+     N'indiquez qu'un prix de référence réellement pratiqué ailleurs pour un certificat équivalent. */
+  SSL_VALUE_USD: 50,
+
   /* Extensions proposées.
      included = true si une extension est offerte avec l'offre (aucune pour l'instant) ;
      sinon le domaine est facturé à son propre prix. renew = prix de renouvellement annuel. */
@@ -151,6 +155,11 @@ window.FW_CONFIG = {
 /* ---------- Aides d'affichage des offres ---------- */
 (function () {
   const C = window.FW_CONFIG;
+  /* Ligne « Certificat SSL gratuit » ajoutée à chaque offre, avec la valeur de référence barrée. */
+  Object.values(C.PLANS).forEach((p) => {
+    const worth = C.SSL_VALUE_USD > 0 ? ' <s class="opacity-60 tabular">$' + C.SSL_VALUE_USD + '/an</s> <strong class="text-cta">Gratuit</strong>' : '';
+    p.features.push('Certificat SSL' + (worth || ' gratuit'));
+  });
   /** Stockage par boîte (Go). */
   C.perBoxGb = (p) => p.perBoxGb || p.storageGb / p.mailboxes;
   /** Stockage total disponible pour n boîtes (Go). */
