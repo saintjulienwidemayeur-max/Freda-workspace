@@ -80,12 +80,13 @@
         </div>
         <div id="mode-records" class="mt-5" hidden>
           <p class="text-sm text-slate-600">Ajoutez ces enregistrements dans la zone DNS chez votre fournisseur actuel :</p>
+          <ul class="mt-2 text-xs text-slate-600 list-disc pl-5 space-y-1"><li><strong>Supprimez vos anciens enregistrements MX</strong> (Google, OVH, etc.) et tout ancien SPF : un domaine ne doit avoir qu’un seul SPF.</li><li>Sur <strong>Cloudflare</strong>, mettez les CNAME en « DNS only » (nuage gris), sinon la signature DKIM échoue.</li><li>À la racine du domaine (@), utilisez le type indiqué (MX, TXT) ; un CNAME n’y est pas permis.</li></ul>
           <div class="mt-3 table-wrap rounded-xl border border-line">
             <table class="table"><thead><tr><th>Type</th><th>Nom</th><th>Valeur</th></tr></thead><tbody id="connect-records"></tbody></table>
           </div>
         </div>
 
-        <p class="mt-4 text-xs text-muted flex items-start gap-2"><i data-lucide="clock" class="w-4 h-4 shrink-0"></i>La propagation prend de quelques minutes à 24 h. Vous pouvez fermer cette fenêtre : le domaine reste dans votre liste avec le statut « À connecter ».</p>
+        <p class="mt-4 text-xs text-muted flex items-start gap-2"><i data-lucide="clock" class="w-4 h-4 shrink-0"></i>La propagation est souvent rapide (15 minutes) mais peut prendre jusqu’à 24 à 48 h. Vous pouvez fermer cette fenêtre : le domaine reste « À connecter » jusqu’à ce que vous cliquiez sur « Vérifier » et que tout soit détecté.</p>
 
         <div class="mt-5 flex flex-wrap justify-end gap-2">
           <button type="button" class="btn btn-ghost" data-close>Plus tard</button>

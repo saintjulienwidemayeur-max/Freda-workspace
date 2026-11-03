@@ -156,7 +156,9 @@ window.FW_CONFIG = {
 (function () {
   const C = window.FW_CONFIG;
   /* Ligne « Certificat SSL gratuit » ajoutée à chaque offre, avec la valeur de référence barrée. */
+  const waReal = C.SUPPORT_WHATSAPP && !/0000/.test(C.SUPPORT_WHATSAPP);
   Object.values(C.PLANS).forEach((p) => {
+    if (!waReal) p.features = p.features.map((f) => f.replace('(WhatsApp et email)', '(email)'));   // pas de promesse WhatsApp sans numéro
     const worth = C.SSL_VALUE_USD > 0 ? ' <s class="opacity-60 tabular">$' + C.SSL_VALUE_USD + '/an</s> <strong class="text-cta">Gratuit</strong>' : '';
     p.features.push('Certificat SSL' + (worth || ' gratuit'));
   });

@@ -7,7 +7,9 @@
   const S = C.MAIL_SERVERS;
 
   $('#support-email').textContent = C.SUPPORT_EMAIL;
-  $('#support-wa').textContent = C.SUPPORT_WHATSAPP;
+  const waOk = C.SUPPORT_WHATSAPP && !/0000/.test(C.SUPPORT_WHATSAPP);   // numéro réel renseigné ?
+  if (waOk) $('#support-wa').textContent = C.SUPPORT_WHATSAPP;
+  else { const li = $('#support-wa').closest('li'); if (li) li.hidden = true; }
 
   const CATS = [
     { id: 'all', label: 'Tout', icon: 'layout-grid' },
@@ -19,7 +21,7 @@
 
   const FAQ = [
     { cat: 'domaines', q: 'Combien de temps faut-il pour activer un domaine ?', a: 'L’enregistrement est immédiat après le paiement. La propagation DNS mondiale peut prendre de quelques minutes à 24 heures, mais votre boîte mail fonctionne en général en moins de 10 minutes.' },
-    { cat: 'domaines', q: 'Comment connecter un domaine que je possède déjà ?', a: 'Dans votre espace, ouvrez Domaines puis « Connecter un domaine existant ». Remplacez les serveurs de noms chez votre registraire actuel par ' + C.NAMESERVERS.join(' et ') + ', ou ajoutez seulement les enregistrements email indiqués dans la page DNS.' },
+    { cat: 'domaines', q: 'Comment connecter un domaine que je possède déjà ?', a: 'Dans votre espace, ouvrez Domaines puis « Connecter un domaine existant ». Ajoutez chez votre fournisseur DNS actuel les enregistrements indiqués (MX, SPF, 3 DKIM, DMARC et la preuve de propriété TXT), supprimez vos anciens MX et SPF, puis cliquez sur « Vérifier ». Sur Cloudflare, mettez les CNAME en « DNS only ».' },
     { cat: 'domaines', q: 'Puis-je transférer mon domaine ailleurs ?', a: 'Oui. Désactivez le verrouillage dans Domaines, puis demandez le code d’autorisation (EPP). Le transfert est possible 60 jours après l’enregistrement, selon les règles de l’ICANN.' },
     { cat: 'emails', q: 'Comment configurer ma boîte dans Outlook, Gmail ou Apple Mail ?', a: 'Choisissez un compte IMAP. Serveur entrant : ' + S.imap.host + ', port ' + S.imap.port + ' (' + S.imap.security + '). Serveur sortant : ' + S.smtp.host + ', port ' + S.smtp.port + ' (' + S.smtp.security + '). Identifiant : votre adresse complète.' },
     { cat: 'emails', q: 'Quelle est la différence entre une boîte et un alias ?', a: 'Une boîte a son propre mot de passe et son espace de stockage. Un alias (par exemple info@) redirige simplement les messages vers une boîte existante, sans coût supplémentaire.' },
@@ -82,12 +84,11 @@
     ok = err('ct-email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#ct-email').value.trim())) && ok;
     ok = err('ct-msg', $('#ct-msg').value.trim().length < 20) && ok;
     if (!ok) return;
-    const btn = e.target.querySelector('[type=submit]');
-    FWUI.setLoading(btn, true, 'Envoi...');
-    await FW.wait(900); // POST /support/tickets côté backend
-    FWUI.setLoading(btn, false);
-    e.target.reset();
-    FWUI.toast('Demande envoyée. Numéro de suivi : FW-T' + Date.now().toString().slice(-6));
+    // Pas de système de tickets : la demande part par e-mail réel vers le support (aucun faux numéro de suivi).
+    const subject = 'Demande de support — ' + $('#ct-name').value.trim();
+    const body = $('#ct-msg').value.trim() + '\n\n— ' + $('#ct-name').value.trim() + ' (' + $('#ct-email').value.trim() + ')';
+    location.href = 'mailto:' + C.SUPPORT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    FWUI.toast('Votre application de messagerie s’ouvre : envoyez le message pour nous joindre. Vous pouvez aussi écrire à ' + C.SUPPORT_EMAIL + '.', 'info');
   });
 
   renderCats();

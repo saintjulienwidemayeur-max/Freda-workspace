@@ -14,6 +14,8 @@
   $('#company-line').textContent = ws.user.company ? ws.user.company + ' · ' + ws.domains.length + ' domaine' + (ws.domains.length > 1 ? 's' : '') : '';
   $('#dl-ios').href = C.APP_STORE_URL;
   $('#dl-android').href = C.PLAY_STORE_URL;
+  const genericStore = (u) => !u || /^https:\/\/(apps\.apple\.com|play\.google\.com)\/(store\/)?$/.test(u);
+  if (!C.DEMO_MODE && (genericStore(C.APP_STORE_URL) || genericStore(C.PLAY_STORE_URL))) { const sec = $('#dl-ios').closest('section'); if (sec) sec.hidden = true; }
 
   /* ---------- Indicateurs ---------- */
   const used = ws.mailboxes.reduce((s, m) => s + m.usedGb, 0);

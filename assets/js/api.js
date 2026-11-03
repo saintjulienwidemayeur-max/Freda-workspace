@@ -726,5 +726,5 @@
   trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
   trackAfter(domains, 'verify', 'domain_verified');
 
-  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
+  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, dnsConfig: () => { const w = workspace.get() || {}; return w.dnsConfig || { nameservers: C.DEMO_MODE ? C.NAMESERVERS : [], nameserversAvailable: !!C.DEMO_MODE }; }, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
 })();

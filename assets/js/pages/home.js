@@ -86,6 +86,9 @@
   /* ---------- Application mobile ---------- */
   $('#appstore-link').href = C.APP_STORE_URL;
   $('#playstore-link').href = C.PLAY_STORE_URL;
+  // Tant que les liens sont les pages d'accueil génériques des stores (app pas encore publiée), on ne promet pas de téléchargement.
+  const genericStore = (u) => !u || /^https:\/\/(apps\.apple\.com|play\.google\.com)\/(store\/)?$/.test(u);
+  if (!C.DEMO_MODE && (genericStore(C.APP_STORE_URL) || genericStore(C.PLAY_STORE_URL))) { const sec = $('#appstore-link').closest('section'); if (sec) sec.hidden = true; }
   function drawQR(el, cell) {
     if (!window.qrcode || !el) return;
     const qr = qrcode(0, 'M');

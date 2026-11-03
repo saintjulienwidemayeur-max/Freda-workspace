@@ -86,12 +86,28 @@
     current = name;
     $('#connect-form').hidden = true;
     $('#connect-name').textContent = name;
+    const cfgDns = FW.dnsConfig();
+    if (!cfgDns.nameserversAvailable) mode = 'records';   // pas de serveurs de noms Freda réels : seule la méthode « enregistrements » est sûre
+    const nsRadio = document.querySelector('[name="connect-mode"][value="nameservers"]');
+    if (nsRadio) nsRadio.closest('label').hidden = !cfgDns.nameserversAvailable;
     document.querySelector(`[name="connect-mode"][value="${mode}"]`).checked = true;
-    $('#connect-ns').innerHTML = C.NAMESERVERS.map((ns) => `<li class="flex items-center justify-between rounded-lg border border-line px-4 py-2.5"><span class="mono text-sm">${ns}</span>${copyRow(ns)}</li>`).join('');
+    $('#connect-ns').innerHTML = cfgDns.nameservers.map((ns) => `<li class="flex items-center justify-between rounded-lg border border-line px-4 py-2.5"><span class="mono text-sm">${ns}</span>${copyRow(ns)}</li>`).join('');
     $('#connect-records').innerHTML = C.MAIL_DNS_TEMPLATE.map((r) => `<tr><td class="mono text-xs font-bold">${r.type}</td><td class="mono text-xs">${esc(r.name)}</td><td class="mono text-xs"><span class="inline-flex items-center gap-2">${r.priority !== undefined ? r.priority + ' ' : ''}${esc(r.value)}${copyRow(r.value)}</span></td></tr>`).join('');
     toggleMode(mode);
     $('#connect-steps').hidden = false;
     FWUI.icons();
+    addOwnershipRow(name);
+  }
+  /** Mode « enregistrements » : le TXT de preuve de propriété est indispensable pour activer l'email (hors démo). */
+  async function addOwnershipRow(name) {
+    if (C.DEMO_MODE) return;
+    try {
+      const r = await FW.domains.mailOwnership(name);
+      if (current !== name || !r || !r.record || r.status === 'verified') return;
+      const row = `<tr><td class="mono text-xs font-bold">${esc(r.record.type)}</td><td class="mono text-xs">${esc(r.record.name)}</td><td class="mono text-xs"><span class="inline-flex items-center gap-2">${esc(r.record.value)}${copyRow(r.record.value)}</span></td></tr>`;
+      $('#connect-records').insertAdjacentHTML('afterbegin', row);
+      FWUI.icons();
+    } catch (e) { /* messagerie non configurée : la page Emails affichera l'enregistrement quand nécessaire */ }
   }
   function toggleMode(mode) {
     $('#mode-nameservers').hidden = mode !== 'nameservers';
@@ -104,7 +120,7 @@
     $('#connect-form').hidden = !!d;
     $('#connect-steps').hidden = true;
     FWUI.openModal('modal-connect');
-    if (d) showSteps(d.name, d.dnsMode || 'nameservers');
+    if (d) showSteps(d.name, d.dnsMode || (FW.dnsConfig().nameserversAvailable ? 'nameservers' : 'records'));
   }
   document.querySelectorAll('[name="connect-mode"]').forEach((r) => r.addEventListener('change', () => { toggleMode(r.value); if (current) FW.domains.setMode(current, r.value); }));
   document.addEventListener('click', (e) => { const b = e.target.closest('[data-connect]'); if (b) openConnect(b.dataset.connect); });
@@ -119,10 +135,11 @@
     const btn = $('#connect-submit');
     FWUI.setLoading(btn, true, 'Ajout...');
     try {
-      await FW.domains.connect(raw, 'nameservers');
+      const startMode = FW.dnsConfig().nameserversAvailable ? 'nameservers' : 'records';
+      await FW.domains.connect(raw, startMode);
       err.classList.remove('show');
       render();
-      showSteps(raw, 'nameservers');
+      showSteps(raw, startMode);
     } catch (ex) {
       err.textContent = ex.message; err.classList.add('show');
     } finally { FWUI.setLoading(btn, false); }
@@ -136,7 +153,7 @@
       FWUI.closeModal('modal-connect');
       render();
       if (res.connected) FWUI.toast('Domaine ' + current + ' connecté. Vous pouvez gérer son DNS.', 'success');
-      else FWUI.toast('Pas encore détecté. La propagation peut prendre jusqu’à 24 h.', 'info');
+      else FWUI.toast('Pas encore détecté' + (res.missing && res.missing.length ? ' (manque : ' + res.missing.join(', ') + ')' : '') + '. La propagation est souvent rapide (15 min) mais peut prendre jusqu’à 24 à 48 h ; réessayez plus tard.', 'info');
     } catch (ex) {
       FWUI.toast(ex.message, 'error');
     } finally { FWUI.setLoading(btn, false); }

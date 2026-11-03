@@ -129,7 +129,10 @@
   function render() { renderDiag(); renderFilter(); renderTable(); renderNs(); FWUI.icons(); }
 
   function renderNs() {
-    $('#ns-list').innerHTML = C.NAMESERVERS.map((ns, i) => `
+    const nsCfg = FW.dnsConfig();
+    const nsCard = document.getElementById('ns-card');
+    if (nsCard) nsCard.hidden = !nsCfg.nameserversAvailable;   // pas de serveurs de noms Freda : on n'affiche pas de faux serveurs
+    $('#ns-list').innerHTML = nsCfg.nameservers.map((ns, i) => `
       <li class="flex items-center gap-3 rounded-lg border border-line px-4 py-3">
         <span class="text-xs text-muted w-10 tabular">NS${i + 1}</span>
         <span class="mono text-sm text-ink flex-1 truncate">${ns}</span>

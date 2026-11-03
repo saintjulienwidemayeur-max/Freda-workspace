@@ -87,6 +87,13 @@
     if (ok) FWUI.toast('Demande de suppression enregistrée. Un email de confirmation vous a été envoyé.', 'info');
   });
 
+  /* Hors démo, ces fonctions n'ont pas encore de backend : on ne montre pas de faux boutons. */
+  if (!FW.config.DEMO_MODE) {
+    const hide = (el, sel) => { const box = el && el.closest(sel); if (box) box.hidden = true; };
+    hide($('#mfa-toggle'), 'div.justify-between'); hide($('#oauth-list'), 'section'); hide($('#delete-account'), 'section');
+    const dtab = document.querySelector('[data-tab="notifications"]'); if (dtab) dtab.hidden = true;
+  }
+
   /* Notifications */
   const NOTIFS = [
     ['Renouvellement à venir', 'Rappel 30 jours et 7 jours avant chaque échéance.', true],

@@ -49,13 +49,14 @@ assets/
 
 ## Passer en production
 
-1. **Backend** : dans `assets/js/config.js`, mettez `DEMO_MODE: false` et `API_BASE` vers votre API. Les routes attendues sont listées en tête de `assets/js/api.js`.
-2. **Clés secrètes** : le Registrar, Purelymail et Freda Pay sont appelés uniquement depuis le backend. Aucune clé dans le frontend.
-3. **Carte bancaire** : utilisez le formulaire sécurisé ou le SDK de Freda Pay pour tokeniser la carte. N'envoyez jamais le numéro complet à votre serveur (PCI-DSS).
-4. **MonCash / NatCash** : le backend crée la transaction via Freda Pay et renvoie l'URL de redirection ou déclenche la demande sur le téléphone.
-5. **Google / Apple** : `FW.auth.oauth()` redirige vers `/auth/oauth/google|apple`. Avec Supabase, remplacez par `supabase.auth.signInWithOAuth({ provider })`.
+1. **Backend** : ne modifiez pas `config.js` à la main : sur Render, définissez `FW_DEMO_MODE=false` et `FW_API_BASE=https://<api>/api` (voir « Déploiement » plus bas). Les routes attendues sont listées en tête de `assets/js/api.js`. Checklist complète de mise en production : README du backend.
+2. **Clés secrètes** : NameSilo, Purelymail, Stripe et Pay'm sont appelés uniquement depuis le backend. Aucune clé secrète dans le frontend (seule la clé publiable Stripe est envoyée par l'API).
+3. **Carte bancaire** : Stripe Embedded Checkout (voir plus bas) : le numéro ne passe jamais par nos pages (PCI-DSS).
+4. **MonCash / NatCash** : le backend crée la transaction Pay'm et renvoie l'URL de redirection ; la confirmation vient du serveur.
+5. **Google** : `FW.auth.oauth()` redirige vers `/auth/oauth/google` (Apple n'est pas branché).
 6. **Régénérer le CSS / les icônes** après une modification de classes ou d'icônes : `npm install && npm run build` (thème dans `tailwind.config.js`).
-7. **À compléter** : liens App Store / Play Store, adresse de support, serveurs de noms, textes légaux, taux HTG dynamique.
+7. **À compléter dans `assets/js/config.js` avant le lancement** (tant qu'ils sont des espaces réservés, le site masque ou neutralise les éléments concernés) : `SUPPORT_WHATSAPP` (numéro réel ; sinon la mention WhatsApp disparaît des offres), `APP_STORE_URL` / `PLAY_STORE_URL` (liens réels ; sinon le bloc « Application mobile » est masqué), `WEBMAIL_URL` (vérifier que l'hôte existe), `BILLING.address` et `BILLING.taxId` (mentions de facture), textes légaux.
+8. **Pas de faux serveurs de noms** : les serveurs de noms affichés viennent de l'API (`dnsConfig` dans `/api/workspace`) ; sans `NAMESERVERS` côté backend, seule la méthode « enregistrements DNS » est proposée.
 
 ## Mode démonstration
 
@@ -91,7 +92,7 @@ L'API est dans un dépôt séparé : [Freda-workspace-backend](https://github.co
 
 **Test de bout en bout** (vrai frontend en mode production contre le vrai backend et ses faux services) :
 ```bash
-FREDA_BACKEND_DIR=../freda-workspace-backend npm test
+FREDA_BACKEND_DIR=../Freda-workspace-backend npm test
 ```
 Sans cette variable (cas de la CI), ce test est ignoré.
 
