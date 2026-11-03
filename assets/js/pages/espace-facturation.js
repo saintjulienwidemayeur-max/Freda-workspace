@@ -42,6 +42,11 @@
       confirmLabel: 'Confirmer le changement',
     });
     if (!ok) return;
+    if (!FW.config.DEMO_MODE) {
+      try { await FW.plans.change({ plan: p.id, cycle: viewCycle }); FWUI.toast('Votre offre est maintenant ' + p.name); setTimeout(() => location.reload(), 700); }
+      catch (err) { FWUI.toast(err.message, 'error'); }
+      return;
+    }
     const ws = FWSpace.ws();
     ws.plan.id = p.id;
     ws.plan.cycle = viewCycle;
@@ -68,11 +73,13 @@
   $('#pm-list').addEventListener('click', async (e) => {
     const ws = FWSpace.ws();
     const d = e.target.closest('[data-default]');
+    if (d && !FW.config.DEMO_MODE) { try { await FW.methods.setDefault(d.dataset.default); render(); FWUI.toast('Moyen de paiement par défaut mis à jour'); } catch (err) { FWUI.toast(err.message, 'error'); } return; }
     if (d) { ws.paymentMethods.forEach((m) => { m.default = m.id === d.dataset.default; }); FW.workspace.save(ws); render(); FWUI.toast('Moyen de paiement par défaut mis à jour'); }
     const r = e.target.closest('[data-remove]');
     if (r) {
       const ok = await FWUI.confirmDialog({ title: 'Retirer ce moyen de paiement ?', message: 'Il ne sera plus utilisé pour vos renouvellements.', confirmLabel: 'Retirer', danger: true });
       if (!ok) return;
+      if (!FW.config.DEMO_MODE) { try { await FW.methods.remove(r.dataset.remove); render(); } catch (err) { FWUI.toast(err.message, 'error'); } return; }
       ws.paymentMethods = ws.paymentMethods.filter((m) => m.id !== r.dataset.remove);
       FW.workspace.save(ws); render();
     }
@@ -108,6 +115,15 @@
     }
     const btn = e.target.querySelector('[type=submit]');
     FWUI.setLoading(btn, true, 'Vérification...');
+    if (!FW.config.DEMO_MODE) {
+      try {
+        if (pmType === 'card') throw new Error('Les cartes bancaires ne sont pas encore disponibles. Utilisez MonCash ou NatCash.');
+        await FW.methods.add({ type: pmType, phone: $('#pm-phone').value });
+        FWUI.closeModal('modal-pm'); e.target.reset(); render(); FWUI.toast('Moyen de paiement ajouté');
+      } catch (er) { err.textContent = er.message; err.classList.add('show'); }
+      FWUI.setLoading(btn, false);
+      return;
+    }
     await FW.wait(900); // Tokenisation / vérification via Freda Pay
     FWUI.setLoading(btn, false);
     ws.paymentMethods.push(method);
@@ -149,4 +165,13 @@
 
   function render() { renderPlans(); renderPm(); renderInvoices(); FWUI.icons(); }
   render();
+
+  /* Lien reçu par e-mail (?renew=1) : renouvelle l'offre en cours. */
+  if (new URLSearchParams(location.search).get('renew') && FWSpace.ws().plan && !FW.config.DEMO_MODE) {
+    const cur = FWSpace.ws().plan;
+    FWUI.confirmDialog({ title: 'Renouveler votre offre', message: 'Régler maintenant l’offre <strong>' + esc(C.PLANS[cur.id].name) + '</strong> par MonCash ou NatCash.', confirmLabel: 'Payer' }).then(async (ok) => {
+      if (!ok) return;
+      try { await FW.plans.change({ plan: cur.id, cycle: cur.cycle }); FWUI.toast('Offre renouvelée.'); setTimeout(() => location.reload(), 700); } catch (err) { FWUI.toast(err.message, 'error'); }
+    });
+  }
 })();

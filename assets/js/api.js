@@ -52,7 +52,7 @@
     if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;   // évite un double achat si la requête est rejouée
     const res = await fetch(C.API_BASE + path, { method, credentials: 'include', headers, body: body ? JSON.stringify(body) : undefined });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.message || 'La requête a échoué (' + res.status + ').');
+    if (!res.ok) { const err = new Error(data.message || 'La requête a échoué (' + res.status + ').'); err.status = res.status; err.code = data.code; throw err; }
     return data;
   }
   const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : 'k' + Date.now() + Math.random().toString(36).slice(2));
@@ -156,11 +156,19 @@
   /* ======================================================================
      AUTHENTIFICATION
      ====================================================================== */
+  /** Réponse de /auth/login|signup|reset/confirm : { token, user } -> session locale + jeton Bearer. */
+  function startSession(r) {
+    store.set('token', r.token);
+    store.remove('workspace');
+    const s = { user: r.user, provider: 'email' };
+    store.set('session', s);
+    return s;
+  }
   const auth = {
     current: () => store.get('session'),
 
     async login(email, password) {
-      if (!C.DEMO_MODE) return request('/auth/login', { method: 'POST', body: { email, password } });
+      if (!C.DEMO_MODE) return startSession(await request('/auth/login', { method: 'POST', body: { email, password } }));
       await wait(700);
       if (password.length < 6) throw new Error('Email ou mot de passe incorrect.');
       const s = { user: { name: email.split('@')[0], email }, provider: 'email' };
@@ -169,7 +177,7 @@
     },
 
     async signup(data) {
-      if (!C.DEMO_MODE) return request('/auth/signup', { method: 'POST', body: data });
+      if (!C.DEMO_MODE) return startSession(await request('/auth/signup', { method: 'POST', body: data }));
       await wait(800);
       const s = { user: { name: data.name, email: data.email, company: data.company || '', phone: data.phone || '' }, provider: 'email' };
       store.set('session', s);
@@ -182,7 +190,7 @@
      * (ou supabase.auth.signInWithOAuth({ provider: 'google' | 'apple' })).
      */
     async oauth(provider) {
-      if (!C.DEMO_MODE) { window.location.href = C.API_BASE + '/auth/oauth/' + provider; return; }
+      if (!C.DEMO_MODE) { const next = new URLSearchParams(location.search).get('next'); window.location.href = C.API_BASE + '/auth/oauth/' + provider + (next ? '?next=' + encodeURIComponent(next) : ''); return; }
       await wait(900);
       const s = { user: { name: provider === 'google' ? 'Compte Google' : 'Compte Apple', email: 'demo@' + provider + '.com' }, provider };
       store.set('session', s);
@@ -201,7 +209,12 @@
      * Production : PATCH /me/company
      */
     async updateProfile(patch) {
-      if (!C.DEMO_MODE) return request('/me/company', { method: 'PATCH', body: patch });
+      if (!C.DEMO_MODE) {
+        const user = await request('/me/company', { method: 'PATCH', body: patch });
+        const s = store.get('session'); if (s) { s.user = { ...s.user, ...user }; store.set('session', s); }
+        const w = store.get('workspace'); if (w) { w.user = { ...w.user, ...user }; store.set('workspace', w); }
+        return s;
+      }
       await wait(500);
       const s = store.get('session');
       if (s) { s.user = { ...s.user, ...patch }; store.set('session', s); }
@@ -210,7 +223,31 @@
       return s;
     },
 
-    logout() { store.remove('session'); if (!C.DEMO_MODE) request('/auth/logout', { method: 'POST' }).catch(() => {}); },
+    /** Fin du retour OAuth : le backend redirige vers connexion.html#token=…&next=…&new=1. */
+    async completeOAuth(hash) {
+      const p = new URLSearchParams(String(hash || '').replace(/^#/, ''));
+      if (p.get('error')) throw new Error('La connexion a échoué. Réessayez.');
+      const token = p.get('token');
+      if (!token) return null;
+      store.set('token', token);
+      history.replaceState(null, '', location.pathname + location.search);       // le jeton ne reste pas dans l'URL
+      const user = await request('/me');
+      store.set('session', { user, provider: 'google' });
+      return { next: p.get('next') || '', isNew: p.get('new') === '1' };
+    },
+
+    /** Nouveau mot de passe depuis le lien reçu par e-mail (connexion.html?reset=JETON). */
+    async confirmReset(token, password) {
+      if (C.DEMO_MODE) { await wait(500); return { ok: true }; }
+      return startSession(await request('/auth/reset/confirm', { method: 'POST', body: { token, password } }));
+    },
+
+    async changePassword(oldPassword, newPassword) {
+      if (C.DEMO_MODE) { await wait(400); return { ok: true }; }
+      return request('/me/password', { method: 'POST', body: { oldPassword, newPassword } });
+    },
+
+    logout() { if (!C.DEMO_MODE) request('/auth/logout', { method: 'POST' }).catch(() => {}); store.remove('session'); store.remove('token'); store.remove('workspace'); },
   };
 
   /* ======================================================================
@@ -232,12 +269,40 @@
     async checkout({ kind, method, payer, saved, domain, plan, cycle, mailbox }) {
       const c = cart.get();
       const amount = kind === 'domain' ? cart.totals(c).domain : planPrice(plan, cycle);
+      if (!C.DEMO_MODE) {
+        // Le navigateur n'envoie QUE le choix : le serveur recalcule prix, durée et disponibilité. Aucune donnée de carte ne part vers notre API.
+        const body = kind === 'domain'
+          ? { kind, method, domains: domainsOf(c).map((d) => d.domain), years: cart.totals(c).years }
+          : { kind, method, plan, cycle, domain, mailbox: mailbox ? { local: String(mailbox).split('@')[0] } : null };
+        return payments.settle(await request('/checkout', { method: 'POST', body, idempotencyKey: newKey() }));
+      }
       const payload = { kind, method, saved: !!saved, domain: domain || c.domain?.domain, years: kind === 'domain' ? cart.totals(c).years : undefined, plan, cycle, mailbox, amount, currency: 'USD', payer };
-      if (!C.DEMO_MODE) return request('/checkout', { method: 'POST', body: payload, idempotencyKey: newKey() });
+      void payload;
       await wait(1600);
       if (method === 'card' && payer?.last4 === '0002') throw new Error('Paiement refusé par la banque. Essayez une autre carte ou MonCash.');
       return { status: 'succeeded', kind, reference: 'FP-' + Date.now().toString().slice(-8), amount, method };
     },
+
+    /**
+     * Pay'm (MonCash / NatCash) est asynchrone : /checkout répond « pending » avec l'URL de paiement ; on attend la confirmation
+     * (GET /orders/:id toutes les 3 s, 25 min maximum). `payments.onPending(res)` permet à l'interface d'afficher le lien de paiement.
+     */
+    async settle(res) {
+      const done = () => { if (payments.onSettled) payments.onSettled(); };
+      if (res.status !== 'pending') { await workspace.load().catch(() => {}); return res; }
+      if (payments.onPending) payments.onPending(res);
+      const deadline = Date.now() + 25 * 60 * 1000;
+      while (Date.now() < deadline) {
+        await wait(3000);
+        const s = await request('/orders/' + res.orderId);
+        if (s.status === 'succeeded') { done(); await workspace.load().catch(() => {}); return s; }
+        if (s.status === 'failed') { done(); throw new Error(s.error || 'Le paiement n’a pas abouti. Aucun montant n’a été débité.'); }
+      }
+      done();
+      throw new Error('Paiement non confirmé pour le moment. Si vous avez payé, il sera pris en compte automatiquement dans quelques minutes.');
+    },
+    onPending: null,
+    onSettled: null,
   };
 
   /* ======================================================================
@@ -309,10 +374,20 @@
   const workspace = {
     get() {
       let s = store.get('workspace');
-      if (!s) { s = seedWorkspace(); store.set('workspace', s); }
+      if (!s) {
+        if (!C.DEMO_MODE) return { user: {}, plan: null, domains: [], dns: {}, mailboxes: [], aliases: [], paymentMethods: [], invoices: [], activity: [] };   // jamais de données de démonstration en production
+        s = seedWorkspace(); store.set('workspace', s);
+      }
       return s;
     },
     save(s) { store.set('workspace', s); return s; },
+    /** Production : charge l'espace client depuis le backend (GET /workspace) dans le cache local lu par les pages. */
+    async load() {
+      if (C.DEMO_MODE) return workspace.get();
+      const w = await request('/workspace');
+      store.set('workspace', w);
+      return w;
+    },
     reset() { store.remove('workspace'); return workspace.get(); },
     /** Nouveau client : espace avec le domaine acheté, sans abonnement email. */
     createFromPurchase({ user, domain, extras = [], years = 1, payer, method, reference, amount }) {
@@ -370,7 +445,7 @@
     /** Achat d'un ou plusieurs domaines depuis l'espace client (moyen de paiement déjà enregistré). */
     async buy({ items, years, methodId }) {
       const amount = +items.reduce((sum, d) => sum + cart.priceOf(d, years), 0).toFixed(2);
-      if (!C.DEMO_MODE) return request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', saved: true, methodId, domains: items.map((d) => d.domain), years, amount, currency: 'USD' } });
+      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', methodId, domains: items.map((d) => d.domain), years } }));
       await wait(1600);
       const s = workspace.get();
       const pm = s.paymentMethods.find((m) => m.id === methodId) || s.paymentMethods[0];
@@ -393,7 +468,7 @@
     },
     /** Ajoute un domaine existant et prépare sa zone DNS (enregistrements email inclus). */
     async connect(domain, mode = 'nameservers') {
-      if (!C.DEMO_MODE) return request('/domains/connect', { method: 'POST', body: { domain, mode } });
+      if (!C.DEMO_MODE) { const r = await request('/domains/connect', { method: 'POST', body: { domain, mode } }); await workspace.load(); return r; }
       await wait(600);
       const s = workspace.get();
       const existing = s.domains.find((d) => d.name === domain);
@@ -412,9 +487,39 @@
       const d = s.domains.find((x) => x.name === domain);
       if (d) { d.dnsMode = mode; workspace.save(s); }
     },
+    /** Verrouillage et rappels de renouvellement d'un domaine (PATCH /domains/:d). */
+    async update(name, patch) {
+      if (!C.DEMO_MODE) { const r = await request('/domains/' + name, { method: 'PATCH', body: patch }); await workspace.load(); return r; }
+      const s = workspace.get();
+      const d = s.domains.find((x) => x.name === name);
+      Object.assign(d, patch);
+      workspace.save(s);
+      return d;
+    },
+    /** Code de transfert (EPP) : en production NameSilo l'envoie au support Freda, qui le transmet au client. */
+    async requestTransferCode(name) {
+      if (!C.DEMO_MODE) return request('/domains/' + name + '/auth-code', { method: 'POST' });
+      await wait(600);
+      return { ok: true, demo: true };
+    },
+    /** Renouvellement : paiement Pay'm puis renewDomain côté serveur. */
+    async renew(name, years = 1) {
+      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'renewal', domain: name, years, method: 'all' } }));
+      await wait(1200);
+      const s = workspace.get();
+      const d = s.domains.find((x) => x.name === name);
+      const exp = new Date(d.expires || Date.now()); exp.setFullYear(exp.getFullYear() + years);
+      d.expires = exp.toISOString().slice(0, 10);
+      const tld = C.TLDS.find((t) => name.endsWith(t.tld));
+      const amount = +((tld ? tld.renew : 14.99) * years).toFixed(2);
+      s.invoices.unshift({ id: 'FW-' + new Date().getFullYear() + '-' + String(s.invoices.length + 100).slice(-4), date: new Date().toISOString().slice(0, 10), label: 'Renouvellement ' + name + ' (' + years + (years > 1 ? ' ans' : ' an') + ')', amount, method: 'MonCash', status: 'paid' });
+      workspace.log(s, 'refresh-cw', 'Domaine ' + name + ' renouvelé');
+      workspace.save(s);
+      return { status: 'succeeded', amount, reference: 'FP-' + Date.now().toString().slice(-8) };
+    },
     /** Vérifie que le domaine pointe bien vers Freda (simulé en mode démo). */
     async verify(domain) {
-      if (!C.DEMO_MODE) return request('/domains/' + domain + '/verify', { method: 'POST' });
+      if (!C.DEMO_MODE) { const r = await request('/domains/' + domain + '/verify', { method: 'POST' }); await workspace.load(); return r; }
       await wait(1600);
       const s = workspace.get();
       const d = s.domains.find((x) => x.name === domain);
@@ -425,6 +530,18 @@
     },
   };
 
+  /* ---------- Moyens de paiement enregistrés (production : MonCash / NatCash par numéro ; cartes pas encore disponibles) ---------- */
+  const methods = {
+    async add(body) { const r = await request('/payment-methods', { method: 'POST', body }); await workspace.load(); return r; },
+    async setDefault(id) { const r = await request('/payment-methods/' + id, { method: 'PATCH' }); await workspace.load(); return r; },
+    async remove(id) { const r = await request('/payment-methods/' + id, { method: 'DELETE' }); await workspace.load(); return r; },
+  };
+
+  /** Changement d'offre en production : nouvelle commande « subscription » payée via Pay'm. */
+  const plans = {
+    async change({ plan, cycle }) { return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, method: 'all' } })); },
+  };
+
   /* ---------- DNS ---------- */
   const dns = {
     async list(domain) {
@@ -433,7 +550,7 @@
       return workspace.get().dns[domain] || [];
     },
     async save(domain, record) {
-      if (!C.DEMO_MODE) return request('/domains/' + domain + '/dns' + (record.id ? '/' + record.id : ''), { method: record.id ? 'PATCH' : 'POST', body: record });
+      if (!C.DEMO_MODE) { const r = await request('/domains/' + domain + '/dns' + (record.id ? '/' + record.id : ''), { method: record.id ? 'PATCH' : 'POST', body: record }); await workspace.load(); return r; }
       await wait(450);
       const s = workspace.get();
       const list = s.dns[domain] || (s.dns[domain] = []);
@@ -445,7 +562,7 @@
       return record;
     },
     async remove(domain, id) {
-      if (!C.DEMO_MODE) return request('/domains/' + domain + '/dns/' + id, { method: 'DELETE' });
+      if (!C.DEMO_MODE) { const r = await request('/domains/' + domain + '/dns/' + id, { method: 'DELETE' }); await workspace.load(); return r; }
       await wait(350);
       const s = workspace.get();
       s.dns[domain] = s.dns[domain].filter((r) => r.id !== id);
@@ -464,7 +581,7 @@
     },
     /** Ajoute les enregistrements email manquants du modèle Purelymail. */
     async autofix(domain) {
-      if (!C.DEMO_MODE) return request('/domains/' + domain + '/dns/autofix', { method: 'POST' });
+      if (!C.DEMO_MODE) { const r = await request('/domains/' + domain + '/dns/autofix', { method: 'POST' }); await workspace.load(); return r; }
       await wait(1400);
       const s = workspace.get();
       const list = s.dns[domain] || (s.dns[domain] = []);
@@ -491,7 +608,7 @@
   /* ---------- Boîtes mail (Purelymail via backend) ---------- */
   const mailboxes = {
     async create({ local, domain, name }) {
-      if (!C.DEMO_MODE) return request('/mailboxes', { method: 'POST', body: { local, domain, name } });
+      if (!C.DEMO_MODE) { const r = await request('/mailboxes', { method: 'POST', body: { local, domain, name } }); await workspace.load(); return { ...r.mailbox, initialPassword: r.initialPassword, providerReady: r.providerReady }; }
       await wait(900);
       const s = workspace.get();
       const address = local + '@' + domain;
@@ -507,7 +624,7 @@
       return box;
     },
     async remove(id) {
-      if (!C.DEMO_MODE) return request('/mailboxes/' + id, { method: 'DELETE' });
+      if (!C.DEMO_MODE) { await request('/mailboxes/' + id, { method: 'DELETE' }); await workspace.load(); return; }
       await wait(500);
       const s = workspace.get();
       const box = s.mailboxes.find((m) => m.id === id);
@@ -516,7 +633,7 @@
       workspace.save(s);
     },
     async addAlias(from, to) {
-      if (!C.DEMO_MODE) return request('/aliases', { method: 'POST', body: { from, to } });
+      if (!C.DEMO_MODE) { await request('/aliases', { method: 'POST', body: { from, to } }); await workspace.load(); return; }
       await wait(500);
       const s = workspace.get();
       if (s.aliases.some((a) => a.from === from) || s.mailboxes.some((m) => m.address === from)) throw new Error('Cette adresse est déjà utilisée.');
@@ -524,6 +641,7 @@
       workspace.save(s);
     },
     async removeAlias(id) {
+      if (!C.DEMO_MODE) { await request('/aliases/' + id, { method: 'DELETE' }); await workspace.load(); return; }
       await wait(300);
       const s = workspace.get();
       s.aliases = s.aliases.filter((a) => a.id !== id);
@@ -555,5 +673,5 @@
   trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
   trackAfter(domains, 'verify', 'domain_verified');
 
-  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, searchDomains: async (q) => { const r = await searchDomains(q); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, dns, mailboxes, generatePassword, wait });
+  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, searchDomains: async (q) => { const r = await searchDomains(q); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
 })();

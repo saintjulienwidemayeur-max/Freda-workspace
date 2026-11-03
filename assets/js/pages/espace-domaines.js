@@ -28,6 +28,7 @@
             <label class="flex items-center gap-3"><span class="switch"><input type="checkbox" data-lock="${esc(d.name)}" ${d.locked ? 'checked' : ''}><span></span></span><span><span class="block font-medium text-ink">Verrouillage</span><span class="text-xs text-muted">${d.locked ? 'Transfert bloqué' : 'Transfert possible'}</span></span></label>`}
             <div class="col-span-2 sm:col-span-1 flex items-center gap-2">
               ${d.status === 'pending' ? `<button type="button" class="btn btn-primary btn-sm" data-connect="${esc(d.name)}"><i data-lucide="link-2"></i>Connecter</button>` : ''}<a href="dns.html?domain=${encodeURIComponent(d.name)}" class="btn btn-outline btn-sm flex-1"><i data-lucide="server-cog"></i>DNS${ok ? '' : ' <span class="dot bg-amber-500"></span>'}</a>
+              ${d.external ? '' : `<button type="button" class="btn btn-outline btn-sm" data-renew-btn="${esc(d.name)}"><i data-lucide="refresh-cw"></i>Renouveler</button>`}
               <button type="button" class="btn btn-outline btn-icon" data-epp="${esc(d.name)}" aria-label="Code de transfert"><i data-lucide="key-round"></i></button>
             </div>
           </div>
@@ -37,22 +38,42 @@
     FWUI.icons();
   }
 
-  document.addEventListener('change', (e) => {
-    const ws = FWSpace.ws();
+  document.addEventListener('change', async (e) => {
     const r = e.target.dataset.renew, l = e.target.dataset.lock;
     if (!r && !l) return;
-    const d = ws.domains.find((x) => x.name === (r || l));
-    if (r) { d.autoRenew = e.target.checked; FWUI.toast('Renouvellement automatique ' + (d.autoRenew ? 'activé' : 'désactivé') + ' pour ' + esc(d.name)); }
-    if (l) { d.locked = e.target.checked; FWUI.toast(d.locked ? 'Domaine verrouillé' : 'Domaine déverrouillé : le transfert est possible', d.locked ? 'success' : 'info'); }
-    FW.workspace.save(ws);
+    const name = r || l;
+    const patch = r ? { autoRenew: e.target.checked } : { locked: e.target.checked };
+    try { await FW.domains.update(name, patch); }
+    catch (err) { FWUI.toast(err.message, 'error'); render(); return; }
+    if (r) FWUI.toast('Rappels de renouvellement ' + (patch.autoRenew ? 'activés' : 'désactivés') + ' pour ' + esc(name));
+    if (l) FWUI.toast(patch.locked ? 'Domaine verrouillé' : 'Domaine déverrouillé : le transfert est possible', patch.locked ? 'success' : 'info');
     render();
   });
+
+  /* Renouvellement (bouton « Renouveler » ou lien ?renew=domaine reçu par e-mail) */
+  async function renewDomain(name) {
+    const d = FWSpace.ws().domains.find((x) => x.name === name);
+    if (!d || d.external) return;
+    const tld = C.TLDS.find((t) => name.endsWith(t.tld));
+    const ok = await FWUI.confirmDialog({ title: 'Renouveler ' + name, message: `Renouvellement d’un an${tld ? ' pour <strong>' + FW.money(tld.renew) + '</strong>' : ''}, réglé par MonCash ou NatCash.`, confirmLabel: 'Renouveler' });
+    if (!ok) return;
+    try { await FW.domains.renew(name, 1); FWUI.toast('Domaine ' + name + ' renouvelé.'); render(); }
+    catch (err) { FWUI.toast(err.message, 'error'); }
+  }
+  document.addEventListener('click', (e) => { const b = e.target.closest('[data-renew-btn]'); if (b) renewDomain(b.dataset.renewBtn); });
+  const wantRenew = new URLSearchParams(location.search).get('renew');
+  if (wantRenew) renewDomain(wantRenew);
 
   document.addEventListener('click', async (e) => {
     const b = e.target.closest('[data-epp]');
     if (!b) return;
     const d = FWSpace.ws().domains.find((x) => x.name === b.dataset.epp);
     if (d.locked) { FWUI.toast('Déverrouillez le domaine avant de demander le code de transfert.', 'error'); return; }
+    if (!C.DEMO_MODE) {
+      try { const r = await FW.domains.requestTransferCode(d.name); FWUI.toast(r.message || 'Demande enregistrée.', 'success'); }
+      catch (err) { FWUI.toast(err.message, 'error'); }
+      return;
+    }
     const code = FW.generatePassword(12);
     const ok = await FWUI.confirmDialog({ title: 'Code de transfert (EPP)', message: `Code pour <span class="mono">${esc(d.name)}</span> :<br><span class="mono font-semibold text-ink select-all">${esc(code)}</span><br>Valable 7 jours. Donnez-le uniquement au nouveau registraire.`, confirmLabel: 'Copier le code' });
     if (ok) FWUI.copy(code, 'Code copié');

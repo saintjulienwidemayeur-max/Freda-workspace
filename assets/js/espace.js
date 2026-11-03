@@ -5,7 +5,8 @@
  *     <div class="espace-layout"><aside id="sidebar" class="espace-sidebar"></aside>
  *       <div class="min-w-0"><header id="topbar"></header><main>...</main></div></div>
  */
-(function () {
+window.FW_HOLD_LOADER = true;   // levé par releaseLoader() une fois la page prête
+(async function () {
   const C = FW.config;
   const B = FWUI.BASE;
   const page = document.body.dataset.page;
@@ -20,6 +21,18 @@
       FW.store.set('session', session);
     } else {
       window.location.href = B + 'connexion.html?next=' + encodeURIComponent(location.pathname);
+      return;
+    }
+  }
+
+  /* Production : charge l'espace client (GET /workspace) AVANT d'afficher quoi que ce soit. */
+  if (!C.DEMO_MODE) {
+    try { await FW.workspace.load(); }
+    catch (err) {
+      if (err.status === 401) { FW.auth.logout(); window.location.href = B + 'connexion.html?next=' + encodeURIComponent(location.pathname); return; }
+      document.body.insertAdjacentHTML('afterbegin', '<div class="gutter py-10 text-center"><p class="font-semibold text-ink">Impossible de charger votre espace.</p><p class="text-sm text-slate-600 mt-1">' + FWUI.esc(err.message) + '</p><button id="retry-load" class="btn btn-primary mt-4">Réessayer</button></div>');
+      document.getElementById('retry-load').addEventListener('click', () => location.reload());
+      window.FW_MONITOR && window.FW_MONITOR.releaseLoader();
       return;
     }
   }
@@ -136,4 +149,15 @@
 
   /** Petit utilitaire partagé : rafraîchit les données de l'espace. */
   window.FWSpace = { ws: () => FW.workspace.get(), plan: () => { const p = FW.workspace.get().plan; return p ? C.PLANS[p.id] : null; }, user };
+
+  /* Les scripts de page (<script type="text/plain" data-page-script="…">) ne démarrent qu'ici, une fois FWSpace prêt. */
+  if (document.readyState === 'loading') await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));   // les balises suivantes doivent être analysées
+  const pending = [...document.querySelectorAll('script[data-page-script]')];
+  await Promise.all(pending.map((tpl) => new Promise((resolve) => {
+    const s = document.createElement('script');
+    s.src = tpl.dataset.pageScript;
+    s.onload = s.onerror = resolve;
+    tpl.replaceWith(s);
+  })));
+  window.FW_MONITOR && window.FW_MONITOR.releaseLoader();
 })();

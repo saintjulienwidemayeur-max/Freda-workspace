@@ -83,6 +83,21 @@
             <div id="reset-done" class="mt-6 p-4 rounded-xl bg-emerald-50 text-sm text-emerald-800 flex gap-3" hidden><i data-lucide="mail-check" class="w-5 h-5 shrink-0"></i><p>Si un compte existe pour cette adresse, un lien valable 30 minutes vient d’être envoyé.</p></div>
           </section>
 
+          <!-- Nouveau mot de passe (lien reçu par e-mail : connexion.html?reset=JETON) -->
+          <section id="panel-newpass" hidden>
+            <h1 class="text-3xl font-extrabold tracking-tight">Nouveau mot de passe</h1>
+            <p class="mt-2 text-slate-600">Choisissez un nouveau mot de passe pour votre compte.</p>
+            <form id="newpass-form" class="mt-7 space-y-4" novalidate>
+              <div>
+                <label for="np-pass" class="label">Nouveau mot de passe</label>
+                <div class="input-group"><i data-lucide="lock" class="input-icon"></i><input id="np-pass" type="password" class="input" autocomplete="new-password" placeholder="8 caractères minimum"></div>
+                <p class="field-error" data-for="np-pass">Le mot de passe doit contenir au moins 8 caractères.</p>
+              </div>
+              <p class="field-error p-3 rounded-lg bg-red-50" id="np-error" role="alert"></p>
+              <button type="submit" class="btn btn-primary btn-lg w-full">Enregistrer et me connecter<i data-lucide="arrow-right"></i></button>
+            </form>
+          </section>
+
           <!-- Webmail -->
           <section id="panel-webmail" role="tabpanel" aria-labelledby="tab-webmail" hidden>
             <h1 class="text-3xl font-extrabold tracking-tight">Webmail</h1>

@@ -81,4 +81,16 @@ Les tests démarrent un serveur local avec **les mêmes en-têtes que la product
 
 ## Backend
 
-L'API (recherche et achat de domaines via NameSilo) est dans un dépôt séparé : [Freda-workspace-backend](https://github.com/saintjulienwidemayeur-max/Freda-workspace-backend). Quand elle est en ligne, mettez dans `assets/js/config.js` : `API_BASE: 'https://api.fredaworkspace.com/api'` et `DEMO_MODE: false`. La CSP (`render.yaml`) autorise déjà `https://api.fredaworkspace.com`. Les routes attendues sont listées en tête de `assets/js/api.js`.
+L'API est dans un dépôt séparé : [Freda-workspace-backend](https://github.com/saintjulienwidemayeur-max/Freda-workspace-backend) (comptes, domaines NameSilo, paiements Pay'm, DNS, Freda Mail, renouvellements).
+
+**Passer le site en production** (quand l'API est en ligne) dans `assets/js/config.js` : `DEMO_MODE: false` et `API_BASE: 'https://api.fredaworkspace.com/api'` (la CSP de `render.yaml` autorise déjà cette origine). En production :
+- le jeton JWT est conservé dans `localStorage` (`fw:token`) et envoyé en `Authorization: Bearer` ;
+- l'espace client charge ses données avec `GET /workspace` avant de s'afficher (les scripts de page, balisés `data-page-script`, démarrent ensuite) ; aucune donnée de démonstration n'est jamais affichée ;
+- les paiements MonCash/NatCash sont **asynchrones** : `/checkout` renvoie l'URL de paiement Pay'm, la page l'ouvre et attend la confirmation (`GET /orders/:id`) ; le navigateur n'envoie que le choix (le serveur recalcule les prix) et aucune donnée de carte ;
+- les liens de renouvellement reçus par e-mail (`espace/domaines.html?renew=nom`, `espace/facturation.html?renew=1`) créent un paiement frais au clic ; Google renvoie vers `connexion.html#token=…` ; le lien de réinitialisation est `connexion.html?reset=JETON`.
+
+**Test de bout en bout** (vrai frontend en mode production contre le vrai backend et ses faux services) :
+```bash
+FREDA_BACKEND_DIR=../freda-workspace-backend npm test
+```
+Sans cette variable (cas de la CI), ce test est ignoré.

@@ -56,7 +56,10 @@
     e.preventDefault();
     const err = $('#pw-error');
     if (!$('#pw-old').value || $('#pw-new').value.length < 8) { err.textContent = 'Entrez votre mot de passe actuel et un nouveau mot de passe de 8 caractères minimum.'; err.classList.add('show'); return; }
-    err.classList.remove('show'); e.target.reset(); FWUI.toast('Mot de passe mis à jour');
+    err.classList.remove('show');
+    FW.auth.changePassword($('#pw-old').value, $('#pw-new').value)
+      .then(() => { e.target.reset(); FWUI.toast('Mot de passe mis à jour'); })
+      .catch((er) => { err.textContent = er.message; err.classList.add('show'); });
   });
 
   const linked = { google: true, apple: false };

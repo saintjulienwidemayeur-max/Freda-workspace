@@ -125,7 +125,11 @@
       const box = await FW.mailboxes.create({ local, domain: $('#box-domain').value, name: $('#box-name').value.trim() });
       FWUI.closeModal('modal-box');
       render();
-      FWUI.toast(esc(box.address) + ' est prête');
+      FWUI.toast(esc(box.address) + (box.providerReady === false ? ' est enregistrée (en attente du serveur de messagerie)' : ' est prête'));
+      if (box.initialPassword) {
+        const copy = await FWUI.confirmDialog({ title: 'Mot de passe initial', message: `Boîte <span class="mono">${esc(box.address)}</span><br><span class="mono font-semibold text-ink select-all">${esc(box.initialPassword)}</span><br>Il n’est affiché qu’une seule fois. Changez-le à la première connexion.`, confirmLabel: 'Copier' });
+        if (copy) FWUI.copy(box.initialPassword, 'Mot de passe copié');
+      }
     } catch (err) {
       $('#box-error').textContent = err.message;
       $('#box-error').classList.add('show');

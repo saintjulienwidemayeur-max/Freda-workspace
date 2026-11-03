@@ -49,6 +49,7 @@
 
   /* ----- Écran de chargement : retiré quand la page et les polices sont prêtes ----- */
   function hideLoader() {
+    if (window.FW_HOLD_LOADER) return;       // espace client : le chargeur reste jusqu'à ce que les données soient prêtes (voir espace.js)
     const l = document.getElementById('page-loader');
     if (!l || l.classList.contains('done')) return;
     l.classList.add('done');
@@ -58,7 +59,7 @@
   Promise.race([Promise.all([ready, document.fonts && document.fonts.ready]).catch(() => {}), new Promise((r) => setTimeout(r, 4000))]).then(hideLoader);
   window.addEventListener('pageshow', (e) => { if (e.persisted) hideLoader(); });
 
-  window.FW_MONITOR = { track };
+  window.FW_MONITOR = { track, hideLoader, releaseLoader() { window.FW_HOLD_LOADER = false; hideLoader(); } };
   window.FW = window.FW || {};
   window.FW.track = track;
 })();

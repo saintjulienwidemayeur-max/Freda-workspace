@@ -417,7 +417,26 @@
     } catch (e) { /* animation décorative : on ignore toute erreur */ }
   }
 
-  window.FWUI = { confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
+  /**
+   * Attente d'un paiement Pay'm (MonCash / NatCash) : affiche l'URL de paiement dans la fenêtre « traitement » (si présente)
+   * et tente de l'ouvrir dans un nouvel onglet. La page reste ouverte et se met à jour dès que le serveur confirme.
+   */
+  function showPaymentLink(res) {
+    const text = document.getElementById('proc-text');
+    const link = res.redirectUrl ? '<a class="btn btn-cta mt-4" target="_blank" rel="noopener noreferrer" href="' + esc(res.redirectUrl) + '">Ouvrir la page de paiement</a>' : '';
+    const msg = 'Terminez le paiement sur la page MonCash / NatCash qui vient de s’ouvrir, puis <strong>revenez ici</strong> : cette page se met à jour toute seule.';
+    if (text) text.innerHTML = msg + '<br>' + link;
+    else {                                   // pages sans fenêtre « traitement » : bandeau fixe
+      let b = document.getElementById('pay-wait-banner');
+      if (!b) { b = document.createElement('div'); b.id = 'pay-wait-banner'; b.className = 'fixed bottom-4 left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 sm:max-w-md z-50 card-elevated p-5 text-center'; b.setAttribute('role', 'status'); document.body.appendChild(b); }
+      b.innerHTML = '<p class="text-sm text-slate-700">' + msg + '</p>' + link;
+    }
+    if (res.redirectUrl) { try { window.open(res.redirectUrl, '_blank', 'noopener'); } catch (e) { /* bloqué : le bouton reste disponible */ } }
+  }
+  function hidePaymentLink() { const b = document.getElementById('pay-wait-banner'); if (b) b.remove(); }
+  if (window.FW && window.FW.payments) { window.FW.payments.onPending = showPaymentLink; window.FW.payments.onSettled = hidePaymentLink; }
+
+  window.FWUI = { showPaymentLink, hidePaymentLink, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
 
   /* Initialisation automatique */
   document.addEventListener('DOMContentLoaded', () => {

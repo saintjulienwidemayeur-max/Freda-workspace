@@ -24,7 +24,7 @@ test('aucune dépendance à un CDN tiers (hors mesure d’audience Plausible)', 
 test('compatible CSP stricte : pas de script inline ni de gestionnaire inline', () => {
   const bad = [];
   for (const { file, src } of html) {
-    for (const m of src.matchAll(/<script(?![^>]*\ssrc=)([^>]*)>/g)) if (!/application\/ld\+json/.test(m[1])) bad.push(file + ': script inline');
+    for (const m of src.matchAll(/<script(?![^>]*\ssrc=)([^>]*)>/g)) if (!/application\/ld\+json|text\/plain/.test(m[1])) bad.push(file + ': script inline');
     if (/\son(click|error|load|submit|change|input)=/i.test(src)) bad.push(file + ': gestionnaire inline');
     if (/href="javascript:/i.test(src)) bad.push(file + ': lien javascript:');
   }
@@ -32,6 +32,15 @@ test('compatible CSP stricte : pas de script inline ni de gestionnaire inline', 
     const s = fs.readFileSync(f, 'utf8');
     if (/\son(click|error|load|submit)=["']/.test(s)) bad.push(rel(f) + ': gestionnaire inline dans un gabarit');
     if (/\beval\(|new Function\(/.test(s)) bad.push(rel(f) + ': eval');
+  }
+  assert.deepStrictEqual(bad, []);
+});
+
+test('scripts de page différés (data-page-script) : le fichier existe', () => {
+  const bad = [];
+  for (const { file, src } of html) {
+    const dir = path.dirname(path.join(ROOT, file));
+    for (const m of src.matchAll(/data-page-script="([^"]+)"/g)) if (!fs.existsSync(path.join(dir, m[1]))) bad.push(file + ' -> ' + m[1]);
   }
   assert.deepStrictEqual(bad, []);
 });

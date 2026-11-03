@@ -82,6 +82,26 @@
       }
     });
 
+    /* Retour de Google (connexion.html#token=…) et lien de réinitialisation (?reset=…) */
+    if (location.hash.includes('token=') || location.hash.includes('error=')) {
+      FW.auth.completeOAuth(location.hash)
+        .then((r) => { if (r) { if (r.isNew && !next) location.href = 'entreprise.html'; else goNext(); } })
+        .catch((err) => { const e = $('#login-error'); if (e) { e.textContent = err.message; e.classList.add('show'); } });
+    }
+    const resetToken = params.get('reset');
+    if (resetToken) {
+      $('#panel-client').hidden = true; $('#panel-newpass').hidden = false;
+      $('#newpass-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const ok = fieldError('np-pass', $('#np-pass').value.length < 8);
+        if (!ok) return;
+        const btn = e.target.querySelector('[type=submit]');
+        FWUI.setLoading(btn, true, 'Enregistrement...');
+        try { await FW.auth.confirmReset(resetToken, $('#np-pass').value); goNext(); }
+        catch (err) { FWUI.setLoading(btn, false); $('#np-error').textContent = err.message; $('#np-error').classList.add('show'); }
+      });
+    }
+
     /* Mot de passe oublié */
     $('#forgot-link').addEventListener('click', () => {
       $('#panel-client').hidden = true;
