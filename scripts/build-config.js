@@ -10,6 +10,29 @@ const fs = require('fs');
 const path = require('path');
 
 const fail = (msg) => { console.error('build-config : ' + msg); process.exit(1); };
+
+/**
+ * Anti-cache : ajoute ?v=<commit> aux scripts et feuilles de style locaux des pages HTML, pour que navigateurs et CDN
+ * (Cloudflare) rechargent les fichiers à chaque déploiement. Seulement sur Render (RENDER_GIT_COMMIT) ou avec FW_ASSET_VERSION.
+ */
+function stampAssets(root, version) {
+  let n = 0;
+  const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).forEach((e) => {
+    if (e.name === 'node_modules' || e.name === '.git' || e.name === 'tests' || e.name === 'scripts') return;
+    const f = path.join(dir, e.name);
+    if (e.isDirectory()) return walk(f);
+    if (!e.name.endsWith('.html')) return;
+    const src = fs.readFileSync(f, 'utf8');
+    const out = src.replace(/((?:src|href)=")((?:\.\.\/)?assets\/[^"?#]+\.(?:js|css))(")/g, (m, a1, url, a3) => { n++; return a1 + url + '?v=' + version + a3; });
+    if (out !== src) fs.writeFileSync(f, out);
+  });
+  walk(root);
+  console.log(`build-config : ${n} références d'assets versionnées (?v=${version}).`);
+}
+if (!process.argv[2]) {
+  const v = (process.env.FW_ASSET_VERSION || process.env.RENDER_GIT_COMMIT || '').slice(0, 12).replace(/[^a-z0-9]/gi, '');
+  if (v) stampAssets(path.join(__dirname, '..'), v);
+}
 const file = process.argv[2] || path.join(__dirname, '..', 'assets', 'js', 'config.js');
 const demo = process.env.FW_DEMO_MODE;
 const api = process.env.FW_API_BASE;

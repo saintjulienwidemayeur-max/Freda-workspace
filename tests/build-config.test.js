@@ -52,3 +52,20 @@ test('format du fichier changé (valeur absente ou en double) : le build échoue
   const g = tmp(); fs.appendFileSync(g, "\n// API_BASE: 'https://autre.example/api'\n");
   assert.strictEqual(run(g, { FW_API_BASE: 'https://x.com/api' }).status, 1);
 });
+
+test('anti-cache : ?v=<commit> ajouté aux scripts et styles locaux (pages racine et sous-dossiers), une seule fois, rien d’externe touché', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'fw-ver-'));
+  fs.mkdirSync(path.join(root, 'scripts')); fs.mkdirSync(path.join(root, 'espace')); fs.mkdirSync(path.join(root, 'assets', 'js'), { recursive: true });
+  fs.copyFileSync(SCRIPT, path.join(root, 'scripts', 'build-config.js'));
+  fs.copyFileSync(REAL, path.join(root, 'assets', 'js', 'config.js'));
+  fs.writeFileSync(path.join(root, 'index.html'), '<link rel="stylesheet" href="assets/css/styles.css"><script src="assets/js/api.js"></script><script src="https://js.stripe.com/x.js"></script><a href="domaines.html">x</a>');
+  fs.writeFileSync(path.join(root, 'espace', 'a.html'), '<script src="../assets/js/ui.js"></script>');
+  const go = () => spawnSync(process.execPath, [path.join(root, 'scripts', 'build-config.js')], { env: { PATH: process.env.PATH, RENDER_GIT_COMMIT: 'abc123def4567890' }, encoding: 'utf8' });
+  assert.strictEqual(go().status, 0);
+  assert.strictEqual(fs.readFileSync(path.join(root, 'index.html'), 'utf8'), '<link rel="stylesheet" href="assets/css/styles.css?v=abc123def456"><script src="assets/js/api.js?v=abc123def456"></script><script src="https://js.stripe.com/x.js"></script><a href="domaines.html">x</a>');
+  assert.strictEqual(fs.readFileSync(path.join(root, 'espace', 'a.html'), 'utf8'), '<script src="../assets/js/ui.js?v=abc123def456"></script>');
+  go();
+  assert.doesNotMatch(fs.readFileSync(path.join(root, 'index.html'), 'utf8'), /\?v=[a-z0-9]+\?v=/, 'idempotent');
+  const none = spawnSync(process.execPath, [SCRIPT], { cwd: root, env: { PATH: process.env.PATH }, encoding: 'utf8' });
+  assert.strictEqual(none.status, 0);
+});
