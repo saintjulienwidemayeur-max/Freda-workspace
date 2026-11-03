@@ -101,6 +101,14 @@
     return hash(label + tld) % 10 >= 3; // ~70 % disponibles
   }
 
+  /** Tarifs de vente réels (API) pour les suggestions de saisie ; mis en cache. Hors démo uniquement. */
+  let pricesPromise = null;
+  function domainPrices() {
+    if (C.DEMO_MODE) return Promise.resolve(C.TLDS.map((t) => ({ tld: t.tld, price: t.price, renew: t.renew })));
+    if (!pricesPromise) pricesPromise = request('/domains/prices').then((r) => r.tlds).catch((e) => { pricesPromise = null; throw e; });
+    return pricesPromise;
+  }
+
   async function searchDomains(raw) {
     const n = normalizeDomain(raw);
     if (n.error) throw new Error(n.error);
@@ -708,5 +716,5 @@
   trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
   trackAfter(domains, 'verify', 'domain_verified');
 
-  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, searchDomains: async (q) => { const r = await searchDomains(q); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
+  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, domainPrices, searchDomains: async (q) => { const r = await searchDomains(q); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
 })();

@@ -281,14 +281,18 @@
     anchor.appendChild(box);
     let items = [], active = -1;
 
-    const promo = new Set(['.site', '.online']);
+    const promo = C.DEMO_MODE ? new Set(['.site', '.online']) : new Set();   // pas de « Promo » inventée avec les vrais prix
+    let book = null;                                                       // tarifs réels (API) ; null tant qu'ils ne sont pas chargés
+    window.FW.domainPrices().then((t) => { book = t; if (document.activeElement === input) render(); }).catch(() => { /* sans tarifs : aucune suggestion plutôt qu'un faux prix */ });
     function build(raw) {
-      const n = FW.normalizeDomain(raw);
-      if (n.error) return [];
+      const n = window.FW.normalizeDomain(raw);
+      if (n.error || !book || !book.length) return [];
       const label = n.label;
-      const tlds = C.TLDS.slice().sort((a, b) => (n.tld === b.tld) - (n.tld === a.tld) || a.price - b.price);
+      const tld = n.tld || n.unknownTld;
+      const tlds = book.slice().sort((a, b) => (tld === b.tld) - (tld === a.tld) || a.price - b.price);
       const list = tlds.slice(0, 5).map((t) => ({ domain: label + t.tld, price: t.price, promo: promo.has(t.tld), kind: 'tld' }));
-      const variants = ['get' + label, 'mon' + label, label + 'pro'].filter((v) => v.length <= 63).map((v) => ({ domain: v + (n.tld || '.com'), price: (C.TLDS.find((t) => t.tld === (n.tld || '.com')) || C.TLDS[0]).price, kind: 'idea' }));
+      const base = book.find((t) => t.tld === (n.tld || '.com')) || book.find((t) => t.tld === '.com') || book[0];
+      const variants = ['get' + label, 'mon' + label, label + 'pro'].filter((v) => v.length <= 63).map((v) => ({ domain: v + base.tld, price: base.price, kind: 'idea' }));
       return [...list, ...variants.slice(0, 2)];
     }
     function render() {
@@ -300,13 +304,13 @@
           <span class="w-8 h-8 rounded-lg ${it.kind === 'idea' ? 'bg-amber-50 text-amber-600' : 'bg-mist text-freda'} grid place-items-center shrink-0"><i data-lucide="${it.kind === 'idea' ? 'lightbulb' : 'globe'}" class="w-4 h-4"></i></span>
           <span class="mono text-sm font-semibold text-ink flex-1 min-w-0 truncate">${esc(it.domain)}</span>
           ${it.promo ? '<span class="badge badge-success">Promo</span>' : ''}
-          ${C.DEMO_MODE ? `<span class="text-xs text-muted tabular shrink-0">dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>` : '<span class="text-xs text-muted shrink-0">prix à la recherche</span>'}
+          <span class="text-xs text-muted tabular shrink-0">dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>
         </button>`;
       const ext = items.filter((x) => x.kind === 'tld'), ideas = items.filter((x) => x.kind === 'idea');
       box.innerHTML = `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Extensions populaires</p>`
         + ext.map((it) => row(it, items.indexOf(it))).join('')
         + (ideas.length ? `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400 border-t border-line mt-1">Idées de noms</p>` + ideas.map((it) => row(it, items.indexOf(it))).join('') : '')
-        + `<p class="px-4 py-2.5 text-xs text-slate-500 bg-slate-50 border-t border-line flex items-center gap-2"><i data-lucide="mail-check" class="w-3.5 h-3.5 text-cta"></i>Email pro inclus avec chaque offre. Prix et disponibilité réels affichés après la recherche.</p>`;
+        + `<p class="px-4 py-2.5 text-xs text-slate-500 bg-slate-50 border-t border-line flex items-center gap-2"><i data-lucide="mail-check" class="w-3.5 h-3.5 text-cta"></i>Email pro inclus avec chaque offre. Disponibilité vérifiée à l’étape suivante.</p>`;
       box.hidden = false;
       icons();
     }
