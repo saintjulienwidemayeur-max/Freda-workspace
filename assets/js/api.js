@@ -290,7 +290,8 @@
     async settle(res) {
       const done = () => { if (payments.onSettled) payments.onSettled(); };
       if (res.status !== 'pending') { await workspace.load().catch(() => {}); return res; }
-      if (payments.onPending) payments.onPending(res);
+      if (res.embedded && payments.onEmbedded) payments.onEmbedded(res);          // Stripe Embedded Checkout : le formulaire s'affiche dans une fenêtre du site
+      else if (payments.onPending) payments.onPending(res);
       const deadline = Date.now() + 25 * 60 * 1000;
       while (Date.now() < deadline) {
         await wait(3000);
@@ -312,7 +313,10 @@
       }
       return { status: 'pending' };
     },
+    /** Reprise d'un paiement intégré fermé par erreur : le serveur relit le client_secret chez Stripe (jamais stocké). */
+    async resumeEmbedded(orderId) { return request('/orders/' + encodeURIComponent(orderId) + '/payment'); },
     onPending: null,
+    onEmbedded: null,
     onSettled: null,
   };
 

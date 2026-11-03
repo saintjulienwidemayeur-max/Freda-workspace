@@ -94,3 +94,7 @@ L'API est dans un dépôt séparé : [Freda-workspace-backend](https://github.co
 FREDA_BACKEND_DIR=../freda-workspace-backend npm test
 ```
 Sans cette variable (cas de la CI), ce test est ignoré.
+
+
+## Paiement par carte (Stripe Embedded Checkout)
+Quand le backend renvoie `embedded` (clé publique Stripe configurée côté serveur), `FW.payments.settle()` ouvre une **fenêtre sur le site** (`ui.js`, `showEmbeddedCheckout`) qui monte le formulaire Stripe (iframe Stripe : numéro, date, CVC ne passent jamais par nos pages). Fermer la fenêtre affiche « Reprendre le paiement » (le serveur relit le `client_secret`). La **confirmation vient toujours du serveur** (webhook + sondage) ; `onComplete` ne fait qu'informer. Sans clé publique, repli sur la page Stripe dans un nouvel onglet. La CSP (`render.yaml`) autorise `js.stripe.com`, `*.js.stripe.com`, `hooks.stripe.com`, `checkout.stripe.com` et `api.stripe.com` — rien d'autre. Test de bout en bout : `FREDA_BACKEND_DIR=../Freda-workspace-backend npm test` (`tests/e2e-embedded.test.js`, Stripe.js remplacé par un faux).

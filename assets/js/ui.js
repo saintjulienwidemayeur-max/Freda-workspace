@@ -435,9 +435,88 @@
     if (res.redirectUrl) { try { window.open(res.redirectUrl, '_blank', 'noopener'); } catch (e) { /* bloqué : le bouton reste disponible */ } }
   }
   function hidePaymentLink() { const b = document.getElementById('pay-wait-banner'); if (b) b.remove(); }
-  if (window.FW && window.FW.payments) { window.FW.payments.onPending = showPaymentLink; window.FW.payments.onSettled = hidePaymentLink; }
+  /* ---------- Paiement intégré (Stripe Embedded Checkout) : le formulaire Stripe s'affiche dans une fenêtre du site ----------
+   * Les champs (numéro, date, CVC) sont dans une iframe Stripe : ils ne passent jamais par nos pages ni nos serveurs.
+   * La confirmation vient du serveur (webhook + sondage de payments.settle), jamais du navigateur : onComplete ne fait qu'informer. */
+  let embedded = null;
+  function loadStripeScript(url) {
+    return new Promise((resolve, reject) => {
+      if (window.Stripe) return resolve();
+      if (!/^https:\/\/js\.stripe\.com\//.test(String(url))) return reject(new Error('Module de paiement non autorisé.'));
+      const sc = document.createElement('script');
+      sc.src = url; sc.async = true;
+      sc.onload = () => resolve();
+      sc.onerror = () => reject(new Error('Impossible de charger le module de paiement Stripe. Vérifiez votre connexion et réessayez.'));
+      document.head.appendChild(sc);
+    });
+  }
+  function closeEmbedded() {
+    if (!embedded) return;
+    const e = embedded; embedded = null;
+    try { e.checkout && e.checkout.destroy(); } catch (x) { /* déjà détruit */ }
+    document.removeEventListener('keydown', e.onKey);
+    e.overlay.remove();
+    document.body.style.overflow = e.prevOverflow;
+    if (e.lastFocus && e.lastFocus.focus) e.lastFocus.focus();
+  }
+  function hideResumeBanner() { const b = document.getElementById('pay-resume-banner'); if (b) b.remove(); }
+  function showResumeBanner(res) {
+    hideResumeBanner();
+    const b = document.createElement('div');
+    b.id = 'pay-resume-banner'; b.setAttribute('role', 'status');
+    b.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;max-width:440px;margin:0 auto;z-index:9999;background:#fff;border-radius:14px;box-shadow:0 10px 40px rgba(15,23,42,.25);padding:16px;text-align:center';
+    b.innerHTML = '<p style="font-size:14px;color:#334155">Votre paiement n’est pas terminé.</p><button type="button" class="btn btn-cta btn-sm" style="margin-top:10px" data-resume>Reprendre le paiement</button>';
+    b.addEventListener('click', async (ev) => {
+      if (!ev.target.closest('[data-resume]')) return;
+      try { const r = await window.FW.payments.resumeEmbedded(res.orderId); hideResumeBanner(); showEmbeddedCheckout({ ...res, embedded: r.embedded }); }
+      catch (err) { toast(err.message, 'error'); }
+    });
+    document.body.appendChild(b);
+  }
+  async function showEmbeddedCheckout(res) {
+    closeEmbedded(); hidePaymentLink(); hideResumeBanner();
+    const overlay = document.createElement('div');
+    overlay.id = 'fw-embedded-overlay'; overlay.setAttribute('role', 'dialog'); overlay.setAttribute('aria-modal', 'true'); overlay.setAttribute('aria-label', 'Paiement sécurisé');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,.6);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px';
+    overlay.innerHTML = '<div style="width:min(560px,100%);background:#fff;border-radius:16px;box-shadow:0 30px 70px rgba(15,23,42,.45);padding:16px 16px 12px">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 4px 10px"><strong style="font-size:16px;color:#0f172a">Paiement sécurisé</strong>'
+      + '<button type="button" data-fw-close aria-label="Fermer le paiement" style="border:0;background:transparent;font-size:26px;line-height:1;cursor:pointer;color:#64748b;padding:2px 8px">×</button></div>'
+      + '<div id="fw-embedded-mount" style="min-height:360px"><p style="padding:24px;text-align:center;color:#64748b;font-size:14px">Chargement du paiement sécurisé…</p></div>'
+      + '<p id="fw-embedded-status" role="status" style="margin:8px 4px 0;font-size:13px;color:#0f766e;font-weight:600"></p>'
+      + '<p style="margin:6px 4px 0;font-size:12px;color:#64748b">Paiement sécurisé par Stripe. Vos informations bancaires ne passent jamais par nos serveurs.</p></div>';
+    const state = { overlay, checkout: null, prevOverflow: document.body.style.overflow, lastFocus: document.activeElement, res };
+    const userClose = () => { closeEmbedded(); showResumeBanner(res); };
+    state.onKey = (ev) => { if (ev.key === 'Escape') userClose(); };
+    overlay.addEventListener('click', (ev) => { if (ev.target.closest('[data-fw-close]')) userClose(); });
+    document.addEventListener('keydown', state.onKey);
+    document.body.appendChild(overlay); document.body.style.overflow = 'hidden';
+    embedded = state;
+    const closeBtn = overlay.querySelector('[data-fw-close]'); if (closeBtn) closeBtn.focus();
+    try {
+      const info = res.embedded;
+      await loadStripeScript(info.scriptUrl);
+      const stripe = window.Stripe(info.publishableKey);
+      const checkout = await stripe.createEmbeddedCheckoutPage({
+        fetchClientSecret: async () => info.clientSecret,
+        onComplete: () => { const st = document.getElementById('fw-embedded-status'); if (st) st.textContent = 'Paiement reçu. Confirmation en cours…'; },
+      });
+      if (embedded !== state) { try { checkout.destroy(); } catch (x) { /* fermé entre-temps */ } return; }
+      state.checkout = checkout;
+      const mount = document.getElementById('fw-embedded-mount'); if (mount) mount.innerHTML = '';
+      checkout.mount('#fw-embedded-mount');
+    } catch (err) {
+      const mount = document.getElementById('fw-embedded-mount');
+      if (mount) mount.innerHTML = '<p role="alert" style="padding:20px;color:#b91c1c;font-size:14px"></p>';
+      if (mount) mount.firstChild.textContent = err.message || 'Le paiement n’a pas pu s’afficher. Réessayez.';
+    }
+  }
+  if (window.FW && window.FW.payments) {
+    window.FW.payments.onPending = showPaymentLink;
+    window.FW.payments.onEmbedded = showEmbeddedCheckout;
+    window.FW.payments.onSettled = () => { hidePaymentLink(); closeEmbedded(); hideResumeBanner(); };
+  }
 
-  window.FWUI = { showPaymentLink, hidePaymentLink, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
+  window.FWUI = { showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
 
   /* Initialisation automatique */
   document.addEventListener('DOMContentLoaded', () => {
