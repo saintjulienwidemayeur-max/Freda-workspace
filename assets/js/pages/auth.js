@@ -60,7 +60,8 @@
     }
     tabs.client.addEventListener('click', () => showTab('client'));
     tabs.webmail.addEventListener('click', () => showTab('webmail'));
-    if (params.get('mode') === 'webmail') showTab('webmail');
+    if (!C.WEBMAIL_URL) { tabs.webmail.hidden = true; $('#panel-webmail').hidden = true; }   // pas de webmail confirmé : seule la connexion à l'espace client
+    else if (params.get('mode') === 'webmail') showTab('webmail');
 
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();

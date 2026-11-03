@@ -22,8 +22,9 @@ window.FW_CONFIG = {
   ANALYTICS_DOMAIN: '',   // ex. 'fredaworkspace.com' : active Plausible (sans cookie, respecte Do Not Track)
   ERROR_ENDPOINT: '',     // ex. '/api/client-errors' : reçoit les erreurs JavaScript (JSON via sendBeacon)
 
-  /* Adresse du webmail (ex. Roundcube / SnappyMail sur votre domaine). */
-  WEBMAIL_URL: 'https://webmail.fredaworkspace.com',
+  /* Adresse du webmail (Roundcube / SnappyMail…). VIDE = aucune fonction webmail n'est affichée (en-tête, connexion, espace client).
+     Ne renseignez une adresse qu'après avoir vérifié qu'elle existe et accepte l'adresse e-mail complète comme identifiant. */
+  WEBMAIL_URL: '',
   /* Émetteur des factures PDF. Complétez l'adresse légale et le numéro fiscal (affichés seulement s'ils sont renseignés). */
   BILLING: {
     legalName: 'Freda Pay LLC',
@@ -60,7 +61,6 @@ window.FW_CONFIG = {
       tagline: 'Pour les indépendants et les très petites entreprises.',
       mailboxes: 1,
       storageGb: 2,
-      extraGbMonthly: 0.30,
       features: [
         'Connectez votre propre domaine ou achetez-en un',
         '1 boîte mail professionnelle',
@@ -69,7 +69,6 @@ window.FW_CONFIG = {
         'DNS configuré automatiquement (MX, SPF, DKIM)',
         'Support par email',
       ],
-      extras: ['+$0.30 par Go supplémentaire / mois'],
     },
     business: {
       id: 'business',
@@ -78,8 +77,6 @@ window.FW_CONFIG = {
       tagline: 'Pour les équipes qui communiquent au nom de l’entreprise.',
       mailboxes: 5,
       storageGb: 15,
-      extraGbMonthly: 0.30,
-      extraMailboxMonthly: 1.00,
       popular: true,
       features: [
         'Connectez votre propre domaine ou achetez-en un',
@@ -89,7 +86,6 @@ window.FW_CONFIG = {
         'Alias et redirections illimités',
         'Support prioritaire (WhatsApp et email)',
       ],
-      extras: ['+$1.00 par boîte supplémentaire / mois', '+$0.30 par Go supplémentaire / mois'],
     },
     enterprise: {
       id: 'enterprise',
@@ -98,7 +94,6 @@ window.FW_CONFIG = {
       tagline: 'Pour les groupes et organisations qui gèrent plusieurs noms de domaine et services.',
       mailboxes: Infinity,
       perBoxGb: 5,
-      extraGbMonthly: 0.30,
       features: [
         'Domaines illimités',
         'Boîtes mail illimitées',
@@ -107,7 +102,6 @@ window.FW_CONFIG = {
         'Alias et redirections illimités',
         'Support prioritaire (WhatsApp et email)',
       ],
-      extras: ['+$0.30 par Go supplémentaire / mois'],
     },
   },
   YEARLY_MONTHS_BILLED: 10,
@@ -158,6 +152,7 @@ window.FW_CONFIG = {
   /* Ligne « Certificat SSL gratuit » ajoutée à chaque offre, avec la valeur de référence barrée. */
   const waReal = C.SUPPORT_WHATSAPP && !/0000/.test(C.SUPPORT_WHATSAPP);
   Object.values(C.PLANS).forEach((p) => {
+    if (!C.WEBMAIL_URL) p.features = p.features.map((f) => f.replace('Webmail et application mobile', 'Application mobile iOS et Android'));
     if (!waReal) p.features = p.features.map((f) => f.replace('(WhatsApp et email)', '(email)'));   // pas de promesse WhatsApp sans numéro
     const worth = C.SSL_VALUE_USD > 0 ? ' <s class="opacity-60 tabular">$' + C.SSL_VALUE_USD + '/an</s> <strong class="text-cta">Gratuit</strong>' : '';
     p.features.push('Certificat SSL' + (worth || ' gratuit'));

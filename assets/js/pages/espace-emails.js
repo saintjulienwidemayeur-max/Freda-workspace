@@ -25,7 +25,7 @@
     return;
   }
 
-  $('#webmail-link').href = C.WEBMAIL_URL;
+  if (C.WEBMAIL_URL) $('#webmail-link').href = C.WEBMAIL_URL; else $('#webmail-link').hidden = true;
 
   function render() {
     ws = FWSpace.ws();
@@ -34,8 +34,10 @@
     $('#plan-badge').textContent = 'Offre ' + plan.name;
     $('#box-usage').textContent = C.boxUsage(plan, ws.mailboxes.length);
     $('#box-meter').style.width = (plan.mailboxes === Infinity ? 100 : C.boxPct(plan, ws.mailboxes.length)) + '%';
-    $('#storage-usage').textContent = used.toFixed(1) + ' / ' + totalGb + ' Go';
+    // Hors démo, la consommation réelle n'est pas mesurée : on n'affiche que le stockage inclus (jamais un faux « 0 Go utilisé »).
+    $('#storage-usage').textContent = C.DEMO_MODE ? used.toFixed(1) + ' / ' + totalGb + ' Go' : totalGb + ' Go inclus';
     $('#storage-meter').style.width = Math.min(100, (used / totalGb) * 100) + '%';
+    if (!C.DEMO_MODE && $('#storage-meter').parentElement) $('#storage-meter').parentElement.hidden = true;
 
     $('#box-body').innerHTML = ws.mailboxes.map((m) => {
       const pct = Math.min(100, (m.usedGb / perBox) * 100);
@@ -47,7 +49,7 @@
           </div>
         </td>
         <td><span class="badge ${m.role === 'Propriétaire' ? 'badge-info' : 'badge-neutral'}">${esc(m.role)}</span></td>
-        <td class="min-w-[160px]"><div class="flex items-center gap-2"><div class="meter flex-1"><span style="width:${pct}%;${pct > 85 ? 'background:#DC2626' : ''}"></span></div><span class="text-xs text-muted tabular whitespace-nowrap">${m.usedGb.toFixed(1)} / ${perBox.toFixed(0)} Go</span></div></td>
+        <td class="min-w-[160px]">${C.DEMO_MODE ? `<div class="flex items-center gap-2"><div class="meter flex-1"><span style="width:${pct}%;${pct > 85 ? 'background:#DC2626' : ''}"></span></div><span class="text-xs text-muted tabular whitespace-nowrap">${m.usedGb.toFixed(1)} / ${perBox.toFixed(0)} Go</span></div>` : `<span class="text-xs text-muted tabular whitespace-nowrap">${perBox.toFixed(0)} Go inclus</span>`}</td>
         <td class="text-sm text-muted tabular whitespace-nowrap">${m.lastLogin ? FW.date(m.lastLogin) : 'Jamais'}</td>
         <td class="text-right whitespace-nowrap">
           <button type="button" class="btn btn-ghost btn-sm" data-reset="${m.id}"><i data-lucide="key-round"></i><span class="hidden md:inline">Mot de passe</span></button>

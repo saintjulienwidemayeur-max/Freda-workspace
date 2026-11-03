@@ -71,7 +71,7 @@ window.FW_HOLD_LOADER = true;   // levé par releaseLoader() une fois la page pr
       </ul>`).join('')}
       <p class="px-3 mt-7 mb-2 text-[11px] font-semibold uppercase tracking-[.1em] text-slate-500">Raccourcis</p>
       <ul class="space-y-1">
-        <li><a href="${C.WEBMAIL_URL}" target="_blank" rel="noopener" class="side-link"><i data-lucide="inbox"></i>Ouvrir le webmail<i data-lucide="arrow-up-right" class="ml-auto !w-3.5 !h-3.5 opacity-60"></i></a></li>
+        ${C.WEBMAIL_URL ? `<li><a href="${C.WEBMAIL_URL}" target="_blank" rel="noopener" class="side-link"><i data-lucide="inbox"></i>Ouvrir le webmail<i data-lucide="arrow-up-right" class="ml-auto !w-3.5 !h-3.5 opacity-60"></i></a></li>` : ""}
         <li><a href="acheter-domaine.html" class="side-link"><i data-lucide="search"></i>Acheter un domaine</a></li>
         <li><a href="${B}support.html" class="side-link"><i data-lucide="life-buoy"></i>Support</a></li>
       </ul>

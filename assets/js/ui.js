@@ -74,7 +74,7 @@
             ${session
               ? `<a href="${BASE}espace/index.html" class="btn btn-ghost btn-sm"><i data-lucide="layout-dashboard"></i>Mon espace</a>`
               : `<a href="${BASE}inscription.html" class="btn btn-ghost btn-sm">Créer un compte</a>`}
-            <a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy btn-sm"><i data-lucide="mail"></i>Connexion Webmail</a>
+            ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy btn-sm"><i data-lucide="mail"></i>Connexion Webmail</a>` : `<a href="${BASE}connexion.html" class="btn btn-navy btn-sm"><i data-lucide="log-in"></i>Connexion</a>`}
           </div>
           <div class="lg:hidden">
             <button type="button" id="menu-toggle" class="btn btn-ghost btn-icon" aria-expanded="false" aria-controls="mobile-menu" aria-label="Ouvrir le menu">
@@ -87,7 +87,7 @@
         <ul class="max-w-site mx-auto py-3 flex flex-col">
           ${links.map((l) => `<li><a href="${l.href}" class="flex items-center justify-between py-3 text-base font-medium text-ink border-b border-line/70">${l.label}<i data-lucide="chevron-right" class="w-4 h-4 text-muted"></i></a></li>`).join('')}
           <li class="pt-4 grid gap-2">
-            <a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy w-full"><i data-lucide="mail"></i>Connexion Webmail</a>
+            ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy w-full"><i data-lucide="mail"></i>Connexion Webmail</a>` : ""}
             <a href="${session ? BASE + 'espace/index.html' : BASE + 'connexion.html'}" class="btn btn-outline w-full"><i data-lucide="${session ? 'layout-dashboard' : 'log-in'}"></i>${session ? 'Mon espace' : 'Espace client'}</a>
           </li>
         </ul>
@@ -127,7 +127,7 @@
             </div>
           </div>
           ${col('Produits', [[BASE + 'domaines.html', 'Freda Connect · Domaine et DNS'], [BASE + 'index.html#produits', 'Freda Mail · Email professionnel'], [BASE + 'index.html#app', 'Application mobile'], [BASE + 'index.html#tarifs', 'Tarifs']])}
-          ${col('Assistance', [[BASE + 'support.html', 'Centre d’aide'], [BASE + 'support.html#contact', 'Contacter le support'], [BASE + 'support.html#statut', 'État des services'], [BASE + 'connexion.html?mode=webmail', 'Webmail']])}
+          ${col('Assistance', [[BASE + 'support.html', 'Centre d’aide'], [BASE + 'support.html#contact', 'Contacter le support'], [BASE + 'support.html#statut', 'État des services']].concat(C.WEBMAIL_URL ? [[BASE + 'connexion.html?mode=webmail', 'Webmail']] : []))}
           ${col('Légal', [[BASE + 'legal.html#cgu', 'Conditions d’utilisation'], [BASE + 'legal.html#confidentialite', 'Confidentialité'], [BASE + 'legal.html#remboursement', 'Remboursement'], [BASE + 'legal.html#cookies', 'Cookies'], [BASE + 'legal.html#reglementaire', 'Informations réglementaires'], [BASE + 'legal.html#conformite', 'Conformité et sécurité']])}
         </div>
         <div class="max-w-site mx-auto py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-slate-400" style="padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px))">
