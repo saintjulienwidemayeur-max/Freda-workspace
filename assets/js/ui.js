@@ -289,7 +289,9 @@
       if (n.error || !book || !book.length) return [];
       const label = n.label;
       const tld = n.tld || n.unknownTld;
-      const tlds = book.slice().sort((a, b) => (tld === b.tld) - (tld === a.tld) || a.price - b.price);
+      const first = ['.com', '.net', '.org'];   // le .com toujours en tête, puis .net, .org, puis le moins cher
+      const rank = (t) => (t === tld ? -2 : first.includes(t) ? first.indexOf(t) - 1 : 1);
+      const tlds = book.slice().sort((a, b) => rank(a.tld) - rank(b.tld) || a.price - b.price);
       const list = tlds.slice(0, 5).map((t) => ({ domain: label + t.tld, price: t.price, compare: t.compare, promo: promo.has(t.tld), kind: 'tld' }));
       const base = book.find((t) => t.tld === (n.tld || '.com')) || book.find((t) => t.tld === '.com') || book[0];
       const variants = ['get' + label, 'mon' + label, label + 'pro'].filter((v) => v.length <= 63).map((v) => ({ domain: v + base.tld, price: base.price, compare: base.compare, kind: 'idea' }));

@@ -109,10 +109,20 @@
     return pricesPromise;
   }
 
-  async function searchDomains(raw) {
+  /** Recherche en deux temps (hors démo) : onPartial(main) reçoit tout de suite le nom + .com/.net/.org ; la promesse renvoie le résultat complet. */
+  async function searchDomains(raw, opts = {}) {
     const n = normalizeDomain(raw);
     if (n.error) throw new Error(n.error);
-    if (!C.DEMO_MODE) return request('/domains/search?q=' + encodeURIComponent(n.label + (n.tld || n.unknownTld || '')));   // une extension absente de C.TLDS (ex. .dev) est transmise telle quelle : c'est l'API qui décide
+    if (!C.DEMO_MODE) {
+      const q = encodeURIComponent(n.label + (n.tld || n.unknownTld || ''));
+      if (!opts.onPartial) return request('/domains/search?q=' + q);
+      const main = await request('/domains/search?q=' + q + '&part=main');
+      opts.onPartial(main);
+      let more;
+      try { more = await request('/domains/search?q=' + q + '&part=more'); }
+      catch (e) { return { ...main, partial: false, moreFailed: true }; }   // le résultat principal reste utilisable
+      return { query: main.query, unknownTld: main.unknownTld, exact: main.exact, results: [...main.results, ...more.results], suggestions: more.suggestions };
+    }   // une extension absente de C.TLDS (ex. .dev) est transmise telle quelle : c'est l'API qui décide
 
     await wait(650);
     const primaryTld = n.tld || '.com';
@@ -716,5 +726,5 @@
   trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
   trackAfter(domains, 'verify', 'domain_verified');
 
-  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, domainPrices, searchDomains: async (q) => { const r = await searchDomains(q); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
+  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
 })();
