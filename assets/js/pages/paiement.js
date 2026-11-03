@@ -225,6 +225,19 @@
     natcash: ['Cliquez sur « Payer avec NatCash ».', 'Vous recevez une demande de paiement NatCash (Natcom) sur votre téléphone.', 'Validez avec votre code PIN NatCash pour terminer.'],
   };
 
+  /* Production : la carte se saisit chez Stripe (page hébergée) ; aucun champ de carte n'est affiché ni validé ici, aucune donnée de carte ne transite par notre site. */
+  const hostedCard = !C.DEMO_MODE;
+  if (hostedCard) {
+    const grid = $('[data-panel="card"] > .grid');
+    if (grid) {
+      grid.hidden = true;
+      const note = document.createElement('p');
+      note.className = 'text-sm text-slate-600 mt-1';
+      note.textContent = 'Vous serez redirigé vers la page de paiement sécurisée de Stripe pour saisir votre carte. Elle sera enregistrée pour renouveler automatiquement votre offre Freda Mail ; vous pouvez la supprimer à tout moment depuis votre espace.';
+      grid.parentNode.insertBefore(note, grid);
+    }
+  }
+
   function setMethod(m) {
     method = m;
     document.querySelectorAll('[data-method]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.method === m)));
@@ -316,7 +329,9 @@
     }
     const needsPay = !(stage === 'domain' && domainFree) && !useSaved();
     if (needsPay) {
-      if (method === 'card') {
+      if (method === 'card' && hostedCard) {
+        /* rien à valider : la carte est saisie chez Stripe */
+      } else if (method === 'card') {
         const n = ccNumber.value.replace(/\s/g, '');
         ok = setError('cc-number', !(n.length >= 13 && luhn(n))) && ok;
         ok = setError('cc-name', $('#cc-name').value.trim().length < 2) && ok;

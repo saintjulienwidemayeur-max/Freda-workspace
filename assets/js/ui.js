@@ -424,7 +424,8 @@
   function showPaymentLink(res) {
     const text = document.getElementById('proc-text');
     const link = res.redirectUrl ? '<a class="btn btn-cta mt-4" target="_blank" rel="noopener noreferrer" href="' + esc(res.redirectUrl) + '">Ouvrir la page de paiement</a>' : '';
-    const msg = 'Terminez le paiement sur la page MonCash / NatCash qui vient de s’ouvrir, puis <strong>revenez ici</strong> : cette page se met à jour toute seule.';
+    const card = /stripe\.com/.test(res.redirectUrl || '');
+    const msg = 'Terminez le paiement sur la page ' + (card ? 'sécurisée Stripe' : 'MonCash / NatCash') + ' qui vient de s’ouvrir, puis <strong>revenez ici</strong> : cette page se met à jour toute seule.';
     if (text) text.innerHTML = msg + '<br>' + link;
     else {                                   // pages sans fenêtre « traitement » : bandeau fixe
       let b = document.getElementById('pay-wait-banner');
