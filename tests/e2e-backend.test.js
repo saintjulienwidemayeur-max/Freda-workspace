@@ -65,6 +65,8 @@ test('frontend réel + backend réel : inscription, entreprise, moyen de paiemen
     await page.fill('#buy-q', 'atelier-test'); await page.click('#buy-go');
     await page.waitForSelector('[data-toggle]');
     await page.locator('[data-toggle]').first().click();
+    assert.strictEqual(await page.isChecked('#whois-privacy'), true, 'confidentialité Whois cochée par défaut');
+    await page.uncheck('#whois-privacy');                      // le client la désactive
     await page.click('#buy-pay');
     await page.waitForSelector('#pay-wait-banner');
     assert.match(await page.textContent('#pay-wait-banner'), /paiement/i);
@@ -74,6 +76,7 @@ test('frontend réel + backend réel : inscription, entreprise, moyen de paiemen
     await page.waitForSelector('#buy-done:not([hidden])', { timeout: 20000 });
     assert.strictEqual((await t.db.get('SELECT COUNT(*) AS n FROM domains')).n, 1);
     const bought = (await t.db.get('SELECT name FROM domains')).name;
+    assert.strictEqual(t.ns.calls.find((c) => c.op === 'registerDomain').q.private, '0', 'choix du client transmis à NameSilo (WHOIS public)');
 
     /* 6. La page Domaines montre le domaine ; DNS : ajout répercuté chez NameSilo */
     await page.goto(`${front.url}/espace/domaines.html`);

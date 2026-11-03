@@ -520,7 +520,15 @@
     window.FW.payments.onSettled = () => { hidePaymentLink(); closeEmbedded(); hideResumeBanner(); };
   }
 
-  window.FWUI = { showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
+  /** Case « Confidentialité Whois gratuite » (cochée par défaut) : lit/écrit le choix via get()/set(valeur). */
+  function bindWhoisPrivacy(get, set) {
+    const el = document.getElementById('whois-privacy');
+    if (!el) return;
+    el.checked = get() !== false;
+    el.addEventListener('change', () => set(el.checked));
+  }
+
+  window.FWUI = { bindWhoisPrivacy, showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
 
   /* Initialisation automatique */
   document.addEventListener('DOMContentLoaded', () => {

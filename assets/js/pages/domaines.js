@@ -183,6 +183,7 @@
     ro && ro.addEventListener('click', () => { cart = FW.cart.set({ ownDomain: false }); renderCart(); });
   }
 
+  FWUI.bindWhoisPrivacy(() => cart.whoisPrivacy, (v) => { cart = FW.cart.set({ whoisPrivacy: v }); });
   $('#years-pick').addEventListener('change', (e) => {
     cart = FW.cart.set({ years: +e.target.value });
     renderCart();

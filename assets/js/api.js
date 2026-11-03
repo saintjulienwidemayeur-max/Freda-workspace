@@ -280,7 +280,7 @@
       if (!C.DEMO_MODE) {
         // Le navigateur n'envoie QUE le choix : le serveur recalcule prix, durée et disponibilité. Aucune donnée de carte ne part vers notre API.
         const body = kind === 'domain'
-          ? { kind, method, domains: domainsOf(c).map((d) => d.domain), years: cart.totals(c).years }
+          ? { kind, method, domains: domainsOf(c).map((d) => d.domain), years: cart.totals(c).years, whoisPrivacy: c.whoisPrivacy !== false }
           : { kind, method, methodId, plan, cycle, domain, mailbox: mailbox ? { local: String(mailbox).split('@')[0], password: mailboxPassword } : null };
         return payments.settle(await request('/checkout', { method: 'POST', body, idempotencyKey: newKey() }));
       }
@@ -471,9 +471,9 @@
       return request('/domains/' + encodeURIComponent(domain) + '/mail-ownership');
     },
     /** Achat d'un ou plusieurs domaines depuis l'espace client (moyen de paiement déjà enregistré). */
-    async buy({ items, years, methodId }) {
+    async buy({ items, years, methodId, whoisPrivacy = true }) {
       const amount = +items.reduce((sum, d) => sum + cart.priceOf(d, years), 0).toFixed(2);
-      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', methodId, domains: items.map((d) => d.domain), years } }));
+      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', methodId, domains: items.map((d) => d.domain), years, whoisPrivacy: whoisPrivacy !== false } }));
       await wait(1600);
       const s = workspace.get();
       const pm = s.paymentMethods.find((m) => m.id === methodId) || s.paymentMethods[0];

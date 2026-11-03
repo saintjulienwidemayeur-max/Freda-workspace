@@ -475,6 +475,7 @@
     FWUI.icons();
   }
 
+  FWUI.bindWhoisPrivacy(() => cart.whoisPrivacy, (v) => { cart = FW.cart.set({ whoisPrivacy: v }); });
   $('#pay-years').addEventListener('change', (e) => {
     cart = FW.cart.set({ years: +e.target.value });
     renderSummary();
