@@ -104,7 +104,7 @@
   async function searchDomains(raw) {
     const n = normalizeDomain(raw);
     if (n.error) throw new Error(n.error);
-    if (!C.DEMO_MODE) return request('/domains/search?q=' + encodeURIComponent(n.label + (n.tld || '')));
+    if (!C.DEMO_MODE) return request('/domains/search?q=' + encodeURIComponent(n.label + (n.tld || n.unknownTld || '')));   // une extension absente de C.TLDS (ex. .dev) est transmise telle quelle : c'est l'API qui décide
 
     await wait(650);
     const primaryTld = n.tld || '.com';
