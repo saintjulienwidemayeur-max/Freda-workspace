@@ -47,14 +47,14 @@ test('retour Stripe, ajout de moyen de paiement sans champ de carte, vérificati
     /* 2. Achat d'un domaine par carte (Stripe Checkout), puis retour « succès » : confirmation serveur */
     const buy = await api('/checkout', token, { method: 'POST', body: { kind: 'domain', domains: ['atelier-test.com'], years: 1, method: 'card' } });
     assert.strictEqual(buy.json.status, 'pending'); assert.match(buy.json.redirectUrl, /checkout\.stripe\.test/);
-    const sess = t.db.get('SELECT charge_id FROM orders').charge_id;
+    const sess = (await t.db.get('SELECT charge_id FROM orders')).charge_id;
     assert.match(t.stripe.calls.find((c) => c.path === '/v1/checkout/sessions').f.success_url, new RegExp('order=' + buy.json.orderId));
     t.stState.sessions[sess].payment_status = 'paid';                      // le client a payé sur la page Stripe
     await page.goto(`${front.url}/espace/facturation.html?payment=success&order=${buy.json.orderId}`);
     await page.waitForFunction(() => /Paiement confirmé|Confirmation de votre paiement/.test(document.body.textContent), null, { timeout: 15000 });
     await page.waitForFunction(() => !location.search && document.querySelector('#pm-list') && /visa/i.test(document.querySelector('#pm-list').textContent), null, { timeout: 20000 });
-    assert.strictEqual(t.db.get('SELECT COUNT(*) AS n FROM domains').n, 1, 'domaine enregistré après confirmation');
-    assert.strictEqual(t.db.get("SELECT status FROM orders").status, 'completed');
+    assert.strictEqual((await t.db.get('SELECT COUNT(*) AS n FROM domains')).n, 1, 'domaine enregistré après confirmation');
+    assert.strictEqual((await t.db.get("SELECT status FROM orders")).status, 'completed');
 
     /* 3. Fenêtre d'ajout de moyen de paiement : carte = explication Stripe, sans champ ; MonCash = bouton Enregistrer */
     await page.click('[data-open="modal-pm"]');
@@ -84,7 +84,7 @@ test('retour Stripe, ajout de moyen de paiement sans champ de carte, vérificati
     await page.fill('#box-local', 'contact');
     await page.click('#box-form [type=submit]');
     await page.waitForFunction(() => /hébergeur/.test(document.querySelector('#box-error').textContent));
-    assert.strictEqual(t.db.get('SELECT COUNT(*) AS n FROM mailboxes').n, 0, 'aucune boîte tant que le domaine n’est pas vérifié');
+    assert.strictEqual((await t.db.get('SELECT COUNT(*) AS n FROM mailboxes')).n, 0, 'aucune boîte tant que le domaine n’est pas vérifié');
     assert.ok(await page.isVisible('#own-box'), 'l’enregistrement reste affiché après l’erreur');
 
     /* 5. Le client publie le TXT : « Vérifier maintenant » lève l'avertissement, la boîte se crée */
@@ -93,7 +93,7 @@ test('retour Stripe, ajout de moyen de paiement sans champ de carte, vérificati
     await page.waitForSelector('#own-box', { state: 'hidden' });
     await page.click('#box-form [type=submit]');
     await page.waitForFunction(() => document.querySelector('#box-body') && /contact@externe\.com/.test(document.querySelector('#box-body').textContent), null, { timeout: 15000 });
-    assert.strictEqual(t.db.get('SELECT COUNT(*) AS n FROM mailboxes').n, 1);
+    assert.strictEqual((await t.db.get('SELECT COUNT(*) AS n FROM mailboxes')).n, 1);
 
     assert.deepStrictEqual(problems, []);
   } finally {
