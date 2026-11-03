@@ -208,7 +208,7 @@
      * (ou supabase.auth.signInWithOAuth({ provider: 'google' | 'apple' })).
      */
     async oauth(provider) {
-      if (!C.DEMO_MODE) { const next = new URLSearchParams(location.search).get('next'); window.location.href = C.API_BASE + '/auth/oauth/' + provider + (next ? '?next=' + encodeURIComponent(next) : ''); return; }
+      if (!C.DEMO_MODE) { const next = new URLSearchParams(location.search).get('next'); window.location.href = C.API_BASE + '/auth/oauth/' + provider + (next ? '?next=' + encodeURIComponent(next) : ''); return new Promise(() => {}); }   // la page quitte : on ne rend jamais la main (sinon goNext() annule la redirection vers Google)
       await wait(900);
       const s = { user: { name: provider === 'google' ? 'Compte Google' : 'Compte Apple', email: 'demo@' + provider + '.com' }, provider };
       store.set('session', s);
