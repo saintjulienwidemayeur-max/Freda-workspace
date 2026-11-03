@@ -2,7 +2,14 @@ services:
   - type: web
     name: freda-workspace
     runtime: static
-    buildCommand: echo ok
+    buildCommand: node scripts/build-config.js     # écrit DEMO_MODE / API_BASE depuis FW_DEMO_MODE / FW_API_BASE ci-dessous (sans elles : le site reste en démo)
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: FW_DEMO_MODE
+        value: "false"
+      - key: FW_API_BASE
+        value: https://freda-workspace-api.onrender.com/api     # remplacer par https://api.fredaworkspace.com/api une fois le domaine associé
     staticPublishPath: .
     headers:
       - path: /*
