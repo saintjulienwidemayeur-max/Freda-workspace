@@ -48,7 +48,7 @@
 
   const priceTag = (r) => r.included
     ? `<span class="badge badge-success"><i data-lucide="gift"></i>Inclus avec l’offre</span><span class="text-xs text-muted line-through tabular">${FW.money(r.price)}</span>`
-    : `<span class="text-sm font-semibold text-ink tabular">${FW.money(r.price)}<span class="text-muted font-normal">/1re année</span></span>`;
+    : `${r.compare > r.price ? `<span class="text-sm text-muted line-through tabular">${FW.money(r.compare)}</span>` : ''}<span class="text-sm font-semibold text-ink tabular">${FW.money(r.price)}<span class="text-muted font-normal">/1re année</span></span>`;
 
   function isSelected(r) { return cart.domain && cart.domain.domain === r.domain; }
 

@@ -15,7 +15,7 @@
       : `<button type="button" class="btn ${isSel ? 'btn-outline' : 'btn-primary'} btn-sm" data-toggle="${esc(r.domain)}" aria-pressed="${isSel}">${isSel ? '<i data-lucide="check"></i>Ajouté' : '<i data-lucide="plus"></i>Ajouter'}</button>`;
     return `<li class="flex items-center gap-3 px-4 py-3 ${r.available && !isOwned ? '' : 'opacity-60'}">
       <span class="mono font-semibold text-ink truncate min-w-0 flex-1">${esc(r.domain)}</span>
-      ${r.available && !isOwned ? `<span class="text-right text-sm tabular shrink-0"><span class="font-bold text-ink">${FW.money(r.price)}</span><span class="block text-xs text-muted">puis ${FW.money(r.renew)}/an</span></span>` : ''}
+      ${r.available && !isOwned ? `<span class="text-right text-sm tabular shrink-0">${r.compare > r.price ? `<span class="text-xs text-muted line-through mr-1">${FW.money(r.compare)}</span>` : ''}<span class="font-bold text-ink">${FW.money(r.price)}</span><span class="block text-xs text-muted">puis ${FW.money(r.renew)}/an</span></span>` : ''}
       <span class="shrink-0">${action}</span>
     </li>`;
   }

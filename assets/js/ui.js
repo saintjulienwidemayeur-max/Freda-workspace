@@ -290,9 +290,9 @@
       const label = n.label;
       const tld = n.tld || n.unknownTld;
       const tlds = book.slice().sort((a, b) => (tld === b.tld) - (tld === a.tld) || a.price - b.price);
-      const list = tlds.slice(0, 5).map((t) => ({ domain: label + t.tld, price: t.price, promo: promo.has(t.tld), kind: 'tld' }));
+      const list = tlds.slice(0, 5).map((t) => ({ domain: label + t.tld, price: t.price, compare: t.compare, promo: promo.has(t.tld), kind: 'tld' }));
       const base = book.find((t) => t.tld === (n.tld || '.com')) || book.find((t) => t.tld === '.com') || book[0];
-      const variants = ['get' + label, 'mon' + label, label + 'pro'].filter((v) => v.length <= 63).map((v) => ({ domain: v + base.tld, price: base.price, kind: 'idea' }));
+      const variants = ['get' + label, 'mon' + label, label + 'pro'].filter((v) => v.length <= 63).map((v) => ({ domain: v + base.tld, price: base.price, compare: base.compare, kind: 'idea' }));
       return [...list, ...variants.slice(0, 2)];
     }
     function render() {
@@ -304,7 +304,7 @@
           <span class="w-8 h-8 rounded-lg ${it.kind === 'idea' ? 'bg-amber-50 text-amber-600' : 'bg-mist text-freda'} grid place-items-center shrink-0"><i data-lucide="${it.kind === 'idea' ? 'lightbulb' : 'globe'}" class="w-4 h-4"></i></span>
           <span class="mono text-sm font-semibold text-ink flex-1 min-w-0 truncate">${esc(it.domain)}</span>
           ${it.promo ? '<span class="badge badge-success">Promo</span>' : ''}
-          <span class="text-xs text-muted tabular shrink-0">dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>
+          <span class="text-xs text-muted tabular shrink-0">${it.compare > it.price ? `<s class="mr-1">$${it.compare.toFixed(2)}</s>` : ''}dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>
         </button>`;
       const ext = items.filter((x) => x.kind === 'tld'), ideas = items.filter((x) => x.kind === 'idea');
       box.innerHTML = `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Extensions populaires</p>`

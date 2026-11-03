@@ -114,7 +114,7 @@ window.FW_CONFIG = {
 
   /* Certificat SSL offert avec chaque offre. SSL_VALUE_USD = valeur de référence annuelle affichée barrée (0 = pas de prix barré).
      N'indiquez qu'un prix de référence réellement pratiqué ailleurs pour un certificat équivalent. */
-  SSL_VALUE_USD: 50,
+  SSL_VALUE_USD: 0,
 
   /* Extensions proposées.
      included = true si une extension est offerte avec l'offre (aucune pour l'instant) ;
