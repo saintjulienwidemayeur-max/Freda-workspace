@@ -623,9 +623,10 @@
     health(records) {
       const has = (pred) => records.some(pred);
       const dkimCount = records.filter((r) => r.name.endsWith('._domainkey')).length;
+      const spfWanted = ((window.FW && window.FW.dnsConfig && window.FW.dnsConfig().mailTemplate) || C.MAIL_DNS_TEMPLATE).find((t) => t.role === 'SPF').value;
       return {
         MX: has((r) => r.type === 'MX' && r.value.includes('purelymail')) ? 'ok' : 'missing',
-        SPF: has((r) => r.type === 'TXT' && r.value.startsWith('v=spf1') && r.value.includes('purelymail')) ? 'ok' : 'missing',
+        SPF: has((r) => r.type === 'TXT' && r.value.startsWith('v=spf1') && (r.value.includes('purelymail') || r.value === spfWanted)) ? 'ok' : 'missing',   // SPF direct ou « marque blanche » (valeur du modèle serveur)
         DKIM: dkimCount >= 3 ? 'ok' : dkimCount > 0 ? 'partial' : 'missing',
         DMARC: has((r) => r.name === '_dmarc') ? 'ok' : 'missing',
       };

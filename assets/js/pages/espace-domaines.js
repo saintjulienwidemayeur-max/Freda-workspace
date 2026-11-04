@@ -93,7 +93,7 @@
     if (nsRadio) nsRadio.closest('label').hidden = !cfgDns.nameserversAvailable;
     document.querySelector(`[name="connect-mode"][value="${mode}"]`).checked = true;
     $('#connect-ns').innerHTML = cfgDns.nameservers.map((ns) => `<li class="flex items-center justify-between rounded-lg border border-line px-4 py-2.5"><span class="mono text-sm">${ns}</span>${copyRow(ns)}</li>`).join('');
-    $('#connect-records').innerHTML = C.MAIL_DNS_TEMPLATE.map((r) => `<tr><td class="mono text-xs font-bold">${r.type}</td><td class="mono text-xs">${esc(r.name)}</td><td class="mono text-xs"><span class="inline-flex items-center gap-2">${r.priority !== undefined ? r.priority + ' ' : ''}${esc(r.value)}${copyRow(r.value)}</span></td></tr>`).join('');
+    $('#connect-records').innerHTML = (cfgDns.mailTemplate || C.MAIL_DNS_TEMPLATE).map((r) => `<tr><td class="mono text-xs font-bold">${r.type}</td><td class="mono text-xs">${esc(r.name)}</td><td class="mono text-xs"><span class="inline-flex items-center gap-2">${r.priority !== undefined ? r.priority + ' ' : ''}${esc(r.value)}${copyRow(r.value)}</span></td></tr>`).join('');
     toggleMode(mode);
     $('#connect-steps').hidden = false;
     FWUI.icons();
