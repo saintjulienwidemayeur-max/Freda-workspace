@@ -133,12 +133,15 @@
   function showBoxForm() {
     $('#box-form').reset();
     $('#box-pass').value = FW.generatePassword();
+    renderPassRules();
     $('#box-error').classList.remove('show');
     FWUI.openModal('modal-box');
     checkOwnership();
   }
   $('#new-box-btn').addEventListener('click', openBox);
-  $('#regen-pass').addEventListener('click', () => { $('#box-pass').value = FW.generatePassword(); });
+  const renderPassRules = FWUI.liveRules($('#box-pass'), $('#box-pass-rules'), () => $('#box-local').value.trim().toLowerCase());
+  $('#box-local').addEventListener('input', renderPassRules);
+  $('#regen-pass').addEventListener('click', () => { $('#box-pass').value = FW.generatePassword(); renderPassRules(); });
   $('#copy-pass').addEventListener('click', () => FWUI.copy($('#box-pass').value, 'Mot de passe copié'));
 
   const localOk = (v) => /^[a-z0-9]([a-z0-9._-]{0,62})$/.test(v) && !/\.\./.test(v) && !/\.$/.test(v);
@@ -150,6 +153,7 @@
     $('#box-local').closest('div').classList.toggle('!border-red-500', bad);
     document.querySelector('[data-for="box-local"]').classList.toggle('show', bad);
     if (bad) return;
+    if (!FW.passwordRules($('#box-pass').value, local).ok) { $('#box-error').textContent = 'Ce mot de passe ne respecte pas toutes les règles ci-dessus : corrigez-le ou générez-en un autre.'; $('#box-error').classList.add('show'); return; }
     const btn = e.target.querySelector('[type=submit]');
     FWUI.setLoading(btn, true, 'Création...');
     try {

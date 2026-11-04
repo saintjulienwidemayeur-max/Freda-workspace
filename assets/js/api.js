@@ -705,10 +705,27 @@
 
   /** Génère un mot de passe robuste (sans caractères ambigus). */
   function generatePassword(len = 16) {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%&*?';
-    const arr = new Uint32Array(len);
+    const groups = ['ABCDEFGHJKLMNPQRSTUVWXYZ', 'abcdefghijkmnpqrstuvwxyz', '23456789', '!@#$%&*?'];
+    const all = groups.join('');
+    const arr = new Uint32Array(len * 2);
     crypto.getRandomValues(arr);
-    return Array.from(arr, (n) => chars[n % chars.length]).join('');
+    const out = groups.map((g, i) => g[arr[i] % g.length]);                       // au moins un de chaque type
+    for (let i = out.length; i < len; i++) out.push(all[arr[i] % all.length]);
+    for (let i = out.length - 1; i > 0; i--) { const k = arr[len + i] % (i + 1); [out[i], out[k]] = [out[k], out[i]]; }   // mélange
+    return out.join('');
+  }
+
+  /** Règles du mot de passe d'une boîte (identiques à validatePassword du backend). Renvoie { ok, items: [{ ok, text }] } pour l'affichage en direct. */
+  function passwordRules(pw, local) {
+    const p = String(pw || '');
+    const kinds = [/[a-z]/, /[A-Z]/, /[0-9]/, /[^A-Za-z0-9]/].filter((r) => r.test(p)).length;
+    const lc = String(local || '').toLowerCase();
+    const items = [
+      { ok: p.length >= 12 && p.length <= 128, text: '12 caractères ou plus' },
+      { ok: kinds >= 3, text: 'Au moins 3 types : minuscules, majuscules, chiffres, symboles (!@#$…)' },
+      { ok: !(lc.length >= 3 && p.toLowerCase().includes(lc)), text: 'Ne contient pas le nom de la boîte' },
+    ];
+    return { ok: items.every((x) => x.ok), items };
   }
 
   /* ---------- Évènements de parcours (mesure d'audience, voir monitor.js) ---------- */
@@ -727,5 +744,5 @@
   trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
   trackAfter(domains, 'verify', 'domain_verified');
 
-  window.FW = Object.assign(window.FW || {}, { config: C, store, money, date, planPrice, normalizeDomain, dnsConfig: () => { const w = workspace.get() || {}; return w.dnsConfig || { nameservers: C.DEMO_MODE ? C.NAMESERVERS : [], nameserversAvailable: !!C.DEMO_MODE }; }, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
+  window.FW = Object.assign(window.FW || {}, { passwordRules, config: C, store, money, date, planPrice, normalizeDomain, dnsConfig: () => { const w = workspace.get() || {}; return w.dnsConfig || { nameservers: C.DEMO_MODE ? C.NAMESERVERS : [], nameserversAvailable: !!C.DEMO_MODE }; }, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
 })();
