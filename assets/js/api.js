@@ -703,27 +703,35 @@
     },
   };
 
-  /** Génère un mot de passe robuste (sans caractères ambigus). */
-  function generatePassword(len = 16) {
-    const groups = ['ABCDEFGHJKLMNPQRSTUVWXYZ', 'abcdefghijkmnpqrstuvwxyz', '23456789', '!@#$%&*?'];
-    const all = groups.join('');
-    const arr = new Uint32Array(len * 2);
-    crypto.getRandomValues(arr);
-    const out = groups.map((g, i) => g[arr[i] % g.length]);                       // au moins un de chaque type
-    for (let i = out.length; i < len; i++) out.push(all[arr[i] % all.length]);
-    for (let i = out.length - 1; i > 0; i--) { const k = arr[len + i] % (i + 1); [out[i], out[k]] = [out[k], out[i]]; }   // mélange
-    return out.join('');
+  /** Génère un mot de passe SIMPLE à saisir sur un téléphone : quatre mots courants séparés par des tirets + deux chiffres (ex. cheval-bleu-maison-soleil42). */
+  const WORDS = ['soleil', 'maison', 'cheval', 'bleu', 'rouge', 'vert', 'jaune', 'lune', 'etoile', 'nuage', 'riviere', 'montagne', 'jardin', 'fleur', 'arbre', 'oiseau', 'poisson', 'plage', 'sable', 'vent', 'pluie', 'neige', 'cafe', 'sucre', 'pain', 'mangue', 'banane', 'orange', 'citron', 'ananas', 'coco', 'cacao', 'riz', 'haricot', 'poule', 'tigre', 'singe', 'tortue', 'papillon', 'abeille', 'livre', 'stylo', 'table', 'chaise', 'porte', 'fenetre', 'route', 'pont', 'bateau', 'avion', 'train', 'velo', 'moto', 'camion', 'ecole', 'marche', 'musique', 'danse', 'chanson', 'sourire', 'amitie', 'courage', 'espoir', 'liberte', 'voyage', 'matin', 'soir', 'lundi', 'mardi', 'jeudi', 'samedi', 'ete', 'hiver', 'grand', 'petit', 'rapide', 'calme', 'joyeux', 'fort', 'doux', 'clair', 'nouveau', 'ancien', 'premier', 'dernier', 'forge', 'cle', 'lampe', 'miroir', 'tableau', 'horloge', 'panier', 'bouteille', 'verre', 'assiette', 'cuillere', 'chapeau', 'manteau', 'soulier', 'cadeau', 'ballon', 'tambour', 'guitare', 'piano', 'radio', 'cinema', 'photo', 'carte', 'billet', 'monnaie', 'banque', 'boutique', 'atelier', 'bureau', 'projet', 'equipe', 'client', 'idee', 'reussite'];
+  function generatePassword(len) {
+    if (len) {   // code aléatoire dense (ex. code de transfert de domaine)
+      const groups = ['ABCDEFGHJKLMNPQRSTUVWXYZ', 'abcdefghijkmnpqrstuvwxyz', '23456789', '!@#$%&*?'];
+      const all = groups.join('');
+      const arr = new Uint32Array(len * 2);
+      crypto.getRandomValues(arr);
+      const out = groups.map((g, i) => g[arr[i] % g.length]);
+      for (let i = out.length; i < len; i++) out.push(all[arr[i] % all.length]);
+      for (let i = out.length - 1; i > 0; i--) { const k = arr[len + i] % (i + 1); [out[i], out[k]] = [out[k], out[i]]; }
+      return out.join('');
+    }
+    const n = new Uint32Array(6);
+    crypto.getRandomValues(n);
+    const words = [0, 1, 2, 3].map((i) => WORDS[n[i] % WORDS.length]);
+    return `${words.join('-')}${String(n[4] % 90 + 10)}`;
   }
 
-  /** Règles du mot de passe d'une boîte (identiques à validatePassword du backend). Renvoie { ok, items: [{ ok, text }] } pour l'affichage en direct. */
+  /** Règles du mot de passe d'une boîte (identiques à validatePassword du backend) : simples, pas de mélange de symboles obligatoire. Renvoie { ok, items: [{ ok, text }] }. */
+  const COMMON = ['12345678', '123456789', '1234567890', '87654321', 'password', 'password1', 'motdepasse', 'motdepasse1', 'azertyui', 'azerty123', 'azertyuiop', 'qwerty123', 'qwertyuiop', '11111111', '00000000', 'iloveyou', 'freda123', 'fredamail', 'bienvenue'];
   function passwordRules(pw, local) {
     const p = String(pw || '');
-    const kinds = [/[a-z]/, /[A-Z]/, /[0-9]/, /[^A-Za-z0-9]/].filter((r) => r.test(p)).length;
+    const lp = p.toLowerCase();
     const lc = String(local || '').toLowerCase();
     const items = [
-      { ok: p.length >= 12 && p.length <= 128, text: '12 caractères ou plus' },
-      { ok: kinds >= 3, text: 'Au moins 3 types : minuscules, majuscules, chiffres, symboles (!@#$…)' },
-      { ok: !(lc.length >= 3 && p.toLowerCase().includes(lc)), text: 'Ne contient pas le nom de la boîte' },
+      { ok: p.length >= 8 && p.length <= 128, text: '8 caractères ou plus' },
+      { ok: !(COMMON.includes(lp) || /^(.)\1+$/.test(p)), text: 'Pas un mot de passe trop courant (12345678, motdepasse…)' },
+      { ok: !(lc.length >= 3 && lp === lc), text: 'Différent du nom de la boîte' },
     ];
     return { ok: items.every((x) => x.ok), items };
   }
