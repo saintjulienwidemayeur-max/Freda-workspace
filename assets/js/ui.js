@@ -530,7 +530,19 @@
     el.addEventListener('change', () => set(el.checked));
   }
 
-  window.FWUI = { bindWhoisPrivacy, showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
+  /** Affiche en direct les règles du mot de passe sous un champ : liveRules(input, listEl, () => nomDeLaBoîte). Renvoie une fonction qui rend la liste et dit si le mot de passe est valide. */
+  function liveRules(input, list, getLocal) {
+    const render = () => {
+      const r = window.FW.passwordRules(input.value, getLocal ? getLocal() : '');
+      list.innerHTML = r.items.map((x) => `<li class="flex items-center gap-1.5 ${x.ok ? 'text-emerald-700' : 'text-muted'}"><span aria-hidden="true">${x.ok ? '✓' : '○'}</span>${esc(x.text)}</li>`).join('');
+      return r.ok;
+    };
+    input.addEventListener('input', render);
+    render();
+    return render;
+  }
+
+  window.FWUI = { liveRules, bindWhoisPrivacy, showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
 
   /* Initialisation automatique */
   document.addEventListener('DOMContentLoaded', () => {

@@ -320,6 +320,11 @@
     document.querySelectorAll('.is-invalid').forEach((e) => e.classList.remove('is-invalid'));
   }
 
+  if (document.getElementById('mail-pass') && document.getElementById('mail-pass-rules')) {   // ($ renvoie un faux élément quand l'id manque : on teste le vrai DOM)   // règles du mot de passe affichées en direct (email-pro.html)
+    const renderRules = FWUI.liveRules($('#mail-pass'), $('#mail-pass-rules'), () => $('#mail-local').value.trim().toLowerCase());
+    $('#mail-local').addEventListener('input', renderRules);
+  }
+
   function validate() {
     clearErrors();
     let ok = true;
@@ -327,7 +332,7 @@
       ok = setError('mail-local', !/^[a-z0-9]([a-z0-9._-]{0,62})$/i.test($('#mail-local').value.trim())) && ok;
       if (domainMode === 'input') ok = setError('dom-input', !/^([a-z0-9-]+\.)+[a-z]{2,}$/i.test($('#dom-input').value.trim())) && ok;
       const pw = $('#mail-pass').value;
-      ok = setError('mail-pass', pw.length < 10 || pw.length > 128) && ok;
+      ok = setError('mail-pass', !FW.passwordRules(pw, $('#mail-local').value.trim().toLowerCase()).ok) && ok;
     }
     const needsPay = !(stage === 'domain' && domainFree) && !useSaved();
     if (needsPay) {
