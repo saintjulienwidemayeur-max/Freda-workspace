@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Freda Mail",
+    "slug": "freda-mail",
+    "scheme": "fredamail",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/brand/logo/freda-workspace-symbol-reverse.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#061137",
+      "imageWidth": 140
+    },
+    "ios": {
+      "bundleIdentifier": "com.fredapay.fredamail",
+      "supportsTablet": false,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.fredapay.fredamail",
+      "adaptiveIcon": {
+        "backgroundColor": "#081A55",
+        "foregroundImage": "./assets/android-icon-foreground.png"
+      },
+      "permissions": ["USE_BIOMETRIC", "INTERNET"],
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-font",
+      [
+        "expo-local-authentication",
+        { "faceIDPermission": "Freda Mail utilise Face ID pour verrouiller et déverrouiller vos messages." }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Freda Mail accède à vos photos pour choisir votre photo de profil.",
+          "cameraPermission": "Freda Mail utilise l'appareil photo pour prendre votre photo de profil."
+        }
+      ]
+    ],
+    "experiments": { "typedRoutes": false }
+  }
+}
