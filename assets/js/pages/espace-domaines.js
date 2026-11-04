@@ -21,10 +21,11 @@
                 ${d.status === 'pending' ? '<span class="badge badge-warn"><span class="dot bg-amber-500"></span>À connecter</span>' : '<span class="badge badge-success"><span class="dot bg-cta"></span>Actif</span>'}
               </div>
               <p class="text-sm text-muted mt-0.5 tabular">${d.expires ? `Enregistré le ${FW.date(d.registered)} · expire le ${FW.date(d.expires)} <span class="${days < 30 ? 'text-red-600 font-semibold' : ''}">(${days} j)</span>` : (d.status === 'pending' ? 'Domaine externe · en attente de connexion' : 'Domaine externe · ' + (d.dnsMode === 'records' ? 'DNS conservé chez votre fournisseur' : 'DNS géré par Freda'))}</p>
+              ${d.external ? `<p class="text-xs text-muted mt-1">Renouvellement et verrouillage se gèrent chez le registraire où le domaine est enregistré.</p>` : ''}
             </div>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6 text-sm">
-            ${d.external ? `<p class="col-span-2 text-xs text-muted max-w-[22rem]">Renouvellement et verrouillage se gèrent chez le registraire où le domaine est enregistré.</p>` : `<label class="flex items-center gap-3"><span class="switch"><input type="checkbox" data-renew="${esc(d.name)}" ${d.autoRenew ? 'checked' : ''}><span></span></span><span><span class="block font-medium text-ink">Auto-renouvellement</span><span class="text-xs text-muted tabular">${tld ? FW.money(tld.renew) + '/an' : ''}</span></span></label>
+          <div class="${d.external ? 'flex' : 'grid grid-cols-2 sm:grid-cols-3'} gap-4 lg:gap-6 text-sm">
+            ${d.external ? '' : `<label class="flex items-center gap-3"><span class="switch"><input type="checkbox" data-renew="${esc(d.name)}" ${d.autoRenew ? 'checked' : ''}><span></span></span><span><span class="block font-medium text-ink">Auto-renouvellement</span><span class="text-xs text-muted tabular">${tld ? FW.money(tld.renew) + '/an' : ''}</span></span></label>
             <label class="flex items-center gap-3"><span class="switch"><input type="checkbox" data-lock="${esc(d.name)}" ${d.locked ? 'checked' : ''}><span></span></span><span><span class="block font-medium text-ink">Verrouillage</span><span class="text-xs text-muted">${d.locked ? 'Transfert bloqué' : 'Transfert possible'}</span></span></label>`}
             <div class="col-span-2 sm:col-span-1 flex items-center gap-2">
               ${d.status === 'pending' ? `<button type="button" class="btn btn-primary btn-sm" data-connect="${esc(d.name)}"><i data-lucide="link-2"></i>Connecter</button>` : ''}<a href="dns.html?domain=${encodeURIComponent(d.name)}" class="btn btn-outline btn-sm flex-1"><i data-lucide="server-cog"></i>DNS${ok ? '' : ' <span class="dot bg-amber-500"></span>'}</a>
