@@ -121,7 +121,7 @@ export default function MessageScreen() {
             )}
           </ScrollView>
           <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'row', gap: 10, padding: 14, paddingBottom: insets.bottom + 14, backgroundColor: p.surface, borderTopWidth: 1, borderColor: p.line }}>
-            {([['Répondre', 'arrow-undo-outline', () => compose({ ...replySeed(m, me, false), inReplyTo: undefined })], ['Répondre à tous', 'arrow-undo-circle-outline', () => compose(replySeed(m, me, true))], ['Transférer', 'arrow-redo-outline', () => compose(forwardSeed(m))]] as const).map(([label, icon, run]) => (
+            {([['Répondre', 'arrow-undo-outline', () => compose({ ...replySeed(m, me, false), inReplyTo: undefined })], ['À tous', 'arrow-undo-circle-outline', () => compose(replySeed(m, me, true))], ['Transférer', 'arrow-redo-outline', () => compose(forwardSeed(m))]] as const).map(([label, icon, run]) => (
               <Pressable key={label} onPress={run} accessibilityRole="button" style={{ flex: 1, height: 46, borderRadius: 14, borderWidth: 1, borderColor: p.line, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 6 }}>
                 <Ionicons name={icon} size={19} color={p.primary} />
                 <Text numberOfLines={1} style={{ color: p.primary, fontFamily: fonts.semibold, fontSize: 13 }}>{label}</Text>

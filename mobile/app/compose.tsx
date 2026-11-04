@@ -21,7 +21,7 @@ function parseAddress(s: string): MailAddress | null {
   return isValidEmail(email) ? { email, name: m?.[1]?.trim() || undefined } : null;
 }
 
-function Recipients({ label, value, onChange, contacts, autoFocus }: { label: string; value: MailAddress[]; onChange(v: MailAddress[]): void; contacts: MailAddress[]; autoFocus?: boolean }) {
+function Recipients({ label, value, onChange, contacts, autoFocus, padRight = 16 }: { label: string; value: MailAddress[]; onChange(v: MailAddress[]): void; contacts: MailAddress[]; autoFocus?: boolean; padRight?: number }) {
   const p = usePalette();
   const [text, setText] = useState('');
   const [bad, setBad] = useState(false);
@@ -36,7 +36,7 @@ function Recipients({ label, value, onChange, contacts, autoFocus }: { label: st
   const sugg = q.length >= 1 ? contacts.filter((c) => !value.some((v) => v.email === c.email) && `${displayOf(c)} ${c.email}`.toLowerCase().includes(q)).slice(0, 5) : [];
   return (
     <View style={{ borderBottomWidth: 1, borderColor: p.line }}>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 8, gap: 6 }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', paddingLeft: 16, paddingRight: padRight, paddingVertical: 8, gap: 6 }}>
         <Text style={{ color: p.sub, fontFamily: fonts.medium, width: 34 }}>{label}</Text>
         {value.map((a) => (
           <Pressable key={a.email} onPress={() => onChange(value.filter((v) => v !== a))} accessibilityLabel={`Retirer ${a.email}`} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: p.unreadBg, borderRadius: 16, paddingLeft: 10, paddingRight: 6, height: 32, gap: 4 }}>
@@ -105,7 +105,7 @@ export default function Compose() {
           <Text numberOfLines={1} style={{ flex: 1, color: p.sub, fontFamily: fonts.regular, fontSize: 13.5 }}>De : {repo?.account.address}</Text>
         </View>
         <View>
-          <Recipients label="À" value={to} onChange={setTo} contacts={contacts} autoFocus={!seed?.to.length} />
+          <Recipients label="À" value={to} onChange={setTo} contacts={contacts} autoFocus={!seed?.to.length} padRight={showCc ? 16 : 52} />
           {!showCc && <Pressable onPress={() => setShowCc(true)} style={{ position: 'absolute', right: 16, top: 12 }} accessibilityRole="button"><Text style={{ color: p.primary, fontFamily: fonts.semibold, fontSize: 13 }}>Cc</Text></Pressable>}
         </View>
         {showCc && <Recipients label="Cc" value={cc} onChange={setCc} contacts={contacts} />}
