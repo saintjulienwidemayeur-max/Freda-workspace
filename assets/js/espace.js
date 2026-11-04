@@ -38,7 +38,7 @@ window.FW_HOLD_LOADER = true;   // levé par releaseLoader() une fois la page pr
   }
 
   const ws = FW.workspace.get();
-  const plan = ws.plan ? C.PLANS[ws.plan.id] : null;
+  const plan = ws.plan ? C.PLANS[ws.plan.id] : (ws.free ? C.FREE_PLAN : null);   // sans abonnement : offre gratuite (2 boîtes)
   const user = { ...ws.user, ...(session.provider !== 'demo' && session.user.email ? session.user : {}) };
   const initials = (user.name || 'FW').split(/\s+/).map((p) => p[0]).slice(0, 2).join('').toUpperCase();
 
@@ -80,11 +80,11 @@ window.FW_HOLD_LOADER = true;   // levé par releaseLoader() une fois la page pr
       ${plan ? `<div class="rounded-xl bg-white/5 p-4">
         <div class="flex items-center justify-between">
           <span class="text-sm font-semibold text-white">Freda Mail ${plan.name}</span>
-          <span class="badge" style="background:rgba(16,185,129,.15);color:#34D399">Active</span>
+          <span class="badge" style="background:rgba(16,185,129,.15);color:#34D399">${ws.plan ? 'Active' : 'Gratuite'}</span>
         </div>
         <p class="mt-2 text-xs text-slate-400 tabular">${ws.mailboxes.length} / ${plan.mailboxes} boîte${plan.mailboxes > 1 ? 's' : ''} mail utilisée${ws.mailboxes.length > 1 ? 's' : ''}</p>
         <div class="meter mt-2" style="background:rgba(255,255,255,.1)"><span style="width:${plan.mailboxes === Infinity ? 100 : C.boxPct(plan, ws.mailboxes.length)}%;background:#4A95F5"></span></div>
-        ${ws.plan.id !== 'enterprise' ? `<a href="facturation.html#offre" class="mt-3 btn btn-cta btn-sm w-full">Changer d’offre</a>` : ''}
+        ${!ws.plan ? `<a href="facturation.html#offre" class="mt-3 btn btn-cta btn-sm w-full">Passer à une offre payante</a>` : ws.plan.id !== 'enterprise' ? `<a href="facturation.html#offre" class="mt-3 btn btn-cta btn-sm w-full">Changer d’offre</a>` : ''}
       </div>` : `<div class="rounded-xl bg-white/5 p-4">
         <div class="flex items-center gap-2 text-white"><i data-lucide="mail-plus" class="w-4 h-4 text-sky"></i><span class="text-sm font-semibold">Email pro non activé</span></div>
         <p class="mt-2 text-xs text-slate-400">Ajoutez des adresses à votre nom de domaine quand vous voulez.</p>
@@ -148,7 +148,7 @@ window.FW_HOLD_LOADER = true;   // levé par releaseLoader() une fois la page pr
   FWUI.icons();
 
   /** Petit utilitaire partagé : rafraîchit les données de l'espace. */
-  window.FWSpace = { ws: () => FW.workspace.get(), plan: () => { const p = FW.workspace.get().plan; return p ? C.PLANS[p.id] : null; }, user };
+  window.FWSpace = { ws: () => FW.workspace.get(), plan: () => { const w = FW.workspace.get(); return w.plan ? C.PLANS[w.plan.id] : (w.free ? C.FREE_PLAN : null); }, user };
 
   /* Les scripts de page (<script type="text/plain" data-page-script="…">) ne démarrent qu'ici, une fois FWSpace prêt. */
   if (document.readyState === 'loading') await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));   // les balises suivantes doivent être analysées
