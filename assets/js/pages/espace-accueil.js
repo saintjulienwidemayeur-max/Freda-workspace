@@ -29,8 +29,8 @@
     plan ? (C.DEMO_MODE ? { icon: 'hard-drive', label: 'Stockage', value: used.toFixed(1) + ' Go', sub: 'sur ' + totalGb + ' Go inclus', meter: used / totalGb, href: 'emails.html' }
       : { icon: 'hard-drive', label: 'Stockage', value: totalGb + ' Go', sub: 'inclus dans votre offre', href: 'emails.html' })   // consommation réelle non mesurée : pas de faux « 0 Go utilisé »
       : { icon: 'hard-drive', label: 'Stockage', value: '—', sub: 'Aucune offre email', href: 'emails.html' },
-    plan ? { icon: 'calendar-clock', label: 'Prochaine facture', value: FW.money(FW.planPrice(ws.plan.id, ws.plan.cycle)), sub: 'le ' + FW.date(ws.plan.renews), href: 'facturation.html' }
-      : { icon: 'calendar-clock', label: 'Abonnement', value: 'Aucun', sub: 'Domaine payé à l’année', href: 'facturation.html' },
+    ws.plan ? { icon: 'calendar-clock', label: 'Prochaine facture', value: FW.money(FW.planPrice(ws.plan.id, ws.plan.cycle)), sub: 'le ' + FW.date(ws.plan.renews), href: 'facturation.html' }
+      : { icon: 'calendar-clock', label: 'Abonnement', value: plan ? 'Gratuit' : 'Aucun', sub: plan ? 'Passez à une offre payante pour plus de boîtes' : 'Domaine payé à l’année', href: 'facturation.html' },
   ];
   $('#stats').innerHTML = stats.map((s) => `
     <a href="${s.href}" class="card p-5 hover:border-freda/40 hover:shadow-md transition-all group">
