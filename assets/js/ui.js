@@ -237,7 +237,7 @@
     opts.push({ k: 'card', method: 'card', icon: 'credit-card', label: 'Carte bancaire', sub: 'Frais ' + usd(cardFee) + ' (3,5 % + 0,40 $) · total ' + usd(amount + cardFee) });
     opts.push({ k: 'moncash', method: 'moncash', icon: 'smartphone', label: 'MonCash', sub: 'Frais ' + usd(mobFee) + ' (6 %) · total ' + usd(amount + mobFee) + ' ≈ ' + FW.money((amount + mobFee) * FW.config.HTG_RATE, 'HTG') });
     opts.push({ k: 'natcash', method: 'natcash', icon: 'smartphone', label: 'NatCash', sub: 'Frais ' + usd(mobFee) + ' (6 %) · total ' + usd(amount + mobFee) + ' ≈ ' + FW.money((amount + mobFee) * FW.config.HTG_RATE, 'HTG') });
-    if (bal >= amount && amount > 0) opts.push({ k: 'balance', method: 'balance', icon: 'wallet', label: 'Solde Freda (' + usd(bal) + ')', sub: 'Sans frais · total ' + usd(amount) });
+    if (bal >= amount && amount > 0) opts.push({ k: 'balance', method: 'balance', icon: 'wallet', label: 'Solde Freda Workspace (' + usd(bal) + ')', sub: 'Sans frais · total ' + usd(amount) });
     return new Promise((resolve) => {
       const wrap = document.createElement('div');
       wrap.className = 'modal';

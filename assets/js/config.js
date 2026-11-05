@@ -54,7 +54,7 @@ window.FW_CONFIG = {
 
   /* Taux indicatif USD -> HTG pour MonCash / NatCash.
      À récupérer dynamiquement depuis Freda Pay au moment du paiement. */
-  HTG_RATE: 132.5,
+  HTG_RATE: 132,
 
   /* Offres. Annuel = 10 mois payés (2 mois offerts).
      mailboxes : boîtes incluses (Infinity = illimitées).

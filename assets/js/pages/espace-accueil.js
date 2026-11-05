@@ -71,7 +71,7 @@
           <p class="font-semibold mono text-ink flex items-center gap-2 min-w-0"><i data-lucide="globe" class="w-4 h-4 text-freda shrink-0"></i><span class="truncate">${esc(d.name)}</span></p>
           <a href="dns.html?domain=${encodeURIComponent(d.name)}" class="badge badge-warn hover:underline"><i data-lucide="plug-zap"></i>Non connecté</a>
         </div>
-        <p class="mt-3 text-sm text-muted">Ce domaine ne pointe pas encore vers Freda : ajoutez les enregistrements DNS chez votre registrar, puis vérifiez la connexion.</p>
+        <p class="mt-3 text-sm text-muted">Ce domaine ne pointe pas encore vers Freda Workspace : ajoutez les enregistrements DNS chez votre registrar, puis vérifiez la connexion.</p>
       </li>`;
     }
     const h = FW.dns.health(ws.dns[d.name] || []);

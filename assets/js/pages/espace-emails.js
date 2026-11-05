@@ -116,7 +116,7 @@
       ownBox.dataset.name = r.record.name; ownBox.dataset.value = r.record.value;
     }
     $('#own-text').textContent = external
-      ? 'Ce domaine n’est pas hébergé chez Freda : ajoutez cet enregistrement TXT chez l’hébergeur de votre DNS (là où vous avez acheté le domaine), puis cliquez sur « Vérifier maintenant ». La propagation peut prendre jusqu’à 15 minutes.'
+      ? 'Ce domaine n’est pas hébergé chez Freda Workspace : ajoutez cet enregistrement TXT chez l’hébergeur de votre DNS (là où vous avez acheté le domaine), puis cliquez sur « Vérifier maintenant ». La propagation peut prendre jusqu’à 15 minutes.'
       : 'La vérification de votre domaine est automatique : elle peut prendre jusqu’à 15 minutes. La boîte pourra être créée dès qu’elle est terminée.';
   }
   async function checkOwnership() {
