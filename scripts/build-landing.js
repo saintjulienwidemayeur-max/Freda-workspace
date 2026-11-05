@@ -221,6 +221,7 @@ function slug(s) { return 'h-' + String(s).toLowerCase().normalize('NFD').replac
 // [chemin, priorité, fréquence, dernière modification, versions dans les autres langues]
 const core = [['', '1.0', 'weekly', '2026-11-02'], ['domaines.html', '0.6', 'monthly', '2026-11-02'], ['support.html', '0.6', 'monthly', '2026-11-02'], ['legal.html', '0.4', 'yearly', '2026-11-05'],
   ['confidentialite.html', '0.4', 'yearly', LASTMOD],
+  ['suppression-compte.html', '0.3', 'yearly', LASTMOD],
   ['presse.html', '0.5', 'monthly', LASTMOD, { fr: 'presse.html', en: 'en/press.html' }], ['en/press.html', '0.4', 'monthly', LASTMOD, { fr: 'presse.html', en: 'en/press.html' }]];
 function sitemap() {
   const x = [];
