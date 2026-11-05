@@ -181,7 +181,7 @@ test('inscription : l’étape entreprise peut être passée', async () => {
 test('paramètres : infos entreprise enregistrées et bannière de l’accueil', async () => {
   const { ctx, page, problems } = await open({ viewport: { width: 1280, height: 900 } });
   await login(page);
-  assert.ok(await page.locator('a[href="parametres.html?tab=entreprise"]').count(), 'bannière profil incomplet');
+  assert.ok(await page.locator('a[href="parametres?tab=entreprise"]').count(), 'bannière profil incomplet');
   await page.goto(`${url}/espace/parametres.html?tab=entreprise`);
   assert.strictEqual(await page.locator('[data-panel="entreprise"]').isVisible(), true);
   await page.fill('#co-address', '5 avenue Test');
@@ -190,7 +190,7 @@ test('paramètres : infos entreprise enregistrées et bannière de l’accueil',
   await page.waitForSelector('.toast');
   await page.goto(`${url}/espace/index.html`);
   await page.waitForSelector('#stats');
-  assert.strictEqual(await page.locator('a[href="parametres.html?tab=entreprise"]').count(), 0, 'bannière masquée une fois complété');
+  assert.strictEqual(await page.locator('a[href="parametres?tab=entreprise"]').count(), 0, 'bannière masquée une fois complété');
   await ctx.close();
   assert.deepStrictEqual(problems, []);
 });
