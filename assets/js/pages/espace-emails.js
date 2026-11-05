@@ -67,7 +67,9 @@
         </li>`).join('')
       : '<li class="p-6 text-sm text-muted text-center">Aucun alias pour le moment.</li>';
 
-    const domOpts = ws.domains.map((d) => `<option>${esc(d.name)}</option>`).join('');
+    // Un domaine « à connecter » (pending) ne peut pas encore recevoir de boîtes ni d'alias : on ne le propose pas.
+    const usable = ws.domains.filter((d) => d.status !== 'pending');
+    const domOpts = usable.length ? usable.map((d) => `<option>${esc(d.name)}</option>`).join('') : '<option value="" disabled selected>Connectez d’abord un domaine</option>';
     $('#box-domain').innerHTML = domOpts;
     $('#alias-domain').innerHTML = domOpts;
     $('#alias-to').innerHTML = ws.mailboxes.map((m) => `<option>${esc(m.address)}</option>`).join('');
@@ -155,6 +157,7 @@
     $('#box-local').closest('div').classList.toggle('!border-red-500', bad);
     document.querySelector('[data-for="box-local"]').classList.toggle('show', bad);
     if (bad) return;
+    if (!$('#box-domain').value) { $('#box-error').textContent = 'Connectez d’abord un domaine : un domaine « à connecter » ne peut pas encore recevoir de boîtes.'; $('#box-error').classList.add('show'); return; }
     if (!FW.passwordRules($('#box-pass').value, local).ok) { $('#box-error').textContent = 'Ce mot de passe ne respecte pas toutes les règles ci-dessus : corrigez-le ou générez-en un autre.'; $('#box-error').classList.add('show'); return; }
     const btn = e.target.querySelector('[type=submit]');
     FWUI.setLoading(btn, true, 'Création...');

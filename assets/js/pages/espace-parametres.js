@@ -48,10 +48,7 @@
   });
 
   /* Sécurité */
-  $('#mfa-toggle').addEventListener('change', (e) => {
-    $('#mfa-label').textContent = e.target.checked ? 'Activée' : 'Désactivée';
-    FWUI.toast(e.target.checked ? 'Double authentification activée. Scannez le QR code reçu par email.' : 'Double authentification désactivée', e.target.checked ? 'success' : 'info');
-  });
+  /* Double authentification : pas encore disponible (aucun faux interrupteur) */
   $('#pass-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const err = $('#pw-error');

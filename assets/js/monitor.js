@@ -47,7 +47,7 @@
     report({ type: 'unhandledrejection', message: String(r && r.message ? r.message : r).slice(0, 300), source: '', line: 0, stack: r && r.stack ? String(r.stack).slice(0, 1500) : '' });
   });
 
-  /* ----- Écran de chargement : retiré quand la page et les polices sont prêtes ----- */
+  /* ----- Écran de chargement : retiré quand le DOM et les polices sont prêts ----- */
   function hideLoader() {
     if (window.FW_HOLD_LOADER) return;       // espace client : le chargeur reste jusqu'à ce que les données soient prêtes (voir espace.js)
     const l = document.getElementById('page-loader');
@@ -55,7 +55,8 @@
     l.classList.add('done');
     setTimeout(() => l.remove(), 450);
   }
-  const ready = new Promise((res) => { if (document.readyState === 'complete') res(); else window.addEventListener('load', res, { once: true }); });
+  // Masqué dès que le DOM est prêt (scripts différés exécutés) et que les polices sont chargées, sans attendre les images (LCP).
+  const ready = new Promise((res) => { if (document.readyState === 'complete') res(); else document.addEventListener('DOMContentLoaded', res, { once: true }); });
   Promise.race([Promise.all([ready, document.fonts && document.fonts.ready]).catch(() => {}), new Promise((r) => setTimeout(r, 4000))]).then(hideLoader);
   window.addEventListener('pageshow', (e) => { if (e.persisted) hideLoader(); });
 

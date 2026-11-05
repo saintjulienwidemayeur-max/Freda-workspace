@@ -213,7 +213,7 @@
       nx.hidden = false;
       nx.className = 'rounded-xl border p-4 text-sm ' + (short ? 'border-amber-300 bg-amber-50 text-amber-900' : 'border-emerald-200 bg-emerald-50 text-emerald-900');
       nx.innerHTML = short
-        ? `<p class="font-semibold">Solde insuffisant pour la prochaine échéance</p><p class="mt-1">Votre offre (${usd(bal.next.amount)}) se renouvelle le ${FW.date(bal.next.renews)}. Il manque <strong>${usd(bal.next.missing)}</strong> (≈ ${Math.ceil(bal.next.missing * bal.htgRate).toLocaleString('fr-FR')} HTG).</p><button type="button" class="btn btn-cta btn-sm mt-3" data-topup="${Math.max(bal.min, Math.ceil(bal.next.missing))}"><i data-lucide="wallet"></i>Recharger ${usd(Math.max(bal.min, Math.ceil(bal.next.missing)))}</button>`
+        ? `<p class="font-semibold">Solde insuffisant pour la prochaine échéance</p><p class="mt-1">Votre offre (${usd(bal.next.amount)}) se renouvelle le ${FW.date(bal.next.renews)}. Il manque <strong>${usd(bal.next.missing)}</strong> (≈ ${Math.ceil(bal.next.missing * 1.06 * bal.htgRate).toLocaleString('fr-FR')} HTG avec les frais MonCash / NatCash de 6 %).</p><button type="button" class="btn btn-cta btn-sm mt-3" data-topup="${Math.max(bal.min, Math.ceil(bal.next.missing))}"><i data-lucide="wallet"></i>Recharger ${usd(Math.max(bal.min, Math.ceil(bal.next.missing)))}</button>`
         : `<p class="font-semibold">Prochaine échéance couverte</p><p class="mt-1">Votre offre (${usd(bal.next.amount)}) sera payée avec votre solde ${bal.autoPay ? 'automatiquement' : 'dès que vous la réglerez'} le ${FW.date(bal.next.renews)}.</p>`;
     } else nx.hidden = true;
     $('#bal-entries').innerHTML = !bal.entries.length ? '<li class="py-3 text-sm text-muted">Aucun mouvement pour le moment.</li>' : bal.entries.slice(0, 8).map((e) => {
@@ -233,7 +233,7 @@
     FWUI.openModal('modal-topup');
   }
   const topupAmount = () => { const n = Number(String($('#topup-amount').value).replace(',', '.')); return Number.isFinite(n) ? Math.round(n * 100) / 100 : NaN; };
-  function syncTopupHtg() { const a = topupAmount(); const rate = bal ? bal.htgRate : C.HTG_RATE; const fee = a > 0 ? Math.round(a * 6) / 100 : 0; $('#topup-htg').textContent = a > 0 ? '≈ ' + Math.ceil((a + fee) * rate).toLocaleString('fr-FR') + ' HTG à payer (frais de traitement 6 % inclus : ' + usd(fee) + ')' : ''; document.querySelectorAll('[data-preset]').forEach((b) => b.classList.toggle('!border-freda', Number(b.dataset.preset) === a)); }
+  function syncTopupHtg() { const a = topupAmount(); const rate = bal ? bal.htgRate : C.HTG_RATE; const min = bal ? bal.min : 5, max = bal ? bal.max : 500; const ok = a >= min && a <= max; const fee = ok ? Math.round(a * 6) / 100 : 0; $('#topup-htg').textContent = ok ? '≈ ' + Math.ceil((a + fee) * rate).toLocaleString('fr-FR') + ' HTG à payer (frais de traitement 6 % inclus : ' + usd(fee) + ')' : ''; document.querySelectorAll('[data-preset]').forEach((b) => b.classList.toggle('!border-freda', Number(b.dataset.preset) === a)); }
   $('#btn-topup').addEventListener('click', () => openTopup());
   $('#solde').addEventListener('click', (e) => { const t = e.target.closest('[data-topup]'); if (t) openTopup(Number(t.dataset.topup)); });
   $('#topup-presets').addEventListener('click', (e) => { const b = e.target.closest('[data-preset]'); if (b) { $('#topup-amount').value = b.dataset.preset; syncTopupHtg(); } });

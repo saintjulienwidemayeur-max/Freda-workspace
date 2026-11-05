@@ -129,7 +129,7 @@
     const rows = records.filter((r) => (filterType === 'Tous' || r.type === filterType) && (!q || (r.name + ' ' + r.value).toLowerCase().includes(q)));
     const pend = isPending();
     $('#rec-count').textContent = records.length + ' enregistrement' + (records.length > 1 ? 's' : '') + (pend ? ' à ajouter chez votre registrar (pas encore actifs)' : '');
-    $('#rec-ttl').hidden = pend;
+    $('#rec-ttl-note').hidden = pend;
     if (!rows.length) {
       $('#rec-body').innerHTML = `<tr><td colspan="6" class="!py-10 text-center text-muted">Aucun enregistrement ne correspond au filtre.</td></tr>`;
       return;

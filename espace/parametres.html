@@ -64,8 +64,8 @@
           <div class="mt-6 space-y-6" data-panel="securite" hidden>
             <section class="card divide-y divide-line">
               <div class="p-5 sm:p-6 flex items-center gap-4 justify-between flex-wrap">
-                <div class="flex gap-4"><span class="w-10 h-10 rounded-lg bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="smartphone"></i></span><div><h2 class="font-bold">Double authentification</h2><p class="text-sm text-muted">Code à usage unique depuis une application (Google Authenticator, Authy).</p></div></div>
-                <label class="flex items-center gap-2"><span class="switch"><input type="checkbox" id="mfa-toggle"><span></span></span><span class="text-sm font-medium" id="mfa-label">Désactivée</span></label>
+                <div class="flex gap-4"><span class="w-10 h-10 rounded-lg bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="smartphone"></i></span><div><h2 class="font-bold">Double authentification</h2><p class="text-sm text-muted">Bientôt disponible : un code à usage unique sur votre téléphone en plus du mot de passe. En attendant, choisissez un mot de passe long et unique.</p></div></div>
+                <label class="flex items-center gap-2"><span class="switch"><input type="checkbox" id="mfa-toggle" disabled aria-disabled="true"><span></span></span><span class="text-sm font-medium" id="mfa-label">Bientôt</span></label>
               </div>
               <form class="p-5 sm:p-6 grid sm:grid-cols-3 gap-4 items-end" id="pass-form" novalidate>
                 <div><label for="pw-old" class="label">Mot de passe actuel</label><input id="pw-old" type="password" class="input" autocomplete="current-password"></div>
@@ -95,12 +95,12 @@
     </div>
   </div>
 
-  <script src="../assets/js/icons.js"></script>
-  <script src="../assets/js/config.js"></script>
-  <script src="../assets/js/monitor.js"></script>
-  <script src="../assets/js/api.js"></script>
-  <script src="../assets/js/ui.js"></script>
-  <script src="../assets/js/espace.js"></script>
+  <script src="../assets/js/icons.js" defer></script>
+  <script src="../assets/js/config.js" defer></script>
+  <script src="../assets/js/monitor.js" defer></script>
+  <script src="../assets/js/api.js" defer></script>
+  <script src="../assets/js/ui.js" defer></script>
+  <script src="../assets/js/espace.js" defer></script>
   <script type="text/plain" data-page-script="../assets/js/pages/espace-parametres.js"></script>
 </body>
 </html>

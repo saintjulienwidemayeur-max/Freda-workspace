@@ -17,7 +17,7 @@ module.exports = {
         ink: '#0B1533',
         muted: '#5B6478',
         line: '#E3E8F2',
-        cta: { DEFAULT: '#10B981', dark: '#059669' },
+        cta: { DEFAULT: '#047857', dark: '#065F46' },
       },
       fontFamily: {
         display: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],

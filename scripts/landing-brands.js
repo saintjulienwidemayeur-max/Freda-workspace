@@ -1,12 +1,27 @@
 /** Pages de marque : « Freda Mail » et « Freda Connect » (FR / HT / EN), pour que quiconque cherche ces noms trouve Freda Workspace. Fusionnées dans landing-content.js. */
 const FR = 'fr', HT = 'ht', EN = 'en';
 
-const mailOffers = [
-  { name: 'Freda Mail Gratuit', price: 0, description: '1 boîte email professionnelle (1 Go) sur votre propre domaine' },
-  { name: 'Freda Mail Starter', price: '{starter_num}', description: '2 boîtes, 2 Go, par mois' },
-  { name: 'Freda Mail Business', price: '{business_num}', description: '5 boîtes, 15 Go partagés, par mois' },
-  { name: 'Freda Mail Enterprise', price: '{enterprise_num}', description: 'Boîtes illimitées, 5 Go par boîte, par mois' },
-];
+/** Offres Freda Mail pour le JSON-LD, dans la langue de la page. */
+const mailOffers = {
+  fr: [
+    { name: 'Freda Mail Gratuit', price: 0, description: '1 boîte email professionnelle (1 Go) sur votre propre domaine' },
+    { name: 'Freda Mail Starter', price: '{starter_num}', description: '2 boîtes, 2 Go, par mois' },
+    { name: 'Freda Mail Business', price: '{business_num}', description: '5 boîtes, 15 Go partagés, par mois' },
+    { name: 'Freda Mail Enterprise', price: '{enterprise_num}', description: 'Boîtes illimitées, 5 Go par boîte, par mois' },
+  ],
+  ht: [
+    { name: 'Freda Mail Gratis', price: 0, description: '1 bwat imèl pwofesyonèl (1 Go) sou pwòp domèn ou' },
+    { name: 'Freda Mail Starter', price: '{starter_num}', description: '2 bwat, 2 Go, pa mwa' },
+    { name: 'Freda Mail Business', price: '{business_num}', description: '5 bwat, 15 Go pataje, pa mwa' },
+    { name: 'Freda Mail Enterprise', price: '{enterprise_num}', description: 'Bwat san limit, 5 Go pou chak bwat, pa mwa' },
+  ],
+  en: [
+    { name: 'Freda Mail Free', price: 0, description: '1 professional mailbox (1 GB) on your own domain' },
+    { name: 'Freda Mail Starter', price: '{starter_num}', description: '2 mailboxes, 2 GB, per month' },
+    { name: 'Freda Mail Business', price: '{business_num}', description: '5 mailboxes, 15 GB shared, per month' },
+    { name: 'Freda Mail Enterprise', price: '{enterprise_num}', description: 'Unlimited mailboxes, 5 GB per mailbox, per month' },
+  ],
+};
 
 module.exports = [
   /* ================================================================ Freda Mail */
@@ -24,7 +39,7 @@ module.exports = [
       ['Offres payantes', 'Starter {starter_price}/mois (2 boîtes), Business {business_price}/mois (5 boîtes), Enterprise {enterprise_price}/mois (illimité)'],
       ['Sécurité', 'SPF, DKIM et DMARC configurés automatiquement'],
       ['Compatibilité', 'Application Freda Mail, et tout logiciel IMAP / SMTP (Outlook, Apple Mail, Gmail)'],
-      ['Paiement', 'MonCash, NatCash, carte et autres moyens de paiement disponibles ; solde prépayé pour les abonnements'],
+      ['Paiement', 'MonCash, NatCash, carte et autres moyens de paiement disponibles ; solde prépayé pour les abonnements. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
       ['Produit associé', 'Freda Connect (noms de domaine et DNS)'],
     ],
     sections: [
@@ -65,10 +80,11 @@ module.exports = [
       ['Comment lire mes emails Freda Mail ?', 'Avec l’application Freda Mail, ou avec tout logiciel compatible IMAP et SMTP comme Outlook, Apple Mail ou Gmail. Les paramètres sont affichés dans votre espace.'],
       ['Combien de boîtes Freda Mail puis-je avoir ?', 'Gratuit : {free_mailboxes} boîte. Starter : {starter_boxes} boîtes. Business : {business_boxes} boîtes. Enterprise : illimité. Les alias sont gratuits.'],
       ['Puis-je payer Freda Mail avec MonCash ou NatCash ?', 'Oui. MonCash et NatCash ne permettent pas de prélèvement automatique : vous rechargez un solde Freda Workspace qui paie ensuite votre offre automatiquement.'],
+      ['Avis clients ?', 'Les avis clients apparaîtront ici après les premiers achats réels. Nous n’en affichons aucun pour l’instant et nous n’en inventons jamais.'],
     ],
-    related: [['freda-connect.html', 'Freda Connect : noms de domaine et DNS'], ['email-pro-gratuit.html', 'Email pro gratuit'], ['qui-sommes-nous.html', 'Qui sommes-nous ?']],
+    related: [['freda-connect.html', 'Freda Connect : noms de domaine et DNS'], ['email-pro-gratuit.html', 'Email pro gratuit'], ['qui-sommes-nous.html', 'Qui sommes-nous ?'], ['freda-mail-vs-gmail-google-workspace-zoho.html', 'Freda Mail vs Gmail, Google Workspace, Zoho']],
     cta: [['Créer mon email Freda Mail', 'inscription.html'], ['Voir Freda Connect', 'freda-connect.html']],
-    product: { name: 'Freda Mail', description: 'Email professionnel sur votre propre nom de domaine, avec 1 boîte gratuite, SPF, DKIM et DMARC configurés automatiquement et une application mobile.', offers: mailOffers },
+    product: { name: 'Freda Mail', description: 'Email professionnel sur votre propre nom de domaine, avec 1 boîte gratuite, SPF, DKIM et DMARC configurés automatiquement et une application mobile.', offers: mailOffers.fr },
   },
   {
     id: 'freda-mail-ht', priority: '0.8', lang: HT, path: 'ht/freda-mail.html', alt: { fr: 'freda-mail.html', en: 'en/freda-mail.html' },
@@ -80,11 +96,11 @@ module.exports = [
     facts: [
       ['Pwodwi', 'Freda Mail, imèl pwofesyonèl Freda Workspace (Freda Pay LLC)'],
       ['Kisa li ye', 'Adrès imèl sou pwòp non domèn ou, pa egzanp kontak@biznis-ou.com'],
-      ['Òf gratis', '{free_mailboxes} bwat (1 Go) pou chak kont, san abònman ni kat bankè; non domèn nan peye'],
+      ['Òf gratis', '{free_mailboxes} bwat (1 Go) pou chak kont, san abònman ni kat labank; non domèn nan peye'],
       ['Òf ki peye', 'Starter {starter_price}/mwa (2 bwat), Business {business_price}/mwa (5 bwat), Enterprise {enterprise_price}/mwa (san limit)'],
       ['Sekirite', 'SPF, DKIM ak DMARC konfigire otomatikman'],
       ['Konpatibilite', 'Aplikasyon Freda Mail, ak nenpòt lojisyèl IMAP / SMTP (Outlook, Apple Mail, Gmail)'],
-      ['Peman', 'MonCash, NatCash, kat ak lòt mwayen peman; balans prepeye pou abònman yo. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
+      ['Peman', 'MonCash, NatCash, kat ak lòt mwayen peman; balans prepeye pou abònman yo. Frè pwosesis: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
       ['Pwodwi asosye', 'Freda Connect (non domèn ak DNS)'],
     ],
     sections: [
@@ -107,7 +123,7 @@ module.exports = [
       {
         h2: 'Kijan pou kòmanse ak Freda Mail',
         steps: [
-          'Kreye kont Freda Workspace ou (gratis, san kat bankè).',
+          'Kreye kont Freda Workspace ou (gratis, san kat labank).',
           'Chwazi non domèn ou ak Freda Connect, oswa konekte youn ou genyen deja.',
           'Kreye premye adrès imèl ou: enregistreman MX, SPF, DKIM ak DMARC yo ajoute oswa yo endike klèman.',
           'Konekte ak aplikasyon Freda Mail la oswa ak lojisyèl imèl ou abitye ak li a.',
@@ -120,15 +136,16 @@ module.exports = [
     ],
     faq: [
       ['Kisa Freda Mail ye?', 'Freda Mail se pwodwi imèl pwofesyonèl Freda Workspace, yon mak Freda Pay LLC. Li pèmèt ou gen adrès imèl sou pwòp non domèn ou, ak yon aplikasyon mobil ak konpatibilite IMAP / SMTP.'],
-      ['Èske Freda Mail gratis?', 'Chak kont gen dwa a {free_mailboxes} bwat Freda Mail gratis (1 Go) sou pwòp domèn li, san abònman ni kat bankè. Non domèn nan, li menm, peye. Òf Starter, Business ak Enterprise yo ajoute plis bwat ak plis espas.'],
+      ['Èske Freda Mail gratis?', 'Chak kont gen dwa a {free_mailboxes} bwat Freda Mail gratis (1 Go) sou pwòp domèn li, san abònman ni kat labank. Non domèn nan, li menm, peye. Òf Starter, Business ak Enterprise yo ajoute plis bwat ak plis espas.'],
       ['Ki diferans ki genyen ant Freda Mail ak Freda Workspace?', 'Freda Workspace se mak la. Li gen Freda Mail (imèl pwofesyonèl) ak Freda Connect (non domèn ak DNS) andedan.'],
       ['Kijan pou m li imèl Freda Mail mwen yo?', 'Ak aplikasyon Freda Mail la, oswa ak nenpòt lojisyèl ki sipòte IMAP ak SMTP tankou Outlook, Apple Mail oswa Gmail. Paramèt yo parèt nan espas ou.'],
       ['Konbyen bwat Freda Mail mwen ka genyen?', 'Gratis: {free_mailboxes} bwat. Starter: {starter_boxes} bwat. Business: {business_boxes} bwat. Enterprise: san limit. Alyas yo gratis.'],
-      ['Èske mwen ka peye Freda Mail ak MonCash oswa NatCash?', 'Wi. MonCash ak NatCash pa pèmèt prelèvman otomatik: ou rechaje yon balans Freda Workspace ki peye òf ou a otomatikman apre.'],
+      ['Èske mwen ka peye Freda Mail ak MonCash oswa NatCash?', 'Wi. MonCash ak NatCash pa pèmèt retire lajan otomatikman: ou rechaje yon balans Freda Workspace ki peye òf ou a otomatikman apre.'],
+      ['Èske gen avi kliyan?', 'Avi kliyan yo pral parèt isit la apre premye acha reyèl yo. Nou pa afiche okenn pou kounye a, epi nou pa janm envante yo.'],
     ],
-    related: [['ht/freda-connect.html', 'Freda Connect: non domèn ak DNS'], ['ht/imel-pwofesyonel-gratis.html', 'Imèl pwofesyonèl gratis'], ['ht/kiyes-nou-ye.html', 'Kiyès nou ye?']],
+    related: [['ht/freda-connect.html', 'Freda Connect: non domèn ak DNS'], ['ht/imel-pwofesyonel-gratis.html', 'Imèl pwofesyonèl gratis'], ['ht/kiyes-nou-ye.html', 'Kiyès nou ye?'], ['ht/freda-mail-kont-gmail-google-workspace-zoho.html', 'Freda Mail kont Gmail, Google Workspace, Zoho']],
     cta: [['Kreye imèl Freda Mail mwen', 'inscription.html'], ['Gade Freda Connect', 'ht/freda-connect.html']],
-    product: { name: 'Freda Mail', description: 'Imèl pwofesyonèl sou pwòp non domèn ou, ak 1 bwat gratis, SPF, DKIM ak DMARC konfigire otomatikman ak yon aplikasyon mobil.', offers: mailOffers },
+    product: { name: 'Freda Mail', description: 'Imèl pwofesyonèl sou pwòp non domèn ou, ak 1 bwat gratis, SPF, DKIM ak DMARC konfigire otomatikman ak yon aplikasyon mobil.', offers: mailOffers.ht },
   },
   {
     id: 'freda-mail-en', priority: '0.8', lang: EN, path: 'en/freda-mail.html', alt: { fr: 'freda-mail.html', ht: 'ht/freda-mail.html' },
@@ -150,7 +167,7 @@ module.exports = [
     sections: [
       {
         h2: 'What Freda Mail does',
-        paragraphs: ['Freda Mail hosts your professional mailboxes and links them to your domain name. You create your addresses (contact@, sales@, management@), read and send messages in the Freda Mail app or in any IMAP and SMTP client, and manage aliases and passwords from your account. The SPF, DKIM and DMARC protections, which help your messages reach the inbox, are configured for you.'],
+        paragraphs: ['Freda Mail hosts your professional mailboxes and links them to your domain name. You create your addresses (contact@, sales@, admin@), read and send messages in the Freda Mail app or in any IMAP and SMTP client, and manage aliases and passwords from your account. The SPF, DKIM and DMARC protections, which help your messages reach the inbox, are configured for you.'],
       },
       {
         h2: 'Freda Mail plans',
@@ -162,7 +179,7 @@ module.exports = [
             ['Storage', '1 GB', '2 GB', '15 GB shared', '5 GB per mailbox'],
           ],
         },
-        paragraphs: ['Paid plans are paid 1 to 12 months in advance; 12 months = two months free. Prices may change: the pricing page is authoritative.'],
+        paragraphs: ['Paid plans are paid 1 to 12 months in advance; 12 months = two months free. Prices may change: see the pricing page for current prices.'],
       },
       {
         h2: 'Getting started with Freda Mail',
@@ -173,17 +190,23 @@ module.exports = [
           'Sign in with the Freda Mail app or your usual email client.',
         ],
       },
+      {
+        h2: 'Freda Mail and Freda Connect, together',
+        paragraphs: ['Freda Mail works with any domain name, but it is simplest with Freda Connect: the domain and the email are set up in the same place, and the email DNS is prepared automatically.'],
+      },
     ],
     faq: [
       ['What is Freda Mail?', 'Freda Mail is the professional email product of Freda Workspace, a brand of Freda Pay LLC. It lets you have email addresses on your own domain name, with a mobile app and IMAP / SMTP compatibility.'],
       ['Is Freda Mail free?', 'Every account includes {free_mailboxes} free Freda Mail mailbox (1 GB) on its own domain, with no subscription or bank card. The domain name is paid. Starter, Business and Enterprise plans add mailboxes and storage.'],
       ['What is the difference between Freda Mail and Freda Workspace?', 'Freda Workspace is the brand. It includes Freda Mail (professional email) and Freda Connect (domain names and DNS).'],
       ['How do I read my Freda Mail email?', 'With the Freda Mail app, or any IMAP and SMTP client such as Outlook, Apple Mail or Gmail. The settings are shown in your account.'],
+      ['How many Freda Mail mailboxes can I have?', 'Free: {free_mailboxes} mailbox. Starter: {starter_boxes} mailboxes. Business: {business_boxes} mailboxes. Enterprise: unlimited. Aliases are free.'],
       ['Can I pay for Freda Mail with MonCash or NatCash?', 'Yes. MonCash and NatCash do not allow automatic charges, so you top up a Freda Workspace balance that then pays your plan automatically.'],
+      ['Are there customer reviews?', 'Not yet. Customer reviews will appear here after the first real purchases. We do not display any for now and we never invent any.'],
     ],
-    related: [['en/freda-connect.html', 'Freda Connect: domain names and DNS'], ['en/free-business-email-haiti.html', 'Free business email'], ['en/about-us.html', 'About us']],
+    related: [['en/freda-connect.html', 'Freda Connect: domain names and DNS'], ['en/free-business-email-haiti.html', 'Free business email'], ['en/about-us.html', 'About us'], ['en/freda-mail-vs-gmail-google-workspace-zoho.html', 'Freda Mail vs Gmail, Google Workspace, Zoho']],
     cta: [['Create my Freda Mail address', 'inscription.html'], ['See Freda Connect', 'en/freda-connect.html']],
-    product: { name: 'Freda Mail', description: 'Professional email on your own domain name, with 1 free mailbox, SPF, DKIM and DMARC configured automatically and a mobile app.', offers: mailOffers },
+    product: { name: 'Freda Mail', description: 'Professional email on your own domain name, with 1 free mailbox, SPF, DKIM and DMARC configured automatically and a mobile app.', offers: mailOffers.en },
   },
 
   /* ================================================================ Freda Connect */
@@ -198,7 +221,7 @@ module.exports = [
       ['Produit', 'Freda Connect, noms de domaine et DNS de Freda Workspace (Freda Pay LLC)'],
       ['Extensions', '.com, .net, .org, .co, .store, .online, .site, .tech, .io ; le .ht arrive bientôt'],
       ['Durée', 'De 1 à 10 ans'],
-      ['Prix', 'À partir de {domain_from} la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher'],
+      ['Prix', 'À partir de {domain_from} ({com_ref}) la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher'],
       ['Inclus', 'Confidentialité Whois gratuite, verrouillage anti-transfert, éditeur DNS complet, rappels de renouvellement'],
       ['Domaine existant', 'Vous pouvez connecter un domaine que vous possédez déjà, y compris un .ht'],
       ['Paiement', 'Carte et autres moyens selon votre pays ; MonCash et NatCash. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
@@ -212,6 +235,11 @@ module.exports = [
       {
         h2: 'Le nom de domaine .ht arrive bientôt',
         paragraphs: ['Freda Connect prépare l’enregistrement des noms de domaine en .ht (domaine national d’Haïti, géré par NIC Haïti). La date de lancement et les prix seront annoncés ici ; aucun prix n’est fixé pour l’instant. Si vous possédez déjà un .ht, vous pouvez le connecter dès maintenant à Freda Workspace pour y créer des adresses email professionnelles. Pour être prévenu du lancement, écrivez à support@fredaworkspace.com.'],
+      },
+      {
+        h2: 'Prix par extension',
+        paragraphs: ['Prix en dollars américains par an. Le prix de la première année est souvent plus bas que celui du renouvellement : regardez les deux colonnes avant de choisir. Le prix exact est affiché avant tout paiement ; des frais de traitement s’ajoutent selon le moyen de paiement (carte 3,5 % + 0,40 $, MonCash/NatCash 6 %). Mise à jour : {lastmod}.'],
+        table: '@tlds',
       },
       {
         h2: 'Démarrer avec Freda Connect',
@@ -229,29 +257,29 @@ module.exports = [
     faq: [
       ['Qu’est-ce que Freda Connect ?', 'Freda Connect est le produit de noms de domaine et de DNS de Freda Workspace, une marque de Freda Pay LLC : recherche, enregistrement, gestion DNS et connexion de domaines existants.'],
       ['Quelles extensions propose Freda Connect ?', 'Freda Connect propose .com, .net, .org, .co, .store, .online, .site, .tech et .io. Le .ht arrive bientôt, sans date ni prix annoncés pour l’instant.'],
-      ['Combien coûte un nom de domaine avec Freda Connect ?', 'Les prix commencent à {domain_from} la première année selon l’extension. Le prix exact et le prix de renouvellement sont affichés avant le paiement.'],
+      ['Combien coûte un nom de domaine avec Freda Connect ?', 'Les prix commencent à {domain_from} ({com_ref}) la première année selon l’extension. Le prix exact et le prix de renouvellement sont affichés avant le paiement.'],
       ['Puis-je connecter un domaine que je possède déjà ?', 'Oui, y compris un domaine en .ht. Freda Connect affiche les enregistrements DNS à ajouter chez votre fournisseur, puis vérifie la connexion.'],
       ['Quelle est la différence entre Freda Connect et Freda Mail ?', 'Freda Connect gère les noms de domaine et le DNS ; Freda Mail gère les boîtes email professionnelles. Les deux sont des produits de Freda Workspace.'],
     ],
     related: [['freda-mail.html', 'Freda Mail : email professionnel'], ['enregistrer-nom-de-domaine.html', 'Enregistrer un nom de domaine'], ['nom-de-domaine-haiti.html', 'Nom de domaine pour Haïti']],
     cta: [['Chercher un nom de domaine', 'domaines.html'], ['Voir Freda Mail', 'freda-mail.html']],
-    product: { name: 'Freda Connect', description: 'Enregistrement et gestion de noms de domaine internationaux (.com, .net, .org…) avec confidentialité Whois gratuite et éditeur DNS complet.', offers: [{ name: 'Nom de domaine, première année (à partir de)', price: '{domain_num}', description: 'Prix selon l’extension, affiché avant paiement' }] },
+    product: { name: 'Freda Connect', description: 'Enregistrement et gestion de noms de domaine internationaux (.com, .net, .org…) avec confidentialité Whois gratuite et éditeur DNS complet.', offers: '@tlds' },
   },
   {
     id: 'freda-connect-ht', priority: '0.8', lang: HT, path: 'ht/freda-connect.html', alt: { fr: 'freda-connect.html', en: 'en/freda-connect.html' },
     breadcrumb: 'Freda Connect',
     title: 'Freda Connect · Non domèn ak DNS · Freda Workspace',
-    description: 'Freda Connect: anrejistre epi jere non domèn ou (.com, .net, .org…) ak DNS ou. Whois prive gratis, 1 a 10 an, kat, MonCash oswa NatCash. .ht la ap vini byento.',
+    description: 'Freda Connect: anrejistre epi jere non domèn ou (.com, .net, .org…) ak DNS ou. Whois prive gratis, kat, MonCash oswa NatCash. .ht la ap vini byento.',
     h1: 'Freda Connect: non domèn ak DNS Freda Workspace',
     lead: 'Freda Connect se pwodwi non domèn Freda Workspace, yon mak Freda Pay LLC. Li pèmèt ou chèche epi anrejistre yon non domèn entènasyonal pou 1 a 10 an, jere enregistreman DNS li yo, konekte yon domèn ou genyen deja epi lye l otomatikman ak Freda Mail. Non domèn .ht la ap vini byento.',
     facts: [
       ['Pwodwi', 'Freda Connect, non domèn ak DNS Freda Workspace (Freda Pay LLC)'],
       ['Ekstansyon', '.com, .net, .org, .co, .store, .online, .site, .tech, .io; .ht la ap vini byento'],
       ['Dire', 'De 1 a 10 an'],
-      ['Pri', 'A pati de {domain_from} premye ane a dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè'],
+      ['Pri', 'A pati de {domain_from} ({com_ref}) premye ane a dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè'],
       ['Sa ki enkli', 'Konfidansyalite Whois gratis, vèwouyaj kont transfè, editè DNS konplè, rapèl renouvèlman'],
       ['Domèn ki egziste deja', 'Ou ka konekte yon domèn ou genyen deja, menm yon .ht'],
-      ['Peman', 'Kat ak lòt mwayen dapre peyi w; MonCash ak NatCash. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
+      ['Peman', 'Kat ak lòt mwayen dapre peyi w; MonCash ak NatCash. Frè pwosesis: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
       ['Pwodwi asosye', 'Freda Mail (imèl pwofesyonèl, 1 bwat gratis sou domèn ou)'],
     ],
     sections: [
@@ -262,6 +290,11 @@ module.exports = [
       {
         h2: 'Non domèn .ht la ap vini byento',
         paragraphs: ['Freda Connect ap prepare enskripsyon non domèn .ht yo (domèn nasyonal Ayiti, NIC Ayiti jere l). Nou pral anonse dat lansman an ak pri yo isit la; pa gen pri ki fikse pou kounye a. Si ou genyen yon .ht deja, ou ka konekte l ak Freda Workspace depi kounye a pou kreye adrès imèl pwofesyonèl sou li. Pou yo avèti w lè l lanse, ekri nan support@fredaworkspace.com.'],
+      },
+      {
+        h2: 'Pri pa ekstansyon',
+        paragraphs: ['Pri yo an dola ameriken pa ane. Pri premye ane a souvan pi ba pase pri renouvèlman an: gade de kolòn yo anvan ou chwazi. Pri egzak la parèt anvan ou peye; gen frè pwosesis ki ajoute dapre mwayen peman an (kat 3,5 % + 0,40 $, MonCash/NatCash 6 %). Mizajou: {lastmod}.'],
+        table: '@tlds',
       },
       {
         h2: 'Kijan pou kòmanse ak Freda Connect',
@@ -275,13 +308,13 @@ module.exports = [
     faq: [
       ['Kisa Freda Connect ye?', 'Freda Connect se pwodwi non domèn ak DNS Freda Workspace, yon mak Freda Pay LLC: rechèch, enskripsyon, jesyon DNS ak koneksyon domèn ki egziste deja.'],
       ['Ki ekstansyon Freda Connect ofri?', 'Freda Connect ofri .com, .net, .org, .co, .store, .online, .site, .tech ak .io. .ht la ap vini byento, san dat ni pri anonse pou kounye a.'],
-      ['Konbyen yon non domèn koute ak Freda Connect?', 'Pri yo kòmanse a {domain_from} premye ane a dapre ekstansyon an. Pri egzak la ak pri renouvèlman an parèt anvan ou peye.'],
+      ['Konbyen yon non domèn koute ak Freda Connect?', 'Pri yo kòmanse a {domain_from} ({com_ref}) premye ane a dapre ekstansyon an. Pri egzak la ak pri renouvèlman an parèt anvan ou peye.'],
       ['Èske mwen ka konekte yon domèn mwen genyen deja?', 'Wi, menm yon domèn .ht. Freda Connect montre enregistreman DNS pou ajoute kote founisè ou a, apre sa li verifye koneksyon an.'],
       ['Ki diferans ki genyen ant Freda Connect ak Freda Mail?', 'Freda Connect jere non domèn ak DNS; Freda Mail jere bwat imèl pwofesyonèl yo. Tou de se pwodwi Freda Workspace.'],
     ],
     related: [['ht/freda-mail.html', 'Freda Mail: imèl pwofesyonèl'], ['ht/non-domenn-ayiti.html', 'Non domèn pou Ayiti'], ['ht/kiyes-nou-ye.html', 'Kiyès nou ye?']],
     cta: [['Chèche yon non domèn', 'domaines.html'], ['Gade Freda Mail', 'ht/freda-mail.html']],
-    product: { name: 'Freda Connect', description: 'Enskripsyon ak jesyon non domèn entènasyonal (.com, .net, .org…) ak konfidansyalite Whois gratis ak editè DNS konplè.', offers: [{ name: 'Non domèn, premye ane (a pati de)', price: '{domain_num}', description: 'Pri a depann de ekstansyon an, li parèt anvan ou peye' }] },
+    product: { name: 'Freda Connect', description: 'Enskripsyon ak jesyon non domèn entènasyonal (.com, .net, .org…) ak konfidansyalite Whois gratis ak editè DNS konplè.', offers: '@tlds' },
   },
   {
     id: 'freda-connect-en', priority: '0.8', lang: EN, path: 'en/freda-connect.html', alt: { fr: 'freda-connect.html', ht: 'ht/freda-connect.html' },
@@ -293,8 +326,8 @@ module.exports = [
     facts: [
       ['Product', 'Freda Connect, domain names and DNS from Freda Workspace (Freda Pay LLC)'],
       ['Extensions', '.com, .net, .org, .co, .store, .online, .site, .tech, .io; .ht is coming soon'],
-      ['Length', '1 to 10 years'],
-      ['Price', 'From {domain_from} for the first year depending on the extension; exact price shown before payment; renewal can cost more'],
+      ['Term', '1 to 10 years'],
+      ['Price', 'From {domain_from} ({com_ref}) for the first year depending on the extension; exact price shown before payment; renewal can cost more'],
       ['Included', 'Free WHOIS privacy, transfer lock, full DNS editor, renewal reminders'],
       ['Existing domain', 'You can connect a domain you already own, including a .ht'],
       ['Payment', 'Card and other methods depending on your country; MonCash and NatCash. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%'],
@@ -310,6 +343,11 @@ module.exports = [
         paragraphs: ['Freda Connect is preparing registration of .ht domain names (Haiti’s national domain, managed by NIC Haiti). The launch date and prices will be announced here; no price is set yet. If you already own a .ht you can connect it to Freda Workspace now and create professional email addresses on it. To be told when it launches, write to support@fredaworkspace.com.'],
       },
       {
+        h2: 'Price by extension',
+        paragraphs: ['Prices are in US dollars per year. The first-year price is often lower than the renewal price, so check both columns before choosing. The exact price is shown before any payment; processing fees are added depending on the payment method (card 3.5% + $0.40, MonCash/NatCash 6%). Updated: {lastmod}.'],
+        table: '@tlds',
+      },
+      {
         h2: 'Getting started with Freda Connect',
         steps: [
           'Type your business name in the domain search.',
@@ -321,12 +359,12 @@ module.exports = [
     faq: [
       ['What is Freda Connect?', 'Freda Connect is the domain-name and DNS product of Freda Workspace, a brand of Freda Pay LLC: search, registration, DNS management and connection of existing domains.'],
       ['Which extensions does Freda Connect offer?', 'Freda Connect offers .com, .net, .org, .co, .store, .online, .site, .tech and .io. .ht is coming soon, with no date or price announced yet.'],
-      ['How much does a domain name cost with Freda Connect?', 'Prices start at {domain_from} for the first year depending on the extension. The exact price and the renewal price are shown before payment.'],
+      ['How much does a domain name cost with Freda Connect?', 'Prices start at {domain_from} ({com_ref}) for the first year depending on the extension. The exact price and the renewal price are shown before payment.'],
       ['Can I connect a domain I already own?', 'Yes, including a .ht domain. Freda Connect shows the DNS records to add at your provider, then checks the connection.'],
       ['What is the difference between Freda Connect and Freda Mail?', 'Freda Connect manages domain names and DNS; Freda Mail manages professional mailboxes. Both are Freda Workspace products.'],
     ],
     related: [['en/freda-mail.html', 'Freda Mail: professional email'], ['en/register-domain-name.html', 'Register a domain name'], ['en/about-us.html', 'About us']],
     cta: [['Search a domain name', 'domaines.html'], ['See Freda Mail', 'en/freda-mail.html']],
-    product: { name: 'Freda Connect', description: 'Registration and management of international domain names (.com, .net, .org…) with free WHOIS privacy and a full DNS editor.', offers: [{ name: 'Domain name, first year (from)', price: '{domain_num}', description: 'Price depends on the extension, shown before payment' }] },
+    product: { name: 'Freda Connect', description: 'Registration and management of international domain names (.com, .net, .org…) with free WHOIS privacy and a full DNS editor.', offers: '@tlds' },
   },
 ];

@@ -99,6 +99,25 @@
     const svg = el.querySelector('svg');
     svg.querySelectorAll('path, rect').forEach((p) => { if (p.getAttribute('fill') === '#000000' || p.getAttribute('fill') === 'black') p.setAttribute('fill', '#071653'); });
   }
-  drawQR($('#qr-code'), 4);
-  drawQR($('#qr-code-lg'), 6);
+  // qrcode.js (≈20 Ko) n'est chargé que lorsqu'un QR code approche de l'écran.
+  let qrLib;
+  function loadQR() {
+    if (window.qrcode) return Promise.resolve();
+    if (!qrLib) qrLib = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = (document.body.dataset.base || '') + 'assets/js/vendor/qrcode.js';
+      s.onload = resolve; s.onerror = () => { qrLib = null; reject(new Error('qrcode')); };
+      document.head.appendChild(s);
+    });
+    return qrLib;
+  }
+  [['#qr-code', 4], ['#qr-code-lg', 6]].forEach(([sel, cell]) => {
+    const el = $(sel);
+    if (!el) return;
+    const draw = () => loadQR().then(() => drawQR(el, cell)).catch(() => {});
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => { if (entries.some((e) => e.isIntersecting)) { io.disconnect(); draw(); } }, { rootMargin: '200px' });
+      io.observe(el);
+    } else draw();
+  });
 })();

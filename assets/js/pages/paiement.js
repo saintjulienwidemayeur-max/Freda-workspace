@@ -246,7 +246,7 @@
 
   function setMethod(m) {
     method = m;
-    document.querySelectorAll('[data-method]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.method === m)));
+    document.querySelectorAll('[data-method]').forEach((b) => { b.setAttribute('aria-checked', String(b.dataset.method === m)); b.tabIndex = b.dataset.method === m ? 0 : -1; });   // tabindex itinérant : un seul arrêt Tab dans le groupe
     $('[data-panel="card"]').hidden = m !== 'card';
     $('[data-panel="mobile"]').hidden = m === 'card';
     const name = m === 'moncash' ? 'MonCash' : 'NatCash';
@@ -269,9 +269,14 @@
   }
   document.querySelectorAll('[data-method]').forEach((b) => b.addEventListener('click', () => setMethod(b.dataset.method)));
   $('#method-picker').addEventListener('keydown', (e) => {
-    const order = ['card', 'moncash', 'natcash'];
-    if (!['ArrowRight', 'ArrowLeft'].includes(e.key)) return;
-    const i = (order.indexOf(method) + (e.key === 'ArrowRight' ? 1 : 2)) % 3;
+    const order = ['card', 'moncash', 'natcash'].filter((k) => $('[data-method="' + k + '"]'));
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    let i = order.indexOf(method);
+    if (e.key === 'Home') i = 0;
+    else if (e.key === 'End') i = order.length - 1;
+    else if (step) i = (i + step + order.length) % order.length;
+    else return;
+    e.preventDefault();
     setMethod(order[i]);
     $('[data-method="' + order[i] + '"]').focus();
   });
@@ -471,13 +476,13 @@
       ? ['Offre ' + C.PLANS[selPlan].name + ' activée', 'Boîte ' + mailbox + ' préparée', 'Instructions DNS générées pour ' + dom]
       : ['Offre ' + C.PLANS[selPlan].name + ' activée', 'Enregistrements MX, SPF, DKIM et DMARC ajoutés à ' + dom, 'Boîte ' + mailbox + ' créée', 'Connectez-vous dans l’application avec cette adresse et votre mot de passe'];
     const list = $('#prov-steps');
-    list.innerHTML = steps.map((s) => `<li class="flex items-center gap-3 text-slate-400"><span class="w-5 h-5 rounded-full border-2 border-slate-300 shrink-0 grid place-items-center"></span><span class="break-all">${esc(s)}</span></li>`).join('');
+    list.innerHTML = steps.map((s) => `<li class="flex items-center gap-3 text-slate-500"><span class="w-5 h-5 rounded-full border-2 border-slate-300 shrink-0 grid place-items-center"></span><span class="break-all">${esc(s)}</span></li>`).join('');
     const items = [...list.children];
     const goBtn = $('#go-space');
     goBtn.classList.add('opacity-60', 'pointer-events-none');
 
     items.forEach((li, i) => setTimeout(() => {
-      li.classList.remove('text-slate-400');
+      li.classList.remove('text-slate-500');
       li.classList.add('text-ink');
       li.firstElementChild.outerHTML = '<span class="w-5 h-5 rounded-full bg-cta text-white grid place-items-center shrink-0"><i data-lucide="check" class="w-3 h-3"></i></span>';
       FWUI.icons();
