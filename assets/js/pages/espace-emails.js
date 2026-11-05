@@ -19,7 +19,7 @@
       <h2 class="mt-5 text-2xl font-bold">Activez votre email professionnel</h2>
       <p class="mt-2 text-slate-600">Votre domaine est prêt. Choisissez une offre pour créer vos adresses (contact@, ventes@...). Le DNS est configuré automatiquement et l’application mobile est incluse.</p>
       <a href="../configurer-email.html" class="mt-6 btn btn-cta btn-lg"><i data-lucide="mail-plus"></i>Activer l’email pro</a>
-      <p class="mt-3 text-xs text-muted">À partir de $2.99/mois · sans engagement</p>
+      <p class="mt-3 text-xs text-muted">À partir de ${FW.money(Math.min(...Object.values(C.PLANS).map((p) => p.monthly)))}/mois · sans engagement</p>
     </section>`;
     FWUI.icons();
     return;
@@ -31,7 +31,7 @@
     ws = FWSpace.ws();
     const used = ws.mailboxes.reduce((s, m) => s + m.usedGb, 0);
     const totalGb = C.storageTotal(plan, ws.mailboxes.length);
-    $('#plan-badge').textContent = 'Offre ' + plan.name;
+    $('#plan-badge').textContent = plan.free ? 'Offre gratuite' : 'Offre ' + plan.name;
     $('#box-usage').textContent = C.boxUsage(plan, ws.mailboxes.length);
     $('#box-meter').style.width = (plan.mailboxes === Infinity ? 100 : C.boxPct(plan, ws.mailboxes.length)) + '%';
     // Hors démo, la consommation réelle n'est pas mesurée : on n'affiche que le stockage inclus (jamais un faux « 0 Go utilisé »).

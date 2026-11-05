@@ -11,7 +11,9 @@
 
   $('#today').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   $('#first-name').textContent = (ws.user.name || '').split(' ')[0];
-  $('#company-line').textContent = ws.user.company ? ws.user.company + ' · ' + ws.domains.length + ' domaine' + (ws.domains.length > 1 ? 's' : '') : '';
+  const liveDomains = ws.domains.filter((d) => d.status !== 'pending');          // un domaine ajouté mais pas encore connecté n'est pas « actif »
+  const toConnect = ws.domains.length - liveDomains.length;
+  $('#company-line').textContent = ws.user.company ? ws.user.company + ' · ' + liveDomains.length + ' domaine' + (liveDomains.length > 1 ? 's' : '') + (toConnect ? ' · ' + toConnect + ' à connecter' : '') : '';
   $('#dl-ios').href = C.APP_STORE_URL;
   $('#dl-android').href = C.PLAY_STORE_URL;
   const genericStore = (u) => !u || /^https:\/\/(apps\.apple\.com|play\.google\.com)\/(store\/)?$/.test(u);
@@ -23,7 +25,7 @@
   const nextExpiry = ws.domains.map((d) => d.expires).filter(Boolean).sort()[0];
   const daysTo = (iso) => Math.ceil((new Date(iso) - new Date()) / 86400000);
   const stats = [
-    { icon: 'globe', label: 'Domaines', value: ws.domains.length, sub: nextExpiry ? 'Prochaine échéance dans ' + daysTo(nextExpiry) + ' j' : 'Aucune échéance', href: 'domaines.html' },
+    { icon: 'globe', label: 'Domaines', value: liveDomains.length, sub: toConnect ? toConnect + ' à connecter' + (nextExpiry ? ' · échéance dans ' + daysTo(nextExpiry) + ' j' : '') : nextExpiry ? 'Prochaine échéance dans ' + daysTo(nextExpiry) + ' j' : 'Aucune échéance', href: 'domaines.html' },
     plan ? { icon: 'mail', label: 'Boîtes mail', value: C.boxUsage(plan, ws.mailboxes.length), sub: ws.aliases.length + ' alias actifs', href: 'emails.html' }
       : { icon: 'mail', label: 'Boîtes mail', value: '—', sub: 'Messagerie non activée', href: 'emails.html' },
     plan ? (C.DEMO_MODE ? { icon: 'hard-drive', label: 'Stockage', value: used.toFixed(1) + ' Go', sub: 'sur ' + totalGb + ' Go inclus', meter: used / totalGb, href: 'emails.html' }
@@ -63,6 +65,15 @@
       <p class="mt-1 text-sm text-muted max-w-md mx-auto">Le domaine de votre entreprise est prêt. Activez la messagerie professionnelle quand vous le souhaitez : les enregistrements MX, SPF, DKIM et DMARC sont configurés automatiquement.</p>
       <a href="../configurer-email.html" class="mt-5 btn btn-cta btn-sm"><i data-lucide="mail-plus"></i>Activer l’email pro</a>
     </li>` : ws.domains.map((d) => {
+    if (d.status === 'pending') {            // pas vérifié : on n'affiche JAMAIS de contrôles « valides » pour des enregistrements qui n'existent pas encore
+      return `<li class="p-5 sm:p-6">
+        <div class="flex items-center gap-3 justify-between flex-wrap">
+          <p class="font-semibold mono text-ink flex items-center gap-2 min-w-0"><i data-lucide="globe" class="w-4 h-4 text-freda shrink-0"></i><span class="truncate">${esc(d.name)}</span></p>
+          <a href="dns.html?domain=${encodeURIComponent(d.name)}" class="badge badge-warn hover:underline"><i data-lucide="plug-zap"></i>Non connecté</a>
+        </div>
+        <p class="mt-3 text-sm text-muted">Ce domaine ne pointe pas encore vers Freda : ajoutez les enregistrements DNS chez votre registrar, puis vérifiez la connexion.</p>
+      </li>`;
+    }
     const h = FW.dns.health(ws.dns[d.name] || []);
     const allOk = Object.values(h).every((v) => v === 'ok');
     return `<li class="p-5 sm:p-6">

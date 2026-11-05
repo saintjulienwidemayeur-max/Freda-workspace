@@ -84,7 +84,7 @@
       <li class="flex items-center gap-3 rounded-xl border ${m.default ? 'border-freda/40 bg-mist/40' : 'border-line'} p-4">
         <span class="w-14 flex justify-center">${m.type === 'card' ? FWUI.payMark(m.brand.toLowerCase()) : FWUI.payMark(m.type)}</span>
         <div class="min-w-0 flex-1">
-          <p class="font-medium text-ink tabular">${m.type === 'card' ? esc(m.brand) + ' •••• ' + esc(m.last4) : esc(m.phone)}</p>
+          <p class="font-medium text-ink tabular whitespace-nowrap">${m.type === 'card' ? esc(m.brand) + ' •••• ' + esc(m.last4) : esc(m.phone)}</p>
           <p class="text-xs text-muted">${m.type === 'card' ? 'Expire ' + esc(m.exp) : m.type === 'moncash' ? 'Portefeuille MonCash' : 'Portefeuille NatCash'}</p>
         </div>
         ${m.default ? '<span class="badge badge-info">Par défaut</span>' : `<button type="button" class="text-sm font-semibold text-freda hover:underline" data-default="${m.id}">Définir par défaut</button>`}

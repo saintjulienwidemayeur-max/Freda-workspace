@@ -39,7 +39,7 @@ window.FW_HOLD_LOADER = true;   // levé par releaseLoader() une fois la page pr
 
   if (!C.DEMO_MODE) await FW.plansReady;     // prix des offres du serveur (modifiables par l'administrateur) avant tout affichage
   const ws = FW.workspace.get();
-  const plan = ws.plan ? C.PLANS[ws.plan.id] : (ws.free ? C.FREE_PLAN : null);   // sans abonnement : offre gratuite (2 boîtes)
+  const plan = ws.plan ? C.PLANS[ws.plan.id] : (ws.free ? C.FREE_PLAN : null);   // sans abonnement : offre gratuite (1 boîte)
   const user = { ...ws.user, ...(session.provider !== 'demo' && session.user.email ? session.user : {}) };
   const initials = (user.name || 'FW').split(/\s+/).map((p) => p[0]).slice(0, 2).join('').toUpperCase();
 
