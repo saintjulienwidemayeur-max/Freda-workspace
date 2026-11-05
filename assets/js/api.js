@@ -279,7 +279,9 @@
 
     async changePassword(oldPassword, newPassword) {
       if (C.DEMO_MODE) { await wait(400); return { ok: true }; }
-      return request('/me/password', { method: 'POST', body: { oldPassword, newPassword } });
+      const r = await request('/me/password', { method: 'POST', body: { oldPassword, newPassword } });
+      if (r && r.token) store.set('token', r.token);   // les autres sessions sont déconnectées : cet appareil reçoit un nouveau jeton
+      return r;
     },
 
     logout() { if (!C.DEMO_MODE) request('/auth/logout', { method: 'POST' }).catch(() => {}); store.remove('session'); store.remove('token'); store.remove('workspace'); },
