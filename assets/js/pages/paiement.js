@@ -226,7 +226,7 @@
   /* ---------- Choix du moyen de paiement ---------- */
   const mmSteps = {
     moncash: ['Cliquez sur « Payer avec MonCash ».', 'Vous êtes redirigé vers la page sécurisée MonCash (Digicel).', 'Confirmez avec votre code PIN MonCash. Vous revenez ici automatiquement.'],
-    natcash: ['Cliquez sur « Payer avec NatCash ».', 'Vous recevez une demande de paiement NatCash (Natcom) sur votre téléphone.', 'Validez avec votre code PIN NatCash pour terminer.'],
+    natcash: ['Cliquez sur « Payer avec NatCash ».', 'Vous êtes redirigé vers la page sécurisée NatCash (Natcom).', 'Confirmez avec votre code PIN NatCash. Vous revenez ici automatiquement.'],
   };
 
   /* Production : la carte se saisit sur la page de paiement sécurisée (page hébergée) ; aucun champ de carte n'est affiché ni validé ici, aucune donnée de carte ne transite par notre site. */
@@ -256,7 +256,6 @@
     feeNote.hidden = !fee;
     feeNote.textContent = fee ? 'Frais de traitement (' + (m === 'card' ? '3,5 % + 0,40 $' : '6 %') + ') : ' + FW.money(fee) + ' · Total à payer : ' + FW.money(amount + fee) : '';
     if (m !== 'card') {
-      $('#mm-label').textContent = 'Numéro ' + name;
       $('#mm-amount').textContent = FW.money((amount + fee) * C.HTG_RATE, 'HTG');
       $('#mm-rate').textContent = FW.money(amount + fee) + ' (frais inclus) au taux indicatif de 1 USD = ' + C.HTG_RATE + ' HTG';
       $('#mm-steps').innerHTML = mmSteps[m].map((t, i) => `<li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-mist text-freda text-xs font-bold grid place-items-center shrink-0 tabular">${i + 1}</span><span>${t}</span></li>`).join('');
@@ -355,7 +354,7 @@
         ok = setError('cc-exp', !expValid($('#cc-exp').value)) && ok;
         ok = setError('cc-cvc', !/^\d{3,4}$/.test($('#cc-cvc').value)) && ok;
       } else {
-        ok = setError('mm-phone', $('#mm-phone').value.replace(/\D/g, '').length !== 8) && ok;
+        /* MonCash / NatCash : redirection vers la page sécurisée, aucun numéro à saisir ici */
       }
     }
     const terms = $('#terms').checked;
@@ -374,7 +373,7 @@
       const n = ccNumber.value.replace(/\s/g, '');
       return { last4: n.slice(-4), brand: cardBrand(n), exp: $('#cc-exp').value };
     }
-    return { phone: '+509' + $('#mm-phone').value.replace(/\D/g, '') };
+    return { phone: '' };
   }
 
   /* ---------- Soumission ---------- */
@@ -391,7 +390,7 @@
       $('#proc-text').textContent = saved ? 'Paiement avec votre moyen de paiement enregistré.' : {
         card: 'Vérification de votre carte auprès de votre banque (3-D Secure).',
         moncash: 'Confirmez le paiement dans MonCash avec votre code PIN.',
-        natcash: 'Une demande NatCash a été envoyée au +509 ' + $('#mm-phone').value + '. Validez-la sur votre téléphone.',
+        natcash: 'Redirection vers NatCash : confirmez le paiement avec votre code PIN.',
       }[method];
       FWUI.openModal('modal-processing');
     }
