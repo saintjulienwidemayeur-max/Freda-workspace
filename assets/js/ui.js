@@ -233,10 +233,10 @@
     const usd = (n) => FW.money(n);
     const cardFee = Math.round(amount * 3.5 + 40) / 100, mobFee = Math.round(amount * 6) / 100;
     const opts = [];
-    saved.forEach((m) => opts.push({ k: 'card:' + m.id, method: 'card', methodId: m.id, icon: 'credit-card', label: (m.brand || 'Carte') + ' •••• ' + m.last4, sub: 'Carte enregistrée · frais ' + usd(cardFee) + ' (3,5 % + 0,40 $) · total ' + usd(amount + cardFee) }));
-    opts.push({ k: 'card', method: 'card', icon: 'credit-card', label: 'Carte bancaire', sub: 'Frais ' + usd(cardFee) + ' (3,5 % + 0,40 $) · total ' + usd(amount + cardFee) });
-    opts.push({ k: 'moncash', method: 'moncash', icon: 'smartphone', label: 'MonCash', sub: 'Frais ' + usd(mobFee) + ' (6 %) · total ' + usd(amount + mobFee) + ' ≈ ' + FW.money((amount + mobFee) * FW.config.HTG_RATE, 'HTG') });
-    opts.push({ k: 'natcash', method: 'natcash', icon: 'smartphone', label: 'NatCash', sub: 'Frais ' + usd(mobFee) + ' (6 %) · total ' + usd(amount + mobFee) + ' ≈ ' + FW.money((amount + mobFee) * FW.config.HTG_RATE, 'HTG') });
+    saved.forEach((m) => opts.push({ k: 'card:' + m.id, method: 'card', methodId: m.id, icon: 'credit-card', mark: payMark(String(m.brand || '').toLowerCase(), 'sm'), label: (m.brand || 'Carte') + ' •••• ' + m.last4, sub: 'Carte enregistrée · frais ' + usd(cardFee) + ' (3,5 % + 0,40 $) · total ' + usd(amount + cardFee) }));
+    opts.push({ k: 'card', method: 'card', icon: 'credit-card', mark: payMark('visa', 'sm') + payMark('mastercard', 'sm'), label: 'Carte bancaire', sub: 'Frais ' + usd(cardFee) + ' (3,5 % + 0,40 $) · total ' + usd(amount + cardFee) });
+    opts.push({ k: 'moncash', method: 'moncash', icon: 'smartphone', mark: payMark('moncash'), label: 'MonCash', sub: 'Frais ' + usd(mobFee) + ' (6 %) · total ' + usd(amount + mobFee) + ' ≈ ' + FW.money((amount + mobFee) * FW.config.HTG_RATE, 'HTG') });
+    opts.push({ k: 'natcash', method: 'natcash', icon: 'smartphone', mark: payMark('natcash'), label: 'NatCash', sub: 'Frais ' + usd(mobFee) + ' (6 %) · total ' + usd(amount + mobFee) + ' ≈ ' + FW.money((amount + mobFee) * FW.config.HTG_RATE, 'HTG') });
     if (bal >= amount && amount > 0) opts.push({ k: 'balance', method: 'balance', icon: 'wallet', label: 'Solde Freda Workspace (' + usd(bal) + ')', sub: 'Sans frais · total ' + usd(amount) });
     return new Promise((resolve) => {
       const wrap = document.createElement('div');
@@ -246,7 +246,7 @@
         <div class="modal-panel p-6" role="dialog" aria-modal="true" aria-labelledby="cp-title">
           <h2 id="cp-title" class="text-lg font-bold">${esc(title)}</h2>
           <p class="mt-1 text-sm text-muted">Montant : <strong class="text-ink">${usd(amount)}</strong>. Les frais de traitement du moyen choisi s’ajoutent.</p>
-          <div class="mt-4" style="display:grid;gap:8px">${opts.map((o, i) => `<label class="flex items-center gap-3 rounded-lg border border-line px-3 py-2.5 cursor-pointer has-[:checked]:border-freda has-[:checked]:bg-mist"><input type="radio" name="cp-m" value="${i}" ${i === 0 ? 'checked' : ''}><i data-lucide="${o.icon}"></i><span style="min-width:0"><span class="font-semibold text-ink block">${esc(o.label)}</span><span class="text-xs text-muted">${esc(o.sub)}</span></span></label>`).join('')}</div>
+          <div class="mt-4" style="display:grid;gap:8px">${opts.map((o, i) => `<label class="flex items-center gap-3 rounded-lg border border-line px-3 py-2.5 cursor-pointer has-[:checked]:border-freda has-[:checked]:bg-mist"><input type="radio" name="cp-m" value="${i}" ${i === 0 ? 'checked' : ''}><span style="display:inline-flex;gap:4px;align-items:center;min-width:56px;justify-content:center">${o.mark || `<i data-lucide="${o.icon}"></i>`}</span><span style="min-width:0"><span class="font-semibold text-ink block">${esc(o.label)}</span><span class="text-xs text-muted">${esc(o.sub)}</span></span></label>`).join('')}</div>
           <div class="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
             <button type="button" class="btn btn-outline" data-cancel>Annuler</button>
             <button type="button" class="btn btn-cta" data-ok>Continuer</button>
