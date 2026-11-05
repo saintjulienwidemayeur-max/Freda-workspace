@@ -1,6 +1,6 @@
 # Freda Workspace : informations complètes
 
-> Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises du monde entier, avec un accent sur Haïti : Freda Connect (noms de domaine et DNS) et Freda Mail (email professionnel) ; paiement par MonCash, NatCash, carte et les autres moyens proposés par Stripe ; support en français, en créole haïtien et en anglais. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.
+> Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises du monde entier, avec un accent sur Haïti : Freda Connect (noms de domaine et DNS) et Freda Mail (email professionnel) ; paiement par MonCash, NatCash, carte et d’autres moyens de paiement disponibles ; support en français, en créole haïtien et en anglais. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.
 
 Ce fichier regroupe le contenu des guides du site pour les assistants IA. Les prix sont les prix par défaut à la date indiquée ; la page https://fredaworkspace.com/#tarifs fait foi.
 
@@ -500,7 +500,7 @@ URL : https://fredaworkspace.com/enregistrer-nom-de-domaine.html
 Langue : français
 Mise à jour : 2026-11-05
 
-Freda Connect, la partie « noms de domaine » de Freda Workspace, vous permet d’enregistrer un nom de domaine international (.com, .net, .org, .co, .store, .online, .site, .tech, .io) pour 1 à 10 ans, avec la confidentialité Whois gratuite et la gestion DNS dans votre espace. Vous payez par carte et par les autres moyens proposés par Stripe, ou par MonCash et NatCash depuis Haïti.
+Freda Connect, la partie « noms de domaine » de Freda Workspace, vous permet d’enregistrer un nom de domaine international (.com, .net, .org, .co, .store, .online, .site, .tech, .io) pour 1 à 10 ans, avec la confidentialité Whois gratuite et la gestion DNS dans votre espace. Vous payez par carte et par d’autres moyens de paiement disponibles, ou par MonCash et NatCash depuis Haïti.
 
 ## En bref
 
@@ -508,7 +508,7 @@ Freda Connect, la partie « noms de domaine » de Freda Workspace, vous permet d
 - Durée d’enregistrement : De 1 à 10 ans
 - Prix : À partir de 2,99 $ la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher que la première année
 - Inclus : Confidentialité Whois gratuite, verrouillage anti-transfert, gestion DNS complète, rappels de renouvellement
-- Paiement : Carte bancaire et autres moyens affichés par Stripe selon votre pays ; MonCash et NatCash pour les clients en Haïti
+- Paiement : Carte bancaire et autres moyens affichés selon votre pays ; MonCash et NatCash pour les clients en Haïti
 - Transfert : Votre domaine vous appartient : code d’autorisation (EPP) disponible dans votre espace
 - Email : 1 boîte email professionnelle gratuite sur votre domaine
 
@@ -517,7 +517,7 @@ Freda Connect, la partie « noms de domaine » de Freda Workspace, vous permet d
 
 1. Tapez le nom de votre entreprise ou de votre projet : Freda Connect vérifie la disponibilité sur toutes les extensions et propose des alternatives.
 2. Choisissez la durée (de 1 à 10 ans) et gardez la confidentialité Whois gratuite activée.
-3. Payez avec une carte bancaire ou un autre moyen proposé par Stripe pour votre pays, ou avec MonCash ou NatCash si vous êtes en Haïti.
+3. Payez avec une carte bancaire ou un autre moyen de paiement disponible dans votre pays, ou avec MonCash ou NatCash si vous êtes en Haïti.
 4. Votre domaine est enregistré dès que le paiement est confirmé ; vous gérez ensuite les enregistrements DNS depuis votre espace.
 
 ## Ce qui est inclus avec chaque domaine
@@ -540,7 +540,7 @@ Freda Connect propose .com, .net, .org, .co, .store, .online, .site, .tech et .i
 
 ### Puis-je enregistrer un nom de domaine depuis l’étranger ?
 
-Oui. Le service n’est pas limité à Haïti : vous payez par carte bancaire ou par les autres moyens que Stripe propose dans votre pays, et vous gérez votre domaine depuis votre espace.
+Oui. Le service n’est pas limité à Haïti : vous payez par carte bancaire ou par d’autres moyens de paiement disponibles dans votre pays, et vous gérez votre domaine depuis votre espace.
 
 ### Combien coûte un nom de domaine ?
 
@@ -562,7 +562,7 @@ URL : https://fredaworkspace.com/en/register-domain-name.html
 Langue : anglais
 Mise à jour : 2026-11-05
 
-Freda Connect, the domain-name part of Freda Workspace, lets you register an international domain name (.com, .net, .org, .co, .store, .online, .site, .tech, .io) for 1 to 10 years, with free WHOIS privacy and full DNS management in your account. You pay by card and the other methods Stripe offers in your country, or with MonCash and NatCash from Haiti.
+Freda Connect, the domain-name part of Freda Workspace, lets you register an international domain name (.com, .net, .org, .co, .store, .online, .site, .tech, .io) for 1 to 10 years, with free WHOIS privacy and full DNS management in your account. You pay by card and other payment methods available in your country, or with MonCash and NatCash from Haiti.
 
 ## At a glance
 
@@ -570,7 +570,7 @@ Freda Connect, the domain-name part of Freda Workspace, lets you register an int
 - Registration length : 1 to 10 years
 - Price : From 2,99 $ for the first year depending on the extension; exact price shown before payment; renewal can cost more than the first year
 - Included : Free WHOIS privacy, transfer lock, full DNS management, renewal reminders
-- Payment : Bank card and other methods shown by Stripe for your country; MonCash and NatCash for customers in Haiti
+- Payment : Bank card and other methods shown for your country; MonCash and NatCash for customers in Haiti
 - Transfer : The domain is yours: authorization (EPP) code available in your account
 - Email : 1 free professional mailbox on your domain
 
@@ -579,7 +579,7 @@ Freda Connect, the domain-name part of Freda Workspace, lets you register an int
 
 1. Type your business or project name: Freda Connect checks availability on every extension and suggests alternatives.
 2. Choose the length (1 to 10 years) and keep the free WHOIS privacy turned on.
-3. Pay with a bank card or another method Stripe offers for your country, or with MonCash or NatCash if you are in Haiti.
+3. Pay with a bank card or another payment method available in your country, or with MonCash or NatCash if you are in Haiti.
 4. Your domain is registered as soon as the payment is confirmed; you then manage DNS records from your account.
 
 ## What every domain includes
@@ -598,7 +598,7 @@ Freda Connect offers .com, .net, .org, .co, .store, .online, .site, .tech and .i
 
 ### Can I register a domain name from outside Haiti?
 
-Yes. The service is not limited to Haiti: you pay by bank card or the other methods Stripe offers in your country, and you manage your domain from your account.
+Yes. The service is not limited to Haiti: you pay by bank card or other payment methods available in your country, and you manage your domain from your account.
 
 ### How much does a domain name cost?
 
@@ -627,7 +627,7 @@ Freda Workspace est une marque de Freda Pay LLC. Elle réunit deux produits : Fr
 - Marque : Freda Workspace
 - Société : Freda Pay LLC, société enregistrée dans l’État du Wyoming (États-Unis), membre de Freda Group
 - Produits : Freda Connect (noms de domaine et DNS) et Freda Mail (email professionnel et application mobile)
-- Paiements : MonCash et NatCash (traités par Freda Pay Issuing, de Freda Pay LLC) ; cartes et portefeuilles numériques (traités par Stripe)
+- Paiements : MonCash et NatCash, cartes bancaires et portefeuilles numériques. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Clients : Entrepreneurs, petites entreprises, associations et agences, en Haïti et à l’international
 - Langues : Français, créole haïtien et anglais
 - Contact : support@fredaworkspace.com, du lundi au samedi, de 8 h à 18 h (heure d’Haïti)
@@ -642,7 +642,7 @@ Freda Mail : créez des adresses email professionnelles sur votre propre domaine
 
 Simplicité : le domaine et l’email se configurent ensemble, sans compétence technique ; les enregistrements DNS sont ajoutés pour vous ou clairement expliqués.
 
-Paiement local : beaucoup d’entrepreneurs n’ont pas de carte internationale. Freda Workspace accepte MonCash et NatCash, ainsi que les cartes et les autres moyens proposés par Stripe. Comme MonCash et NatCash ne permettent pas de prélèvement automatique, un solde prépayé paie vos abonnements et nous vous prévenons par email quand il devient trop bas.
+Paiement local : beaucoup d’entrepreneurs n’ont pas de carte internationale. Freda Workspace accepte MonCash et NatCash, ainsi que les cartes et d’autres moyens de paiement disponibles. Comme MonCash et NatCash ne permettent pas de prélèvement automatique, un solde prépayé paie vos abonnements et nous vous prévenons par email quand il devient trop bas.
 
 Transparence : les prix sont affichés avant tout paiement, le domaine vous appartient et nous ne vendons jamais vos données.
 
@@ -662,7 +662,7 @@ Deux produits : Freda Connect pour les noms de domaine et le DNS, et Freda Mail 
 
 ### Freda Workspace est-il réservé à Haïti ?
 
-Non. Le service accepte MonCash et NatCash pour les clients en Haïti, mais les noms de domaine internationaux peuvent être enregistrés depuis l’étranger et payés par carte ou par les autres moyens proposés par Stripe.
+Non. Le service accepte MonCash et NatCash pour les clients en Haïti, mais les noms de domaine internationaux peuvent être enregistrés depuis l’étranger et payés par carte ou par d’autres moyens de paiement disponibles.
 
 ### Quelle est la différence entre Freda Workspace et Freda Pay ?
 
@@ -687,7 +687,7 @@ Freda Workspace se yon mak Freda Pay LLC. Li reyini de pwodwi: Freda Connect (no
 - Mak : Freda Workspace
 - Konpayi : Freda Pay LLC, konpayi ki anrejistre nan Eta Wyoming (Etazini), manm Freda Group
 - Pwodwi : Freda Connect (non domèn ak DNS) ak Freda Mail (imèl pwofesyonèl ak aplikasyon mobil)
-- Peman : MonCash ak NatCash (Freda Pay Issuing, yon pwodwi Freda Pay LLC, trete yo); kat ak pòtfèy nimerik (Stripe trete yo)
+- Peman : MonCash ak NatCash, kat labank ak pòtfèy nimerik. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Kliyan : Antreprenè, ti biznis, asosyasyon ak ajans, nan Ayiti ak aletranje
 - Lang : Fransè, kreyòl ayisyen ak anglè
 - Kontak : support@fredaworkspace.com, de lendi a samdi, de 8 è a 6 è (lè Ayiti)
@@ -702,7 +702,7 @@ Freda Mail: kreye adrès imèl pwofesyonèl sou pwòp domèn ou (kontak@biznis-o
 
 Senplisite: domèn nan ak imèl la konfigire ansanm, san konesans teknik; nou ajoute enregistreman DNS yo pou ou oswa nou eksplike yo klèman.
 
-Peman lokal: anpil antreprenè pa gen kat entènasyonal. Freda Workspace aksepte MonCash ak NatCash, ansanm ak kat yo ak lòt mwayen Stripe pwopoze yo. Kòm MonCash ak NatCash pa pèmèt prelèvman otomatik, yon balans prepeye peye abònman ou yo epi nou avèti w pa imèl lè li vin twò ba.
+Peman lokal: anpil antreprenè pa gen kat entènasyonal. Freda Workspace aksepte MonCash ak NatCash, ansanm ak kat yo ak lòt mwayen peman ki disponib. Kòm MonCash ak NatCash pa pèmèt prelèvman otomatik, yon balans prepeye peye abònman ou yo epi nou avèti w pa imèl lè li vin twò ba.
 
 Transparans: nou afiche pri yo anvan ou peye, domèn nan se pa w, epi nou pa janm vann done ou yo.
 
@@ -722,7 +722,7 @@ De pwodwi: Freda Connect pou non domèn ak DNS, ak Freda Mail pou imèl pwofesyo
 
 ### Èske Freda Workspace se pou Ayiti sèlman?
 
-Non. Sèvis la aksepte MonCash ak NatCash pou kliyan nan Ayiti, men yo ka anrejistre non domèn entènasyonal depi aletranje epi peye ak kat oswa lòt mwayen Stripe pwopoze yo.
+Non. Sèvis la aksepte MonCash ak NatCash pou kliyan nan Ayiti, men yo ka anrejistre non domèn entènasyonal depi aletranje epi peye ak kat oswa lòt mwayen peman ki disponib.
 
 ### Ki diferans ki genyen ant Freda Workspace ak Freda Pay?
 
@@ -747,7 +747,7 @@ Freda Workspace is a brand of Freda Pay LLC. It brings together two products: Fr
 - Brand : Freda Workspace
 - Company : Freda Pay LLC, a company registered in the State of Wyoming (USA), part of Freda Group
 - Products : Freda Connect (domain names and DNS) and Freda Mail (professional email and mobile app)
-- Payments : MonCash and NatCash (processed by Freda Pay Issuing, from Freda Pay LLC); cards and digital wallets (processed by Stripe)
+- Payments : MonCash and NatCash, bank cards and digital wallets. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%
 - Customers : Entrepreneurs, small businesses, associations and agencies, in Haiti and abroad
 - Languages : French, Haitian Creole and English
 - Contact : support@fredaworkspace.com, Monday to Saturday, 8am to 6pm (Haiti time)
@@ -762,7 +762,7 @@ Freda Mail: create professional email addresses on your own domain (contact@your
 
 Simplicity: the domain and the email are set up together, without technical skills; DNS records are added for you or clearly explained.
 
-Local payment: many entrepreneurs do not have an international card. Freda Workspace accepts MonCash and NatCash, as well as cards and the other methods Stripe offers. Because MonCash and NatCash cannot charge you automatically, a prepaid balance pays your subscriptions and we email you when it runs low.
+Local payment: many entrepreneurs do not have an international card. Freda Workspace accepts MonCash and NatCash, as well as cards and other available payment methods. Because MonCash and NatCash cannot charge you automatically, a prepaid balance pays your subscriptions and we email you when it runs low.
 
 Transparency: prices are shown before you pay, the domain is yours and we never sell your data.
 
@@ -782,7 +782,7 @@ Two products: Freda Connect for domain names and DNS, and Freda Mail for profess
 
 ### Is Freda Workspace only for Haiti?
 
-No. The service accepts MonCash and NatCash for customers in Haiti, but international domain names can be registered from abroad and paid by card or the other methods Stripe offers.
+No. The service accepts MonCash and NatCash for customers in Haiti, but international domain names can be registered from abroad and paid by card or other available payment methods.
 
 ### What is the difference between Freda Workspace and Freda Pay?
 
@@ -810,7 +810,7 @@ Freda Mail est le produit d’email professionnel de Freda Workspace, une marque
 - Offres payantes : Starter 2,99 $/mois (2 boîtes), Business 9,99 $/mois (5 boîtes), Enterprise 30,00 $/mois (illimité)
 - Sécurité : SPF, DKIM et DMARC configurés automatiquement
 - Compatibilité : Application Freda Mail, et tout logiciel IMAP / SMTP (Outlook, Apple Mail, Gmail)
-- Paiement : MonCash, NatCash, carte et autres moyens proposés par Stripe ; solde prépayé pour les abonnements
+- Paiement : MonCash, NatCash, carte et autres moyens de paiement disponibles ; solde prépayé pour les abonnements
 - Produit associé : Freda Connect (noms de domaine et DNS)
 
 ## Ce que fait Freda Mail
@@ -883,7 +883,7 @@ Freda Mail se pwodwi imèl pwofesyonèl Freda Workspace, yon mak Freda Pay LLC. 
 - Òf ki peye : Starter 2,99 $/mwa (2 bwat), Business 9,99 $/mwa (5 bwat), Enterprise 30,00 $/mwa (san limit)
 - Sekirite : SPF, DKIM ak DMARC konfigire otomatikman
 - Konpatibilite : Aplikasyon Freda Mail, ak nenpòt lojisyèl IMAP / SMTP (Outlook, Apple Mail, Gmail)
-- Peman : MonCash, NatCash, kat ak lòt mwayen Stripe pwopoze; balans prepeye pou abònman yo
+- Peman : MonCash, NatCash, kat ak lòt mwayen peman; balans prepeye pou abònman yo. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Pwodwi asosye : Freda Connect (non domèn ak DNS)
 
 ## Sa Freda Mail fè
@@ -956,7 +956,7 @@ Freda Mail is the professional email product of Freda Workspace, a brand of Fred
 - Paid plans : Starter 2,99 $/month (2 mailboxes), Business 9,99 $/month (5 mailboxes), Enterprise 30,00 $/month (unlimited)
 - Security : SPF, DKIM and DMARC configured automatically
 - Compatibility : Freda Mail app, and any IMAP / SMTP client (Outlook, Apple Mail, Gmail)
-- Payment : MonCash, NatCash, card and other methods offered by Stripe; prepaid balance for subscriptions
+- Payment : MonCash, NatCash, card and other payment methods; prepaid balance for subscriptions. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%
 - Related product : Freda Connect (domain names and DNS)
 
 ## What Freda Mail does
@@ -1021,7 +1021,7 @@ Freda Connect est le produit de noms de domaine de Freda Workspace, une marque d
 - Prix : À partir de 2,99 $ la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher
 - Inclus : Confidentialité Whois gratuite, verrouillage anti-transfert, éditeur DNS complet, rappels de renouvellement
 - Domaine existant : Vous pouvez connecter un domaine que vous possédez déjà, y compris un .ht
-- Paiement : Carte et autres moyens Stripe selon votre pays ; MonCash et NatCash
+- Paiement : Carte et autres moyens selon votre pays ; MonCash et NatCash. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Produit associé : Freda Mail (email professionnel, 1 boîte gratuite sur votre domaine)
 
 ## Ce que fait Freda Connect
@@ -1083,7 +1083,7 @@ Freda Connect se pwodwi non domèn Freda Workspace, yon mak Freda Pay LLC. Li p�
 - Pri : A pati de 2,99 $ premye ane a dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè
 - Sa ki enkli : Konfidansyalite Whois gratis, vèwouyaj kont transfè, editè DNS konplè, rapèl renouvèlman
 - Domèn ki egziste deja : Ou ka konekte yon domèn ou genyen deja, menm yon .ht
-- Peman : Kat ak lòt mwayen Stripe dapre peyi w; MonCash ak NatCash
+- Peman : Kat ak lòt mwayen dapre peyi w; MonCash ak NatCash. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Pwodwi asosye : Freda Mail (imèl pwofesyonèl, 1 bwat gratis sou domèn ou)
 
 ## Sa Freda Connect fè
@@ -1141,7 +1141,7 @@ Freda Connect is the domain-name product of Freda Workspace, a brand of Freda Pa
 - Price : From 2,99 $ for the first year depending on the extension; exact price shown before payment; renewal can cost more
 - Included : Free WHOIS privacy, transfer lock, full DNS editor, renewal reminders
 - Existing domain : You can connect a domain you already own, including a .ht
-- Payment : Card and other Stripe methods depending on your country; MonCash and NatCash
+- Payment : Card and other methods depending on your country; MonCash and NatCash. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%
 - Related product : Freda Mail (professional email, 1 free mailbox on your domain)
 
 ## What Freda Connect does

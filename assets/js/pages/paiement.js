@@ -227,7 +227,7 @@
     natcash: ['Cliquez sur « Payer avec NatCash ».', 'Vous recevez une demande de paiement NatCash (Natcom) sur votre téléphone.', 'Validez avec votre code PIN NatCash pour terminer.'],
   };
 
-  /* Production : la carte se saisit chez Stripe (page hébergée) ; aucun champ de carte n'est affiché ni validé ici, aucune donnée de carte ne transite par notre site. */
+  /* Production : la carte se saisit sur la page de paiement sécurisée (page hébergée) ; aucun champ de carte n'est affiché ni validé ici, aucune donnée de carte ne transite par notre site. */
   const hostedCard = !C.DEMO_MODE;
   if (hostedCard) {
     const grid = $('[data-panel="card"] > .grid');
@@ -235,7 +235,7 @@
       grid.hidden = true;
       const note = document.createElement('p');
       note.className = 'text-sm text-slate-600 mt-1';
-      note.textContent = 'Vous serez redirigé vers la page de paiement sécurisée de Stripe pour saisir votre carte. Elle sera enregistrée pour renouveler automatiquement votre offre Freda Mail ; vous pouvez la supprimer à tout moment depuis votre espace.';
+      note.textContent = 'Vous serez redirigé vers la page de paiement sécurisée pour saisir votre carte. Elle sera enregistrée pour renouveler automatiquement votre offre Freda Mail ; vous pouvez la supprimer à tout moment depuis votre espace.';
       grid.parentNode.insertBefore(note, grid);
     }
   }
@@ -247,10 +247,16 @@
     $('[data-panel="mobile"]').hidden = m === 'card';
     const name = m === 'moncash' ? 'MonCash' : 'NatCash';
     const amount = amountNow();
+    /* Frais de traitement : carte 3,5 % + 0,40 $ ; MonCash / NatCash 6 % (ajoutés au montant, affichés avant paiement ; recalculés côté serveur). */
+    const fee = amount > 0 ? (m === 'card' ? Math.round(amount * 3.5 + 40) / 100 : Math.round(amount * 6) / 100) : 0;
+    let feeNote = $('#fee-note');
+    if (!feeNote) { feeNote = document.createElement('p'); feeNote.id = 'fee-note'; feeNote.className = 'mt-3 text-sm text-slate-600 tabular'; $('#method-picker').insertAdjacentElement('afterend', feeNote); }
+    feeNote.hidden = !fee;
+    feeNote.textContent = fee ? 'Frais de traitement (' + (m === 'card' ? '3,5 % + 0,40 $' : '6 %') + ') : ' + FW.money(fee) + ' · Total à payer : ' + FW.money(amount + fee) : '';
     if (m !== 'card') {
       $('#mm-label').textContent = 'Numéro ' + name;
-      $('#mm-amount').textContent = FW.money(amount * C.HTG_RATE, 'HTG');
-      $('#mm-rate').textContent = FW.money(amount) + ' au taux indicatif de 1 USD = ' + C.HTG_RATE + ' HTG';
+      $('#mm-amount').textContent = FW.money((amount + fee) * C.HTG_RATE, 'HTG');
+      $('#mm-rate').textContent = FW.money(amount + fee) + ' (frais inclus) au taux indicatif de 1 USD = ' + C.HTG_RATE + ' HTG';
       $('#mm-steps').innerHTML = mmSteps[m].map((t, i) => `<li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-mist text-freda text-xs font-bold grid place-items-center shrink-0 tabular">${i + 1}</span><span>${t}</span></li>`).join('');
     }
     const verb = stage === 'domain' ? (domainFree ? 'Créer mon compte' : 'Payer ' + FW.money(amount)) : 'Activer l’email pro · ' + FW.money(amount);
@@ -339,7 +345,7 @@
     const needsPay = !(stage === 'domain' && domainFree) && !useSaved();
     if (needsPay) {
       if (method === 'card' && hostedCard) {
-        /* rien à valider : la carte est saisie chez Stripe */
+        /* rien à valider : la carte est saisie sur la page de paiement sécurisée */
       } else if (method === 'card') {
         const n = ccNumber.value.replace(/\s/g, '');
         ok = setError('cc-number', !(n.length >= 13 && luhn(n))) && ok;

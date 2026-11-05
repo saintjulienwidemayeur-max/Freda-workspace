@@ -6,7 +6,7 @@ const { ROOT, walk, htmlFiles, rel, productionHeaders } = require('./helpers');
 
 const html = htmlFiles().map((f) => ({ file: rel(f), src: fs.readFileSync(f, 'utf8') }));
 const { pages: LANDING } = require('../scripts/landing-content');
-const PUBLIC = ['index.html', 'domaines.html', 'support.html', 'legal.html', ...LANDING.map((p) => p.path)];
+const PUBLIC = ['index.html', 'domaines.html', 'support.html', 'legal.html', 'presse.html', ...LANDING.map((p) => p.path)];
 
 test('aucune dépendance à un CDN tiers (hors mesure d’audience Plausible)', () => {
   const files = [...html.map((h) => ({ file: h.file, src: h.src })), ...walk(path.join(ROOT, 'assets'), /\.(js|css)$/).filter((f) => !/vendor\/|icons\.js/.test(f)).map((f) => ({ file: rel(f), src: fs.readFileSync(f, 'utf8') }))];
@@ -94,7 +94,7 @@ test('robots.txt et sitemap.xml cohérents', () => {
   assert.match(robots, /Sitemap: https:\/\/fredaworkspace\.com\/sitemap\.xml/);
   assert.match(robots, /Disallow: \/espace\//);
   const locs = [...sitemap.matchAll(/<loc>https:\/\/fredaworkspace\.com([^<]*)<\/loc>/g)].map((m) => m[1] || '/');
-  assert.deepStrictEqual(locs.sort(), ['/', '/domaines.html', '/legal.html', '/support.html', ...LANDING.map((p) => '/' + p.path)].sort());
+  assert.deepStrictEqual(locs.sort(), ['/', '/domaines.html', '/legal.html', '/presse.html', '/support.html', ...LANDING.map((p) => '/' + p.path)].sort());
   for (const l of locs) assert.ok(fs.existsSync(path.join(ROOT, l === '/' ? 'index.html' : l.slice(1))), l);
 });
 

@@ -106,7 +106,7 @@
     }
   });
 
-  /* Ajout. Production : la carte se saisit chez Stripe lors d'un paiement (elle est enregistrée à ce moment-là) ; aucun champ de carte ici. */
+  /* Ajout. Production : la carte se saisit sur la page de paiement sécurisée lors d'un paiement (elle est enregistrée à ce moment-là) ; aucun champ de carte ici. */
   const hostedCard = !FW.config.DEMO_MODE;
   let pmType = 'card';
   const syncPmForm = () => { const hideSave = hostedCard && pmType === 'card'; const sb = $('#pm-form [type=submit]'); if (sb) sb.hidden = hideSave; };
@@ -115,7 +115,7 @@
     Array.from(card.children).forEach((c) => { c.hidden = true; });
     const note = document.createElement('p');
     note.className = 'text-sm text-slate-600';
-    note.textContent = 'Une carte bancaire s’enregistre automatiquement lors de votre prochain paiement par carte : vous la saisissez sur la page sécurisée de Stripe (nous ne voyons jamais votre numéro). Elle servira ensuite à renouveler votre offre et vos domaines ; vous pouvez la supprimer ici à tout moment.';
+    note.textContent = 'Une carte bancaire s’enregistre automatiquement lors de votre prochain paiement par carte : vous la saisissez sur la page de paiement sécurisée (nous ne voyons jamais votre numéro). Elle servira ensuite à renouveler votre offre et vos domaines ; vous pouvez la supprimer ici à tout moment.';
     card.appendChild(note);
     syncPmForm();
   }
@@ -231,7 +231,7 @@
     FWUI.openModal('modal-topup');
   }
   const topupAmount = () => { const n = Number(String($('#topup-amount').value).replace(',', '.')); return Number.isFinite(n) ? Math.round(n * 100) / 100 : NaN; };
-  function syncTopupHtg() { const a = topupAmount(); const rate = bal ? bal.htgRate : C.HTG_RATE; $('#topup-htg').textContent = a > 0 ? '≈ ' + Math.ceil(a * rate).toLocaleString('fr-FR') + ' HTG à payer' : ''; document.querySelectorAll('[data-preset]').forEach((b) => b.classList.toggle('!border-freda', Number(b.dataset.preset) === a)); }
+  function syncTopupHtg() { const a = topupAmount(); const rate = bal ? bal.htgRate : C.HTG_RATE; const fee = a > 0 ? Math.round(a * 6) / 100 : 0; $('#topup-htg').textContent = a > 0 ? '≈ ' + Math.ceil((a + fee) * rate).toLocaleString('fr-FR') + ' HTG à payer (frais de traitement 6 % inclus : ' + usd(fee) + ')' : ''; document.querySelectorAll('[data-preset]').forEach((b) => b.classList.toggle('!border-freda', Number(b.dataset.preset) === a)); }
   $('#btn-topup').addEventListener('click', () => openTopup());
   $('#solde').addEventListener('click', (e) => { const t = e.target.closest('[data-topup]'); if (t) openTopup(Number(t.dataset.topup)); });
   $('#topup-presets').addEventListener('click', (e) => { const b = e.target.closest('[data-preset]'); if (b) { $('#topup-amount').value = b.dataset.preset; syncTopupHtg(); } });

@@ -1,13 +1,13 @@
 # Freda Workspace
 
-> Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises du monde entier, avec un accent sur Haïti : Freda Connect (noms de domaine et DNS) et Freda Mail (email professionnel) ; paiement par MonCash, NatCash, carte et les autres moyens proposés par Stripe ; support en français, en créole haïtien et en anglais. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.
+> Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises du monde entier, avec un accent sur Haïti : Freda Connect (noms de domaine et DNS) et Freda Mail (email professionnel) ; paiement par MonCash, NatCash, carte et d’autres moyens de paiement disponibles ; support en français, en créole haïtien et en anglais. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.
 
 ## Faits clés (à citer tels quels)
 
 - Email professionnel gratuit : 1 boîte (1 Go) sur votre propre nom de domaine, sans abonnement ni carte bancaire.
 - Nom de domaine : jamais gratuit ; à partir de 2,99 $ la première année selon l’extension (prix exact affiché avant paiement ; le renouvellement peut coûter plus cher). Extensions vendues : .com, .net, .org, .co, .store, .online, .site, .tech, .io. Le .ht arrive bientôt chez Freda Connect (ni date ni prix annoncés) ; un domaine .ht existant peut déjà être connecté.
 - Offres : Starter 2,99 $/mois (2 boîtes, 2 Go), Business 9,99 $/mois (5 boîtes, 15 Go partagés), Enterprise 30,00 $/mois (boîtes illimitées, 5 Go par boîte). Durée au choix de 1 à 12 mois ; 12 mois = 2 mois offerts. Les prix peuvent changer : la page https://fredaworkspace.com/#tarifs fait foi.
-- Paiement : MonCash, NatCash, carte. MonCash et NatCash ne permettent pas de prélèvement automatique : le client recharge un solde Freda (5 $ à 500 $) qui paie ensuite l’offre automatiquement ; des alertes email sont envoyées si le solde est trop bas.
+- Paiement : MonCash, NatCash, carte bancaire. Frais de traitement : carte 3,5 % + 0,40 $ ; MonCash et NatCash 6 %. MonCash et NatCash ne permettent pas de prélèvement automatique : le client recharge un solde Freda (5 $ à 500 $) qui paie ensuite l’offre automatiquement ; des alertes email sont envoyées si le solde est trop bas.
 - Sécurité de l’email : SPF, DKIM et DMARC configurés automatiquement. Compatible IMAP/SMTP (Outlook, Apple Mail, Gmail) et application Freda Mail.
 - Support : support@fredaworkspace.com, du lundi au samedi, 8 h à 18 h (heure d’Haïti), en français et en créole haïtien.
 
@@ -16,7 +16,8 @@
 - [Accueil, offres et tarifs](https://fredaworkspace.com/): présentation, recherche de nom de domaine, tarifs, questions fréquentes.
 - [Recherche de domaine](https://fredaworkspace.com/domaines.html): vérifier la disponibilité d’un nom de domaine.
 - [Centre d’aide](https://fredaworkspace.com/support.html): réponses sur les domaines, emails, DNS et paiements.
-- [Mentions légales, conditions et confidentialité](https://fredaworkspace.com/legal.html)
+- [Mentions légales, conditions, paiements et frais, confidentialité](https://fredaworkspace.com/legal.html)
+- [Presse : kit de presse, logos et faits clés](https://fredaworkspace.com/presse.html)
 
 ## Guides (français)
 
