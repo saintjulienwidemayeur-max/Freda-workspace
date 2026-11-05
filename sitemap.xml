@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url><loc>https://fredaworkspace.com/</loc><lastmod>2026-11-02</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://fredaworkspace.com/domaines.html</loc><lastmod>2026-11-02</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://fredaworkspace.com/support.html</loc><lastmod>2026-11-02</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fredaworkspace.com/legal.html</loc><lastmod>2026-11-02</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fredaworkspace.com/legal.html</loc><lastmod>2026-11-02</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://fredaworkspace.com/email-pro-gratuit.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/email-pro-gratuit.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/free-business-email-haiti.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/email-pro-gratuit.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/nom-de-domaine-haiti.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/nom-de-domaine-haiti.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/non-domenn-ayiti.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/nom-de-domaine-haiti.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/acheter-domaine-moncash.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/acheter-domaine-moncash.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/peye-ak-moncash-natcash.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/acheter-domaine-moncash.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/email-pro-gratuit.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/free-business-email-haiti.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/email-pro-gratuit.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/ht/non-domenn-ayiti.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/non-domenn-ayiti.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/nom-de-domaine-haiti.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/nom-de-domaine-haiti.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/ht/peye-ak-moncash-natcash.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/peye-ak-moncash-natcash.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/acheter-domaine-moncash.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/acheter-domaine-moncash.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/en/free-business-email-haiti.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/free-business-email-haiti.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/email-pro-gratuit.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/email-pro-gratuit.html"/>
+  </url>
 </urlset>

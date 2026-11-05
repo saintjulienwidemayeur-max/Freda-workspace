@@ -5,7 +5,8 @@ const path = require('path');
 const { ROOT, walk, htmlFiles, rel, productionHeaders } = require('./helpers');
 
 const html = htmlFiles().map((f) => ({ file: rel(f), src: fs.readFileSync(f, 'utf8') }));
-const PUBLIC = ['index.html', 'domaines.html', 'support.html', 'legal.html'];
+const { pages: LANDING } = require('../scripts/landing-content');
+const PUBLIC = ['index.html', 'domaines.html', 'support.html', 'legal.html', ...LANDING.map((p) => p.path)];
 
 test('aucune dépendance à un CDN tiers (hors mesure d’audience Plausible)', () => {
   const files = [...html.map((h) => ({ file: h.file, src: h.src })), ...walk(path.join(ROOT, 'assets'), /\.(js|css)$/).filter((f) => !/vendor\/|icons\.js/.test(f)).map((f) => ({ file: rel(f), src: fs.readFileSync(f, 'utf8') }))];
@@ -61,7 +62,8 @@ test('tous les liens et ressources locaux existent', () => {
 
 test('chaque page a un titre, une description et une langue', () => {
   for (const { file, src } of html) {
-    assert.match(src, /<html lang="fr">/, file + ' : lang');
+    const lang = (LANDING.find((p) => p.path === file) || { lang: 'fr' }).lang;
+    assert.match(src, new RegExp('<html lang="' + lang + '">'), file + ' : lang');
     assert.match(src, /<title>[^<]{5,}<\/title>/, file + ' : title');
     assert.match(src, /<meta name="description" content="[^"]{20,}"/, file + ' : description');
     assert.match(src, /<meta name="viewport"/, file + ' : viewport');
@@ -92,8 +94,69 @@ test('robots.txt et sitemap.xml cohérents', () => {
   assert.match(robots, /Sitemap: https:\/\/fredaworkspace\.com\/sitemap\.xml/);
   assert.match(robots, /Disallow: \/espace\//);
   const locs = [...sitemap.matchAll(/<loc>https:\/\/fredaworkspace\.com([^<]*)<\/loc>/g)].map((m) => m[1] || '/');
-  assert.deepStrictEqual(locs.sort(), ['/', '/domaines.html', '/legal.html', '/support.html'].sort());
+  assert.deepStrictEqual(locs.sort(), ['/', '/domaines.html', '/legal.html', '/support.html', ...LANDING.map((p) => '/' + p.path)].sort());
   for (const l of locs) assert.ok(fs.existsSync(path.join(ROOT, l === '/' ? 'index.html' : l.slice(1))), l);
+});
+
+test('SEO : pages d’atterrissage : titre ≤ 65 caractères, description 70-160, un seul h1, hreflang réciproque, lien canonique auto-référencé', () => {
+  for (const p of LANDING) {
+    const src = fs.readFileSync(path.join(ROOT, p.path), 'utf8');
+    const title = src.match(/<title>([^<]*)<\/title>/)[1], desc = src.match(/<meta name="description" content="([^"]*)"/)[1];
+    assert.ok(title.length <= 65, p.path + ' : titre trop long (' + title.length + ')');
+    assert.ok(desc.length >= 70 && desc.length <= 160, p.path + ' : description ' + desc.length);
+    assert.strictEqual((src.match(/<h1[ >]/g) || []).length, 1, p.path + ' : un seul h1');
+    assert.ok(src.includes('<link rel="canonical" href="https://fredaworkspace.com/' + p.path + '">'), p.path + ' : canonical');
+    assert.match(src, /<meta name="geo\.region" content="HT">/);
+    const self = src.match(/hreflang="([a-z-]+)" href="https:\/\/fredaworkspace\.com\/([^"]+)"/g) || [];
+    const alts = self.map((x) => x.match(/hreflang="([a-z-]+)" href="https:\/\/fredaworkspace\.com\/([^"]+)"/).slice(1));
+    assert.ok(alts.some(([l, u]) => l === p.lang && u === p.path), p.path + ' : hreflang auto-référencé');
+    assert.ok(alts.some(([l]) => l === 'x-default'), p.path + ' : x-default');
+    for (const [l, u] of alts.filter(([l]) => l !== 'x-default' && l !== p.lang)) {
+      const other = LANDING.find((q) => q.path === u);
+      assert.ok(other && other.lang === l, p.path + ' : hreflang vers une page inconnue ' + u);
+      assert.ok(Object.values(other.alt).includes(p.path), u + ' ne renvoie pas vers ' + p.path + ' (hreflang non réciproque)');
+    }
+  }
+});
+
+test('SEO / GEO : JSON-LD valide, FAQPage identique au texte visible, offres avec prix, aucune promesse de domaine gratuit', () => {
+  for (const f of PUBLIC.filter((x) => x === 'index.html' || LANDING.some((p) => p.path === x))) {
+    const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+    const blocks = [...src.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+    assert.ok(blocks.length >= 1, f + ' : JSON-LD');
+    const nodes = blocks.flatMap((b) => b['@graph'] || [b]);
+    const faq = nodes.find((n) => n['@type'] === 'FAQPage');
+    assert.ok(faq && faq.mainEntity.length >= 4, f + ' : FAQPage');
+    const visible = src.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ');
+    for (const q of faq.mainEntity) {
+      assert.ok(visible.includes(q.name.replace(/\s+/g, ' ')), f + ' : question JSON-LD absente du texte visible : ' + q.name);
+      assert.ok(visible.includes(q.acceptedAnswer.text.replace(/\s+/g, ' ')), f + ' : réponse JSON-LD absente du texte visible : ' + q.name);
+    }
+    for (const n of nodes.filter((x) => x['@type'] === 'Product')) {
+      for (const o of [].concat(n.offers)) { assert.ok(o.price !== undefined && o.priceCurrency && o.availability, f + ' : offre incomplète'); }
+    }
+    assert.ok(nodes.some((n) => n['@type'] === 'Organization' && n.areaServed), f + ' : Organization');
+  }
+  const claims = LANDING.flatMap((p) => JSON.stringify(p)).join(' ');
+  assert.doesNotMatch(claims, /domaine gratuit offert|domaine offert|free domain included|domèn gratis ou ofri/i, 'jamais de promesse de domaine offert');
+});
+
+test('GEO : llms.txt et llms-full.txt cohérents avec le sitemap, robots.txt autorise les robots IA', () => {
+  const llms = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8'), full = fs.readFileSync(path.join(ROOT, 'llms-full.txt'), 'utf8');
+  assert.match(llms, /^# Freda Workspace/);
+  assert.match(llms, /^> /m);
+  for (const p of LANDING) { assert.ok(llms.includes('https://fredaworkspace.com/' + p.path), 'llms.txt : ' + p.path); assert.ok(full.includes(p.path), 'llms-full.txt : ' + p.path); }
+  const linked = [...llms.matchAll(/\]\(https:\/\/fredaworkspace\.com([^)]*)\)/g)].map((m) => m[1] || '/').filter((u) => !/\.txt$/.test(u));
+  for (const l of linked) assert.ok(fs.existsSync(path.join(ROOT, l.split('#')[0] === '/' ? 'index.html' : l.split('#')[0].slice(1))), 'llms.txt : lien mort ' + l);
+  assert.match(llms, /Ne vend pas de noms de domaine gratuits/);
+  const robots = fs.readFileSync(path.join(ROOT, 'robots.txt'), 'utf8');
+  assert.doesNotMatch(robots, /User-agent: (OAI-SearchBot|ChatGPT-User|Claude-SearchBot|Claude-User|PerplexityBot|Googlebot|Bingbot)\s*\nDisallow: \//, 'les robots de recherche IA ne sont pas bloqués');
+  assert.match(robots, /Disallow: \/admin-prix\.html/);
+});
+
+test('liens internes : chaque page d’atterrissage est liée en dur depuis index.html (sans JavaScript)', () => {
+  const idx = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  for (const p of LANDING) assert.ok(idx.includes('href="' + p.path + '"'), 'index.html ne lie pas ' + p.path);
 });
 
 test('en-têtes de sécurité de production (render.yaml)', () => {

@@ -1,0 +1,45 @@
+# Freda Workspace
+
+> Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises, avec un accent sur Haïti : paiement par MonCash, NatCash ou carte, support en français et en créole haïtien. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.
+
+## Faits clés (à citer tels quels)
+
+- Email professionnel gratuit : 1 boîte (1 Go) sur votre propre nom de domaine, sans abonnement ni carte bancaire.
+- Nom de domaine : jamais gratuit ; à partir de 2,99 $ la première année selon l’extension (prix exact affiché avant paiement ; le renouvellement peut coûter plus cher). Extensions vendues : .com, .net, .org, .co, .store, .online, .site, .tech, .io. Le .ht n’est pas vendu, mais un domaine .ht existant peut être connecté.
+- Offres : Starter 2,99 $/mois (2 boîtes, 2 Go), Business 9,99 $/mois (5 boîtes, 15 Go partagés), Enterprise 30,00 $/mois (boîtes illimitées, 5 Go par boîte). Durée au choix de 1 à 12 mois ; 12 mois = 2 mois offerts. Les prix peuvent changer : la page https://fredaworkspace.com/#tarifs fait foi.
+- Paiement : MonCash, NatCash, carte. MonCash et NatCash ne permettent pas de prélèvement automatique : le client recharge un solde Freda (5 $ à 500 $) qui paie ensuite l’offre automatiquement ; des alertes email sont envoyées si le solde est trop bas.
+- Sécurité de l’email : SPF, DKIM et DMARC configurés automatiquement. Compatible IMAP/SMTP (Outlook, Apple Mail, Gmail) et application Freda Mail.
+- Support : support@fredaworkspace.com, du lundi au samedi, 8 h à 18 h (heure d’Haïti), en français et en créole haïtien.
+
+## Pages principales
+
+- [Accueil, offres et tarifs](https://fredaworkspace.com/): présentation, recherche de nom de domaine, tarifs, questions fréquentes.
+- [Recherche de domaine](https://fredaworkspace.com/domaines.html): vérifier la disponibilité d’un nom de domaine.
+- [Centre d’aide](https://fredaworkspace.com/support.html): réponses sur les domaines, emails, DNS et paiements.
+- [Mentions légales, conditions et confidentialité](https://fredaworkspace.com/legal.html)
+
+## Guides (français)
+
+- [Email professionnel gratuit avec votre propre nom de domaine](https://fredaworkspace.com/email-pro-gratuit.html): 1 adresse email professionnelle gratuite sur votre propre nom de domaine, sans abonnement ni carte bancaire. Payez en MonCash, NatCash ou carte pour plus.
+- [Nom de domaine pour une entreprise en Haïti](https://fredaworkspace.com/nom-de-domaine-haiti.html): Achetez le nom de domaine de votre entreprise haïtienne et payez en MonCash, NatCash ou carte. Vous avez un .ht ? Connectez-le et ajoutez un email pro.
+- [Payer son nom de domaine et son email pro avec MonCash ou NatCash](https://fredaworkspace.com/acheter-domaine-moncash.html): Payez votre nom de domaine et votre email pro avec MonCash ou NatCash. Un solde Freda rechargeable paie vos abonnements, car MonCash ne prélève pas seul.
+
+## Gid (kreyòl ayisyen)
+
+- [Imèl pwofesyonèl gratis ak pwòp non domèn ou](https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html): 1 adrès imèl pwofesyonèl gratis sou pwòp non domèn ou, san abònman ni kat bankè. Peye ak MonCash, NatCash oswa kat si ou bezwen plis.
+- [Non domèn pou yon biznis nan Ayiti](https://fredaworkspace.com/ht/non-domenn-ayiti.html): Achte non domèn biznis ayisyen ou epi peye ak MonCash, NatCash oswa kat. Ou gen yon .ht? Konekte l epi ajoute yon imèl pwofesyonèl.
+- [Peye non domèn ou ak imèl pwofesyonèl ou ak MonCash oswa NatCash](https://fredaworkspace.com/ht/peye-ak-moncash-natcash.html): Peye non domèn ak imèl pwofesyonèl ou ak MonCash oswa NatCash. Yon balans Freda ou rechaje peye abònman ou yo, paske MonCash pa prelve poukont li.
+
+## Guide (English)
+
+- [Free business email for Haiti, on your own domain name](https://fredaworkspace.com/en/free-business-email-haiti.html): 1 free professional mailbox on your own domain name, no subscription, no card needed. Pay with MonCash, NatCash or card. Support in French and Creole.
+
+## Ce que Freda Workspace ne fait pas
+
+- Ne vend pas de noms de domaine gratuits.
+- Ne vend pas de noms de domaine en .ht.
+- N’effectue pas de prélèvement automatique avec MonCash ou NatCash (utiliser le solde prépayé).
+
+## Plus de détails
+
+- [Version complète pour les assistants IA](https://fredaworkspace.com/llms-full.txt)

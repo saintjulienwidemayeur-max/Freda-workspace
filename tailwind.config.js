@@ -1,6 +1,6 @@
 /** Thème Tailwind Freda (compilé via `npm run build:css`). */
 module.exports = {
-  content: ["./*.html", "./espace/*.html", "./assets/js/**/*.js"],
+  content: ["./*.html", "./espace/*.html", "./ht/*.html", "./en/*.html", "./assets/js/**/*.js"],
   theme: {
     extend: {
       colors: {
