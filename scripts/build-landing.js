@@ -173,11 +173,11 @@ ${sections}
     <div class="gutter max-w-site mx-auto py-10"><p class="text-white font-semibold">Freda Workspace · Freda Pay LLC</p><ul class="mt-4 grid gap-2 sm:grid-cols-2 text-sm">${staticLinks(base).map(([h, l]) => `<li><a href="${h}" class="text-slate-300">${esc(l)}</a></li>`).join('')}</ul></div>
   </footer>
 
-  <script src="${base}assets/js/icons.js"></script>
-  <script src="${base}assets/js/config.js"></script>
-  <script src="${base}assets/js/monitor.js"></script>
-  <script src="${base}assets/js/api.js"></script>
-  <script src="${base}assets/js/ui.js"></script>
+  <script src="${base}assets/js/icons.js" defer></script>
+  <script src="${base}assets/js/config.js" defer></script>
+  <script src="${base}assets/js/monitor.js" defer></script>
+  <script src="${base}assets/js/api.js" defer></script>
+  <script src="${base}assets/js/ui.js" defer></script>
 </body>
 </html>
 `;

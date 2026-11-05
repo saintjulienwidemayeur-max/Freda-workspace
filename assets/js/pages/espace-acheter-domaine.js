@@ -25,7 +25,7 @@
     const ex = data.exact;
     $('#buy-results').innerHTML = `
       <section class="card overflow-hidden">
-        <div class="px-4 py-3 border-b border-line flex items-center gap-2"><i data-lucide="${ex.available && !owned().has(ex.domain) ? 'circle-check' : 'circle-x'}" class="w-5 h-5 ${ex.available && !owned().has(ex.domain) ? 'text-cta' : 'text-slate-400'}"></i><h2 class="font-bold">${ex.available && !owned().has(ex.domain) ? 'Bonne nouvelle, ce nom est disponible' : 'Ce nom n’est pas disponible'}</h2></div>
+        <div class="px-4 py-3 border-b border-line flex items-center gap-2"><i data-lucide="${ex.available && !owned().has(ex.domain) ? 'circle-check' : 'circle-x'}" class="w-5 h-5 ${ex.available && !owned().has(ex.domain) ? 'text-cta' : 'text-slate-500'}"></i><h2 class="font-bold">${ex.available && !owned().has(ex.domain) ? 'Bonne nouvelle, ce nom est disponible' : 'Ce nom n’est pas disponible'}</h2></div>
         <ul class="divide-y divide-line">${row(ex)}</ul>
       </section>
       <section class="card overflow-hidden">

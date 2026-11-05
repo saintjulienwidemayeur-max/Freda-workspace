@@ -26,8 +26,8 @@
   --fw-line-strong: #CBD5E6;
 
   /* États */
-  --fw-cta: #10B981;
-  --fw-cta-dark: #059669;
+  --fw-cta: #047857;   /* AA avec du texte blanc (5,5:1) */
+  --fw-cta-dark: #065F46;
   --fw-success-bg: #E7F8F1;
   --fw-warn: #B45309;
   --fw-warn-bg: #FEF5E3;
@@ -85,7 +85,7 @@ h1, h2, h3, h4 { font-family: 'Manrope', 'Inter', system-ui, sans-serif; color: 
 .btn-sm svg { width: 16px; height: 16px; }
 .btn-lg { padding: 1rem 1.5rem; font-size: 1rem; }
 
-.btn-cta { background: var(--fw-cta); color: #fff; box-shadow: 0 6px 16px -8px rgba(16, 185, 129, .8); }
+.btn-cta { background: var(--fw-cta); color: #fff; box-shadow: 0 6px 16px -8px rgba(4, 120, 87, .8); }
 .btn-cta:hover:not(:disabled) { background: var(--fw-cta-dark); }
 .btn-primary { background: var(--fw-blue); color: #fff; }
 .btn-primary:hover:not(:disabled) { background: var(--fw-deep); }
@@ -276,3 +276,11 @@ h1, h2, h3, h4 { font-family: 'Manrope', 'Inter', system-ui, sans-serif; color: 
 @media (prefers-reduced-motion: reduce) {
   #page-loader::before { animation: none; }
 }
+
+/* DNS : la grille de diagnostic est remplie en JavaScript ; on réserve sa hauteur pour éviter un saut de mise en page (CLS). */
+#diag-grid { min-height: 508px; }
+@media (min-width: 640px) { #diag-grid { min-height: 278px; } }
+@media (min-width: 1280px) { #diag-grid { min-height: 156px; } }
+#diag-head { min-height: 160px; }
+@media (min-width: 768px) { #diag-head { min-height: 112px; } }
+@media (min-width: 1280px) { #diag-head { min-height: 96px; } }

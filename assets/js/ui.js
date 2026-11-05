@@ -133,7 +133,7 @@
         </div>
         <div class="max-w-site mx-auto py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-slate-400" style="padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px))">
           <p>© ${year} Freda Pay LLC. Tous droits réservés. Freda Workspace est une marque de Freda Pay LLC.</p>
-          <p class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cta"></i>Propulsé par <span class="text-white font-semibold">Freda Pay LLC</span> · Freda Group</p>
+          <p class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>Propulsé par <span class="text-white font-semibold">Freda Pay LLC</span> · Freda Group</p>
         </div>
       </div>`;
   }
@@ -374,9 +374,9 @@
           <span class="text-xs text-muted tabular shrink-0">${it.compare > it.price ? `<s class="mr-1">$${it.compare.toFixed(2)}</s>` : ''}dès <strong class="text-ink">$${it.price.toFixed(2)}</strong>/an</span>
         </button>`;
       const ext = items.filter((x) => x.kind === 'tld'), ideas = items.filter((x) => x.kind === 'idea');
-      box.innerHTML = `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Extensions populaires</p>`
+      box.innerHTML = `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500">Extensions populaires</p>`
         + ext.map((it) => row(it, items.indexOf(it))).join('')
-        + (ideas.length ? `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400 border-t border-line mt-1">Idées de noms</p>` + ideas.map((it) => row(it, items.indexOf(it))).join('') : '')
+        + (ideas.length ? `<p class="px-4 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500 border-t border-line mt-1">Idées de noms</p>` + ideas.map((it) => row(it, items.indexOf(it))).join('') : '')
         + `<p class="px-4 py-2.5 text-xs text-slate-500 bg-slate-50 border-t border-line flex items-center gap-2"><i data-lucide="mail-check" class="w-3.5 h-3.5 text-cta"></i>Email pro inclus avec chaque offre. Disponibilité vérifiée à l’étape suivante.</p>`;
       box.hidden = false;
       icons();

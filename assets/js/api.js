@@ -100,7 +100,9 @@
     let tld = null;
     const dot = q.indexOf('.');
     if (dot > -1) { tld = q.slice(dot); q = q.slice(0, dot); }
-    const label = q.replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    // Les noms internationalisés (punycode) commencent par « xn-- » : ce double tiret est conservé, le reste est nettoyé comme d'habitude.
+    const clean = q.replace(/[^a-z0-9-]/g, '');
+    const label = /^xn--./.test(clean) ? 'xn--' + clean.slice(4).replace(/-+/g, '-').replace(/-$/g, '') : clean.replace(/-+/g, '-').replace(/^-|-$/g, '');
     if (!label) return { error: 'Saisissez un nom, par exemple « maboutique ».' };
     if (label.length < 2) return { error: 'Le nom doit contenir au moins 2 caractères.' };
     if (label.length > 63) return { error: 'Le nom ne peut pas dépasser 63 caractères.' };

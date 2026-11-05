@@ -79,12 +79,12 @@
                 <div class="flex items-center gap-3 px-4 py-3.5 min-w-0">
                   <span class="w-10 h-10 rounded-xl bg-emerald-50 text-cta grid place-items-center shrink-0"><i data-lucide="mail-check" class="w-5 h-5"></i></span>
                   <div class="min-w-0">
-                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Votre future adresse</p>
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Votre future adresse</p>
                     <p class="mono text-[15px] font-semibold text-ink truncate">contact@<span id="hero-preview" class="text-freda">votreentreprise.com</span></p>
                   </div>
                 </div>
                 <div class="border-t border-line bg-slate-50/70 px-4 py-3 flex flex-wrap items-center gap-2" aria-label="Exemples de domaines">
-                  <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mr-1">Exemples</span>
+                  <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mr-1">Exemples</span>
                   <button type="button" class="hero-example inline-flex items-center gap-1.5 text-xs mono px-2.5 py-1.5 rounded-lg bg-white border border-line text-slate-700 hover:border-freda hover:text-freda transition-colors"><i data-lucide="globe" class="w-3.5 h-3.5"></i>monentreprise</button>
                   <button type="button" class="hero-example inline-flex items-center gap-1.5 text-xs mono px-2.5 py-1.5 rounded-lg bg-white border border-line text-slate-700 hover:border-freda hover:text-freda transition-colors"><i data-lucide="globe" class="w-3.5 h-3.5"></i>cabinet-martin.com</button>
                   <button type="button" class="hero-example inline-flex items-center gap-1.5 text-xs mono px-2.5 py-1.5 rounded-lg bg-white border border-line text-slate-700 hover:border-freda hover:text-freda transition-colors"><i data-lucide="globe" class="w-3.5 h-3.5"></i>nova-studio</button>
@@ -299,7 +299,7 @@
               <div class="phone relative">
                 <div class="phone-notch" aria-hidden="true"></div>
                 <div class="phone-screen">
-                  <img src="assets/img/app-freda-mail-inbox.jpg" width="600" height="1298" alt="Boîte de réception de l’application Freda Mail : messages, onglets Principale, Réseaux sociaux et Promotions, bouton Écrire" class="w-full h-full object-cover object-top bg-white" style="padding-top:26px" loading="lazy" decoding="async">
+                  <picture style="display:contents"><source srcset="assets/img/app-freda-mail-inbox.webp" type="image/webp"><img src="assets/img/app-freda-mail-inbox.jpg" width="480" height="1038" alt="Boîte de réception de l’application Freda Mail : messages, onglets Principale, Réseaux sociaux et Promotions, bouton Écrire" class="w-full h-full object-cover object-top bg-white" style="padding-top:26px" loading="lazy" decoding="async"></picture>
                 </div>
               </div>
             </div>
@@ -315,9 +315,9 @@
         <ul class="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
           <li><img src="assets/img/pay/moncash.png" alt="MonCash" width="48" height="48" class="h-12 w-12 rounded-xl" loading="lazy"></li>
           <li><img src="assets/img/pay/natcash.png" alt="NatCash" width="48" height="48" class="h-12 w-12 rounded-xl" loading="lazy"></li>
-          <li><img src="assets/img/pay/visa.svg" alt="Visa" height="20" class="h-5 w-auto" loading="lazy"></li>
-          <li><img src="assets/img/pay/mastercard.svg" alt="Mastercard" height="28" class="h-7 w-auto" loading="lazy"></li>
-          <li><img src="assets/img/pay/amex.svg" alt="American Express" height="28" class="h-7 w-auto" loading="lazy"></li>
+          <li><img src="assets/img/pay/visa.svg" alt="Visa" width="60" height="20" class="h-5 w-auto" loading="lazy"></li>
+          <li><img src="assets/img/pay/mastercard.svg" alt="Mastercard" width="45" height="28" class="h-7 w-auto" loading="lazy"></li>
+          <li><img src="assets/img/pay/amex.svg" alt="American Express" width="28" height="28" class="h-7 w-auto" loading="lazy"></li>
         </ul>
         <p class="mt-4 text-sm text-slate-600">MonCash et NatCash, cartes bancaires, et d’autres moyens de paiement selon votre pays et votre appareil.</p>
       </div>
@@ -446,12 +446,11 @@
     #qr-code svg, #qr-code-lg svg { width: 100%; height: 100%; }
   </style>
 
-  <script src="assets/js/icons.js"></script>
-  <script src="assets/js/vendor/qrcode.js"></script>
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/monitor.js"></script>
-  <script src="assets/js/api.js"></script>
-  <script src="assets/js/ui.js"></script>
-  <script src="assets/js/pages/home.js"></script>
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/monitor.js" defer></script>
+  <script src="assets/js/api.js" defer></script>
+  <script src="assets/js/ui.js" defer></script>
+  <script src="assets/js/pages/home.js" defer></script>
 </body>
 </html>

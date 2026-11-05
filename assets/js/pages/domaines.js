@@ -23,6 +23,7 @@
 
   async function run(query, scroll) {
     errorEl.classList.remove('show');
+    errorEl.textContent = '';
     results.setAttribute('aria-busy', 'true');
     results.innerHTML = skeleton();
     try {
@@ -83,13 +84,13 @@
         </div>`
       : `<div class="card p-6 sm:p-7">
           <p class="flex items-center gap-2 text-red-600 font-semibold text-sm"><i data-lucide="circle-x" class="w-5 h-5"></i>Déjà enregistré</p>
-          <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold mono break-all text-slate-400 line-through decoration-2">${esc(r.domain)}</h2>
+          <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold mono break-all text-slate-500 line-through decoration-2">${esc(r.domain)}</h2>
           <p class="mt-2 text-sm text-slate-600">Ce nom appartient déjà à quelqu’un. Choisissez une autre extension ou une variante ci-dessous.</p>
         </div>`;
 
     const row = (x) => `
       <li class="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 ${x.available ? '' : 'opacity-60'}">
-        <span class="w-9 h-9 rounded-lg grid place-items-center shrink-0 ${x.available ? 'bg-emerald-50 text-cta' : 'bg-slate-100 text-slate-400'}"><i data-lucide="${x.available ? 'check' : 'x'}" class="w-4 h-4"></i></span>
+        <span class="w-9 h-9 rounded-lg grid place-items-center shrink-0 ${x.available ? 'bg-emerald-50 text-cta' : 'bg-slate-100 text-slate-500'}"><i data-lucide="${x.available ? 'check' : 'x'}" class="w-4 h-4"></i></span>
         <div class="min-w-0 flex-1">
           <p class="font-semibold mono text-ink break-all">${esc(x.label)}<span class="text-freda">${esc(x.tld)}</span></p>
           <div class="mt-1 flex items-center gap-2 flex-wrap">${x.available ? priceTag(x) : '<span class="text-xs text-muted">Non disponible</span>'}</div>
