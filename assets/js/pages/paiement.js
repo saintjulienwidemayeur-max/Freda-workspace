@@ -160,6 +160,7 @@
            <div class="flex justify-between gap-3 text-xs"><dt class="text-muted">Renouvellement ensuite</dt><dd class="text-muted">${FW.money([cart.domain, ...(cart.extras || [])].reduce((a, x) => a + x.renew, 0))}/an</dd></div>
            `;
       $('#sum-notes').innerHTML = domainFree ? '' : `
+        <li class="flex items-center gap-2"><i data-lucide="receipt" class="w-3.5 h-3.5 text-freda"></i>Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %</li>
         <li class="flex items-center gap-2"><i data-lucide="mail-minus" class="w-3.5 h-3.5 text-freda"></i>Sans email ni abonnement : vous l’ajoutez après, si vous voulez</li>
         <li class="flex items-center gap-2"><i data-lucide="zap" class="w-3.5 h-3.5 text-freda"></i>Domaine enregistré en quelques minutes</li>
         <li class="flex items-center gap-2"><i data-lucide="receipt" class="w-3.5 h-3.5 text-freda"></i>Facture envoyée par email, pour votre comptabilité</li>`;
@@ -175,6 +176,7 @@
         <div class="flex justify-between gap-3 pt-3 border-t border-line text-base"><dt class="font-bold text-ink">Total</dt><dd class="font-extrabold text-ink">${FW.money(price)}</dd></div>
         <div class="flex justify-between gap-3 text-xs"><dt class="text-muted">Renouvellement</dt><dd class="text-muted">${FW.money(FW.planPrice(selPlan, selCycle))} tous les ${FW.cycleSpan(selCycle)}</dd></div>`;
       $('#sum-notes').innerHTML = `
+        <li class="flex items-center gap-2"><i data-lucide="receipt" class="w-3.5 h-3.5 text-freda"></i>Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %</li>
         <li class="flex items-center gap-2"><i data-lucide="wand-sparkles" class="w-3.5 h-3.5 text-freda"></i>MX, SPF, DKIM et DMARC configurés automatiquement</li>
         <li class="flex items-center gap-2"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-freda"></i>Remboursement de l’offre sous 14 jours</li>
         <li class="flex items-center gap-2"><i data-lucide="x-circle" class="w-3.5 h-3.5 text-freda"></i>Annulable à tout moment</li>`;
