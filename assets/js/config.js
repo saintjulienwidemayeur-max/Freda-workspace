@@ -35,7 +35,14 @@ window.FW_CONFIG = {
     taxId: '',
   },
 
-  COUNTRIES: ['Haïti', 'République dominicaine', 'États-Unis', 'Canada', 'France', 'Autre'],
+  /* Tous les pays (le service n'est pas réservé à Haïti) : Haïti en tête, puis ordre alphabétique français. */
+  COUNTRIES: (function () {
+    var codes = 'AF ZA AL DZ DE AD AO AG SA AR AM AU AT AZ BS BH BD BB BE BZ BJ BT BY MM BO BA BW BR BN BG BF BI KH CM CA CV CL CN CY CO KM CG CD KR KP CR CI HR CU DK DJ DM EG AE EC ER ES EE SZ US ET FJ FI FR GA GM GE GH GR GD GT GN GW GQ GY HT HN HU IN ID IQ IR IE IS IL IT JM JP JO KZ KE KG KI KW LA LS LV LB LR LY LI LT LU MK MG MY MW MV ML MT MA MH MU MR MX FM MD MC MN ME MZ NA NR NP NI NE NG NO NZ OM UG UZ PK PW PA PG PY NL PE PH PL PT QA DO CZ RO GB RU RW KN LC VC SB SV WS SM ST SN RS SC SL SG SK SI SO SD SS LK SE CH SR SY TJ TZ TD TH TL TG TO TT TN TM TR TV UA UY VU VA VE VN YE ZM ZW'.split(' ');
+    var names;
+    try { var dn = new Intl.DisplayNames(['fr'], { type: 'region' }); names = codes.map(function (c) { return dn.of(c); }); } catch (e) { return ['Haïti', 'République dominicaine', 'États-Unis', 'Canada', 'France', 'Autre']; }
+    names = names.filter(function (n, i) { return n && n !== codes[i] && n !== 'Haïti'; }).sort(function (a, b) { return a.localeCompare(b, 'fr'); });
+    return ['Haïti'].concat(names, ['Autre']);
+  })(),
 
   SUPPORT_EMAIL: 'support@fredaworkspace.com',
   SUPPORT_WHATSAPP: '+509 0000 0000',

@@ -38,13 +38,13 @@ const enDate = (iso) => new Date(iso + 'T12:00:00Z').toLocaleDateString('en-US',
 const frDate = (iso) => new Date(iso + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const htDate = (iso) => { const m = ['janvye', 'fevriye', 'mas', 'avril', 'me', 'jen', 'jiyè', 'out', 'septanm', 'oktòb', 'novanm', 'desanm']; const d = new Date(iso + 'T12:00:00Z'); return `${d.getUTCDate()} ${m[d.getUTCMonth()]} ${d.getUTCFullYear()}`; };
 
-const ORG = { '@type': 'Organization', '@id': SITE + '/#organization', name: 'Freda Workspace', url: SITE + '/', logo: SITE + '/android-chrome-512.png', parentOrganization: { '@type': 'Organization', name: 'Freda Pay LLC' }, areaServed: { '@type': 'Country', name: 'Haïti' }, knowsLanguage: ['fr', 'ht'], email: 'support@fredaworkspace.com' };
+const ORG = { '@type': 'Organization', '@id': SITE + '/#organization', name: 'Freda Workspace', url: SITE + '/', logo: SITE + '/android-chrome-512.png', parentOrganization: { '@type': 'Organization', name: 'Freda Pay LLC' }, areaServed: ['Worldwide', { '@type': 'Country', name: 'Haïti' }], knowsLanguage: ['fr', 'ht'], email: 'support@fredaworkspace.com' };
 
 /* ---------- JSON-LD ---------- */
 function graph(p) {
   const self = url(p.path);
   const nodes = [
-    { '@type': 'WebPage', '@id': self + '#webpage', url: self, name: p.title, description: fill(p.description), inLanguage: p.lang, isPartOf: { '@type': 'WebSite', '@id': SITE + '/#website', url: SITE + '/', name: 'Freda Workspace' }, publisher: { '@id': ORG['@id'] }, dateModified: LASTMOD, breadcrumb: { '@id': self + '#breadcrumb' }, mainEntity: { '@id': self + '#faq' }, about: { '@id': ORG['@id'] } },
+    { '@type': p.type === 'about' ? ['AboutPage', 'WebPage'] : 'WebPage', '@id': self + '#webpage', url: self, name: p.title, description: fill(p.description), inLanguage: p.lang, isPartOf: { '@type': 'WebSite', '@id': SITE + '/#website', url: SITE + '/', name: 'Freda Workspace' }, publisher: { '@id': ORG['@id'] }, dateModified: LASTMOD, breadcrumb: { '@id': self + '#breadcrumb' }, mainEntity: { '@id': self + '#faq' }, about: { '@id': ORG['@id'] } },
     ORG,
     { '@type': 'BreadcrumbList', '@id': self + '#breadcrumb', itemListElement: [{ '@type': 'ListItem', position: 1, name: UI[p.lang].home, item: SITE + '/' }, { '@type': 'ListItem', position: 2, name: p.breadcrumb, item: self }] },
     { '@type': 'FAQPage', '@id': self + '#faq', inLanguage: p.lang, mainEntity: p.faq.map(([q, a]) => ({ '@type': 'Question', name: fill(q), acceptedAnswer: { '@type': 'Answer', text: fill(a) } })) },
@@ -56,11 +56,12 @@ function graph(p) {
 /* ---------- HTML ---------- */
 /** Liens affichés en dur (sans JavaScript) dans l'en-tête et le pied de page de chaque page générée. */
 function staticLinks(base) {
-  const core = [['domaines.html', 'Recherche de domaine'], ['support.html', 'Centre d’aide'], ['index.html#tarifs', 'Tarifs'], ['legal.html', 'Mentions légales']];
-  return [...core, ...pages.map((p) => [p.path, p.breadcrumb])].map(([h, l]) => [base + h, l]);
+  const core = [['domaines.html', 'Recherche de domaine'], ['support.html', 'Centre d’aide'], ['index.html#tarifs', 'Tarifs'], ['legal.html', 'Mentions légales'], ['qui-sommes-nous.html', 'Qui sommes-nous']];
+  return [...core, ...pages.filter((p) => p.path !== 'qui-sommes-nous.html').map((p) => [p.path, p.breadcrumb])].map(([h, l]) => [base + h, l]);
 }
 const arrow = '<i data-lucide="arrow-right"></i>';
 function render(p) {
+  const resolve = (h, b) => { h = h.replace(/^\.\.\//, ''); const dir = path.dirname(p.path); const local = dir !== '.' ? dir + '/' + h : null; if (local && pages.some((q) => q.path === local)) h = local; return b + h; };
   const ui = UI[p.lang], base = p.lang === 'fr' ? '' : '../', self = url(p.path);
   const alts = [{ lang: p.lang, path: p.path }, ...Object.entries(p.alt).map(([lang, path]) => ({ lang, path }))];
   const frAlt = alts.find((a) => a.lang === 'fr');
@@ -83,9 +84,7 @@ function render(p) {
   <meta name="description" content="${esc(desc)}">
   <link rel="canonical" href="${self}">
 ${hreflang}
-  <meta name="geo.region" content="HT">
-  <meta name="geo.placename" content="Haïti">
-  <meta property="og:type" content="website">
+${p.geo ? '  <meta name="geo.region" content="HT">\n  <meta name="geo.placename" content="Haïti">\n' : ''}  <meta property="og:type" content="website">
   <meta property="og:site_name" content="Freda Workspace">
   <meta property="og:locale" content="${ui.locale}">
   <meta property="og:url" content="${self}">
@@ -127,8 +126,8 @@ ${hreflang}
           <h1 class="mt-5 max-w-3xl text-4xl sm:text-5xl font-extrabold tracking-tight !text-white">${esc(fill(p.h1))}</h1>
           <p class="mt-5 max-w-3xl text-lg text-slate-300 leading-relaxed">${esc(fill(p.lead))}</p>
           <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="${base}${p.cta[0][1].replace(/^\.\.\//, '')}" class="btn btn-cta btn-lg">${esc(p.cta[0][0])}${arrow}</a>
-            <a href="${base}${p.cta[1][1].replace(/^\.\.\//, '')}" class="btn btn-white btn-lg">${esc(p.cta[1][0])}</a>
+            <a href="${resolve(p.cta[0][1], base)}" class="btn btn-cta btn-lg">${esc(p.cta[0][0])}${arrow}</a>
+            <a href="${resolve(p.cta[1][1], base)}" class="btn btn-white btn-lg">${esc(p.cta[1][0])}</a>
           </div>
           <p class="mt-6 text-xs text-slate-400">${ui.updated} <time datetime="${LASTMOD}">${dateLabel}</time></p>
         </div>
@@ -158,7 +157,7 @@ ${sections}
         <section class="mt-14" aria-labelledby="related-title">
           <h2 id="related-title" class="text-xl font-bold">${ui.related}</h2>
           <ul class="mt-4 grid gap-3 sm:grid-cols-2">
-            ${p.related.map(([href, label]) => `<li><a href="${href.startsWith('../') ? base + href.slice(3) : href.startsWith('ht/') ? base + href : href}" class="card p-4 flex items-center justify-between gap-3 hover:border-freda/40 transition-colors"><span class="font-semibold text-ink">${esc(label)}</span><i data-lucide="chevron-right" class="w-4 h-4 text-muted shrink-0"></i></a></li>`).join('\n            ')}
+            ${p.related.map(([href, label]) => `<li><a href="${resolve(href, base)}" class="card p-4 flex items-center justify-between gap-3 hover:border-freda/40 transition-colors"><span class="font-semibold text-ink">${esc(label)}</span><i data-lucide="chevron-right" class="w-4 h-4 text-muted shrink-0"></i></a></li>`).join('\n            ')}
           </ul>
         </section>
       </article>
@@ -192,7 +191,7 @@ function sitemap() {
   }
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${x.join('\n')}\n</urlset>\n`;
 }
-const summary = 'Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises, avec un accent sur Haïti : paiement par MonCash, NatCash ou carte, support en français et en créole haïtien. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.';
+const summary = 'Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises du monde entier, avec un accent sur Haïti : Freda Connect (noms de domaine et DNS) et Freda Mail (email professionnel) ; paiement par MonCash, NatCash, carte et les autres moyens proposés par Stripe ; support en français, en créole haïtien et en anglais. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.';
 function llms() {
   const fr = pages.filter((p) => p.lang === 'fr'), ht = pages.filter((p) => p.lang === 'ht'), en = pages.filter((p) => p.lang === 'en');
   const line = (p) => `- [${fill(p.h1)}](${url(p.path)}): ${fill(p.description)}`;
