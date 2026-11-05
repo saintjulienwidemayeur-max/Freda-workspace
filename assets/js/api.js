@@ -271,6 +271,19 @@
       return { next: p.get('next') || '', isNew: p.get('new') === '1' };
     },
 
+    /** Confirmation de l'adresse e-mail depuis le lien reçu à l'inscription (connexion.html?verify=JETON). */
+    async verifyEmail(token) {
+      if (C.DEMO_MODE) { await wait(300); return { ok: true }; }
+      const r = await request('/auth/verify', { method: 'POST', body: { token } });
+      await workspace.load().catch(() => {});
+      return r;
+    },
+    /** Renvoie le lien de confirmation (compte connecté, adresse non vérifiée). */
+    async resendVerification() {
+      if (C.DEMO_MODE) { await wait(300); return { ok: true }; }
+      return request('/auth/verify/resend', { method: 'POST' });
+    },
+
     /** Nouveau mot de passe depuis le lien reçu par e-mail (connexion.html?reset=JETON). */
     async confirmReset(token, password) {
       if (C.DEMO_MODE) { await wait(500); return { ok: true }; }

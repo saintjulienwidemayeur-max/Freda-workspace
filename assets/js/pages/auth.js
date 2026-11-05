@@ -89,6 +89,12 @@
         .then((r) => { if (r) { if (r.isNew && !next) location.href = 'entreprise.html'; else goNext(); } })
         .catch((err) => { const e = $('#login-error'); if (e) { e.textContent = err.message; e.classList.add('show'); } });
     }
+    const verifyToken = params.get('verify');
+    if (verifyToken) {
+      FW.auth.verifyEmail(verifyToken)
+        .then(() => { FWUI.toast('Adresse email confirmée. Merci !'); setTimeout(() => { location.href = FW.auth.current() ? 'espace/index.html' : 'connexion.html'; }, 900); })
+        .catch((err) => { const e = $('#login-error'); if (e) { e.textContent = err.message; e.classList.add('show'); } FWUI.toast(err.message, 'error'); });
+    }
     const resetToken = params.get('reset');
     if (resetToken) {
       $('#panel-client').hidden = true; $('#panel-newpass').hidden = false;
