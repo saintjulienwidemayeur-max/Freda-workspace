@@ -26,7 +26,7 @@
   function resolveEntry() {
     cart = FW.cart.get();
     if (params.get('plan') && C.PLANS[params.get('plan')]) cart = FW.cart.set({ plan: params.get('plan') });
-    if (['monthly', 'yearly'].includes(params.get('cycle'))) cart = FW.cart.set({ cycle: params.get('cycle') });
+    if (FW.validCycle(params.get('cycle'))) cart = FW.cart.set({ cycle: params.get('cycle') });
     const session = FW.auth.current();
     fixedDomain = null; domainMode = 'fixed'; savedMethod = null;
     domainFree = !!cart.ownDomain && !cart.domain;
@@ -110,7 +110,8 @@
 
   /* ---------- Offre email (étape 2) ---------- */
   function renderPlanPick() {
-    document.querySelectorAll('[data-pcycle]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.pcycle === selCycle)));
+    const cs = $('#cycle-select');
+    if (cs) { if (!cs.options.length) cs.innerHTML = Array.from({ length: 12 }, (_, i) => i + 1).map((n) => `<option value="${FW.cycleOf(n)}">${n} mois${n === 12 ? ' (2 mois offerts)' : ''}</option>`).join(''); cs.value = selCycle; }
     $('#plan-pick').innerHTML = Object.values(C.PLANS).map((p) => `
       <label class="flex items-center gap-3 p-3.5 rounded-xl border cursor-pointer transition-colors ${selPlan === p.id ? 'border-freda bg-mist/60' : 'border-line hover:border-slate-300'}">
         <input type="radio" name="plan" value="${p.id}" class="checkbox" ${selPlan === p.id ? 'checked' : ''}>
@@ -118,11 +119,12 @@
           <span class="flex items-center gap-2"><span class="font-semibold text-ink">${p.name}</span>${p.popular ? '<span class="badge badge-info">Le plus choisi</span>' : ''}</span>
           <span class="block text-xs text-muted">${C.boxLabel(p)} · ${C.storageLabel(p)}</span>
         </span>
-        <span class="text-sm font-semibold tabular text-ink whitespace-nowrap">${FW.money(FW.planPrice(p.id, selCycle))}<span class="text-muted font-normal">${selCycle === 'yearly' ? '/an' : '/mois'}</span></span>
+        <span class="text-sm font-semibold tabular text-ink whitespace-nowrap">${FW.money(FW.planPrice(p.id, selCycle))}<span class="text-muted font-normal"> ${FW.cycleMonths(selCycle) === 1 ? '/mois' : FW.cycleMonths(selCycle) === 12 ? '/an' : 'pour ' + FW.cycleSpan(selCycle)}</span></span>
       </label>`).join('');
   }
   $('#plan-pick').addEventListener('change', (e) => { selPlan = e.target.value; FW.cart.set({ plan: selPlan }); refresh(); });
-  document.querySelectorAll('[data-pcycle]').forEach((b) => b.addEventListener('click', () => { selCycle = b.dataset.pcycle; FW.cart.set({ cycle: selCycle }); refresh(); }));
+  $('#cycle-select').addEventListener('change', (e) => { selCycle = e.target.value; FW.cart.set({ cycle: selCycle }); refresh(); });
+  document.addEventListener('fw:plans', () => refresh());      // prix des offres du serveur arrivés après l'affichage
 
   /* ---------- Domaine de l'adresse ---------- */
   function renderDomainPick() {
@@ -165,13 +167,13 @@
       const p = C.PLANS[selPlan];
       const dom = currentDomain();
       $('#sum-domain').textContent = dom ? ($('#mail-local').value.trim().toLowerCase() || 'contact') + '@' + dom : 'Email pro';
-      $('#sum-plan').textContent = 'Étape 3 · Offre ' + p.name + ' · ' + (selCycle === 'yearly' ? 'Annuel' : 'Mensuel');
+      $('#sum-plan').textContent = 'Étape 3 · Offre ' + p.name + ' · ' + FW.cycleName(selCycle).replace(/^./, (c) => c.toUpperCase());
       const price = FW.planPrice(selPlan, selCycle);
       $('#sum-lines').innerHTML = `
-        <div class="flex justify-between gap-3"><dt class="text-slate-600">Offre ${p.name} (${selCycle === 'yearly' ? '12 mois' : '1 mois'})</dt><dd class="font-medium text-ink">${FW.money(price)}</dd></div>
+        <div class="flex justify-between gap-3"><dt class="text-slate-600">Offre ${p.name} (${FW.cycleSpan(selCycle)})</dt><dd class="font-medium text-ink">${FW.money(price)}</dd></div>
         <div class="flex justify-between gap-3"><dt class="text-slate-600">Boîtes mail</dt><dd class="font-medium text-ink">${C.boxLabel(p)} · ${C.storageLabel(p)}</dd></div>
         <div class="flex justify-between gap-3 pt-3 border-t border-line text-base"><dt class="font-bold text-ink">Total</dt><dd class="font-extrabold text-ink">${FW.money(price)}</dd></div>
-        <div class="flex justify-between gap-3 text-xs"><dt class="text-muted">Renouvellement</dt><dd class="text-muted">${FW.money(price)}${selCycle === 'yearly' ? '/an' : '/mois'}</dd></div>`;
+        <div class="flex justify-between gap-3 text-xs"><dt class="text-muted">Renouvellement</dt><dd class="text-muted">${FW.money(FW.planPrice(selPlan, selCycle))} tous les ${FW.cycleSpan(selCycle)}</dd></div>`;
       $('#sum-notes').innerHTML = `
         <li class="flex items-center gap-2"><i data-lucide="wand-sparkles" class="w-3.5 h-3.5 text-freda"></i>MX, SPF, DKIM et DMARC configurés automatiquement</li>
         <li class="flex items-center gap-2"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-freda"></i>Remboursement de l’offre sous 14 jours</li>
@@ -498,7 +500,7 @@
     $('#empty-cart').hidden = !empty;
     if (empty) { FWUI.icons(); return; }
     selPlan = cart.plan && C.PLANS[cart.plan] ? cart.plan : 'business';
-    selCycle = cart.cycle || 'monthly';
+    selCycle = FW.validCycle(cart.cycle) ? cart.cycle : 'monthly';
     renderAccount();
     if (stage === 'email') enterEmailStage();
     else { renderStage(); refresh(); }
