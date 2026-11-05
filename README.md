@@ -29,7 +29,7 @@ Puis ouvrez `http://localhost:8080`. Netlify, Vercel ou Render (site statique) f
 | `espace/domaines.html` | Domaines, auto-renouvellement, verrouillage, code EPP, connexion d'un domaine externe |
 | `espace/emails.html` | Boîtes mail, alias, paramètres IMAP / SMTP |
 | `espace/dns.html` | DNS : diagnostic, réparation automatique, CRUD des enregistrements, propagation, export de zone |
-| `espace/facturation.html` | Offre, changement de plan, moyens de paiement, factures |
+| `espace/facturation.html` | **Solde prépayé** (recharge MonCash / NatCash, paiement automatique des offres et domaines, historique), offre, changement de plan, moyens de paiement, factures |
 | `espace/parametres.html` | Profil, entreprise, sécurité (2FA, comptes Google/Apple), notifications |
 
 ## Organisation du code

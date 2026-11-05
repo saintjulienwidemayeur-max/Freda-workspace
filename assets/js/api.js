@@ -575,6 +575,35 @@
     async remove(id) { const r = await request('/payment-methods/' + id, { method: 'DELETE' }); await workspace.load(); return r; },
   };
 
+  /* ---------- Solde prépayé (MonCash / NatCash ne prélèvent pas tout seuls) ----------
+   * Le client recharge son solde (MonCash / NatCash), puis ses offres et renouvellements sont payés avec. Le serveur décide de tout : montants, débits, échéances. */
+  const balance = {
+    cached: null,
+    async get() {
+      if (!C.DEMO_MODE) { const b = await request('/balance'); balance.cached = b; return b; }
+      const st = store.get('balance') || { balance: 0, autoPay: true, entries: [] };
+      const ws = workspace.get() || {};
+      const pl = ws.plan && !ws.plan.cancelAtPeriodEnd ? { plan: ws.plan.id, amount: planPrice(ws.plan.id, ws.plan.cycle), renews: ws.plan.renews } : null;
+      const out = { balance: st.balance, currency: 'USD', balanceHtg: Math.floor(st.balance * C.HTG_RATE), htgRate: C.HTG_RATE, autoPay: st.autoPay, min: 5, max: 500, next: pl && { ...pl, missing: Math.max(0, Math.round((pl.amount - st.balance) * 100) / 100) }, entries: st.entries };
+      balance.cached = out;
+      return out;
+    },
+    async setAutoPay(on) {
+      if (!C.DEMO_MODE) { await request('/balance', { method: 'PATCH', body: { autoPay: !!on } }); return !!on; }
+      const st = store.get('balance') || { balance: 0, autoPay: true, entries: [] }; st.autoPay = !!on; store.set('balance', st); return !!on;
+    },
+    /** Recharge : en production, redirection MonCash / NatCash puis attente de la confirmation du serveur (payments.settle). */
+    async topup(amount, method) {
+      if (!C.DEMO_MODE) { const r = await payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'topup', amount, method: method || 'all' } })); await balance.get().catch(() => {}); return r; }
+      await wait(900);
+      const st = store.get('balance') || { balance: 0, autoPay: true, entries: [] };
+      st.balance = Math.round((st.balance + Number(amount)) * 100) / 100;
+      st.entries.unshift({ id: 'b' + Date.now(), amount: Number(amount), kind: 'topup', note: 'Recharge ' + (method === 'natcash' ? 'NatCash' : 'MonCash'), at: new Date().toISOString() });
+      store.set('balance', st);
+      return { status: 'succeeded' };
+    },
+  };
+
   /**
    * Moyen de paiement par défaut du client : une carte enregistrée est débitée directement (Stripe) ; sinon MonCash / NatCash (Freda Pay Issuing, avec page de paiement).
    * Le serveur revérifie que le moyen appartient bien au compte ; le navigateur n'envoie jamais de montant.
@@ -587,7 +616,13 @@
 
   /** Changement d'offre en production : nouvelle commande « subscription » (carte enregistrée si elle existe, sinon MonCash / NatCash). */
   const plans = {
-    async change({ plan, cycle }) { return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, ...preferredPayment() } })); },
+    async change({ plan, cycle }) {
+      const b = balance.cached;                                                                 // le solde couvre l'offre : payée avec le solde, sans redirection
+      const pay = b && b.balance >= planPrice(plan, cycle) ? { method: 'balance' } : preferredPayment();
+      const r = await payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, ...pay } }));
+      balance.get().catch(() => {});
+      return r;
+    },
     /** Résiliation : plus de prélèvement, boîtes utilisables jusqu'à la fin de la période payée ; reprise possible avant la fin. */
     async cancel() { if (C.DEMO_MODE) return { cancelAtPeriodEnd: true }; const r = await request('/subscription/cancel', { method: 'POST' }); await workspace.load().catch(() => {}); return r; },
     async resume() { if (C.DEMO_MODE) return { cancelAtPeriodEnd: false }; const r = await request('/subscription/resume', { method: 'POST' }); await workspace.load().catch(() => {}); return r; },
@@ -752,5 +787,5 @@
   trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
   trackAfter(domains, 'verify', 'domain_verified');
 
-  window.FW = Object.assign(window.FW || {}, { passwordRules, config: C, store, money, date, planPrice, normalizeDomain, dnsConfig: () => { const w = workspace.get() || {}; return w.dnsConfig || { nameservers: C.DEMO_MODE ? C.NAMESERVERS : [], nameserversAvailable: !!C.DEMO_MODE }; }, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
+  window.FW = Object.assign(window.FW || {}, { passwordRules, config: C, store, money, date, planPrice, normalizeDomain, dnsConfig: () => { const w = workspace.get() || {}; return w.dnsConfig || { nameservers: C.DEMO_MODE ? C.NAMESERVERS : [], nameserversAvailable: !!C.DEMO_MODE }; }, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, balance, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
 })();

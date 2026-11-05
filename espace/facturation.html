@@ -25,6 +25,32 @@
       <main class="gutter py-8">
         <div class="max-w-[1180px] mx-auto space-y-6">
 
+          <!-- Solde prépayé -->
+          <section class="card p-5 sm:p-6 scroll-mt-24" id="solde" aria-labelledby="bal-title">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+              <div class="min-w-0 max-w-2xl">
+                <h2 id="bal-title" class="text-lg font-bold">Solde Freda</h2>
+                <p class="mt-1 text-sm text-muted">MonCash et NatCash ne prélèvent pas tout seuls. Rechargez votre solde : vos offres et vos domaines sont payés avec, automatiquement, quelques jours avant l’échéance.</p>
+              </div>
+              <button type="button" class="btn btn-cta" id="btn-topup"><i data-lucide="wallet"></i>Recharger</button>
+            </div>
+            <div class="mt-6 grid gap-6 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center">
+              <div>
+                <p class="font-display text-4xl font-extrabold text-ink tabular" id="bal-amount">…</p>
+                <p class="mt-1 text-sm text-muted tabular" id="bal-htg"></p>
+              </div>
+              <div id="bal-next" class="rounded-xl border border-line p-4 text-sm" hidden></div>
+            </div>
+            <label class="mt-5 flex items-start gap-3 cursor-pointer">
+              <span class="switch mt-0.5"><input type="checkbox" id="bal-auto" checked><span></span></span>
+              <span class="text-sm"><strong class="text-ink">Payer automatiquement avec mon solde</strong><br><span class="text-muted">Offre Freda Mail 2 jours avant l’échéance, noms de domaine 7 jours avant l’expiration, dès que le solde suffit. Sinon, nous vous écrivons (adresse d’inscription et boîte Freda Mail).</span></span>
+            </label>
+            <div class="mt-6">
+              <h3 class="text-sm font-semibold text-ink">Derniers mouvements</h3>
+              <ul class="mt-2 divide-y divide-line" id="bal-entries"></ul>
+            </div>
+          </section>
+
           <div class="grid xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-6">
             <!-- Offre actuelle -->
             <section class="card p-5 sm:p-6 scroll-mt-24" id="offre" aria-labelledby="plan-title">
@@ -69,6 +95,37 @@
         </div>
       </main>
     </div>
+  </div>
+
+  <!-- Recharger le solde -->
+  <div class="modal" id="modal-topup" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <form class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="topup-title" id="topup-form" novalidate>
+      <div class="p-6 border-b border-line flex items-center justify-between">
+        <h2 id="topup-title" class="text-lg font-bold">Recharger mon solde</h2>
+        <button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Fermer"><i data-lucide="x"></i></button>
+      </div>
+      <div class="p-6">
+        <p class="label">Montant</p>
+        <div class="flex gap-2" id="topup-presets"></div>
+        <div class="mt-3">
+          <label for="topup-amount" class="label">Autre montant (en dollars)</label>
+          <input id="topup-amount" class="input tabular" inputmode="decimal" placeholder="Ex. 15" autocomplete="off">
+          <p class="hint tabular" id="topup-htg"></p>
+        </div>
+        <p class="label mt-5">Payer avec</p>
+        <div class="segmented w-full" role="tablist" aria-label="Moyen de paiement">
+          <button type="button" role="tab" class="flex-1 justify-center" data-topup-method="moncash" aria-selected="true">MonCash</button>
+          <button type="button" role="tab" class="flex-1 justify-center" data-topup-method="natcash" aria-selected="false">NatCash</button>
+        </div>
+        <p class="hint">Vous serez dirigé vers la page de paiement MonCash ou NatCash. Le solde est crédité dès que le paiement est confirmé.</p>
+        <p class="field-error mt-3" id="topup-error"></p>
+      </div>
+      <div class="p-6 pt-0 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+        <button type="button" class="btn btn-outline" data-close>Annuler</button>
+        <button type="submit" class="btn btn-cta"><i data-lucide="wallet"></i>Recharger</button>
+      </div>
+    </form>
   </div>
 
   <!-- Ajouter un moyen de paiement -->

@@ -193,6 +193,70 @@
       .finally(() => { FWUI.setLoading(b, false); FWUI.icons(); });
   });
 
+  /* ---------- Solde prépayé ---------- */
+  const usd = (n) => FW.money(n);
+  let bal = null, topupMethod = 'moncash';
+  const KIND = { topup: ['Recharge', 'plus-circle', 'text-emerald-600'], charge: ['Paiement', 'minus-circle', 'text-slate-500'], refund: ['Remboursement', 'rotate-ccw', 'text-emerald-600'], adjust: ['Ajustement', 'sliders-horizontal', 'text-slate-500'] };
+  function renderBalance() {
+    if (!bal) return;
+    $('#bal-amount').textContent = usd(bal.balance);
+    $('#bal-htg').textContent = '≈ ' + Number(bal.balanceHtg).toLocaleString('fr-FR') + ' HTG';
+    $('#bal-auto').checked = !!bal.autoPay;
+    const nx = $('#bal-next');
+    if (bal.next) {
+      const short = bal.next.missing > 0;
+      nx.hidden = false;
+      nx.className = 'rounded-xl border p-4 text-sm ' + (short ? 'border-amber-300 bg-amber-50 text-amber-900' : 'border-emerald-200 bg-emerald-50 text-emerald-900');
+      nx.innerHTML = short
+        ? `<p class="font-semibold">Solde insuffisant pour la prochaine échéance</p><p class="mt-1">Votre offre (${usd(bal.next.amount)}) se renouvelle le ${FW.date(bal.next.renews)}. Il manque <strong>${usd(bal.next.missing)}</strong> (≈ ${Math.ceil(bal.next.missing * bal.htgRate).toLocaleString('fr-FR')} HTG).</p><button type="button" class="btn btn-cta btn-sm mt-3" data-topup="${Math.max(bal.min, Math.ceil(bal.next.missing))}"><i data-lucide="wallet"></i>Recharger ${usd(Math.max(bal.min, Math.ceil(bal.next.missing)))}</button>`
+        : `<p class="font-semibold">Prochaine échéance couverte</p><p class="mt-1">Votre offre (${usd(bal.next.amount)}) sera payée avec votre solde ${bal.autoPay ? 'automatiquement' : 'dès que vous la réglerez'} le ${FW.date(bal.next.renews)}.</p>`;
+    } else nx.hidden = true;
+    $('#bal-entries').innerHTML = !bal.entries.length ? '<li class="py-3 text-sm text-muted">Aucun mouvement pour le moment.</li>' : bal.entries.slice(0, 8).map((e) => {
+      const k = KIND[e.kind] || [e.kind, 'circle', 'text-slate-500'];
+      return `<li class="py-3 flex items-center gap-3"><i data-lucide="${k[1]}" class="w-5 h-5 shrink-0 ${k[2]}"></i><div class="min-w-0 flex-1"><p class="text-sm font-medium text-ink truncate">${esc(e.note || k[0])}</p><p class="text-xs text-muted tabular">${FW.date(String(e.at).slice(0, 10))}</p></div><p class="font-semibold tabular ${e.amount >= 0 ? 'text-emerald-600' : 'text-ink'}">${e.amount >= 0 ? '+' : '−'}${usd(Math.abs(e.amount))}</p></li>`;
+    }).join('');
+    FWUI.icons();
+  }
+  async function loadBalance() { try { bal = await FW.balance.get(); renderBalance(); } catch (err) { $('#bal-amount').textContent = '—'; $('#bal-htg').textContent = 'Solde momentanément indisponible.'; } }
+
+  function openTopup(preset) {
+    const min = bal ? bal.min : 5, max = bal ? bal.max : 500;
+    $('#topup-presets').innerHTML = [5, 10, 25, 50].filter((a) => a >= min && a <= max).map((a) => `<button type="button" class="btn btn-outline btn-sm flex-1 justify-center tabular" data-preset="${a}">${a} $</button>`).join('');
+    $('#topup-amount').value = preset ? String(preset) : '';
+    $('#topup-error').classList.remove('show');
+    syncTopupHtg();
+    FWUI.openModal('modal-topup');
+  }
+  const topupAmount = () => { const n = Number(String($('#topup-amount').value).replace(',', '.')); return Number.isFinite(n) ? Math.round(n * 100) / 100 : NaN; };
+  function syncTopupHtg() { const a = topupAmount(); const rate = bal ? bal.htgRate : C.HTG_RATE; $('#topup-htg').textContent = a > 0 ? '≈ ' + Math.ceil(a * rate).toLocaleString('fr-FR') + ' HTG à payer' : ''; document.querySelectorAll('[data-preset]').forEach((b) => b.classList.toggle('!border-freda', Number(b.dataset.preset) === a)); }
+  $('#btn-topup').addEventListener('click', () => openTopup());
+  $('#solde').addEventListener('click', (e) => { const t = e.target.closest('[data-topup]'); if (t) openTopup(Number(t.dataset.topup)); });
+  $('#topup-presets').addEventListener('click', (e) => { const b = e.target.closest('[data-preset]'); if (b) { $('#topup-amount').value = b.dataset.preset; syncTopupHtg(); } });
+  $('#topup-amount').addEventListener('input', syncTopupHtg);
+  document.querySelectorAll('[data-topup-method]').forEach((b) => b.addEventListener('click', () => { topupMethod = b.dataset.topupMethod; document.querySelectorAll('[data-topup-method]').forEach((x) => x.setAttribute('aria-selected', String(x === b))); }));
+  $('#topup-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = $('#topup-error'); const a = topupAmount();
+    const min = bal ? bal.min : 5, max = bal ? bal.max : 500;
+    if (!(a >= min && a <= max)) { err.textContent = 'Entrez un montant entre ' + min + ' $ et ' + max + ' $.'; err.classList.add('show'); return; }
+    err.classList.remove('show');
+    const btn = e.target.querySelector('[type=submit]');
+    FWUI.setLoading(btn, true, 'Paiement...');
+    try {
+      await FW.balance.topup(a, topupMethod);
+      FWUI.closeModal('modal-topup');
+      await loadBalance();
+      FWUI.toast('Solde rechargé de ' + usd(a));
+    } catch (er) { err.textContent = er.message; err.classList.add('show'); }
+    FWUI.setLoading(btn, false);
+  });
+  $('#bal-auto').addEventListener('change', async (e) => {
+    const on = e.target.checked;
+    try { await FW.balance.setAutoPay(on); if (bal) bal.autoPay = on; FWUI.toast(on ? 'Paiement automatique avec le solde activé' : 'Paiement automatique désactivé : vous recevrez un rappel avant chaque échéance'); await loadBalance(); }
+    catch (er) { e.target.checked = !on; FWUI.toast(er.message, 'error'); }
+  });
+  loadBalance().then(() => { const q = Number(new URLSearchParams(location.search).get('topup')); if (q > 0 && bal) { history.replaceState(null, '', location.pathname); openTopup(q); } });   // lien reçu par e-mail : ?topup=<montant manquant>
+
   function render() { renderPlans(); renderPm(); renderInvoices(); FWUI.icons(); }
   render();
 
