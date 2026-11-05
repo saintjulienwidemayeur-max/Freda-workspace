@@ -269,13 +269,14 @@
         <div class="rounded-[28px] bg-mist border border-[#DCE6FA] overflow-hidden">
           <div class="grid lg:grid-cols-2 items-center">
             <div class="p-8 sm:p-12 lg:p-14 min-w-0">
-              <p class="eyebrow">App Mobile</p>
-              <h2 class="mt-3 text-2xl sm:text-4xl font-extrabold tracking-tight">La messagerie de l’entreprise, dans la poche de vos équipes.</h2>
+              <p class="eyebrow">Application et version web</p>
+              <h2 class="mt-3 text-2xl sm:text-4xl font-extrabold tracking-tight">La messagerie de l’entreprise, sur téléphone et sur ordinateur.</h2>
               <p class="mt-4 text-base sm:text-lg text-slate-600">L’application Freda Workspace pour iOS et Android reçoit vos messages en temps réel, gère plusieurs boîtes de l’entreprise et fonctionne même avec une connexion lente.</p>
               <ul class="mt-6 space-y-3 text-[15px]">
                 <li class="flex gap-3"><i data-lucide="bell-ring" class="w-5 h-5 text-freda shrink-0 mt-0.5"></i>Notifications instantanées pour chaque nouveau message</li>
                 <li class="flex gap-3"><i data-lucide="users" class="w-5 h-5 text-freda shrink-0 mt-0.5"></i>Plusieurs boîtes (contact@, ventes@...) dans une seule app</li>
                 <li class="flex gap-3"><i data-lucide="lock" class="w-5 h-5 text-freda shrink-0 mt-0.5"></i>IMAP et SMTP sécurisés, déverrouillage biométrique</li>
+                <li class="flex gap-3"><i data-lucide="monitor-smartphone" class="w-5 h-5 text-freda shrink-0 mt-0.5"></i><span>Pas envie d’installer l’app ? <a href="https://freda-mail-web.onrender.com" class="underline text-freda font-semibold" rel="noopener">Ouvrez la version web</a> : même boîte, même écran, sur ordinateur comme sur téléphone.</span></li>
               </ul>
 
               <div class="mt-8 flex flex-col sm:flex-row gap-5 sm:items-center">
@@ -293,13 +294,21 @@
               </div>
             </div>
 
-            <!-- Maquette téléphone -->
-            <div class="relative flex justify-center px-8 pt-4 pb-0 lg:py-14 min-w-0">
+            <!-- Maquette ordinateur portable (version web) + téléphone (application) -->
+            <div class="relative flex justify-center px-6 sm:px-10 pt-4 pb-14 lg:py-14 min-w-0">
               <div class="absolute inset-0 bg-grid opacity-70" aria-hidden="true"></div>
-              <div class="phone relative">
-                <div class="phone-notch" aria-hidden="true"></div>
-                <div class="phone-screen">
-                  <picture style="display:contents"><source srcset="assets/img/app-freda-mail-inbox.webp" type="image/webp"><img src="assets/img/app-freda-mail-inbox.jpg" width="480" height="1038" alt="Boîte de réception de l’application Freda Mail : messages, onglets Principale, Réseaux sociaux et Promotions, bouton Écrire" class="w-full h-full object-cover object-top bg-white" style="padding-top:26px" loading="lazy" decoding="async"></picture>
+              <div class="laptop relative">
+                <div class="laptop-screen">
+                  <picture style="display:contents"><source srcset="assets/img/app-freda-mail-web.webp" type="image/webp"><img src="assets/img/app-freda-mail-web.jpg" width="1440" height="900" alt="Freda Mail sur ordinateur : la boîte de réception à gauche, la rédaction d’un email à droite" loading="lazy" decoding="async"></picture>
+                </div>
+                <div class="laptop-base" aria-hidden="true"></div>
+                <div class="laptop-phone">
+                  <div class="phone relative">
+                    <div class="phone-notch" aria-hidden="true"></div>
+                    <div class="phone-screen">
+                      <picture style="display:contents"><source srcset="assets/img/app-freda-mail-inbox.webp" type="image/webp"><img src="assets/img/app-freda-mail-inbox.jpg" width="480" height="1038" alt="Freda Mail sur téléphone : boîte de réception" class="w-full h-full object-cover object-top bg-white" style="padding-top:12px" loading="lazy" decoding="async"></picture>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

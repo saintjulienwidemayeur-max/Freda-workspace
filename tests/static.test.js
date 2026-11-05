@@ -16,7 +16,7 @@ test('aucune dépendance à un CDN tiers (hors mesure d’audience Plausible)', 
   for (const { file, src } of files) {
     for (const m of src.matchAll(/(?:src|href)=["'](https?:\/\/[^"']+)|url\(["']?(https?:\/\/[^)"']+)/g)) {
       const url = m[1] || m[2];
-      if (/^https:\/\/(plausible\.io|fredaworkspace\.com|apps\.apple\.com|play\.google\.com|webmail\.fredaworkspace\.com)/.test(url)) continue;
+      if (/^https:\/\/(plausible\.io|fredaworkspace\.com|freda-mail-web\.onrender\.com|apps\.apple\.com|play\.google\.com|webmail\.fredaworkspace\.com)/.test(url)) continue;
       if (file === 'assets/js/monitor.js') continue;
       bad.push(file + ' -> ' + url);
     }
