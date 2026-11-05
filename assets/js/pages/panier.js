@@ -43,7 +43,7 @@
     $('#next-label').textContent = d ? 'Acheter maintenant' : 'Continuer';
     FWUI.icons();
     const rm = $('#remove-domain');
-    rm && rm.addEventListener('click', () => { cart = FW.cart.set({ domain: null, extras: [] }); location.href = 'domaines.html'; });
+    rm && rm.addEventListener('click', () => { cart = FW.cart.set({ domain: null, extras: [] }); location.href = 'domaines'; });
     document.querySelectorAll('[data-remove-extra]').forEach((b) => b.addEventListener('click', () => {
       cart = FW.cart.set({ extras: (cart.extras || []).filter((x) => x.domain !== b.dataset.removeExtra) });
       render();
@@ -54,6 +54,6 @@
 
   FWUI.bindWhoisPrivacy(() => cart.whoisPrivacy, (v) => { cart = FW.cart.set({ whoisPrivacy: v }); });
   $('#years-pick').addEventListener('change', (e) => { cart = FW.cart.set({ years: +e.target.value }); render(); });
-  $('#next-btn').addEventListener('click', () => { location.href = 'paiement.html'; });
+  $('#next-btn').addEventListener('click', () => { location.href = 'paiement'; });
   render();
 })();

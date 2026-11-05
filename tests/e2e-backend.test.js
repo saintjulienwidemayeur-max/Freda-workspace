@@ -35,14 +35,14 @@ test('frontend réel + backend réel : inscription, entreprise, moyen de paiemen
     await page.goto(`${front.url}/inscription.html`);
     await page.fill('#su-name', 'Paul Test'); await page.fill('#su-email', 'paul@example.com'); await page.fill('#su-pass', 'Motdepasse#2026'); await page.check('#su-terms');
     await page.click('#signup-form [type=submit]');
-    await page.waitForURL('**/entreprise.html');
+    await page.waitForURL('**/entreprise');
     const token = await page.evaluate(() => JSON.parse(localStorage.getItem('fw:token')));
     assert.ok(token, 'jeton enregistré');
 
     /* 2. Entreprise (enregistrée côté serveur) */
     await page.fill('#co-name', 'Atelier Test'); await page.fill('#co-address', '12 rue des Fleurs'); await page.fill('#co-city', 'Pétion-Ville');
     await page.click('#company-form [type=submit]');
-    await page.waitForURL('**/domaines.html**');
+    await page.waitForURL('**/domaines**');
     const me = await (await api('/me', token)).json();
     assert.strictEqual(me.company, 'Atelier Test'); assert.strictEqual(me.address, '12 rue des Fleurs');
 
@@ -97,7 +97,7 @@ test('frontend réel + backend réel : inscription, entreprise, moyen de paiemen
     /* 8. Session invalide -> retour à la connexion */
     await page.evaluate(() => localStorage.setItem('fw:token', JSON.stringify('jeton-invalide')));
     await page.goto(`${front.url}/espace/index.html`);
-    await page.waitForURL('**/connexion.html**');
+    await page.waitForURL('**/connexion**');
 
     assert.deepStrictEqual(problems, []);
   } finally {

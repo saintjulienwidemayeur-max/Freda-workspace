@@ -153,13 +153,13 @@ test('inscription : étape entreprise facultative, puis infos reprises dans Para
   await page.fill('#su-pass', 'Motdepasse#2026');
   await page.check('#su-terms');
   await page.click('#signup-form [type=submit]');
-  await page.waitForURL('**/entreprise.html');
+  await page.waitForURL('**/entreprise');
   await page.fill('#co-name', 'Atelier Test');
   await page.fill('#co-address', '12 rue des Fleurs');
   await page.fill('#co-city', 'Pétion-Ville');
   await page.fill('#co-nif', '123-456-789-0');
   await page.click('#company-form [type=submit]');
-  await page.waitForURL('**/domaines.html**');
+  await page.waitForURL('**/domaines**');
   assert.match(page.url(), /q=ateliertest/);
   const session = await page.evaluate(() => JSON.parse(localStorage.getItem('fw:session')));
   assert.strictEqual(session.user.company, 'Atelier Test');
@@ -174,7 +174,7 @@ test('inscription : l’étape entreprise peut être passée', async () => {
   await page.evaluate(() => localStorage.setItem('fw:session', JSON.stringify({ user: { name: 'A B', email: 'a@b.co' }, provider: 'email' })));
   await page.goto(`${url}/entreprise.html`);
   await page.click('#skip-bottom');
-  await page.waitForURL('**/domaines.html');
+  await page.waitForURL('**/domaines');
   await ctx.close();
 });
 

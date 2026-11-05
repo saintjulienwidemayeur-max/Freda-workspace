@@ -3,7 +3,7 @@
   const C = FW.config;
   const $ = (s) => document.querySelector(s);
   const session = FW.auth.current();
-  if (!session) { location.replace('connexion.html?next=' + encodeURIComponent('entreprise.html')); return; }
+  if (!session) { location.replace('connexion?next=' + encodeURIComponent('entreprise')); return; }
 
   const params = new URLSearchParams(location.search);
   const next = params.get('next');
@@ -21,7 +21,7 @@
   function goNext() {
     if (safeNext) { location.href = safeNext; return; }
     const n = FW.normalizeDomain($('#co-name').value || u.company || '');
-    location.href = 'domaines.html' + (n.error ? '' : '?q=' + encodeURIComponent(n.label.replace(/-/g, '')));
+    location.href = 'domaines' + (n.error ? '' : '?q=' + encodeURIComponent(n.label.replace(/-/g, '')));
   }
   $('#skip-top').addEventListener('click', (e) => { e.preventDefault(); goNext(); });
   $('#skip-bottom').addEventListener('click', goNext);

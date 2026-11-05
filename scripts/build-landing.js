@@ -39,7 +39,13 @@ const dict = dicts.fr;
 let CUR = 'fr';                                // langue courante : les montants s'écrivent « $2.99 » en anglais, « 2,99 $ » sinon (fixée au début de chaque page)
 const fill = (s) => String(s).replace(/\{(\w+)\}/g, (m, k) => { const lang = CUR; if (!(k in dicts[lang])) throw new Error('Variable inconnue : ' + m); return dicts[lang][k]; });
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const url = (p) => SITE + '/' + p;
+/** URLs propres : jamais « .html » dans une adresse publique (Render réécrit /page vers /page.html ; voir render.yaml). */
+const clean = (p) => p.replace(/(^|\/)index\.html$/, '$1').replace(/\.html$/, '');
+const url = (p) => SITE + '/' + clean(p);
+/** Passe finale sur tout ce qui est écrit : liens relatifs (href/action) et adresses absolues du site, sans .html. */
+const cleanLinks = (s) => String(s)
+  .replace(/\b(href|action)="([^"#?:]*?)\.html([#?"])/g, (m, a, t, r) => (/(^|\/)index$/.test(t) ? `${a}="${t.replace(/index$/, '') || './'}${r}` : `${a}="${t}${r}`))
+  .replace(/(https:\/\/fredaworkspace\.com\/)((?:[\w-]+\/)*)([\w-]+)\.html(?![\w-])/g, (m, h, d, n) => h + d + (n === 'index' ? '' : n));
 
 const UI = {
   fr: { facts: 'En bref', faq: 'Questions fréquentes', related: 'À lire aussi', updated: 'Mis à jour le', home: 'Accueil', skip: 'Aller au contenu', loading: 'Chargement…', ctaTitle: 'Prêt à commencer ?', locale: 'fr_FR', lang: 'fr', nav: 'Navigation principale', crumb: 'Fil d’Ariane', footer: 'Pied de page' },
@@ -265,7 +271,7 @@ function patchHome() {
     { '@type': 'FAQPage', '@id': SITE + '/#faq', inLanguage: 'fr', mainEntity: homeFaq.map(([q, a]) => ({ '@type': 'Question', name: fill(q), acceptedAnswer: { '@type': 'Answer', text: fill(a) } })) },
   ] };
   html = html.replace(/<script type="application\/ld\+json" id="ld-home">[\s\S]*?<\/script>/, () => `<script type="application/ld+json" id="ld-home">${JSON.stringify(ld)}</script>`);
-  fs.writeFileSync(file, html);
+  fs.writeFileSync(file, cleanLinks(html));
 }
 
 /* ---------- JSON-LD et prix des pages écrites à la main (domaines, support, legal, presse FR / EN) ---------- */
@@ -275,7 +281,7 @@ function patchLd(rel, id, obj) {
   const tag = `<script type="application/ld+json" id="${id}">${JSON.stringify(obj)}</script>`;
   const re = new RegExp(`<script type="application/ld\\+json"(?: id="${id}")?>[\\s\\S]*?</script>`);
   html = re.test(html) ? html.replace(re, () => tag) : html.replace('</head>', () => `  ${tag}\n</head>`);
-  fs.writeFileSync(file, html);
+  fs.writeFileSync(file, cleanLinks(html));
 }
 const breadcrumb = (self, lang, name) => ({ '@type': 'BreadcrumbList', '@id': self + '#breadcrumb', itemListElement: [{ '@type': 'ListItem', position: 1, name: UI[lang].home, item: SITE + '/' }, { '@type': 'ListItem', position: 2, name, item: self }] });
 function patchHandWritten() {
@@ -292,7 +298,7 @@ function patchHandWritten() {
     const row = `<!--prix:start--><div class="p-4 sm:p-5 sm:grid sm:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] sm:gap-4"><dt class="font-semibold text-ink">${priceRow[lang].label}</dt><dd class="text-slate-600">${esc(priceRow[lang].text)}</dd></div><!--prix:end-->`;
     if (!/<!--prix:start-->/.test(html)) throw new Error(rel + ' : repère <!--prix:start--> manquant');
     html = html.replace(/<!--prix:start-->[\s\S]*?<!--prix:end-->/, () => row);
-    fs.writeFileSync(file, html);
+    fs.writeFileSync(file, cleanLinks(html));
     const self = url(rel);
     patchLd(rel, 'ld-press', { '@context': 'https://schema.org', '@graph': [
       { '@type': 'WebPage', '@id': self + '#webpage', url: self, name: title, description: desc, inLanguage: lang, isPartOf: { '@type': 'WebSite', '@id': SITE + '/#website', url: SITE + '/', name: 'Freda Workspace' }, about: { '@id': ORG['@id'] }, breadcrumb: { '@id': self + '#breadcrumb' }, dateModified: LASTMOD },
@@ -306,11 +312,11 @@ function patchHandWritten() {
 for (const p of pages) {
   const file = path.join(ROOT, p.path);
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, render(p));
+  fs.writeFileSync(file, cleanLinks(render(p)));
 }
 patchHome();
 patchHandWritten();
-fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), sitemap());
-fs.writeFileSync(path.join(ROOT, 'llms.txt'), llms());
-fs.writeFileSync(path.join(ROOT, 'llms-full.txt'), llmsFull());
+fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), cleanLinks(sitemap()));
+fs.writeFileSync(path.join(ROOT, 'llms.txt'), cleanLinks(llms()));
+fs.writeFileSync(path.join(ROOT, 'llms-full.txt'), cleanLinks(llmsFull()));
 console.log(pages.length + ' pages d’atterrissage, sitemap.xml, llms.txt, llms-full.txt');

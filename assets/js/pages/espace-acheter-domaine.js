@@ -89,7 +89,7 @@
       await FW.domains.buy({ items, years, pay, whoisPrivacy });
       $('#buy-form').hidden = true; $('#buy-done').hidden = false;
       $('#buy-done-text').innerHTML = items.map((d) => `<span class="mono font-semibold text-ink">${esc(d.domain)}</span>`).join(', ') + (items.length > 1 ? ' sont enregistrés' : ' est enregistré') + ' sur votre compte.';
-      $('#buy-done-dns').href = 'dns.html?domain=' + encodeURIComponent(items[0].domain);
+      $('#buy-done-dns').href = 'dns?domain=' + encodeURIComponent(items[0].domain);
       selected = []; lastData = null;
       try { FWUI.confetti(btn); } catch (_) {}
       $('#buy-results').innerHTML = '';

@@ -7,6 +7,8 @@ const { ROOT, walk, htmlFiles, rel, productionHeaders } = require('./helpers');
 const html = htmlFiles().map((f) => ({ file: rel(f), src: fs.readFileSync(f, 'utf8') }));
 const { pages: LANDING } = require('../scripts/landing-content');
 const EXTRA_PUBLIC = { 'en/press.html': 'en' };   // pages publiques écrites à la main hors du français
+/** URL publique d'un fichier : sans .html (Render réécrit /page vers /page.html). */
+const U = (f) => f.replace(/(^|\/)index\.html$/, '$1').replace(/\.html$/, '');
 const PUBLIC = ['index.html', 'domaines.html', 'support.html', 'legal.html', 'presse.html', ...Object.keys(EXTRA_PUBLIC), ...LANDING.map((p) => p.path)];
 const CONFIG = (() => { const sb = { window: {} }; require('vm').runInNewContext(fs.readFileSync(path.join(ROOT, 'assets/js/config.js'), 'utf8'), sb); return sb.window.FW_CONFIG; })();
 
@@ -56,7 +58,9 @@ test('tous les liens et ressources locaux existent', () => {
       const u = m[1];
       if (/^(https?:|mailto:|tel:|data:)/.test(u) || u.includes('${')) continue;
       const p = u.startsWith('/') ? path.join(ROOT, u) : path.join(dir, u);
-      if (!fs.existsSync(p)) bad.push(file + ' -> ' + u);
+      // lien propre « /page » : Render le réécrit vers page.html ; un dossier (« ../ », « ./ ») mène à son index.html
+      const exists = fs.existsSync(p) && (!fs.statSync(p).isDirectory() || fs.existsSync(path.join(p, 'index.html')));
+      if (!exists && !fs.existsSync(p + '.html')) bad.push(file + ' -> ' + u);
     }
   }
   assert.deepStrictEqual(bad, []);
@@ -96,8 +100,8 @@ test('robots.txt et sitemap.xml cohérents', () => {
   assert.match(robots, /Sitemap: https:\/\/fredaworkspace\.com\/sitemap\.xml/);
   assert.match(robots, /Disallow: \/espace\//);
   const locs = [...sitemap.matchAll(/<loc>https:\/\/fredaworkspace\.com([^<]*)<\/loc>/g)].map((m) => m[1] || '/');
-  assert.deepStrictEqual(locs.sort(), ['/', '/domaines.html', '/en/press.html', '/legal.html', '/presse.html', '/support.html', ...LANDING.map((p) => '/' + p.path)].sort());
-  for (const l of locs) assert.ok(fs.existsSync(path.join(ROOT, l === '/' ? 'index.html' : l.slice(1))), l);
+  assert.deepStrictEqual(locs.sort(), ['/', '/domaines', '/en/press', '/legal', '/presse', '/support', ...LANDING.map((p) => '/' + U(p.path))].sort());
+  for (const l of locs) assert.ok(fs.existsSync(path.join(ROOT, l === '/' ? 'index.html' : l.slice(1) + '.html')), l);
 });
 
 test('SEO : pages d’atterrissage : titre ≤ 65 caractères, description 70-160, un seul h1, hreflang réciproque, lien canonique auto-référencé', () => {
@@ -107,16 +111,16 @@ test('SEO : pages d’atterrissage : titre ≤ 65 caractères, description 70-16
     assert.ok(title.length <= 65, p.path + ' : titre trop long (' + title.length + ')');
     assert.ok(desc.length >= 70 && desc.length <= 160, p.path + ' : description ' + desc.length);
     assert.strictEqual((src.match(/<h1[ >]/g) || []).length, 1, p.path + ' : un seul h1');
-    assert.ok(src.includes('<link rel="canonical" href="https://fredaworkspace.com/' + p.path + '">'), p.path + ' : canonical');
+    assert.ok(src.includes('<link rel="canonical" href="https://fredaworkspace.com/' + U(p.path) + '">'), p.path + ' : canonical');
     if (p.geo) assert.match(src, /<meta name="geo\.region" content="HT">/, p.path + ' : geo Haïti'); else assert.doesNotMatch(src, /geo\.region/, p.path + ' : page internationale sans geo.region');
     const self = src.match(/hreflang="([a-z-]+)" href="https:\/\/fredaworkspace\.com\/([^"]+)"/g) || [];
     const alts = self.map((x) => x.match(/hreflang="([a-z-]+)" href="https:\/\/fredaworkspace\.com\/([^"]+)"/).slice(1));
-    assert.ok(alts.some(([l, u]) => l === p.lang && u === p.path), p.path + ' : hreflang auto-référencé');
+    assert.ok(alts.some(([l, u]) => l === p.lang && u === U(p.path)), p.path + ' : hreflang auto-référencé');
     assert.ok(alts.some(([l]) => l === 'x-default'), p.path + ' : x-default');
     for (const [l, u] of alts.filter(([l]) => l !== 'x-default' && l !== p.lang)) {
-      const other = LANDING.find((q) => q.path === u);
+      const other = LANDING.find((q) => U(q.path) === u);
       assert.ok(other && other.lang === l, p.path + ' : hreflang vers une page inconnue ' + u);
-      assert.ok(Object.values(other.alt).includes(p.path), u + ' ne renvoie pas vers ' + p.path + ' (hreflang non réciproque)');
+      assert.ok(Object.values(other.alt).includes(p.path) , u + ' ne renvoie pas vers ' + p.path + ' (hreflang non réciproque)');
     }
   }
 });
@@ -147,18 +151,18 @@ test('GEO : llms.txt et llms-full.txt cohérents avec le sitemap, robots.txt aut
   const llms = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8'), full = fs.readFileSync(path.join(ROOT, 'llms-full.txt'), 'utf8');
   assert.match(llms, /^# Freda Workspace/);
   assert.match(llms, /^> /m);
-  for (const p of LANDING) { assert.ok(llms.includes('https://fredaworkspace.com/' + p.path), 'llms.txt : ' + p.path); assert.ok(full.includes(p.path), 'llms-full.txt : ' + p.path); }
+  for (const p of LANDING) { assert.ok(llms.includes('https://fredaworkspace.com/' + U(p.path)), 'llms.txt : ' + p.path); assert.ok(full.includes(U(p.path)), 'llms-full.txt : ' + p.path); }
   const linked = [...llms.matchAll(/\]\(https:\/\/fredaworkspace\.com([^)]*)\)/g)].map((m) => m[1] || '/').filter((u) => !/\.txt$/.test(u));
-  for (const l of linked) assert.ok(fs.existsSync(path.join(ROOT, l.split('#')[0] === '/' ? 'index.html' : l.split('#')[0].slice(1))), 'llms.txt : lien mort ' + l);
+  for (const l of linked) assert.ok(fs.existsSync(path.join(ROOT, l.split('#')[0] === '/' ? 'index.html' : l.split('#')[0].slice(1) + '.html')), 'llms.txt : lien mort ' + l);
   assert.match(llms, /Ne vend pas de noms de domaine gratuits/);
   const robots = fs.readFileSync(path.join(ROOT, 'robots.txt'), 'utf8');
   assert.doesNotMatch(robots, /User-agent: (OAI-SearchBot|ChatGPT-User|Claude-SearchBot|Claude-User|PerplexityBot|Googlebot|Bingbot)\s*\nDisallow: \//, 'les robots de recherche IA ne sont pas bloqués');
-  assert.match(robots, /Disallow: \/admin-prix\.html/);
+  assert.match(robots, /Disallow: \/admin-prix\.html/); assert.match(robots, /Disallow: \/admin-prix\$/);
 });
 
 test('liens internes : chaque page d’atterrissage est liée en dur depuis index.html (sans JavaScript)', () => {
   const idx = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  for (const p of LANDING) assert.ok(idx.includes('href="' + p.path + '"'), 'index.html ne lie pas ' + p.path);
+  for (const p of LANDING) assert.ok(idx.includes('href="' + U(p.path) + '"'), 'index.html ne lie pas ' + p.path);
 });
 
 test('en-têtes de sécurité de production (render.yaml)', () => {
@@ -201,7 +205,7 @@ test('SEO : fil d’Ariane JSON-LD sur domaines, support, legal, presse (FR / EN
     const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
     const nodes = [...src.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap((m) => { const j = JSON.parse(m[1]); return j['@graph'] || [j]; });
     const bc = nodes.find((n) => n['@type'] === 'BreadcrumbList');
-    assert.ok(bc && bc.itemListElement.length === 2 && bc.itemListElement[1].item === 'https://fredaworkspace.com/' + f, f + ' : BreadcrumbList');
+    assert.ok(bc && bc.itemListElement.length === 2 && bc.itemListElement[1].item === 'https://fredaworkspace.com/' + U(f), f + ' : BreadcrumbList');
   }
   const home = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   assert.match(home, /"inLanguage":\["fr","ht","en"\]/, 'WebSite.inLanguage inclut en');
@@ -269,11 +273,11 @@ test('SEO : titres ≤ 60 caractères, page de comparaison FR / HT / EN récipro
   const cmp = LANDING.filter((p) => p.id.startsWith('compare'));
   assert.deepStrictEqual(cmp.map((p) => p.lang).sort(), ['en', 'fr', 'ht']);
   const idx = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  for (const p of cmp) assert.ok(idx.includes('href="' + p.path + '"'), p.path + ' lié depuis index.html');
+  for (const p of cmp) assert.ok(idx.includes('href="' + U(p.path) + '"'), p.path + ' lié depuis index.html');
   assert.match(fs.readFileSync(path.join(ROOT, 'freda-mail.html'), 'utf8'), /Avis clients \?/);
   const press = fs.readFileSync(path.join(ROOT, 'en/press.html'), 'utf8'), presse = fs.readFileSync(path.join(ROOT, 'presse.html'), 'utf8');
-  assert.match(press, /hreflang="fr" href="https:\/\/fredaworkspace\.com\/presse\.html"/);
-  assert.match(presse, /hreflang="en" href="https:\/\/fredaworkspace\.com\/en\/press\.html"/);
+  assert.match(press, /hreflang="fr" href="https:\/\/fredaworkspace\.com\/presse"/);
+  assert.match(presse, /hreflang="en" href="https:\/\/fredaworkspace\.com\/en\/press"/);
   assert.match(presse, /Prix \(au 2026-11-05\)/);
   assert.match(press, /Prices \(as of 2026-11-05\)/);
   assert.match(press, /<html lang="en">/);

@@ -18,7 +18,7 @@
       input.focus();
       return;
     }
-    window.location.href = 'domaines.html?q=' + encodeURIComponent(n.label + (n.tld || ''));
+    window.location.href = 'domaines?q=' + encodeURIComponent(n.label + (n.tld || ''));
   }
 
   const heroInput = $('#hero-domain');
@@ -71,7 +71,7 @@
             ${p.features.map((f) => `<li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 shrink-0 ${hi ? 'text-cta' : 'text-cta'}"></i><span>${f}</span></li>`).join('')}
           </ul>
           ${p.extras && p.extras.length ? `<div class="mt-6 pt-5 border-t ${hi ? 'border-white/15' : 'border-line'}"><p class="text-xs font-semibold uppercase tracking-wider ${hi ? 'text-slate-400' : 'text-slate-500'}">Options</p><ul class="mt-2 space-y-1.5 text-sm ${hi ? 'text-slate-300' : 'text-slate-600'}">${p.extras.map((x) => `<li class="flex gap-2"><i data-lucide="plus-circle" class="w-4 h-4 shrink-0 mt-0.5 ${hi ? 'text-sky' : 'text-freda'}"></i><span>${x}</span></li>`).join('')}</ul></div>` : ''}
-          <a href="configurer-email.html?plan=${p.id}&cycle=${cycle}" class="mt-8 btn ${hi ? 'btn-cta' : 'btn-outline'} w-full btn-lg">Choisir ${p.name}<i data-lucide="arrow-right"></i></a>
+          <a href="configurer-email?plan=${p.id}&cycle=${cycle}" class="mt-8 btn ${hi ? 'btn-cta' : 'btn-outline'} w-full btn-lg">Choisir ${p.name}<i data-lucide="arrow-right"></i></a>
         </article>`;
     }).join('');
     FWUI.icons();

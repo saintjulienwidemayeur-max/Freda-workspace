@@ -18,7 +18,7 @@
       <span class="w-14 h-14 mx-auto rounded-2xl bg-mist text-freda grid place-items-center"><i data-lucide="mail-plus" class="w-7 h-7"></i></span>
       <h2 class="mt-5 text-2xl font-bold">Activez votre email professionnel</h2>
       <p class="mt-2 text-slate-600">Votre domaine est prêt. Choisissez une offre pour créer vos adresses (contact@, ventes@...). Le DNS est configuré automatiquement et l’application mobile est incluse.</p>
-      <a href="../configurer-email.html" class="mt-6 btn btn-cta btn-lg"><i data-lucide="mail-plus"></i>Activer l’email pro</a>
+      <a href="../configurer-email" class="mt-6 btn btn-cta btn-lg"><i data-lucide="mail-plus"></i>Activer l’email pro</a>
       <p class="mt-3 text-xs text-muted">À partir de ${FW.money(Math.min(...Object.values(C.PLANS).map((p) => p.monthly)))}/mois · sans engagement</p>
     </section>`;
     FWUI.icons();
@@ -99,7 +99,7 @@
         return;
       }
       FWUI.confirmDialog({ title: 'Limite de votre offre atteinte', message: 'L’offre ' + plan.name + ' inclut ' + plan.mailboxes + ' boîte' + (plan.mailboxes > 1 ? 's' : '') + '. Créez plutôt un alias gratuit, ou changez d’offre.', confirmLabel: 'Voir les offres' })
-        .then((ok) => { if (ok) location.href = 'facturation.html#offre'; });
+        .then((ok) => { if (ok) location.href = 'facturation#offre'; });
       return;
     }
     showBoxForm();

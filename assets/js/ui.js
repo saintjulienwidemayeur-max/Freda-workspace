@@ -84,12 +84,12 @@
   const T = TEXT[LANG] || TEXT.fr;
   // Pages produit / guides dans la langue de la page quand elles existent ; sinon la version française.
   const SECTIONS = {
-    fr: { connect: 'freda-connect.html', mail: 'freda-mail.html', press: 'presse.html',
-      guides: [['qui-sommes-nous.html', 'Qui sommes-nous'], ['enregistrer-nom-de-domaine.html', 'Enregistrer un nom de domaine'], ['email-pro-gratuit.html', 'Email pro gratuit'], ['nom-de-domaine-haiti.html', 'Nom de domaine Haïti'], ['acheter-domaine-moncash.html', 'Payer avec MonCash ou NatCash'], ['freda-mail-vs-gmail-google-workspace-zoho.html', 'Freda Mail vs Gmail, Google Workspace, Zoho'], ['ht/imel-pwofesyonel-gratis.html', 'Kreyòl : imèl pwofesyonèl gratis'], ['en/free-business-email-haiti.html', 'English : free business email'], ['ht/kiyes-nou-ye.html', 'Kreyòl : kiyès nou ye']] },
-    ht: { connect: 'ht/freda-connect.html', mail: 'ht/freda-mail.html', press: 'presse.html',
-      guides: [['ht/kiyes-nou-ye.html', 'Kiyès nou ye'], ['ht/imel-pwofesyonel-gratis.html', 'Imèl pwofesyonèl gratis'], ['ht/non-domenn-ayiti.html', 'Non domèn pou Ayiti'], ['ht/peye-ak-moncash-natcash.html', 'Peye ak MonCash oswa NatCash'], ['ht/freda-mail-kont-gmail-google-workspace-zoho.html', 'Freda Mail kont Gmail, Google Workspace, Zoho'], ['index.html', 'Version française'], ['en/free-business-email-haiti.html', 'English : free business email']] },
-    en: { connect: 'en/freda-connect.html', mail: 'en/freda-mail.html', press: 'en/press.html',
-      guides: [['en/about-us.html', 'About us'], ['en/register-domain-name.html', 'Register a domain name'], ['en/free-business-email-haiti.html', 'Free business email'], ['en/freda-mail-vs-gmail-google-workspace-zoho.html', 'Freda Mail vs Gmail, Google Workspace, Zoho'], ['index.html', 'Version française'], ['ht/imel-pwofesyonel-gratis.html', 'Kreyòl : imèl pwofesyonèl gratis']] },
+    fr: { connect: 'freda-connect', mail: 'freda-mail', press: 'presse',
+      guides: [['qui-sommes-nous', 'Qui sommes-nous'], ['enregistrer-nom-de-domaine', 'Enregistrer un nom de domaine'], ['email-pro-gratuit', 'Email pro gratuit'], ['nom-de-domaine-haiti', 'Nom de domaine Haïti'], ['acheter-domaine-moncash', 'Payer avec MonCash ou NatCash'], ['freda-mail-vs-gmail-google-workspace-zoho', 'Freda Mail vs Gmail, Google Workspace, Zoho'], ['ht/imel-pwofesyonel-gratis', 'Kreyòl : imèl pwofesyonèl gratis'], ['en/free-business-email-haiti', 'English : free business email'], ['ht/kiyes-nou-ye', 'Kreyòl : kiyès nou ye']] },
+    ht: { connect: 'ht/freda-connect', mail: 'ht/freda-mail', press: 'presse',
+      guides: [['ht/kiyes-nou-ye', 'Kiyès nou ye'], ['ht/imel-pwofesyonel-gratis', 'Imèl pwofesyonèl gratis'], ['ht/non-domenn-ayiti', 'Non domèn pou Ayiti'], ['ht/peye-ak-moncash-natcash', 'Peye ak MonCash oswa NatCash'], ['ht/freda-mail-kont-gmail-google-workspace-zoho', 'Freda Mail kont Gmail, Google Workspace, Zoho'], ['./', 'Version française'], ['en/free-business-email-haiti', 'English : free business email']] },
+    en: { connect: 'en/freda-connect', mail: 'en/freda-mail', press: 'en/press',
+      guides: [['en/about-us', 'About us'], ['en/register-domain-name', 'Register a domain name'], ['en/free-business-email-haiti', 'Free business email'], ['en/freda-mail-vs-gmail-google-workspace-zoho', 'Freda Mail vs Gmail, Google Workspace, Zoho'], ['./', 'Version française'], ['ht/imel-pwofesyonel-gratis', 'Kreyòl : imèl pwofesyonèl gratis']] },
   };
   const SEC = SECTIONS[LANG] || SECTIONS.fr;
 
@@ -97,12 +97,12 @@
   function renderHeader(active = '') {
     const el = document.getElementById('site-header');
     if (!el) return;
-    const home = BASE + 'index.html';
+    const home = BASE + './';
     const links = [
       { href: home + '#produits', label: T.products, id: 'produits' },
       { href: home + '#tarifs', label: T.pricing, id: 'tarifs' },
       { href: home + '#app', label: T.app, id: 'app' },
-      { href: BASE + 'support.html', label: T.support, id: 'support' },
+      { href: BASE + 'support', label: T.support, id: 'support' },
     ];
     const session = FW.auth.current();
     el.className = 'sticky z-40 bg-white/85 backdrop-blur border-b border-line';
@@ -134,7 +134,7 @@
           ${links.map((l) => `<li><a href="${l.href}" class="flex items-center justify-between py-3 text-base font-medium text-ink border-b border-line/70">${l.label}<i data-lucide="chevron-right" class="w-4 h-4 text-muted"></i></a></li>`).join('')}
           <li class="pt-4 grid gap-2">
             ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy w-full"><i data-lucide="mail"></i>${T.webmail}</a>` : ""}
-            <a href="${session ? BASE + 'espace/index.html' : BASE + 'connexion.html'}" class="btn btn-outline w-full"><i data-lucide="${session ? 'layout-dashboard' : 'log-in'}"></i>${session ? T.myspace : T.clientArea}</a>
+            <a href="${session ? BASE + 'espace/' : BASE + 'connexion'}" class="btn btn-outline w-full"><i data-lucide="${session ? 'layout-dashboard' : 'log-in'}"></i>${session ? T.myspace : T.clientArea}</a>
           </li>
         </ul>
       </div>`;
@@ -172,10 +172,10 @@
                 `<a href="#" aria-label="${n}" class="w-9 h-9 rounded-lg grid place-items-center bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"><i data-lucide="${i}" class="w-4 h-4"></i></a>`).join('')}
             </div>
           </div>
-          ${col(T.colProducts, [[BASE + SEC.connect, T.connect], [BASE + SEC.mail, T.mail], [BASE + 'index.html#app', T.mobileApp], [BASE + 'index.html#tarifs', T.pricing]])}
+          ${col(T.colProducts, [[BASE + SEC.connect, T.connect], [BASE + SEC.mail, T.mail], [BASE + './#app', T.mobileApp], [BASE + './#tarifs', T.pricing]])}
           ${col(T.colGuides, SEC.guides.map(([h, l]) => [BASE + h, l]))}
-          ${col(T.colHelp, [[BASE + 'support.html', T.help], [BASE + 'support.html#contact', T.contact], [BASE + 'support.html#statut', T.status]].concat(C.WEBMAIL_URL ? [[BASE + 'connexion.html?mode=webmail', T.webmailLink]] : []))}
-          ${col(T.colLegal, [[BASE + 'legal.html#cgu', T.terms], [BASE + 'legal.html#paiements', T.payments], [BASE + 'legal.html#confidentialite', T.privacy], [BASE + 'legal.html#remboursement', T.refund], [BASE + 'legal.html#cookies', T.cookies], [BASE + 'legal.html#propriete', T.ip], [BASE + SEC.press, T.press], [BASE + 'legal.html#reglementaire', T.regulatory], [BASE + 'legal.html#conformite', T.compliance]])}
+          ${col(T.colHelp, [[BASE + 'support', T.help], [BASE + 'support#contact', T.contact], [BASE + 'support#statut', T.status]].concat(C.WEBMAIL_URL ? [[BASE + 'connexion?mode=webmail', T.webmailLink]] : []))}
+          ${col(T.colLegal, [[BASE + 'legal#cgu', T.terms], [BASE + 'legal#paiements', T.payments], [BASE + 'legal#confidentialite', T.privacy], [BASE + 'legal#remboursement', T.refund], [BASE + 'legal#cookies', T.cookies], [BASE + 'legal#propriete', T.ip], [BASE + SEC.press, T.press], [BASE + 'legal#reglementaire', T.regulatory], [BASE + 'legal#conformite', T.compliance]])}
         </div>
         <div class="max-w-site mx-auto py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-slate-400" style="padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px))">
           <p>${T.rights(year)}</p>

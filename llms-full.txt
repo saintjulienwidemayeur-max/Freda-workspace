@@ -8,7 +8,7 @@ Ce fichier regroupe le contenu des guides du site pour les assistants IA. Les pr
 
 # Email professionnel gratuit avec votre propre nom de domaine
 
-URL : https://fredaworkspace.com/email-pro-gratuit.html
+URL : https://fredaworkspace.com/email-pro-gratuit
 Langue : français
 Mise à jour : 2026-11-05
 
@@ -79,7 +79,7 @@ Oui. Les offres payantes et les noms de domaine se paient avec MonCash, NatCash 
 
 # Nom de domaine pour une entreprise en Haïti
 
-URL : https://fredaworkspace.com/nom-de-domaine-haiti.html
+URL : https://fredaworkspace.com/nom-de-domaine-haiti
 Langue : français
 Mise à jour : 2026-11-05
 
@@ -155,7 +155,7 @@ Freda Workspace vous envoie des rappels avant l’expiration. MonCash et NatCash
 
 # Payer son nom de domaine et son email pro avec MonCash ou NatCash
 
-URL : https://fredaworkspace.com/acheter-domaine-moncash.html
+URL : https://fredaworkspace.com/acheter-domaine-moncash
 Langue : français
 Mise à jour : 2026-11-05
 
@@ -222,7 +222,7 @@ Les prix sont affichés en dollars américains. Le montant en gourdes est calcul
 
 # Imèl pwofesyonèl gratis ak pwòp non domèn ou
 
-URL : https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html
+URL : https://fredaworkspace.com/ht/imel-pwofesyonel-gratis
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
@@ -293,7 +293,7 @@ Wi. Òf ki peye yo ak non domèn yo peye ak MonCash, NatCash oswa kat. MonCash a
 
 # Non domèn pou yon biznis nan Ayiti
 
-URL : https://fredaworkspace.com/ht/non-domenn-ayiti.html
+URL : https://fredaworkspace.com/ht/non-domenn-ayiti
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
@@ -369,7 +369,7 @@ Freda Workspace voye w rapèl anvan ekspirasyon an. MonCash ak NatCash pa pèmè
 
 # Peye non domèn ou ak imèl pwofesyonèl ou ak MonCash oswa NatCash
 
-URL : https://fredaworkspace.com/ht/peye-ak-moncash-natcash.html
+URL : https://fredaworkspace.com/ht/peye-ak-moncash-natcash
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
@@ -436,7 +436,7 @@ Pri yo afiche an dola ameriken. Yo kalkile montan an goud la ak to ki endike lè
 
 # Free business email for Haiti, on your own domain name
 
-URL : https://fredaworkspace.com/en/free-business-email-haiti.html
+URL : https://fredaworkspace.com/en/free-business-email-haiti
 Langue : anglais
 Mise à jour : 2026-11-05
 
@@ -507,7 +507,7 @@ French, Haitian Creole and English. Write to support@fredaworkspace.com, Monday 
 
 # Enregistrer un nom de domaine, où que vous soyez dans le monde
 
-URL : https://fredaworkspace.com/enregistrer-nom-de-domaine.html
+URL : https://fredaworkspace.com/enregistrer-nom-de-domaine
 Langue : français
 Mise à jour : 2026-11-05
 
@@ -569,7 +569,7 @@ Non, Freda Workspace ne vend pas de nom de domaine gratuit. Ce qui est gratuit, 
 
 # Register a domain name from anywhere in the world
 
-URL : https://fredaworkspace.com/en/register-domain-name.html
+URL : https://fredaworkspace.com/en/register-domain-name
 Langue : anglais
 Mise à jour : 2026-11-05
 
@@ -631,7 +631,7 @@ No, Freda Workspace does not sell free domain names. What is free is one profess
 
 # Qui sommes-nous ? Freda Workspace, une marque de Freda Pay LLC
 
-URL : https://fredaworkspace.com/qui-sommes-nous.html
+URL : https://fredaworkspace.com/qui-sommes-nous
 Langue : français
 Mise à jour : 2026-11-05
 
@@ -691,7 +691,7 @@ Par email à support@fredaworkspace.com ou par le formulaire du centre d’aide,
 
 # Kiyès nou ye? Freda Workspace, yon mak Freda Pay LLC
 
-URL : https://fredaworkspace.com/ht/kiyes-nou-ye.html
+URL : https://fredaworkspace.com/ht/kiyes-nou-ye
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
@@ -751,7 +751,7 @@ Pa imèl nan support@fredaworkspace.com oswa pa fòmilè sant èd la, de lendi a
 
 # About us: Freda Workspace, a brand of Freda Pay LLC
 
-URL : https://fredaworkspace.com/en/about-us.html
+URL : https://fredaworkspace.com/en/about-us
 Langue : anglais
 Mise à jour : 2026-11-05
 
@@ -811,7 +811,7 @@ By email at support@fredaworkspace.com or through the help center form, Monday t
 
 # Freda Mail : l’email professionnel sur votre propre nom de domaine
 
-URL : https://fredaworkspace.com/freda-mail.html
+URL : https://fredaworkspace.com/freda-mail
 Langue : français
 Mise à jour : 2026-11-05
 
@@ -888,7 +888,7 @@ Les avis clients apparaîtront ici après les premiers achats réels. Nous n’e
 
 # Freda Mail: imèl pwofesyonèl sou pwòp non domèn ou
 
-URL : https://fredaworkspace.com/ht/freda-mail.html
+URL : https://fredaworkspace.com/ht/freda-mail
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
@@ -965,7 +965,7 @@ Avi kliyan yo pral parèt isit la apre premye acha reyèl yo. Nou pa afiche oken
 
 # Freda Mail: professional email on your own domain name
 
-URL : https://fredaworkspace.com/en/freda-mail.html
+URL : https://fredaworkspace.com/en/freda-mail
 Langue : anglais
 Mise à jour : 2026-11-05
 
@@ -1042,7 +1042,7 @@ Not yet. Customer reviews will appear here after the first real purchases. We do
 
 # Freda Connect : noms de domaine et DNS de Freda Workspace
 
-URL : https://fredaworkspace.com/freda-connect.html
+URL : https://fredaworkspace.com/freda-connect
 Langue : français
 Mise à jour : 2026-11-05
 
@@ -1120,7 +1120,7 @@ Freda Connect gère les noms de domaine et le DNS ; Freda Mail gère les boîtes
 
 # Freda Connect: non domèn ak DNS Freda Workspace
 
-URL : https://fredaworkspace.com/ht/freda-connect.html
+URL : https://fredaworkspace.com/ht/freda-connect
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
@@ -1194,7 +1194,7 @@ Freda Connect jere non domèn ak DNS; Freda Mail jere bwat imèl pwofesyonèl yo
 
 # Freda Connect: domain names and DNS from Freda Workspace
 
-URL : https://fredaworkspace.com/en/freda-connect.html
+URL : https://fredaworkspace.com/en/freda-connect
 Langue : anglais
 Mise à jour : 2026-11-05
 
@@ -1268,7 +1268,7 @@ Freda Connect manages domain names and DNS; Freda Mail manages professional mail
 
 # Freda Mail vs Gmail / Google Workspace / Zoho : quelle différence ?
 
-URL : https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html
+URL : https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho
 Langue : français
 Mise à jour : 2026-11-05
 
@@ -1341,7 +1341,7 @@ Oui. MonCash et NatCash ne permettent pas de prélèvement automatique : vous re
 
 # Freda Mail kont Gmail / Google Workspace / Zoho: ki diferans?
 
-URL : https://fredaworkspace.com/ht/freda-mail-kont-gmail-google-workspace-zoho.html
+URL : https://fredaworkspace.com/ht/freda-mail-kont-gmail-google-workspace-zoho
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
@@ -1414,7 +1414,7 @@ Wi. MonCash ak NatCash pa pèmèt retire lajan otomatikman: ou rechaje yon balan
 
 # Freda Mail vs Gmail / Google Workspace / Zoho: what is the difference?
 
-URL : https://fredaworkspace.com/en/freda-mail-vs-gmail-google-workspace-zoho.html
+URL : https://fredaworkspace.com/en/freda-mail-vs-gmail-google-workspace-zoho
 Langue : anglais
 Mise à jour : 2026-11-05
 

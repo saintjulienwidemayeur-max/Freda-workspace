@@ -25,7 +25,7 @@
         <div class="mt-4 flex items-end">
           ${current ? '<button type="button" class="btn btn-outline btn-sm w-full" disabled>Offre en cours</button>'
             : tooSmall ? `<p class="text-xs text-amber-700">Supprimez ${ws.mailboxes.length - p.mailboxes} boîte(s) pour passer à cette offre.</p>`
-            : !hasPlan ? `<a href="../configurer-email.html?plan=${p.id}&cycle=${viewCycle}" class="btn ${p.popular ? 'btn-cta' : 'btn-outline'} btn-sm w-full">Choisir ${p.name}</a>`
+            : !hasPlan ? `<a href="../configurer-email?plan=${p.id}&cycle=${viewCycle}" class="btn ${p.popular ? 'btn-cta' : 'btn-outline'} btn-sm w-full">Choisir ${p.name}</a>`
             : `<button type="button" class="btn ${p.monthly > C.PLANS[ws.plan.id].monthly ? 'btn-cta' : 'btn-outline'} btn-sm w-full" data-switch="${p.id}">${ws.plan.id === p.id ? 'Payer ' + FW.cycleSpan(viewCycle) : 'Choisir ' + p.name}</button>`}
         </div>
       </div>`;

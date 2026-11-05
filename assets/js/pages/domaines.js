@@ -199,8 +199,8 @@
     renderCart();
   });
   // Téléphone : on passe par la page « Mon panier » ; ordinateur : le panier est déjà à droite
-  $('#checkout-btn').addEventListener('click', () => { location.href = window.innerWidth < 1024 ? 'panier.html' : 'paiement.html'; });
-  $('#bar-buy').addEventListener('click', () => { location.href = 'panier.html'; });
+  $('#checkout-btn').addEventListener('click', () => { location.href = window.innerWidth < 1024 ? 'panier' : 'paiement'; });
+  $('#bar-buy').addEventListener('click', () => { location.href = 'panier'; });
 
   /* ---------- Démarrage ---------- */
   renderCart();

@@ -35,11 +35,11 @@
     if (PAGE === 'domain') {
       if (!(cart.domain || cart.ownDomain)) return null;
       // Le .ht n'est pas encore vendu : un panier trafiqué ne passe jamais au paiement
-      if ([cart.domain, ...(cart.extras || [])].some((d) => d && /\.ht$/i.test(String(d.domain || '')))) { FW.cart.clear && FW.cart.clear(); location.replace('domaines.html'); return false; }
+      if ([cart.domain, ...(cart.extras || [])].some((d) => d && /\.ht$/i.test(String(d.domain || '')))) { FW.cart.clear && FW.cart.clear(); location.replace('domaines'); return false; }
       // Connexion (ou création de compte) sur sa propre page, puis retour ici pour payer
-      if (!session) { location.replace('connexion.html?next=paiement.html'); return false; }
+      if (!session) { location.replace('connexion?next=paiement.html'); return false; }
       // Domaine déjà payé, ou domaine existant avec compte : on passe directement à l'email pro
-      if ((cart.domainPaid && cart.domain) || (cart.ownDomain && session)) { location.replace('email-pro.html'); return false; }
+      if ((cart.domainPaid && cart.domain) || (cart.ownDomain && session)) { location.replace('email-pro'); return false; }
       return true;
     }
 
@@ -49,9 +49,9 @@
       savedMethod = (FW.workspace.get().paymentMethods || [])[0] || null;
       return true;
     }
-    if (!session) { location.replace(cart.ownDomain ? 'paiement.html' : 'connexion.html?next=' + encodeURIComponent('email-pro.html')); return false; }
+    if (!session) { location.replace(cart.ownDomain ? 'paiement' : 'connexion?next=' + encodeURIComponent('email-pro')); return false; }
     const ws = FW.workspace.get();
-    if (ws.plan) { location.replace('espace/facturation.html#offre'); return false; }
+    if (ws.plan) { location.replace('espace/facturation#offre'); return false; }
     if (ws.domains.length === 1 && !cart.ownDomain) fixedDomain = ws.domains[0].name;
     else domainMode = ws.domains.length && !cart.ownDomain ? 'select' : 'input';
     savedMethod = ws.paymentMethods.find((m) => m.default) || ws.paymentMethods[0] || null;
@@ -78,7 +78,7 @@
     const todo = (n) => `<span class="w-6 h-6 rounded-full border border-slate-300 text-slate-500 grid place-items-center text-xs">${n}</span>`;
     const first = domainFree ? 'Compte' : 'Paiement du domaine';
     $('#stepper-list').innerHTML = `
-      ${stage === 'domain' ? `<li><a href="domaines.html" class="flex items-center gap-2 text-ink font-medium hover:text-freda">${done}Domaine</a></li>` : `<li class="flex items-center gap-2 text-ink font-medium">${done}Domaine</li>`}
+      ${stage === 'domain' ? `<li><a href="domaines" class="flex items-center gap-2 text-ink font-medium hover:text-freda">${done}Domaine</a></li>` : `<li class="flex items-center gap-2 text-ink font-medium">${done}Domaine</li>`}
       <li aria-hidden="true" class="w-8 h-px bg-line"></li>
       ${stage === 'domain'
         ? `<li class="flex items-center gap-2 text-freda font-semibold" aria-current="step">${cur(2)}${first}</li>`
@@ -197,8 +197,8 @@
       ? 'Facultatif : choisissez une offre pour créer les adresses de votre entreprise sur son domaine. Vous pouvez aussi le faire plus tard depuis votre espace.'
       : (domainFree ? 'Vous choisirez ensuite l’offre email pour votre domaine existant.' : 'Étape 2 sur 3. Vous payez uniquement le nom de domaine. L’email pro se choisit à l’étape suivante, sans obligation.');
     $('#terms-text').innerHTML = email
-      ? 'J’accepte les <a href="legal.html#cgu" class="text-freda font-medium hover:underline" target="_blank">conditions d’utilisation</a> et la <a href="legal.html#remboursement" class="text-freda font-medium hover:underline" target="_blank">politique de remboursement</a>. L’abonnement se renouvelle automatiquement, annulable à tout moment.'
-      : 'J’accepte les <a href="legal.html#cgu" class="text-freda font-medium hover:underline" target="_blank">conditions d’utilisation</a> et la <a href="legal.html#remboursement" class="text-freda font-medium hover:underline" target="_blank">politique de remboursement</a>. Le domaine se renouvelle chaque année tant que l’auto-renouvellement est activé.';
+      ? 'J’accepte les <a href="legal#cgu" class="text-freda font-medium hover:underline" target="_blank">conditions d’utilisation</a> et la <a href="legal#remboursement" class="text-freda font-medium hover:underline" target="_blank">politique de remboursement</a>. L’abonnement se renouvelle automatiquement, annulable à tout moment.'
+      : 'J’accepte les <a href="legal#cgu" class="text-freda font-medium hover:underline" target="_blank">conditions d’utilisation</a> et la <a href="legal#remboursement" class="text-freda font-medium hover:underline" target="_blank">politique de remboursement</a>. Le domaine se renouvelle chaque année tant que l’auto-renouvellement est activé.';
     // Moyen de paiement déjà enregistré
     const sv = $('#saved-pay');
     sv.hidden = !(email && savedMethod);
@@ -414,7 +414,7 @@
         if (FW.config.DEMO_MODE) FW.workspace.createFromPurchase({ user, domain: cart.domain, extras: cart.extras || [], years: FW.cart.totals(cart).years, payer, method, reference: res.reference, amount: res.amount });
         cart = FW.cart.set({ domainPaid: !free, receipt: free ? null : { reference: res.reference, amount: res.amount } });
         // Étape 3 (facultative) : l'email pro a sa propre page
-        location.href = 'email-pro.html';
+        location.href = 'email-pro';
         return;
       }
 
@@ -458,7 +458,7 @@
 
   $('#skip-btn').addEventListener('click', () => {
     FW.cart.clear();
-    location.href = 'espace/index.html';
+    location.href = 'espace/';
   });
 
   /* ---------- Succès (offre email) ---------- */

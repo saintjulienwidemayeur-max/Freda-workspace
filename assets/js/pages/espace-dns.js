@@ -71,12 +71,12 @@
     const hasPlan = !!FWSpace.plan();
     const hasMail = (ws.mailboxes || []).some((m) => String(m.address).toLowerCase().endsWith('@' + domain.toLowerCase()));
     if (!hasPlan) {
-      $('#diag-head').innerHTML = `<div class="flex items-center gap-4"><span class="w-12 h-12 rounded-xl bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="mail-plus"></i></span><div><h2 id="diag-title" class="text-lg font-bold">Email pro non activé</h2><p class="text-sm text-muted">Les enregistrements MX, SPF, DKIM et DMARC seront ajoutés automatiquement à l’activation.</p></div></div><a href="../configurer-email.html" class="btn btn-cta shrink-0"><i data-lucide="mail-plus"></i>Activer l’email pro</a>`;
+      $('#diag-head').innerHTML = `<div class="flex items-center gap-4"><span class="w-12 h-12 rounded-xl bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="mail-plus"></i></span><div><h2 id="diag-title" class="text-lg font-bold">Email pro non activé</h2><p class="text-sm text-muted">Les enregistrements MX, SPF, DKIM et DMARC seront ajoutés automatiquement à l’activation.</p></div></div><a href="../configurer-email" class="btn btn-cta shrink-0"><i data-lucide="mail-plus"></i>Activer l’email pro</a>`;
       $('#diag-grid').innerHTML = '';
       return;
     }
     if (!hasMail) {
-      $('#diag-head').innerHTML = `<div class="flex items-center gap-4"><span class="w-12 h-12 rounded-xl bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="mail-plus"></i></span><div><h2 id="diag-title" class="text-lg font-bold">Aucune boîte mail sur ${esc(domain)}</h2><p class="text-sm text-muted">Créez une adresse (contact@${esc(domain)}) : les enregistrements MX, SPF, DKIM et DMARC sont alors ajoutés automatiquement. Vous pourrez choisir le domaine parmi ceux de votre compte.</p></div></div><a href="emails.html?new=1&domain=${encodeURIComponent(domain)}" class="btn btn-cta shrink-0"><i data-lucide="mail-plus"></i>Créer une boîte mail</a>`;
+      $('#diag-head').innerHTML = `<div class="flex items-center gap-4"><span class="w-12 h-12 rounded-xl bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="mail-plus"></i></span><div><h2 id="diag-title" class="text-lg font-bold">Aucune boîte mail sur ${esc(domain)}</h2><p class="text-sm text-muted">Créez une adresse (contact@${esc(domain)}) : les enregistrements MX, SPF, DKIM et DMARC sont alors ajoutés automatiquement. Vous pourrez choisir le domaine parmi ceux de votre compte.</p></div></div><a href="emails?new=1&domain=${encodeURIComponent(domain)}" class="btn btn-cta shrink-0"><i data-lucide="mail-plus"></i>Créer une boîte mail</a>`;
       $('#diag-grid').innerHTML = '';
       return;
     }

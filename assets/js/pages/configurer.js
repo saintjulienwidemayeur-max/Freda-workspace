@@ -34,7 +34,7 @@
     input.blur();
     FW.cart.set({ domain: null, extras: [], ownDomain: true, ownDomainName: v, domainPaid: false });
     // Pas de compte : on le crée d'abord (paiement.html renvoie vers email-pro.html ensuite)
-    location.href = sess ? 'email-pro.html' : 'paiement.html';
+    location.href = sess ? 'email-pro' : 'paiement';
   });
 
   $('#new-btn').addEventListener('click', () => {

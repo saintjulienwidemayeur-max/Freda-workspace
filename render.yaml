@@ -11,6 +11,13 @@ services:
       - key: FW_API_BASE
         value: https://freda-workspace-api.onrender.com/api     # remplacer par https://api.fredaworkspace.com/api une fois le domaine associé
     staticPublishPath: .
+    # URLs propres : /domaines est réécrit en interne vers /domaines.html (les fichiers existants, assets compris, sont servis d'abord ;
+    # seule une adresse sans fichier correspondant passe par la réécriture). Si le service n'est pas géré par ce blueprint, ajouter la même
+    # règle dans le tableau de bord Render : Redirects/Rewrites > Rewrite, source /*, destination /*.html.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /*.html
     # www -> apex : pas de règle `routes` ici. Un `type: redirect` de render.yaml ne porte que sur les chemins, pas sur le nom d'hôte, et
     # une règle sur « / » ferait une boucle de redirection. Render redirige déjà automatiquement www.fredaworkspace.com vers
     # fredaworkspace.com quand les DEUX domaines sont ajoutés au service (Dashboard > Settings > Custom Domains) ; il suffit donc d'ajouter

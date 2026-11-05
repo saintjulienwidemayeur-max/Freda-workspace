@@ -36,6 +36,8 @@ function startServer(opts = {}) {
     let p = decodeURIComponent(req.url.split('?')[0]);
     if (p.endsWith('/')) p += 'index.html';
     let file = path.join(ROOT, p);
+    // Render réécrit /page vers /page.html (règle `/*` -> `/*.html` de render.yaml) : même comportement ici
+    if (!path.extname(p) && !fs.existsSync(file) && fs.existsSync(file + '.html')) file += '.html';
     const ok = file.startsWith(ROOT) && fs.existsSync(file) && fs.statSync(file).isFile() && !/\/(node_modules|\.git|tests|scripts)\//.test(p);
     if (!ok) { file = path.join(ROOT, '404.html'); res.statusCode = 404; }
     res.setHeader('Content-Type', TYPES[path.extname(file)] || 'application/octet-stream');

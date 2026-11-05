@@ -11,7 +11,7 @@
 
   /* Redirection après connexion (uniquement vers une page du site). */
   function goNext() {
-    const safe = next && !/^(https?:)?\/\//.test(next) ? next : 'espace/index.html';
+    const safe = next && !/^(https?:)?\/\//.test(next) ? next : 'espace/';
     location.href = safe.replace(/^\//, '');
   }
 
@@ -25,7 +25,7 @@
 
   /* Venu du panier : garde la destination d'une page à l'autre et l'explique */
   if (next) {
-    document.querySelectorAll('a[href="inscription.html"], a[href="connexion.html"]').forEach((a) => { a.href = a.getAttribute('href') + '?next=' + encodeURIComponent(next); });
+    document.querySelectorAll('a[href="inscription"], a[href="connexion"]').forEach((a) => { a.href = a.getAttribute('href') + '?next=' + encodeURIComponent(next); });
     const h1 = document.querySelector('h1');
     if (h1 && /paiement|email-pro/.test(next)) h1.insertAdjacentHTML('afterend', '<p class="mt-3 flex items-start gap-2 rounded-xl bg-mist text-deep text-sm p-3.5"><i data-lucide="shopping-cart" class="w-4 h-4 mt-0.5 shrink-0"></i><span>Identifiez-vous pour finaliser votre commande. Votre sélection est conservée.</span></p>');
   }
@@ -86,7 +86,7 @@
     /* Retour de Google (connexion.html#token=…) et lien de réinitialisation (?reset=…) */
     if (location.hash.includes('token=') || location.hash.includes('error=')) {
       FW.auth.completeOAuth(location.hash)
-        .then((r) => { if (r) { if (r.isNew && !next) location.href = 'entreprise.html'; else goNext(); } })
+        .then((r) => { if (r) { if (r.isNew && !next) location.href = 'entreprise'; else goNext(); } })
         .catch((err) => { const e = $('#login-error'); if (e) { e.textContent = err.message; e.classList.add('show'); } });
     }
     const resetToken = params.get('reset');
@@ -183,7 +183,7 @@
           password: pass.value,
         });
         FWUI.toast('Compte créé. Configurons maintenant votre entreprise.');
-        setTimeout(() => { location.href = 'entreprise.html' + (next ? '?next=' + encodeURIComponent(next) : ''); }, 600);
+        setTimeout(() => { location.href = 'entreprise' + (next ? '?next=' + encodeURIComponent(next) : ''); }, 600);
       } catch (err) {
         FWUI.setLoading(btn, false);
         $('#signup-error').textContent = err.message;
