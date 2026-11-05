@@ -82,12 +82,12 @@ URL : https://fredaworkspace.com/nom-de-domaine-haiti.html
 Langue : français
 Mise à jour : 2026-11-05
 
-Pour une entreprise haïtienne, le plus simple est un nom de domaine en .com, .net ou .org : vous pouvez l’acheter sur Freda Workspace à partir de 2,99 $ la première année et le payer en MonCash, NatCash ou par carte. Vous possédez déjà un domaine en .ht ? Freda Workspace ne le vend pas, mais vous pouvez le connecter et lui ajouter une adresse email professionnelle.
+Pour une entreprise haïtienne, le plus simple est un nom de domaine en .com, .net ou .org : vous pouvez l’acheter sur Freda Workspace à partir de 2,99 $ la première année et le payer en MonCash, NatCash ou par carte. Le domaine en .ht arrive bientôt chez Freda Connect ; si vous en possédez déjà un, vous pouvez dès maintenant le connecter et lui ajouter une adresse email professionnelle.
 
 ## En bref
 
 - Extensions vendues : .com, .net, .org, .co, .store, .online, .site, .tech, .io
-- Domaine en .ht : Non vendu par Freda Workspace ; vous pouvez connecter un .ht existant et y créer vos adresses email
+- Domaine en .ht : Bientôt disponible chez Freda Connect ; en attendant, vous pouvez connecter un .ht existant et y créer vos adresses email
 - Prix : À partir de 2,99 $ la première année, selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher que la première année
 - Moyens de paiement : MonCash, NatCash ou carte ; montants convertis en gourdes (HTG) au taux indiqué au paiement
 - Durée : De 1 à 10 ans à l’achat
@@ -102,7 +102,7 @@ Le choix dépend de votre usage. Pour être facile à retenir et à saisir sur u
 | .com | Oui | Entreprises, commerces, services : l’extension la plus connue |
 | .net | Oui | Réseaux, services en ligne, alternative au .com |
 | .org | Oui | Associations, ONG, fondations, églises |
-| .ht | Non (connexion d’un .ht existant possible) | Identité haïtienne ; géré par son registre national |
+| .ht | Bientôt (connexion d’un .ht existant déjà possible) | Identité haïtienne ; géré par son registre national |
 | .co, .store, .online, .site, .tech, .io | Oui | Boutiques en ligne, projets numériques, startups |
 
 ## Acheter un nom de domaine en Haïti avec MonCash ou NatCash
@@ -112,9 +112,9 @@ Le choix dépend de votre usage. Pour être facile à retenir et à saisir sur u
 2. Choisissez la durée (de 1 à 10 ans) et gardez la confidentialité Whois gratuite activée : vos coordonnées personnelles restent masquées.
 3. Payez avec MonCash ou NatCash : vous êtes redirigé vers la page de paiement, vous confirmez avec votre code PIN, puis vous revenez sur Freda Workspace. Le domaine est enregistré dès que le paiement est confirmé.
 
-## Le .ht : pourquoi nous conseillons de le connecter plutôt que de l’acheter ici
+## Le nom de domaine .ht arrive bientôt chez Freda Connect
 
-Le .ht est géré par NIC Haïti (nic.ht). Il est ouvert à tous, mais chez les registraires étrangers il coûte nettement plus cher qu’un .com ou un .net : par exemple environ 112 € par an chez Gandi (prix constaté en novembre 2026, donné à titre indicatif et susceptible de changer). Freda Workspace ne vend pas le .ht ; si vous en possédez déjà un, gardez-le chez votre registraire et connectez-le à Freda Workspace pour y ajouter une adresse email professionnelle.
+Le .ht est géré par NIC Haïti (nic.ht). Il est ouvert à tous, mais chez les registraires étrangers il coûte nettement plus cher qu’un .com ou un .net : par exemple environ 112 € par an chez Gandi (prix constaté en novembre 2026, donné à titre indicatif et susceptible de changer). Freda Connect prépare l’enregistrement des noms de domaine en .ht : vous pourrez bientôt l’obtenir au même endroit que votre email professionnel. La date de lancement et les prix seront annoncés ici ; aucun prix n’est fixé pour l’instant. En attendant, si vous possédez déjà un .ht, vous pouvez le connecter à Freda Workspace dès maintenant pour y ajouter une adresse email professionnelle, ou écrire à support@fredaworkspace.com pour être prévenu du lancement.
 
 ## Connecter un domaine .ht que vous possédez déjà
 
@@ -128,7 +128,7 @@ Le nom de domaine est enregistré à votre nom. Vous pouvez le transférer chez 
 
 ### Freda Workspace vend-il des noms de domaine en .ht ?
 
-Non. Freda Workspace vend des .com, .net, .org, .co, .store, .online, .site, .tech et .io. Si vous possédez déjà un domaine en .ht, vous pouvez le connecter et y ajouter une adresse email professionnelle.
+Pas encore : le .ht arrive bientôt chez Freda Connect, sans date ni prix annoncés pour l’instant. Aujourd’hui, Freda Workspace vend des .com, .net, .org, .co, .store, .online, .site, .tech et .io. Si vous possédez déjà un domaine en .ht, vous pouvez le connecter dès maintenant et y ajouter une adresse email professionnelle.
 
 ### Combien coûte un nom de domaine pour Haïti ?
 
@@ -294,12 +294,12 @@ URL : https://fredaworkspace.com/ht/non-domenn-ayiti.html
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
-Pou yon biznis ayisyen, sa ki pi senp se yon non domèn .com, .net oswa .org: ou ka achte l sou Freda Workspace a pati de 2,99 $ premye ane a epi peye l ak MonCash, NatCash oswa kat. Ou genyen deja yon domèn .ht? Freda Workspace pa vann li, men ou ka konekte l epi ajoute yon adrès imèl pwofesyonèl sou li.
+Pou yon biznis ayisyen, sa ki pi senp se yon non domèn .com, .net oswa .org: ou ka achte l sou Freda Workspace a pati de 2,99 $ premye ane a epi peye l ak MonCash, NatCash oswa kat. Domèn .ht la ap vini byento nan Freda Connect; si ou genyen youn deja, ou ka konekte l depi kounye a epi ajoute yon adrès imèl pwofesyonèl sou li.
 
 ## Rezime
 
 - Ekstansyon nou vann : .com, .net, .org, .co, .store, .online, .site, .tech, .io
-- Domèn .ht : Freda Workspace pa vann li; ou ka konekte yon .ht ou genyen deja epi kreye adrès imèl sou li
+- Domèn .ht : Ap vini byento nan Freda Connect; annatandan, ou ka konekte yon .ht ou genyen deja epi kreye adrès imèl sou li
 - Pri : A pati de 2,99 $ premye ane a, dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè pase premye ane a
 - Mwayen peman : MonCash, NatCash oswa kat; montan yo konvèti an goud (HTG) ak to ki endike lè ou peye
 - Dire : De 1 a 10 an lè ou achte
@@ -314,7 +314,7 @@ Chwa a depann de sa ou bezwen. Pou li fasil pou sonje epi ekri sou yon telefòn,
 | .com | Wi | Biznis, boutik, sèvis: ekstansyon ki pi konnen an |
 | .net | Wi | Rezo, sèvis sou entènèt, altènativ a .com |
 | .org | Wi | Asosyasyon, ONG, fondasyon, legliz |
-| .ht | Non (ou ka konekte yon .ht ou genyen deja) | Idantite ayisyen; rejis nasyonal li jere l |
+| .ht | Byento (ou ka konekte yon .ht ou genyen deja depi kounye a) | Idantite ayisyen; rejis nasyonal li jere l |
 | .co, .store, .online, .site, .tech, .io | Wi | Boutik sou entènèt, pwojè nimerik, startup |
 
 ## Achte yon non domèn nan Ayiti ak MonCash oswa NatCash
@@ -324,9 +324,9 @@ Chwa a depann de sa ou bezwen. Pou li fasil pou sonje epi ekri sou yon telefòn,
 2. Chwazi dire a (de 1 a 10 an) epi kkite konfidansyalite Whois gratis la aktive: enfòmasyon pèsonèl ou yo rete kache.
 3. Peye ak MonCash oswa NatCash: yo voye w sou paj peman an, ou konfime ak kòd PIN ou, epi ou retounen sou Freda Workspace. Yo anrejistre domèn nan le peman an konfime.
 
-## Domèn .ht la: poukisa nou konseye w konekte l olye w achte l isit la
+## Non domèn .ht la ap vini byento nan Freda Connect
 
-NIC Ayiti (nic.ht) jere .ht la. Li louvri pou tout moun, men nan men rejistrè etranje li koute pi chè pase yon .com oswa yon .net: pa egzanp apeprè 112 € pa ane nan Gandi (pri nou te wè an novanm 2026, se yon endikasyon sèlman epi li ka chanje). Freda Workspace pa vann .ht la; si ou genyen youn deja, kenbe l kote ou achte l la epi konekte l ak Freda Workspace pou ajoute yon adrès imèl pwofesyonèl.
+NIC Ayiti (nic.ht) jere .ht la. Li louvri pou tout moun, men nan men rejistrè etranje li koute pi chè pase yon .com oswa yon .net: pa egzanp apeprè 112 € pa ane nan Gandi (pri nou te wè an novanm 2026, se yon endikasyon sèlman epi li ka chanje). Freda Connect ap prepare enskripsyon non domèn .ht yo: byento ou pral ka jwenn li nan menm kote ak imèl pwofesyonèl ou. Nou pral anonse dat lansman an ak pri yo isit la; pa gen pri ki fikse pou kounye a. Annatandan, si ou genyen yon .ht deja, ou ka konekte l ak Freda Workspace depi kounye a pou ajoute yon adrès imèl pwofesyonèl, oswa ekri nan support@fredaworkspace.com pou yo avèti w lè l lanse.
 
 ## Konekte yon domèn .ht ou genyen deja
 
@@ -340,7 +340,7 @@ Yo anrejistre non domèn nan sou non ou. Ou ka transfere l nan yon lòt rejistr�
 
 ### Èske Freda Workspace vann non domèn .ht?
 
-Non. Freda Workspace vann .com, .net, .org, .co, .store, .online, .site, .tech ak .io. Si ou genyen deja yon domèn .ht, ou ka konekte l epi ajoute yon adrès imèl pwofesyonèl sou li.
+Poko: .ht la ap vini byento nan Freda Connect, san dat ni pri anonse pou kounye a. Jodi a, Freda Workspace vann .com, .net, .org, .co, .store, .online, .site, .tech ak .io. Si ou genyen deja yon domèn .ht, ou ka konekte l depi kounye a epi ajoute yon adrès imèl pwofesyonèl sou li.
 
 ### Konbyen yon non domèn pou Ayiti koute?
 
@@ -444,7 +444,7 @@ Yes: Freda Workspace gives every account 1 free professional mailbox on your own
 - What you get : 1 professional mailbox, 1 GB storage
 - What you need : A domain name (bought from Freda Workspace, or one you already own)
 - Is the domain name free? : No: from 2,99 $ for the first year depending on the extension (price shown before payment; renewal can cost more)
-- Domains sold : .com, .net, .org, .co, .store, .online, .site, .tech, .io (not .ht, but an existing .ht domain can be connected)
+- Domains sold : .com, .net, .org, .co, .store, .online, .site, .tech, .io (.ht is coming soon; an existing .ht domain can already be connected)
 - Payment : MonCash, NatCash or card; MonCash and NatCash cannot auto-debit, so a prepaid Freda balance ($5 to $500) pays subscriptions automatically
 - Language and support : French and Haitian Creole, Monday to Saturday, 8am to 6pm (Haiti time)
 
@@ -482,7 +482,7 @@ No. Freda Workspace does not sell free domain names: prices start at 2,99 $ for 
 
 ### Does Freda Workspace sell .ht domains?
 
-No. It sells .com, .net, .org, .co, .store, .online, .site, .tech and .io. You can connect a .ht domain you already own and add a professional email address to it.
+Not yet: .ht is coming soon to Freda Connect, with no date or price announced yet. Today it sells .com, .net, .org, .co, .store, .online, .site, .tech and .io. If you already own a .ht domain you can connect it now and add a professional email address to it.
 
 ### Can I pay with MonCash or NatCash?
 
@@ -791,3 +791,392 @@ Freda Pay LLC is the company. Freda Workspace is its brand for domain names and 
 ### How do I contact support?
 
 By email at support@fredaworkspace.com or through the help-centre form, Monday to Saturday, 8am to 6pm (Haiti time), in French, Haitian Creole or English.
+
+---
+
+# Freda Mail : l’email professionnel sur votre propre nom de domaine
+
+URL : https://fredaworkspace.com/freda-mail.html
+Langue : français
+Mise à jour : 2026-11-05
+
+Freda Mail est le produit d’email professionnel de Freda Workspace, une marque de Freda Pay LLC. Il vous donne des adresses sur votre propre domaine (contact@votre-entreprise.com), avec 1 boîte gratuite par compte, SPF, DKIM et DMARC configurés automatiquement, une application mobile et la compatibilité avec tout logiciel IMAP et SMTP.
+
+## En bref
+
+- Produit : Freda Mail, email professionnel de Freda Workspace (Freda Pay LLC)
+- Ce que c’est : Des adresses email sur votre propre nom de domaine, par exemple contact@votre-entreprise.com
+- Offre gratuite : 1 boîte (1 Go) par compte, sans abonnement ni carte bancaire ; le nom de domaine est payant
+- Offres payantes : Starter 2,99 $/mois (2 boîtes), Business 9,99 $/mois (5 boîtes), Enterprise 30,00 $/mois (illimité)
+- Sécurité : SPF, DKIM et DMARC configurés automatiquement
+- Compatibilité : Application Freda Mail, et tout logiciel IMAP / SMTP (Outlook, Apple Mail, Gmail)
+- Paiement : MonCash, NatCash, carte et autres moyens proposés par Stripe ; solde prépayé pour les abonnements
+- Produit associé : Freda Connect (noms de domaine et DNS)
+
+## Ce que fait Freda Mail
+
+Freda Mail héberge vos boîtes email professionnelles et les relie à votre nom de domaine. Vous créez vos adresses (contact@, ventes@, direction@), vous lisez et envoyez vos messages dans l’application Freda Mail ou dans n’importe quel logiciel compatible IMAP et SMTP, et vous gérez les alias et les mots de passe depuis votre espace client. Les protections SPF, DKIM et DMARC, qui aident vos messages à arriver en boîte de réception, sont configurées pour vous.
+
+## Les offres Freda Mail
+
+Les offres payantes se règlent pour 1 à 12 mois à l’avance ; 12 mois = deux mois offerts. Les prix peuvent évoluer : la page des tarifs fait foi.
+
+|  | Gratuit | Starter | Business | Enterprise |
+| --- | --- | --- | --- | --- |
+| Prix | 0 $ | 2,99 $/mois | 9,99 $/mois | 30,00 $/mois |
+| Boîtes email | 1 | 2 | 5 | Illimitées |
+| Stockage | 1 Go | 2 Go | 15 Go partagés | 5 Go par boîte |
+
+## Démarrer avec Freda Mail
+
+
+1. Créez votre compte Freda Workspace (gratuit, sans carte bancaire).
+2. Choisissez votre nom de domaine avec Freda Connect, ou connectez celui que vous possédez déjà.
+3. Créez votre première adresse email : les enregistrements MX, SPF, DKIM et DMARC sont ajoutés ou clairement indiqués.
+4. Connectez-vous avec l’application Freda Mail ou votre logiciel de messagerie habituel.
+
+## Freda Mail et Freda Connect, ensemble
+
+Freda Mail fonctionne avec n’importe quel nom de domaine, mais il est le plus simple avec Freda Connect : le domaine et l’email se configurent au même endroit, et le DNS de l’email est préparé automatiquement.
+
+## Questions fréquentes
+
+### Qu’est-ce que Freda Mail ?
+
+Freda Mail est le produit d’email professionnel de Freda Workspace, une marque de Freda Pay LLC. Il permet d’avoir des adresses email sur son propre nom de domaine, avec une application mobile et la compatibilité IMAP / SMTP.
+
+### Freda Mail est-il gratuit ?
+
+Chaque compte a droit à 1 boîte Freda Mail gratuite (1 Go) sur son propre domaine, sans abonnement ni carte bancaire. Le nom de domaine, lui, est payant. Les offres Starter, Business et Enterprise ajoutent des boîtes et du stockage.
+
+### Quelle est la différence entre Freda Mail et Freda Workspace ?
+
+Freda Workspace est la marque. Elle regroupe Freda Mail (email professionnel) et Freda Connect (noms de domaine et DNS).
+
+### Comment lire mes emails Freda Mail ?
+
+Avec l’application Freda Mail, ou avec tout logiciel compatible IMAP et SMTP comme Outlook, Apple Mail ou Gmail. Les paramètres sont affichés dans votre espace.
+
+### Combien de boîtes Freda Mail puis-je avoir ?
+
+Gratuit : 1 boîte. Starter : 2 boîtes. Business : 5 boîtes. Enterprise : illimité. Les alias sont gratuits.
+
+### Puis-je payer Freda Mail avec MonCash ou NatCash ?
+
+Oui. MonCash et NatCash ne permettent pas de prélèvement automatique : vous rechargez un solde Freda qui paie ensuite votre offre automatiquement.
+
+---
+
+# Freda Mail: imèl pwofesyonèl sou pwòp non domèn ou
+
+URL : https://fredaworkspace.com/ht/freda-mail.html
+Langue : créole haïtien
+Mise à jour : 2026-11-05
+
+Freda Mail se pwodwi imèl pwofesyonèl Freda Workspace, yon mak Freda Pay LLC. Li ba ou adrès sou pwòp domèn ou (kontak@biznis-ou.com), ak 1 bwat gratis pou chak kont, SPF, DKIM ak DMARC konfigire otomatikman, yon aplikasyon mobil ak konpatibilite ak nenpòt lojisyèl IMAP ak SMTP.
+
+## Rezime
+
+- Pwodwi : Freda Mail, imèl pwofesyonèl Freda Workspace (Freda Pay LLC)
+- Kisa li ye : Adrès imèl sou pwòp non domèn ou, pa egzanp kontak@biznis-ou.com
+- Òf gratis : 1 bwat (1 Go) pou chak kont, san abònman ni kat bankè; non domèn nan peye
+- Òf ki peye : Starter 2,99 $/mwa (2 bwat), Business 9,99 $/mwa (5 bwat), Enterprise 30,00 $/mwa (san limit)
+- Sekirite : SPF, DKIM ak DMARC konfigire otomatikman
+- Konpatibilite : Aplikasyon Freda Mail, ak nenpòt lojisyèl IMAP / SMTP (Outlook, Apple Mail, Gmail)
+- Peman : MonCash, NatCash, kat ak lòt mwayen Stripe pwopoze; balans prepeye pou abònman yo
+- Pwodwi asosye : Freda Connect (non domèn ak DNS)
+
+## Sa Freda Mail fè
+
+Freda Mail eberje bwat imèl pwofesyonèl ou yo epi li konekte yo ak non domèn ou. Ou kreye adrès ou yo (kontak@, lavant@, direksyon@), ou li epi voye mesaj ou yo nan aplikasyon Freda Mail la oswa nan nenpòt lojisyèl ki sipòte IMAP ak SMTP, epi ou jere alyas ak modpas yo depi nan espas kliyan ou. Pwoteksyon SPF, DKIM ak DMARC yo, ki ede mesaj ou yo rive nan bwat resepsyon, konfigire pou ou.
+
+## Òf Freda Mail yo
+
+Ou peye òf ki peye yo pou 1 a 12 mwa davans; 12 mwa = de mwa gratis. Pri yo ka chanje: paj tarif la fè lafwa.
+
+|  | Gratis | Starter | Business | Enterprise |
+| --- | --- | --- | --- | --- |
+| Pri | 0 $ | 2,99 $/mwa | 9,99 $/mwa | 30,00 $/mwa |
+| Bwat imèl | 1 | 2 | 5 | San limit |
+| Espas | 1 Go | 2 Go | 15 Go pataje | 5 Go pou chak bwat |
+
+## Kijan pou kòmanse ak Freda Mail
+
+
+1. Kreye kont Freda Workspace ou (gratis, san kat bankè).
+2. Chwazi non domèn ou ak Freda Connect, oswa konekte youn ou genyen deja.
+3. Kreye premye adrès imèl ou: enregistreman MX, SPF, DKIM ak DMARC yo ajoute oswa yo endike klèman.
+4. Konekte ak aplikasyon Freda Mail la oswa ak lojisyèl imèl ou abitye ak li a.
+
+## Freda Mail ak Freda Connect ansanm
+
+Freda Mail mache ak nenpòt non domèn, men li pi senp ak Freda Connect: domèn nan ak imèl la konfigire nan menm kote, epi DNS imèl la prepare otomatikman.
+
+## Kesyon moun poze souvan
+
+### Kisa Freda Mail ye?
+
+Freda Mail se pwodwi imèl pwofesyonèl Freda Workspace, yon mak Freda Pay LLC. Li pèmèt ou gen adrès imèl sou pwòp non domèn ou, ak yon aplikasyon mobil ak konpatibilite IMAP / SMTP.
+
+### Èske Freda Mail gratis?
+
+Chak kont gen dwa a 1 bwat Freda Mail gratis (1 Go) sou pwòp domèn li, san abònman ni kat bankè. Non domèn nan, li menm, peye. Òf Starter, Business ak Enterprise yo ajoute plis bwat ak plis espas.
+
+### Ki diferans ki genyen ant Freda Mail ak Freda Workspace?
+
+Freda Workspace se mak la. Li gen Freda Mail (imèl pwofesyonèl) ak Freda Connect (non domèn ak DNS) andedan.
+
+### Kijan pou m li imèl Freda Mail mwen yo?
+
+Ak aplikasyon Freda Mail la, oswa ak nenpòt lojisyèl ki sipòte IMAP ak SMTP tankou Outlook, Apple Mail oswa Gmail. Paramèt yo parèt nan espas ou.
+
+### Konbyen bwat Freda Mail mwen ka genyen?
+
+Gratis: 1 bwat. Starter: 2 bwat. Business: 5 bwat. Enterprise: san limit. Alyas yo gratis.
+
+### Èske mwen ka peye Freda Mail ak MonCash oswa NatCash?
+
+Wi. MonCash ak NatCash pa pèmèt prelèvman otomatik: ou rechaje yon balans Freda ki peye òf ou a otomatikman apre.
+
+---
+
+# Freda Mail: professional email on your own domain name
+
+URL : https://fredaworkspace.com/en/freda-mail.html
+Langue : anglais
+Mise à jour : 2026-11-05
+
+Freda Mail is the professional email product of Freda Workspace, a brand of Freda Pay LLC. It gives you addresses on your own domain (contact@your-company.com), with 1 free mailbox per account, SPF, DKIM and DMARC configured automatically, a mobile app and compatibility with any IMAP and SMTP client.
+
+## At a glance
+
+- Product : Freda Mail, the professional email of Freda Workspace (Freda Pay LLC)
+- What it is : Email addresses on your own domain name, for example contact@your-company.com
+- Free plan : 1 mailbox (1 GB) per account, no subscription, no bank card; the domain name is paid
+- Paid plans : Starter 2,99 $/month (2 mailboxes), Business 9,99 $/month (5 mailboxes), Enterprise 30,00 $/month (unlimited)
+- Security : SPF, DKIM and DMARC configured automatically
+- Compatibility : Freda Mail app, and any IMAP / SMTP client (Outlook, Apple Mail, Gmail)
+- Payment : MonCash, NatCash, card and other methods offered by Stripe; prepaid balance for subscriptions
+- Related product : Freda Connect (domain names and DNS)
+
+## What Freda Mail does
+
+Freda Mail hosts your professional mailboxes and links them to your domain name. You create your addresses (contact@, sales@, management@), read and send messages in the Freda Mail app or in any IMAP and SMTP client, and manage aliases and passwords from your account. The SPF, DKIM and DMARC protections, which help your messages reach the inbox, are configured for you.
+
+## Freda Mail plans
+
+Paid plans are paid 1 to 12 months in advance; 12 months = two months free. Prices may change: the pricing page is authoritative.
+
+|  | Free | Starter | Business | Enterprise |
+| --- | --- | --- | --- | --- |
+| Price | $0 | 2,99 $/month | 9,99 $/month | 30,00 $/month |
+| Mailboxes | 1 | 2 | 5 | Unlimited |
+| Storage | 1 GB | 2 GB | 15 GB shared | 5 GB per mailbox |
+
+## Getting started with Freda Mail
+
+
+1. Create your Freda Workspace account (free, no bank card).
+2. Choose your domain name with Freda Connect, or connect one you already own.
+3. Create your first email address: the MX, SPF, DKIM and DMARC records are added or clearly shown.
+4. Sign in with the Freda Mail app or your usual email client.
+
+## Frequently asked questions
+
+### What is Freda Mail?
+
+Freda Mail is the professional email product of Freda Workspace, a brand of Freda Pay LLC. It lets you have email addresses on your own domain name, with a mobile app and IMAP / SMTP compatibility.
+
+### Is Freda Mail free?
+
+Every account includes 1 free Freda Mail mailbox (1 GB) on its own domain, with no subscription or bank card. The domain name is paid. Starter, Business and Enterprise plans add mailboxes and storage.
+
+### What is the difference between Freda Mail and Freda Workspace?
+
+Freda Workspace is the brand. It includes Freda Mail (professional email) and Freda Connect (domain names and DNS).
+
+### How do I read my Freda Mail email?
+
+With the Freda Mail app, or any IMAP and SMTP client such as Outlook, Apple Mail or Gmail. The settings are shown in your account.
+
+### Can I pay for Freda Mail with MonCash or NatCash?
+
+Yes. MonCash and NatCash do not allow automatic charges, so you top up a Freda balance that then pays your plan automatically.
+
+---
+
+# Freda Connect : noms de domaine et DNS de Freda Workspace
+
+URL : https://fredaworkspace.com/freda-connect.html
+Langue : français
+Mise à jour : 2026-11-05
+
+Freda Connect est le produit de noms de domaine de Freda Workspace, une marque de Freda Pay LLC. Il permet de rechercher et d’enregistrer un nom de domaine international pour 1 à 10 ans, de gérer ses enregistrements DNS, de connecter un domaine que vous possédez déjà et de le relier automatiquement à Freda Mail. Le nom de domaine en .ht arrive bientôt.
+
+## En bref
+
+- Produit : Freda Connect, noms de domaine et DNS de Freda Workspace (Freda Pay LLC)
+- Extensions : .com, .net, .org, .co, .store, .online, .site, .tech, .io ; le .ht arrive bientôt
+- Durée : De 1 à 10 ans
+- Prix : À partir de 2,99 $ la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher
+- Inclus : Confidentialité Whois gratuite, verrouillage anti-transfert, éditeur DNS complet, rappels de renouvellement
+- Domaine existant : Vous pouvez connecter un domaine que vous possédez déjà, y compris un .ht
+- Paiement : Carte et autres moyens Stripe selon votre pays ; MonCash et NatCash
+- Produit associé : Freda Mail (email professionnel, 1 boîte gratuite sur votre domaine)
+
+## Ce que fait Freda Connect
+
+Freda Connect vous permet de chercher un nom de domaine, de l’enregistrer pour 1 à 10 ans, de gérer ses enregistrements DNS (A, AAAA, CNAME, MX, TXT…) depuis votre espace, de verrouiller le domaine contre les transferts non voulus et de demander le code d’autorisation (EPP) pour le transférer ailleurs. Freda Connect enregistre les domaines par l’intermédiaire d’un registraire partenaire accrédité ICANN.
+
+## Le nom de domaine .ht arrive bientôt
+
+Freda Connect prépare l’enregistrement des noms de domaine en .ht (domaine national d’Haïti, géré par NIC Haïti). La date de lancement et les prix seront annoncés ici ; aucun prix n’est fixé pour l’instant. Si vous possédez déjà un .ht, vous pouvez le connecter dès maintenant à Freda Workspace pour y créer des adresses email professionnelles. Pour être prévenu du lancement, écrivez à support@fredaworkspace.com.
+
+## Démarrer avec Freda Connect
+
+
+1. Tapez le nom de votre entreprise dans la recherche de domaine.
+2. Choisissez l’extension et la durée, puis payez par carte, MonCash ou NatCash.
+3. Gérez vos enregistrements DNS depuis votre espace ; si vous ajoutez l’email professionnel, MX, SPF, DKIM et DMARC sont configurés automatiquement.
+
+## Freda Connect et Freda Mail, ensemble
+
+Chaque compte Freda Workspace a droit à 1 boîte email professionnelle gratuite sur son propre domaine avec Freda Mail. Le nom de domaine, lui, est payant.
+
+## Questions fréquentes
+
+### Qu’est-ce que Freda Connect ?
+
+Freda Connect est le produit de noms de domaine et de DNS de Freda Workspace, une marque de Freda Pay LLC : recherche, enregistrement, gestion DNS et connexion de domaines existants.
+
+### Quelles extensions propose Freda Connect ?
+
+Freda Connect propose .com, .net, .org, .co, .store, .online, .site, .tech et .io. Le .ht arrive bientôt, sans date ni prix annoncés pour l’instant.
+
+### Combien coûte un nom de domaine avec Freda Connect ?
+
+Les prix commencent à 2,99 $ la première année selon l’extension. Le prix exact et le prix de renouvellement sont affichés avant le paiement.
+
+### Puis-je connecter un domaine que je possède déjà ?
+
+Oui, y compris un domaine en .ht. Freda Connect affiche les enregistrements DNS à ajouter chez votre fournisseur, puis vérifie la connexion.
+
+### Quelle est la différence entre Freda Connect et Freda Mail ?
+
+Freda Connect gère les noms de domaine et le DNS ; Freda Mail gère les boîtes email professionnelles. Les deux sont des produits de Freda Workspace.
+
+---
+
+# Freda Connect: non domèn ak DNS Freda Workspace
+
+URL : https://fredaworkspace.com/ht/freda-connect.html
+Langue : créole haïtien
+Mise à jour : 2026-11-05
+
+Freda Connect se pwodwi non domèn Freda Workspace, yon mak Freda Pay LLC. Li pèmèt ou chèche epi anrejistre yon non domèn entènasyonal pou 1 a 10 an, jere enregistreman DNS li yo, konekte yon domèn ou genyen deja epi lye l otomatikman ak Freda Mail. Non domèn .ht la ap vini byento.
+
+## Rezime
+
+- Pwodwi : Freda Connect, non domèn ak DNS Freda Workspace (Freda Pay LLC)
+- Ekstansyon : .com, .net, .org, .co, .store, .online, .site, .tech, .io; .ht la ap vini byento
+- Dire : De 1 a 10 an
+- Pri : A pati de 2,99 $ premye ane a dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè
+- Sa ki enkli : Konfidansyalite Whois gratis, vèwouyaj kont transfè, editè DNS konplè, rapèl renouvèlman
+- Domèn ki egziste deja : Ou ka konekte yon domèn ou genyen deja, menm yon .ht
+- Peman : Kat ak lòt mwayen Stripe dapre peyi w; MonCash ak NatCash
+- Pwodwi asosye : Freda Mail (imèl pwofesyonèl, 1 bwat gratis sou domèn ou)
+
+## Sa Freda Connect fè
+
+Freda Connect pèmèt ou chèche yon non domèn, anrejistre l pou 1 a 10 an, jere enregistreman DNS li yo (A, AAAA, CNAME, MX, TXT…) depi nan espas ou, vèwouye domèn nan kont transfè ou pa vle epi mande kòd otorizasyon an (EPP) pou transfere l yon lòt kote. Freda Connect anrejistre domèn yo pa mwayen yon rejistrè patnè ICANN akredite.
+
+## Non domèn .ht la ap vini byento
+
+Freda Connect ap prepare enskripsyon non domèn .ht yo (domèn nasyonal Ayiti, NIC Ayiti jere l). Nou pral anonse dat lansman an ak pri yo isit la; pa gen pri ki fikse pou kounye a. Si ou genyen yon .ht deja, ou ka konekte l ak Freda Workspace depi kounye a pou kreye adrès imèl pwofesyonèl sou li. Pou yo avèti w lè l lanse, ekri nan support@fredaworkspace.com.
+
+## Kijan pou kòmanse ak Freda Connect
+
+
+1. Tape non biznis ou nan rechèch domèn nan.
+2. Chwazi ekstansyon an ak dire a, epi peye ak kat, MonCash oswa NatCash.
+3. Jere enregistreman DNS ou yo depi nan espas ou; si ou ajoute imèl pwofesyonèl la, MX, SPF, DKIM ak DMARC konfigire otomatikman.
+
+## Kesyon moun poze souvan
+
+### Kisa Freda Connect ye?
+
+Freda Connect se pwodwi non domèn ak DNS Freda Workspace, yon mak Freda Pay LLC: rechèch, enskripsyon, jesyon DNS ak koneksyon domèn ki egziste deja.
+
+### Ki ekstansyon Freda Connect ofri?
+
+Freda Connect ofri .com, .net, .org, .co, .store, .online, .site, .tech ak .io. .ht la ap vini byento, san dat ni pri anonse pou kounye a.
+
+### Konbyen yon non domèn koute ak Freda Connect?
+
+Pri yo kòmanse a 2,99 $ premye ane a dapre ekstansyon an. Pri egzak la ak pri renouvèlman an parèt anvan ou peye.
+
+### Èske mwen ka konekte yon domèn mwen genyen deja?
+
+Wi, menm yon domèn .ht. Freda Connect montre enregistreman DNS pou ajoute kote founisè ou a, apre sa li verifye koneksyon an.
+
+### Ki diferans ki genyen ant Freda Connect ak Freda Mail?
+
+Freda Connect jere non domèn ak DNS; Freda Mail jere bwat imèl pwofesyonèl yo. Tou de se pwodwi Freda Workspace.
+
+---
+
+# Freda Connect: domain names and DNS from Freda Workspace
+
+URL : https://fredaworkspace.com/en/freda-connect.html
+Langue : anglais
+Mise à jour : 2026-11-05
+
+Freda Connect is the domain-name product of Freda Workspace, a brand of Freda Pay LLC. It lets you search for and register an international domain name for 1 to 10 years, manage its DNS records, connect a domain you already own and link it automatically to Freda Mail. The .ht domain name is coming soon.
+
+## At a glance
+
+- Product : Freda Connect, domain names and DNS from Freda Workspace (Freda Pay LLC)
+- Extensions : .com, .net, .org, .co, .store, .online, .site, .tech, .io; .ht is coming soon
+- Length : 1 to 10 years
+- Price : From 2,99 $ for the first year depending on the extension; exact price shown before payment; renewal can cost more
+- Included : Free WHOIS privacy, transfer lock, full DNS editor, renewal reminders
+- Existing domain : You can connect a domain you already own, including a .ht
+- Payment : Card and other Stripe methods depending on your country; MonCash and NatCash
+- Related product : Freda Mail (professional email, 1 free mailbox on your domain)
+
+## What Freda Connect does
+
+Freda Connect lets you search for a domain name, register it for 1 to 10 years, manage its DNS records (A, AAAA, CNAME, MX, TXT…) from your account, lock the domain against unwanted transfers and request the authorization (EPP) code to move it elsewhere. Freda Connect registers domains through a partner registrar accredited by ICANN.
+
+## The .ht domain name is coming soon
+
+Freda Connect is preparing registration of .ht domain names (Haiti’s national domain, managed by NIC Haiti). The launch date and prices will be announced here; no price is set yet. If you already own a .ht you can connect it to Freda Workspace now and create professional email addresses on it. To be told when it launches, write to support@fredaworkspace.com.
+
+## Getting started with Freda Connect
+
+
+1. Type your business name in the domain search.
+2. Choose the extension and length, then pay by card, MonCash or NatCash.
+3. Manage your DNS records from your account; if you add professional email, MX, SPF, DKIM and DMARC are configured automatically.
+
+## Frequently asked questions
+
+### What is Freda Connect?
+
+Freda Connect is the domain-name and DNS product of Freda Workspace, a brand of Freda Pay LLC: search, registration, DNS management and connection of existing domains.
+
+### Which extensions does Freda Connect offer?
+
+Freda Connect offers .com, .net, .org, .co, .store, .online, .site, .tech and .io. .ht is coming soon, with no date or price announced yet.
+
+### How much does a domain name cost with Freda Connect?
+
+Prices start at 2,99 $ for the first year depending on the extension. The exact price and the renewal price are shown before payment.
+
+### Can I connect a domain I already own?
+
+Yes, including a .ht domain. Freda Connect shows the DNS records to add at your provider, then checks the connection.
+
+### What is the difference between Freda Connect and Freda Mail?
+
+Freda Connect manages domain names and DNS; Freda Mail manages professional mailboxes. Both are Freda Workspace products.
