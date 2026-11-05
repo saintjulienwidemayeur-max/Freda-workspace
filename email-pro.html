@@ -57,9 +57,9 @@
           <section class="card p-6 sm:p-7" aria-labelledby="plan-title" id="plan-section" hidden>
             <div class="flex items-center justify-between gap-3 flex-wrap">
               <h2 id="plan-title" class="text-lg font-bold flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-freda"></i>Offre de messagerie</h2>
-              <div class="segmented" role="tablist" aria-label="Facturation">
-                <button type="button" role="tab" data-pcycle="monthly">Mensuel</button>
-                <button type="button" role="tab" data-pcycle="yearly">Annuel −17 %</button>
+              <div class="flex items-center gap-2">
+                <label for="cycle-select" class="text-sm font-medium text-slate-600">Je paie pour</label>
+                <select id="cycle-select" class="input !w-auto !py-2" aria-label="Nombre de mois payés"></select>
               </div>
             </div>
             <div class="mt-4 grid gap-2" id="plan-pick" role="radiogroup" aria-label="Offre"></div>

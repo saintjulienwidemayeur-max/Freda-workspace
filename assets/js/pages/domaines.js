@@ -11,7 +11,7 @@
   /* Initialise le panier depuis l'URL */
   const init = {};
   if (params.get('plan') && C.PLANS[params.get('plan')]) init.plan = params.get('plan');
-  if (['monthly', 'yearly'].includes(params.get('cycle'))) init.cycle = params.get('cycle');
+  if (FW.validCycle(params.get('cycle'))) init.cycle = params.get('cycle');
   let cart = FW.cart.set(init);
   let lastResults = [];
   let runId = 0;

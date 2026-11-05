@@ -82,6 +82,7 @@
     renderPricing();
   }));
   renderPricing();
+  document.addEventListener('fw:plans', renderPricing);      // prix du serveur arrivés après l'affichage
 
   /* ---------- Application mobile ---------- */
   $('#appstore-link').href = C.APP_STORE_URL;

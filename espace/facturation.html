@@ -56,9 +56,9 @@
             <section class="card p-5 sm:p-6 scroll-mt-24" id="offre" aria-labelledby="plan-title">
               <div class="flex items-center justify-between gap-3">
                 <h2 id="plan-title" class="text-lg font-bold">Votre offre</h2>
-                <div class="segmented" role="tablist" aria-label="Cycle">
-                  <button type="button" role="tab" data-cycle="monthly">Mensuel</button>
-                  <button type="button" role="tab" data-cycle="yearly">Annuel</button>
+                <div class="flex items-center gap-2">
+                  <label for="cycle-select" class="text-sm font-medium text-slate-600">Je paie pour</label>
+                  <select id="cycle-select" class="input !w-auto !py-2" aria-label="Nombre de mois payés"></select>
                 </div>
               </div>
               <div class="mt-5 grid grid-cols-1 gap-3" id="plan-cards"></div>

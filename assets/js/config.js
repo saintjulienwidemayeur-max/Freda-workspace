@@ -59,11 +59,11 @@ window.FW_CONFIG = {
       name: 'Starter',
       monthly: 2.99,
       tagline: 'Pour les indépendants et les très petites entreprises.',
-      mailboxes: 1,
+      mailboxes: 2,
       storageGb: 2,
       features: [
         'Connectez votre propre domaine ou achetez-en un',
-        '1 boîte mail professionnelle',
+        '2 boîtes mail professionnelles',
         '2 Go de stockage',
         'Webmail et application mobile',
         'DNS configuré automatiquement (MX, SPF, DKIM)',

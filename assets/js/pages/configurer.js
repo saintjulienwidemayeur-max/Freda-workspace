@@ -12,12 +12,12 @@
   const DOMAIN_RE = /^(?=.{4,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/;
 
   if (C.PLANS[params.get('plan')]) FW.cart.set({ plan: params.get('plan') });
-  if (['monthly', 'yearly'].includes(params.get('cycle'))) FW.cart.set({ cycle: params.get('cycle') });
+  if (FW.validCycle(params.get('cycle'))) FW.cart.set({ cycle: params.get('cycle') });
 
   const cart = FW.cart.get();
   const p = C.PLANS[cart.plan];
   if (p) {
-    $('#plan-chip').innerHTML = `<i data-lucide="layers" class="w-4 h-4 text-freda"></i>Offre choisie : <strong class="text-ink">${esc(p.name)}</strong> · ${cart.cycle === 'yearly' ? 'annuel' : 'mensuel'}`;
+    $('#plan-chip').innerHTML = `<i data-lucide="layers" class="w-4 h-4 text-freda"></i>Offre choisie : <strong class="text-ink">${esc(p.name)}</strong> · ${FW.cycleName(cart.cycle)}`;
   }
 
   const sess = FW.auth.current();

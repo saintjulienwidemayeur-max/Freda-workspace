@@ -6,25 +6,27 @@
   const C = FW.config;
   const $ = (s) => document.querySelector(s);
   const esc = FWUI.esc;
-  let viewCycle = FWSpace.ws().plan ? FWSpace.ws().plan.cycle : 'monthly';
+  let viewCycle = FWSpace.ws().plan && FW.validCycle(FWSpace.ws().plan.cycle) ? FWSpace.ws().plan.cycle : 'monthly';
 
   /* ---------- Offres ---------- */
   function renderPlans() {
     const ws = FWSpace.ws();
-    document.querySelectorAll('[data-cycle]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.cycle === viewCycle)));
+    const cs = $('#cycle-select');
+    if (!cs.options.length) cs.innerHTML = Array.from({ length: 12 }, (_, i) => i + 1).map((n) => `<option value="${FW.cycleOf(n)}">${n} mois${n === 12 ? ' (2 mois offerts)' : ''}</option>`).join('');
+    cs.value = viewCycle;
     $('#plan-cards').innerHTML = Object.values(C.PLANS).map((p) => {
       const hasPlan = !!ws.plan;
       const current = hasPlan && ws.plan.id === p.id && ws.plan.cycle === viewCycle;
       const tooSmall = p.mailboxes < ws.mailboxes.length;
       return `<div class="rounded-2xl border-2 p-5 flex flex-col ${current ? 'border-freda bg-mist/50' : 'border-line'}">
         <div class="flex items-center justify-between"><p class="font-bold text-ink">${p.name}</p>${current ? '<span class="badge badge-info">Offre actuelle</span>' : ''}</div>
-        <p class="mt-2"><span class="font-display text-3xl font-extrabold text-ink tabular">${FW.money(FW.planPrice(p.id, viewCycle))}</span><span class="text-muted text-sm">${viewCycle === 'yearly' ? '/an' : '/mois'}</span></p>
+        <p class="mt-2"><span class="font-display text-3xl font-extrabold text-ink tabular">${FW.money(FW.planPrice(p.id, viewCycle))}</span><span class="text-muted text-sm"> ${FW.cycleMonths(viewCycle) === 1 ? '/mois' : FW.cycleMonths(viewCycle) === 12 ? '/an' : 'pour ' + FW.cycleSpan(viewCycle)}</span></p>
         <p class="mt-1 text-sm text-muted">${C.boxLabel(p)} · ${C.storageLabel(p)}</p>
         <div class="mt-4 flex items-end">
           ${current ? '<button type="button" class="btn btn-outline btn-sm w-full" disabled>Offre en cours</button>'
             : tooSmall ? `<p class="text-xs text-amber-700">Supprimez ${ws.mailboxes.length - p.mailboxes} boîte(s) pour passer à cette offre.</p>`
             : !hasPlan ? `<a href="../configurer-email.html?plan=${p.id}&cycle=${viewCycle}" class="btn ${p.popular ? 'btn-cta' : 'btn-outline'} btn-sm w-full">Choisir ${p.name}</a>`
-            : `<button type="button" class="btn ${p.monthly > C.PLANS[ws.plan.id].monthly ? 'btn-cta' : 'btn-outline'} btn-sm w-full" data-switch="${p.id}">${ws.plan.id === p.id ? 'Passer en ' + (viewCycle === 'yearly' ? 'annuel' : 'mensuel') : 'Choisir ' + p.name}</button>`}
+            : `<button type="button" class="btn ${p.monthly > C.PLANS[ws.plan.id].monthly ? 'btn-cta' : 'btn-outline'} btn-sm w-full" data-switch="${p.id}">${ws.plan.id === p.id ? 'Payer ' + FW.cycleSpan(viewCycle) : 'Choisir ' + p.name}</button>`}
         </div>
       </div>`;
     }).join('');
@@ -35,7 +37,8 @@
       : pl.cancelAtPeriodEnd ? `<i data-lucide="circle-slash" class="w-4 h-4"></i>Offre résiliée : vos boîtes restent actives jusqu’au ${FW.date(pl.renews)}, sans nouveau prélèvement. <button type="button" class="underline font-semibold" data-resume>Reprendre l’offre</button>`
       : `<i data-lucide="calendar-clock" class="w-4 h-4"></i>Prochain renouvellement le ${FW.date(pl.renews)} · ${FW.money(FW.planPrice(pl.id, pl.cycle))} <button type="button" class="underline text-muted" data-cancel-plan>Résilier</button>`;
   }
-  document.querySelectorAll('[data-cycle]').forEach((b) => b.addEventListener('click', () => { viewCycle = b.dataset.cycle; renderPlans(); FWUI.icons(); }));
+  $('#cycle-select').addEventListener('change', (e) => { viewCycle = e.target.value; renderPlans(); FWUI.icons(); });
+  document.addEventListener('fw:plans', () => { renderPlans(); FWUI.icons(); });
 
   $('#renew-line').addEventListener('click', async (e) => {
     const ws = FWSpace.ws();
@@ -56,7 +59,7 @@
     const p = C.PLANS[b.dataset.switch];
     const ok = await FWUI.confirmDialog({
       title: 'Changer d’offre',
-      message: `Passer à <strong>${p.name}</strong> (${viewCycle === 'yearly' ? 'annuel' : 'mensuel'}) pour ${FW.money(FW.planPrice(p.id, viewCycle))}. La différence est calculée au prorata et réglée avec votre moyen de paiement par défaut.`,
+      message: `Passer à <strong>${p.name}</strong> pour ${FW.cycleSpan(viewCycle)} : ${FW.money(FW.planPrice(p.id, viewCycle))}. Le paiement se fait avec votre solde s’il suffit, sinon avec MonCash / NatCash.`,
       confirmLabel: 'Confirmer le changement',
     });
     if (!ok) return;

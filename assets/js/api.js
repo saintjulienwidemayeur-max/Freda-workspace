@@ -65,9 +65,24 @@
   function date(iso) {
     return new Date(iso + (iso.length === 10 ? 'T12:00:00' : '')).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
   }
+  /** Durée de paiement : 'monthly' = 1 mois, 'yearly' = 12 mois (2 mois offerts), 'm2' … 'm11' = 2 à 11 mois. 0 = inconnue. */
+  function cycleMonths(cycle) {
+    if (cycle === 'monthly') return 1;
+    if (cycle === 'yearly') return 12;
+    const m = /^m(\d{1,2})$/.exec(String(cycle || ''));
+    const n = m ? Number(m[1]) : 0;
+    return n >= 2 && n <= 11 ? n : 0;
+  }
+  const cycleOf = (months) => (months === 1 ? 'monthly' : months === 12 ? 'yearly' : 'm' + months);
+  const validCycle = (c) => cycleMonths(c) > 0;
+  /** « mensuel », « annuel », « 3 mois » (adjectif de la durée). */
+  const cycleName = (c) => { const n = cycleMonths(c) || 1; return n === 1 ? 'mensuel' : n === 12 ? 'annuel' : n + ' mois'; };
+  /** Ce que couvre le paiement : « 1 mois », « 3 mois », « 12 mois ». */
+  const cycleSpan = (c) => (cycleMonths(c) || 1) + ' mois';
   function planPrice(planId, cycle) {
     const p = C.PLANS[planId];
-    return cycle === 'yearly' ? +(p.monthly * C.YEARLY_MONTHS_BILLED).toFixed(2) : p.monthly;
+    const n = cycleMonths(cycle) || 1;
+    return n === 12 ? +(p.monthly * C.YEARLY_MONTHS_BILLED).toFixed(2) : +(p.monthly * n).toFixed(2);   // 12 mois = 2 mois offerts
   }
 
   /* ======================================================================
@@ -450,7 +465,7 @@
       const s = workspace.get();
       const mk = (r) => ({ id: uid(), ttl: 3600, ...r });
       const today = new Date();
-      const renews = new Date(today); if (cycle === 'yearly') renews.setFullYear(renews.getFullYear() + 1); else renews.setMonth(renews.getMonth() + 1);
+      const renews = new Date(today); renews.setMonth(renews.getMonth() + (cycleMonths(cycle) || 1));
       s.plan = { id: plan, cycle, renews: renews.toISOString().slice(0, 10), status: 'active' };
       if (!s.domains.some((d) => d.name === domain)) {
         // Domaine déjà possédé ailleurs : à connecter par les serveurs DNS
@@ -461,7 +476,7 @@
       const address = local + '@' + domain;
       if (!s.mailboxes.some((m) => m.address === address)) s.mailboxes.push({ id: uid(), address, name: local, usedGb: 0, created: today.toISOString().slice(0, 10), lastLogin: null, role: 'Propriétaire' });
       if (!saved || !s.paymentMethods.length) s.paymentMethods = s.paymentMethods.concat(payerToMethods(method, payer)).map((m, i, a) => ({ ...m, default: i === 0 }));
-      s.invoices.unshift({ id: 'FW-' + today.getFullYear() + '-' + reference.slice(-4), date: today.toISOString().slice(0, 10), label: C.PLANS[plan].name + ' — ' + (cycle === 'yearly' ? 'annuel' : 'mensuel'), amount, method: saved && s.paymentMethods[0] ? methodLabel(s.paymentMethods[0].type, s.paymentMethods[0]) : methodLabel(method, payer), status: 'paid' });
+      s.invoices.unshift({ id: 'FW-' + today.getFullYear() + '-' + reference.slice(-4), date: today.toISOString().slice(0, 10), label: C.PLANS[plan].name + ' — ' + cycleName(cycle), amount, method: saved && s.paymentMethods[0] ? methodLabel(s.paymentMethods[0].type, s.paymentMethods[0]) : methodLabel(method, payer), status: 'paid' });
       workspace.log(s, 'mail-plus', 'Offre ' + C.PLANS[plan].name + ' activée · boîte ' + address + ' créée');
       workspace.save(s);
       return s;
@@ -787,5 +802,19 @@
   trackAfter(domains, 'connect', 'domain_connect', (a) => ({ mode: a[1] }));
   trackAfter(domains, 'verify', 'domain_verified');
 
-  window.FW = Object.assign(window.FW || {}, { passwordRules, config: C, store, money, date, planPrice, normalizeDomain, dnsConfig: () => { const w = workspace.get() || {}; return w.dnsConfig || { nameservers: C.DEMO_MODE ? C.NAMESERVERS : [], nameserversAvailable: !!C.DEMO_MODE }; }, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, payments, balance, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
+  /** Production : les prix des offres sont ceux du serveur (modifiables par l'administrateur). Les pages se redessinent à l'événement « fw:plans ». */
+  const plansReady = C.DEMO_MODE ? Promise.resolve(false) : request('/plans').then((r) => {
+    let changed = false;
+    for (const [id, v] of Object.entries(r.plans || {})) {
+      const p = C.PLANS[id];
+      if (!p) continue;
+      if (Number.isFinite(v.monthly) && v.monthly !== p.monthly) { p.monthly = v.monthly; changed = true; }
+      const box = v.mailboxes === null ? Infinity : v.mailboxes;
+      if (Number.isFinite(box) || box === Infinity) { if (box !== p.mailboxes) { p.mailboxes = box; changed = true; } }
+    }
+    if (changed) document.dispatchEvent(new Event('fw:plans'));
+    return changed;
+  }).catch(() => false);
+
+  window.FW = Object.assign(window.FW || {}, { passwordRules, config: C, store, money, date, planPrice, normalizeDomain, dnsConfig: () => { const w = workspace.get() || {}; return w.dnsConfig || { nameservers: C.DEMO_MODE ? C.NAMESERVERS : [], nameserversAvailable: !!C.DEMO_MODE }; }, domainPrices, searchDomains: async (q, opts) => { const r = await searchDomains(q, opts); try { window.FW.track && window.FW.track('domain_search', { tld: (r.exact && r.exact.tld) || '' }); } catch (e) { /* ignore */ } return r; }, cart, auth, cycleMonths, cycleOf, validCycle, cycleName, cycleSpan, plansReady, payments, balance, workspace, domains, methods, plans, dns, mailboxes, generatePassword, wait });
 })();
