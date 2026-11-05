@@ -106,8 +106,8 @@ window.FW_CONFIG = {
   },
   YEARLY_MONTHS_BILLED: 10,
 
-  /* Offre gratuite : tout compte a droit à 2 boîtes sur SON domaine, sans abonnement. Volontairement hors PLANS (ni achat, ni grille de tarifs). Miroir de PLANS.free du backend. */
-  FREE_PLAN: { id: 'free', name: 'Gratuit', mailboxes: 2, storageGb: 1, free: true },
+  /* Offre gratuite : tout compte a droit à 1 boîte sur SON domaine, sans abonnement. Volontairement hors PLANS (ni achat, ni grille de tarifs). Miroir de PLANS.free du backend. */
+  FREE_PLAN: { id: 'free', name: 'Gratuit', mailboxes: 1, storageGb: 1, free: true },
 
   /* Certificat SSL offert avec chaque offre. SSL_VALUE_USD = valeur de référence annuelle affichée barrée (0 = pas de prix barré).
      N'indiquez qu'un prix de référence réellement pratiqué ailleurs pour un certificat équivalent. */

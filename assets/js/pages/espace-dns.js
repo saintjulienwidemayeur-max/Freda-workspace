@@ -19,7 +19,9 @@
 
   /* ---------- Sélecteur de domaine ---------- */
   const sel = $('#domain-select');
-  sel.innerHTML = ws.domains.map((d) => `<option value="${esc(d.name)}" ${d.name === domain ? 'selected' : ''}>${esc(d.name)}</option>`).join('');
+  sel.innerHTML = ws.domains.map((d) => `<option value="${esc(d.name)}" ${d.name === domain ? 'selected' : ''}>${esc(d.name)}${d.status === 'pending' ? ' (non connecté)' : ''}</option>`).join('');
+  /** Domaine ajouté mais pas encore vérifié : il ne pointe pas vers Freda, ses enregistrements ne sont PAS actifs. */
+  const isPending = () => { const d = ws.domains.find((x) => x.name === domain); return !!d && d.status === 'pending'; };
   sel.addEventListener('change', () => {
     domain = sel.value;
     const url = new URL(location.href); url.searchParams.set('domain', domain); history.replaceState(null, '', url);
@@ -47,6 +49,25 @@
   };
 
   function renderDiag() {
+    if (isPending()) {
+      $('#diag-head').innerHTML = `<div class="flex items-center gap-4">
+          <span class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 grid place-items-center shrink-0"><i data-lucide="plug-zap"></i></span>
+          <div><h2 id="diag-title" class="text-lg font-bold">${esc(domain)} n’est pas encore connecté à Freda</h2><p class="text-sm text-muted">Le domaine ne pointe pas vers nous : les enregistrements ci-dessous ne sont pas actifs. Ajoutez-les chez le service qui gère votre domaine (registrar, hébergeur DNS), puis vérifiez la connexion.</p></div>
+        </div>
+        <button type="button" id="verify-btn" class="btn btn-cta shrink-0"><i data-lucide="refresh-cw"></i>Vérifier maintenant</button>`;
+      $('#diag-grid').innerHTML = '';
+      const vb = $('#verify-btn');
+      vb && vb.addEventListener('click', async () => {
+        FWUI.setLoading(vb, true, 'Vérification...');
+        try {
+          const r = await FW.domains.verify(domain);
+          if (r && r.connected) { FWUI.toast('Domaine connecté.'); setTimeout(() => location.reload(), 600); return; }
+          FWUI.toast('Pas encore détecté : les enregistrements peuvent mettre jusqu’à quelques heures à se propager.', 'error');
+        } catch (err) { FWUI.toast(err.message, 'error'); }
+        FWUI.setLoading(vb, false); FWUI.icons();
+      });
+      return;
+    }
     if (!ws.plan) {
       $('#diag-head').innerHTML = `<div class="flex items-center gap-4"><span class="w-12 h-12 rounded-xl bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="mail-plus"></i></span><div><h2 id="diag-title" class="text-lg font-bold">Email pro non activé</h2><p class="text-sm text-muted">Les enregistrements MX, SPF, DKIM et DMARC seront ajoutés automatiquement à l’activation.</p></div></div><a href="../configurer-email.html" class="btn btn-cta shrink-0"><i data-lucide="mail-plus"></i>Activer l’email pro</a>`;
       $('#diag-grid').innerHTML = '';
@@ -98,7 +119,9 @@
   function renderTable() {
     const q = query.toLowerCase();
     const rows = records.filter((r) => (filterType === 'Tous' || r.type === filterType) && (!q || (r.name + ' ' + r.value).toLowerCase().includes(q)));
-    $('#rec-count').textContent = records.length + ' enregistrement' + (records.length > 1 ? 's' : '');
+    const pend = isPending();
+    $('#rec-count').textContent = records.length + ' enregistrement' + (records.length > 1 ? 's' : '') + (pend ? ' à ajouter chez votre registrar (pas encore actifs)' : '');
+    $('#rec-ttl').hidden = pend;
     if (!rows.length) {
       $('#rec-body').innerHTML = `<tr><td colspan="6" class="!py-10 text-center text-muted">Aucun enregistrement ne correspond au filtre.</td></tr>`;
       return;
@@ -117,7 +140,7 @@
           ${r.role ? `<span class="text-[11px] text-muted font-sans">${esc(r.role === 'OWNERSHIP' ? 'Vérification email' : r.role)}</span>` : ''}
         </td>
         <td class="text-sm text-muted tabular whitespace-nowrap">${ttlLabel(r.ttl)}</td>
-        <td><span class="badge badge-success"><span class="dot bg-cta"></span>Actif</span></td>
+        <td>${pend ? '<span class="badge badge-warn"><span class="dot bg-amber-500"></span>À ajouter</span>' : '<span class="badge badge-success"><span class="dot bg-cta"></span>Actif</span>'}</td>
         <td class="text-right whitespace-nowrap">
           <button type="button" class="btn btn-ghost btn-icon" data-edit="${r.id}" ${locked ? 'disabled title="Activez le mode avancé pour modifier"' : ''} aria-label="Modifier"><i data-lucide="pencil"></i></button>
           <button type="button" class="btn btn-ghost btn-icon hover:!text-red-600 hover:!bg-red-50" data-del="${r.id}" ${locked ? 'disabled title="Activez le mode avancé pour supprimer"' : ''} aria-label="Supprimer"><i data-lucide="trash-2"></i></button>

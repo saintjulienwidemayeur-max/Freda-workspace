@@ -156,7 +156,7 @@
       const colors = ['#DC2626', '#F59E0B', '#2B64E4', '#10B981'];
       const labels = ['Trop faible', 'Moyen', 'Bon', 'Excellent'];
       document.querySelectorAll('#strength-bars span').forEach((s, i) => { s.style.background = i < score ? colors[score - 1] : ''; });
-      $('#strength-text').textContent = v ? 'Sécurité : ' + labels[Math.max(0, score - 1)] : 'Utilisez des lettres, des chiffres et un symbole.';
+      $('#strength-text').textContent = v ? 'Sécurité : ' + labels[Math.max(0, score - 1)] : '8 caractères minimum. Plus il est long et varié, plus il est sûr.';
     });
 
     $('#su-phone').addEventListener('input', (e) => {

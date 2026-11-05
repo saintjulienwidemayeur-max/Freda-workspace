@@ -382,7 +382,7 @@
       mailboxes: [
         { id: uid(), address: 'contact@monentreprise.com', name: 'Accueil', usedGb: 2.1, created: '2026-03-14', lastLogin: '2026-10-31', role: 'Propriétaire' },
         { id: uid(), address: 'ventes@monentreprise.com', name: 'Service ventes', usedGb: 0.8, created: '2026-04-02', lastLogin: '2026-10-30', role: 'Utilisateur' },
-        { id: uid(), address: 'direction@monentreprise.com', name: 'Claire Martin', usedGb: 3.4, created: '2026-03-14', lastLogin: '2026-11-01', role: 'Administrateur' },
+        { id: uid(), address: 'direction@monentreprise.com', name: 'Claire Martin', usedGb: 2.4, created: '2026-03-14', lastLogin: '2026-11-01', role: 'Administrateur' },
       ],
       aliases: [
         { id: uid(), from: 'info@monentreprise.com', to: 'contact@monentreprise.com' },
