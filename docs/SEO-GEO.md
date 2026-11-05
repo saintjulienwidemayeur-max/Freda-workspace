@@ -1,8 +1,10 @@
 # Stratégie SEO et GEO de Freda Workspace
 
-Objectif : être le premier résultat (et la réponse citée par les assistants IA) pour les recherches liées à **l’email professionnel et au nom de domaine en Haïti**. Document établi le 5 novembre 2026 à partir de cinq analyses indépendantes (mots-clés, concurrents, technique, GEO, contenu et liens locaux). **Aucun classement n’est garanti** : ce plan réduit les obstacles et vise les requêtes où la concurrence est faible.
+Objectif : être le premier résultat (et la réponse citée par les assistants IA) pour **l’enregistrement de noms de domaine et l’email professionnel, dans le monde entier**, en commençant par Haïti où la concurrence est la plus faible. Freda Workspace est une marque de Freda Pay LLC (Freda Connect = noms de domaine, Freda Mail = email) : le service **n’est pas réservé à Haïti** (page « Qui sommes-nous », pages internationales FR/EN, liste de pays complète à l’inscription). Document établi le 5 novembre 2026 à partir de cinq analyses indépendantes (mots-clés, concurrents, technique, GEO, contenu et liens locaux). **Aucun classement n’est garanti** : ce plan réduit les obstacles et vise les requêtes où la concurrence est faible.
 
 ## 1. Notre positionnement (uniquement ce qui est vrai)
+
+0. **International** : enregistrement de .com, .net, .org, .co, .store, .online, .site, .tech, .io depuis n’importe quel pays, paiement par carte et par les autres moyens que Stripe propose selon le pays. Ne jamais écrire « n° 1 » ni « premier registraire » : aucune affirmation de classement ne peut être prouvée ; on vise ce classement par le contenu, pas dans le texte.
 
 1. **Paiement en gourdes avec MonCash / NatCash** : aucun registraire étranger visible ne l’affiche.
 2. **1 boîte email professionnelle gratuite** sur son propre domaine (le domaine, lui, est payant). Différenciant face à Google Workspace, Zoho, Hostinger, Bluehost.
@@ -15,7 +17,7 @@ Objectif : être le premier résultat (et la réponse citée par les assistants 
 
 | Élément | Où | Détail |
 |---|---|---|
-| 7 pages d’atterrissage | `email-pro-gratuit.html`, `nom-de-domaine-haiti.html`, `acheter-domaine-moncash.html`, `ht/…` (3 pages kreyòl), `en/free-business-email-haiti.html` | Réponse dès la première phrase, tableau « En bref », étapes, FAQ visible, mise à jour datée |
+| 12 pages d’atterrissage | `email-pro-gratuit.html`, `nom-de-domaine-haiti.html`, `acheter-domaine-moncash.html`, `enregistrer-nom-de-domaine.html` (international), `qui-sommes-nous.html`, 4 pages kreyòl (`ht/…`), 3 pages anglaises (`en/…`) | Réponse dès la première phrase, tableau « En bref », étapes, FAQ visible, mise à jour datée |
 | Source unique | `scripts/landing-content.js` → `npm run build:landing` | Génère les pages, le JSON-LD, `sitemap.xml`, `llms.txt`, `llms-full.txt`, la FAQ et le JSON-LD de l’accueil. La CI refuse un dépôt dont les fichiers générés ne sont pas à jour |
 | Données structurées | JSON-LD | Organization (zone : Haïti ; langues fr, ht), WebSite + SearchAction, Product + offres (prix, devise, disponibilité), FAQPage identique au texte visible (testé), BreadcrumbList |
 | Langues | `hreflang` fr / ht / en + `x-default`, réciproques (testées), `<html lang>` correct | |
@@ -46,7 +48,7 @@ Limite connue : les pages générées contiennent les prix **par défaut** (conf
 
 ## 5. Mots-clés cibles (hypothèses à valider)
 
-Priorité **facile et différenciante** : email professionnel Haïti · acheter nom de domaine Haïti · acheter / payer un domaine avec MonCash · payer domaine NatCash · connecter domaine .ht email · imèl pwofesyonèl gratis · achte non domèn Ayiti · peye domèn ak MonCash · business email Haiti · buy domain Haiti MonCash.
+Priorité **internationale** (concurrence forte, à travailler dans la durée) : register a domain name · enregistrer un nom de domaine · acheter un nom de domaine pas cher · domain name with free email. Priorité **facile et différenciante** (Haïti) : email professionnel Haïti · acheter nom de domaine Haïti · acheter / payer un domaine avec MonCash · payer domaine NatCash · connecter domaine .ht email · imèl pwofesyonèl gratis · achte non domèn Ayiti · peye domèn ak MonCash · business email Haiti · buy domain Haiti MonCash.
 Priorité **longue** (SERP dominées par Google, Hostinger, Bluehost, Zoho) : email professionnel gratuit · adresse email avec le nom de mon entreprise · alternative à Google Workspace.
 Pages à créer ensuite : guide « .com, .ht ou .net : lequel choisir ? » (honnête, renvoie vers nic.ht pour le .ht) ; comparatif honnête face à Gmail / Zoho / Google Workspace (avec prix vérifiés) ; « SPF, DKIM, DMARC pour éviter le spam » ; guide pour la diaspora qui paie pour un proche en Haïti.
 

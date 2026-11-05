@@ -42,4 +42,32 @@
     <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/email-pro-gratuit.html"/>
   </url>
+  <url><loc>https://fredaworkspace.com/enregistrer-nom-de-domaine.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/enregistrer-nom-de-domaine.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/register-domain-name.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/enregistrer-nom-de-domaine.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/en/register-domain-name.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/register-domain-name.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/enregistrer-nom-de-domaine.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/enregistrer-nom-de-domaine.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/qui-sommes-nous.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/qui-sommes-nous.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/kiyes-nou-ye.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/about-us.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/qui-sommes-nous.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/ht/kiyes-nou-ye.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/kiyes-nou-ye.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/qui-sommes-nous.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/about-us.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/qui-sommes-nous.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/en/about-us.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/about-us.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/qui-sommes-nous.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/kiyes-nou-ye.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/qui-sommes-nous.html"/>
+  </url>
 </urlset>

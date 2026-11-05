@@ -106,7 +106,7 @@ test('SEO : pages d’atterrissage : titre ≤ 65 caractères, description 70-16
     assert.ok(desc.length >= 70 && desc.length <= 160, p.path + ' : description ' + desc.length);
     assert.strictEqual((src.match(/<h1[ >]/g) || []).length, 1, p.path + ' : un seul h1');
     assert.ok(src.includes('<link rel="canonical" href="https://fredaworkspace.com/' + p.path + '">'), p.path + ' : canonical');
-    assert.match(src, /<meta name="geo\.region" content="HT">/);
+    if (p.geo) assert.match(src, /<meta name="geo\.region" content="HT">/, p.path + ' : geo Haïti'); else assert.doesNotMatch(src, /geo\.region/, p.path + ' : page internationale sans geo.region');
     const self = src.match(/hreflang="([a-z-]+)" href="https:\/\/fredaworkspace\.com\/([^"]+)"/g) || [];
     const alts = self.map((x) => x.match(/hreflang="([a-z-]+)" href="https:\/\/fredaworkspace\.com\/([^"]+)"/).slice(1));
     assert.ok(alts.some(([l, u]) => l === p.lang && u === p.path), p.path + ' : hreflang auto-référencé');

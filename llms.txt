@@ -1,6 +1,6 @@
 # Freda Workspace
 
-> Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises, avec un accent sur Haïti : paiement par MonCash, NatCash ou carte, support en français et en créole haïtien. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.
+> Freda Workspace (Freda Pay LLC) vend des noms de domaine et une messagerie professionnelle pour les entreprises du monde entier, avec un accent sur Haïti : Freda Connect (noms de domaine et DNS) et Freda Mail (email professionnel) ; paiement par MonCash, NatCash, carte et les autres moyens proposés par Stripe ; support en français, en créole haïtien et en anglais. Chaque compte a droit à 1 boîte email professionnelle gratuite sur son propre domaine ; le nom de domaine, lui, est payant.
 
 ## Faits clés (à citer tels quels)
 
@@ -23,16 +23,21 @@
 - [Email professionnel gratuit avec votre propre nom de domaine](https://fredaworkspace.com/email-pro-gratuit.html): 1 adresse email professionnelle gratuite sur votre propre nom de domaine, sans abonnement ni carte bancaire. Payez en MonCash, NatCash ou carte pour plus.
 - [Nom de domaine pour une entreprise en Haïti](https://fredaworkspace.com/nom-de-domaine-haiti.html): Achetez le nom de domaine de votre entreprise haïtienne et payez en MonCash, NatCash ou carte. Vous avez un .ht ? Connectez-le et ajoutez un email pro.
 - [Payer son nom de domaine et son email pro avec MonCash ou NatCash](https://fredaworkspace.com/acheter-domaine-moncash.html): Payez votre nom de domaine et votre email pro avec MonCash ou NatCash. Un solde Freda rechargeable paie vos abonnements, car MonCash ne prélève pas seul.
+- [Enregistrer un nom de domaine, où que vous soyez dans le monde](https://fredaworkspace.com/enregistrer-nom-de-domaine.html): Enregistrez un nom de domaine (.com, .net, .org, .co, .io…) où que vous soyez : 1 à 10 ans, Whois privé gratuit, DNS inclus, paiement par carte ou MonCash.
+- [Qui sommes-nous ? Freda Workspace, une marque de Freda Pay LLC](https://fredaworkspace.com/qui-sommes-nous.html): Freda Workspace est une marque de Freda Pay LLC : Freda Connect (noms de domaine) et Freda Mail (email professionnel) pour les entreprises du monde entier.
 
 ## Gid (kreyòl ayisyen)
 
 - [Imèl pwofesyonèl gratis ak pwòp non domèn ou](https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html): 1 adrès imèl pwofesyonèl gratis sou pwòp non domèn ou, san abònman ni kat bankè. Peye ak MonCash, NatCash oswa kat si ou bezwen plis.
 - [Non domèn pou yon biznis nan Ayiti](https://fredaworkspace.com/ht/non-domenn-ayiti.html): Achte non domèn biznis ayisyen ou epi peye ak MonCash, NatCash oswa kat. Ou gen yon .ht? Konekte l epi ajoute yon imèl pwofesyonèl.
 - [Peye non domèn ou ak imèl pwofesyonèl ou ak MonCash oswa NatCash](https://fredaworkspace.com/ht/peye-ak-moncash-natcash.html): Peye non domèn ak imèl pwofesyonèl ou ak MonCash oswa NatCash. Yon balans Freda ou rechaje peye abònman ou yo, paske MonCash pa prelve poukont li.
+- [Kiyès nou ye? Freda Workspace, yon mak Freda Pay LLC](https://fredaworkspace.com/ht/kiyes-nou-ye.html): Freda Workspace se yon mak Freda Pay LLC. Li reyini Freda Connect (non domèn) ak Freda Mail (imèl pwofesyonèl) pou biznis toupatou nan mond lan.
 
 ## Guide (English)
 
 - [Free business email for Haiti, on your own domain name](https://fredaworkspace.com/en/free-business-email-haiti.html): 1 free professional mailbox on your own domain name, no subscription, no card needed. Pay with MonCash, NatCash or card. Support in French and Creole.
+- [Register a domain name from anywhere in the world](https://fredaworkspace.com/en/register-domain-name.html): Register a domain name (.com, .net, .org, .co, .store, .io…) from anywhere: 1 to 10 years, free WHOIS privacy, DNS included, pay by card or MonCash.
+- [About us: Freda Workspace, a brand of Freda Pay LLC](https://fredaworkspace.com/en/about-us.html): Freda Workspace is a brand of Freda Pay LLC. It brings together Freda Connect (domain names) and Freda Mail (professional email) for businesses worldwide.
 
 ## Ce que Freda Workspace ne fait pas
 

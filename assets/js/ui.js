@@ -120,14 +120,14 @@
         <div class="max-w-site mx-auto py-14 grid gap-10 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
           <div class="max-w-sm">
             <img src="${BASE}assets/img/logo-horizontal-blanc.svg" alt="Freda Workspace" class="h-10 w-auto">
-            <p class="mt-4 text-sm leading-relaxed text-slate-400">Domaine, adresse email professionnelle et application mobile, réunis dans un seul espace et payables par carte, MonCash ou NatCash.</p>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400">Freda Workspace, une marque de Freda Pay LLC : Freda Connect (noms de domaine) et Freda Mail (email professionnel), payables par carte, MonCash ou NatCash.</p>
             <div class="mt-5 flex gap-2">
               ${[['facebook', 'Facebook'], ['instagram', 'Instagram'], ['linkedin', 'LinkedIn'], ['youtube', 'YouTube']].map(([i, n]) =>
                 `<a href="#" aria-label="${n}" class="w-9 h-9 rounded-lg grid place-items-center bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"><i data-lucide="${i}" class="w-4 h-4"></i></a>`).join('')}
             </div>
           </div>
           ${col('Produits', [[BASE + 'domaines.html', 'Freda Connect · Domaine et DNS'], [BASE + 'index.html#produits', 'Freda Mail · Email professionnel'], [BASE + 'index.html#app', 'Application mobile'], [BASE + 'index.html#tarifs', 'Tarifs']])}
-          ${col('Guides', [[BASE + 'email-pro-gratuit.html', 'Email pro gratuit'], [BASE + 'nom-de-domaine-haiti.html', 'Nom de domaine Haïti'], [BASE + 'acheter-domaine-moncash.html', 'Payer avec MonCash ou NatCash'], [BASE + 'ht/imel-pwofesyonel-gratis.html', 'Kreyòl : imèl pwofesyonèl gratis'], [BASE + 'en/free-business-email-haiti.html', 'English : free business email']])}
+          ${col('Guides', [[BASE + 'qui-sommes-nous.html', 'Qui sommes-nous'], [BASE + 'enregistrer-nom-de-domaine.html', 'Enregistrer un nom de domaine'], [BASE + 'email-pro-gratuit.html', 'Email pro gratuit'], [BASE + 'nom-de-domaine-haiti.html', 'Nom de domaine Haïti'], [BASE + 'acheter-domaine-moncash.html', 'Payer avec MonCash ou NatCash'], [BASE + 'ht/imel-pwofesyonel-gratis.html', 'Kreyòl : imèl pwofesyonèl gratis'], [BASE + 'en/free-business-email-haiti.html', 'English : free business email'], [BASE + 'ht/kiyes-nou-ye.html', 'Kreyòl : kiyès nou ye']])}
           ${col('Assistance', [[BASE + 'support.html', 'Centre d’aide'], [BASE + 'support.html#contact', 'Contacter le support'], [BASE + 'support.html#statut', 'État des services']].concat(C.WEBMAIL_URL ? [[BASE + 'connexion.html?mode=webmail', 'Webmail']] : []))}
           ${col('Légal', [[BASE + 'legal.html#cgu', 'Conditions d’utilisation'], [BASE + 'legal.html#confidentialite', 'Confidentialité'], [BASE + 'legal.html#remboursement', 'Remboursement'], [BASE + 'legal.html#cookies', 'Cookies'], [BASE + 'legal.html#reglementaire', 'Informations réglementaires'], [BASE + 'legal.html#conformite', 'Conformité et sécurité']])}
         </div>

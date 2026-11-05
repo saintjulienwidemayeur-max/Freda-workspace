@@ -12,7 +12,7 @@ const FR = 'fr', HT = 'ht';
 const pages = [
   /* ---------------------------------------------------------------- email pro gratuit (FR) */
   {
-    id: 'email-gratuit', lang: FR, path: 'email-pro-gratuit.html', alt: { ht: 'ht/imel-pwofesyonel-gratis.html', en: 'en/free-business-email-haiti.html' },
+    id: 'email-gratuit', geo: true, lang: FR, path: 'email-pro-gratuit.html', alt: { ht: 'ht/imel-pwofesyonel-gratis.html', en: 'en/free-business-email-haiti.html' },
     breadcrumb: 'Email pro gratuit',
     title: 'Email pro gratuit avec votre domaine · Freda Workspace',
     description: '1 adresse email professionnelle gratuite sur votre propre nom de domaine, sans abonnement ni carte bancaire. Payez en MonCash, NatCash ou carte pour plus.',
@@ -72,7 +72,7 @@ const pages = [
 
   /* ---------------------------------------------------------------- nom de domaine Haïti (FR) */
   {
-    id: 'domaine-haiti', lang: FR, path: 'nom-de-domaine-haiti.html', alt: { ht: 'ht/non-domenn-ayiti.html' },
+    id: 'domaine-haiti', geo: true, lang: FR, path: 'nom-de-domaine-haiti.html', alt: { ht: 'ht/non-domenn-ayiti.html' },
     breadcrumb: 'Nom de domaine Haïti',
     title: 'Nom de domaine pour Haïti (.com, .net, .org) · Freda Workspace',
     description: 'Achetez le nom de domaine de votre entreprise haïtienne et payez en MonCash, NatCash ou carte. Vous avez un .ht ? Connectez-le et ajoutez un email pro.',
@@ -136,7 +136,7 @@ const pages = [
 
   /* ---------------------------------------------------------------- MonCash / NatCash (FR) */
   {
-    id: 'moncash', lang: FR, path: 'acheter-domaine-moncash.html', alt: { ht: 'ht/peye-ak-moncash-natcash.html' },
+    id: 'moncash', geo: true, lang: FR, path: 'acheter-domaine-moncash.html', alt: { ht: 'ht/peye-ak-moncash-natcash.html' },
     breadcrumb: 'Payer avec MonCash ou NatCash',
     title: 'Payer son domaine et son email avec MonCash ou NatCash',
     description: 'Payez votre nom de domaine et votre email pro avec MonCash ou NatCash. Un solde Freda rechargeable paie vos abonnements, car MonCash ne prélève pas seul.',
@@ -189,7 +189,7 @@ const pages = [
 
   /* ---------------------------------------------------------------- email gratuit (HT) */
   {
-    id: 'email-gratuit-ht', lang: HT, path: 'ht/imel-pwofesyonel-gratis.html', alt: { fr: 'email-pro-gratuit.html', en: 'en/free-business-email-haiti.html' },
+    id: 'email-gratuit-ht', geo: true, lang: HT, path: 'ht/imel-pwofesyonel-gratis.html', alt: { fr: 'email-pro-gratuit.html', en: 'en/free-business-email-haiti.html' },
     breadcrumb: 'Imèl pwofesyonèl gratis',
     title: 'Imèl pwofesyonèl gratis ak domèn ou · Freda Workspace',
     description: '1 adrès imèl pwofesyonèl gratis sou pwòp non domèn ou, san abònman ni kat bankè. Peye ak MonCash, NatCash oswa kat si ou bezwen plis.',
@@ -249,7 +249,7 @@ const pages = [
 
   /* ---------------------------------------------------------------- domaine Haïti (HT) */
   {
-    id: 'domaine-haiti-ht', lang: HT, path: 'ht/non-domenn-ayiti.html', alt: { fr: 'nom-de-domaine-haiti.html' },
+    id: 'domaine-haiti-ht', geo: true, lang: HT, path: 'ht/non-domenn-ayiti.html', alt: { fr: 'nom-de-domaine-haiti.html' },
     breadcrumb: 'Non domèn pou Ayiti',
     title: 'Non domèn pou Ayiti (.com, .net, .org) · Freda Workspace',
     description: 'Achte non domèn biznis ayisyen ou epi peye ak MonCash, NatCash oswa kat. Ou gen yon .ht? Konekte l epi ajoute yon imèl pwofesyonèl.',
@@ -313,7 +313,7 @@ const pages = [
 
   /* ---------------------------------------------------------------- MonCash / NatCash (HT) */
   {
-    id: 'moncash-ht', lang: HT, path: 'ht/peye-ak-moncash-natcash.html', alt: { fr: 'acheter-domaine-moncash.html' },
+    id: 'moncash-ht', geo: true, lang: HT, path: 'ht/peye-ak-moncash-natcash.html', alt: { fr: 'acheter-domaine-moncash.html' },
     breadcrumb: 'Peye ak MonCash oswa NatCash',
     title: 'Peye domèn ak imèl ou ak MonCash oswa NatCash',
     description: 'Peye non domèn ak imèl pwofesyonèl ou ak MonCash oswa NatCash. Yon balans Freda ou rechaje peye abònman ou yo, paske MonCash pa prelve poukont li.',
@@ -365,7 +365,7 @@ const pages = [
   },
   /* ---------------------------------------------------------------- free business email (EN) */
   {
-    id: 'email-gratuit-en', lang: 'en', path: 'en/free-business-email-haiti.html', alt: { fr: 'email-pro-gratuit.html', ht: 'ht/imel-pwofesyonel-gratis.html' },
+    id: 'email-gratuit-en', geo: true, lang: 'en', path: 'en/free-business-email-haiti.html', alt: { fr: 'email-pro-gratuit.html', ht: 'ht/imel-pwofesyonel-gratis.html' },
     breadcrumb: 'Free business email for Haiti',
     title: 'Free business email for Haiti on your own domain',
     description: '1 free professional mailbox on your own domain name, no subscription, no card needed. Pay with MonCash, NatCash or card. Support in French and Creole.',
@@ -429,5 +429,7 @@ const homeFaq = [
   ['Puis-je utiliser Gmail, Outlook ou Apple Mail ?', 'Oui, vos boîtes fonctionnent avec tout logiciel compatible IMAP et SMTP. Les paramètres de connexion sont affichés dans votre espace, rubrique Boîtes mail.'],
   ['Que se passe-t-il si j’annule ?', 'Votre domaine vous appartient. Vous gardez l’accès jusqu’à la fin de la période payée et pouvez transférer le domaine chez un autre registraire avec le code d’autorisation fourni dans votre espace.'],
 ];
+
+pages.push(...require('./landing-more'));
 
 module.exports = { pages, homeFaq };
