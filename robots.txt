@@ -10,9 +10,93 @@ Disallow: /configurer-email.html
 Disallow: /email-pro.html
 Disallow: /admin-prix.html
 
-# Moteurs de recherche et assistants IA : le groupe « * » ci-dessus les autorise tous (Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User,
-# Claude-SearchBot, Claude-User, PerplexityBot…). Les robots d'ENTRAÎNEMENT des modèles (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended,
-# CCBot) sont autorisés aussi : pour les refuser, ajouter un groupe « User-agent: GPTBot / Disallow: / » par robot. Bloquer l'entraînement
-# n'empêche pas d'être cité dans les réponses des moteurs de recherche IA.
+# Groupes explicites pour les moteurs de recherche et assistants IA : un robot qui a son propre groupe ignore le groupe « * », donc les mêmes
+# Disallow sont répétés. Tout le contenu public est autorisé ; seules les pages privées ou transactionnelles sont exclues.
+# Pour refuser l'ENTRAÎNEMENT des modèles (GPTBot, ClaudeBot, Google-Extended), remplacer « Allow: / » par « Disallow: / » dans leur groupe ;
+# cela n'empêche pas d'être cité dans les réponses des moteurs de recherche IA (OAI-SearchBot, Claude-SearchBot, PerplexityBot).
+
+User-agent: GPTBot
+Allow: /
+Disallow: /espace/
+Disallow: /paiement.html
+Disallow: /panier.html
+Disallow: /connexion.html
+Disallow: /inscription.html
+Disallow: /entreprise.html
+Disallow: /configurer-email.html
+Disallow: /email-pro.html
+Disallow: /admin-prix.html
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /espace/
+Disallow: /paiement.html
+Disallow: /panier.html
+Disallow: /connexion.html
+Disallow: /inscription.html
+Disallow: /entreprise.html
+Disallow: /configurer-email.html
+Disallow: /email-pro.html
+Disallow: /admin-prix.html
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /espace/
+Disallow: /paiement.html
+Disallow: /panier.html
+Disallow: /connexion.html
+Disallow: /inscription.html
+Disallow: /entreprise.html
+Disallow: /configurer-email.html
+Disallow: /email-pro.html
+Disallow: /admin-prix.html
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /espace/
+Disallow: /paiement.html
+Disallow: /panier.html
+Disallow: /connexion.html
+Disallow: /inscription.html
+Disallow: /entreprise.html
+Disallow: /configurer-email.html
+Disallow: /email-pro.html
+Disallow: /admin-prix.html
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /espace/
+Disallow: /paiement.html
+Disallow: /panier.html
+Disallow: /connexion.html
+Disallow: /inscription.html
+Disallow: /entreprise.html
+Disallow: /configurer-email.html
+Disallow: /email-pro.html
+Disallow: /admin-prix.html
+
+User-agent: Bingbot
+Allow: /
+Disallow: /espace/
+Disallow: /paiement.html
+Disallow: /panier.html
+Disallow: /connexion.html
+Disallow: /inscription.html
+Disallow: /entreprise.html
+Disallow: /configurer-email.html
+Disallow: /email-pro.html
+Disallow: /admin-prix.html
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /espace/
+Disallow: /paiement.html
+Disallow: /panier.html
+Disallow: /connexion.html
+Disallow: /inscription.html
+Disallow: /entreprise.html
+Disallow: /configurer-email.html
+Disallow: /email-pro.html
+Disallow: /admin-prix.html
 
 Sitemap: https://fredaworkspace.com/sitemap.xml

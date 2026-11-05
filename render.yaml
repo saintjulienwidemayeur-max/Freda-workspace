@@ -11,6 +11,10 @@ services:
       - key: FW_API_BASE
         value: https://freda-workspace-api.onrender.com/api     # remplacer par https://api.fredaworkspace.com/api une fois le domaine associé
     staticPublishPath: .
+    # www -> apex : pas de règle `routes` ici. Un `type: redirect` de render.yaml ne porte que sur les chemins, pas sur le nom d'hôte, et
+    # une règle sur « / » ferait une boucle de redirection. Render redirige déjà automatiquement www.fredaworkspace.com vers
+    # fredaworkspace.com quand les DEUX domaines sont ajoutés au service (Dashboard > Settings > Custom Domains) ; il suffit donc d'ajouter
+    # les deux et de vérifier que le DNS de www pointe vers le service. Le canonical des pages (https://fredaworkspace.com/…) reste la référence.
     headers:
       - path: /*
         name: X-Content-Type-Options
@@ -40,5 +44,22 @@ services:
         name: Cache-Control
         value: public, max-age=3600
       - path: /assets/js/*
+        name: Cache-Control
+        value: public, max-age=3600
+      # Fichiers racine (icônes, image de partage) : 30 jours ; fichiers lus par les robots (robots.txt, sitemap, llms) : 1 heure.
+      # Les pages HTML gardent le défaut de Render (public, max-age=0, must-revalidate) pour que chaque déploiement soit visible tout de suite.
+      - path: /*.png
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /*.ico
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /*.svg
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /*.txt
+        name: Cache-Control
+        value: public, max-age=3600
+      - path: /*.xml
         name: Cache-Control
         value: public, max-age=3600
