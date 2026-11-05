@@ -47,12 +47,12 @@
 
   /* ---------- Profil entreprise incomplet : invitation à le compléter (utilisé sur les factures) ---------- */
   const profile = ws.user || {};
-  const missing = [!profile.company && 'raison sociale', !profile.address && 'adresse'].filter(Boolean);
+  const missing = [!profile.company && 'la raison sociale', !profile.address && 'l’adresse'].filter(Boolean);
   if (missing.length) {
     $('#stats').insertAdjacentHTML('beforebegin', `
       <a href="parametres.html?tab=entreprise" class="flex items-center gap-4 rounded-2xl border border-freda/25 bg-mist p-4 sm:p-5 hover:border-freda/50 transition-colors">
         <span class="w-11 h-11 rounded-xl bg-white text-freda grid place-items-center shrink-0 shadow-sm"><i data-lucide="building-2"></i></span>
-        <span class="min-w-0 flex-1"><span class="block font-semibold text-ink">Complétez les informations de votre entreprise</span><span class="block text-sm text-slate-600">Il manque la ${missing.join(' et l’')} : elles apparaissent sur vos factures PDF.</span></span>
+        <span class="min-w-0 flex-1"><span class="block font-semibold text-ink">Complétez les informations de votre entreprise</span><span class="block text-sm text-slate-600">Il manque ${missing.join(' et ')} : elles apparaissent sur vos factures PDF.</span></span>
         <span class="btn btn-primary btn-sm shrink-0 hidden sm:inline-flex">Compléter<i data-lucide="arrow-right"></i></span>
       </a>`);
   }
@@ -117,7 +117,7 @@
       $('#stats').insertAdjacentHTML('beforebegin', `
         <a href="facturation.html?topup=${amount}" class="flex items-center gap-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 sm:p-5 hover:border-amber-400 transition-colors">
           <span class="w-11 h-11 rounded-xl bg-white text-amber-600 grid place-items-center shrink-0 shadow-sm"><i data-lucide="wallet"></i></span>
-          <span class="min-w-0 flex-1"><span class="block font-semibold text-amber-900">Solde insuffisant pour votre prochain renouvellement</span><span class="block text-sm text-amber-900/80">Votre offre (${FW.money(b.next.amount)}) se renouvelle ${left > 0 ? 'dans ' + left + ' jour' + (left > 1 ? 's' : '') : 'aujourd’hui'} et votre solde est de ${FW.money(b.balance)}. Il manque ${FW.money(b.next.missing)}.</span></span>
+          <span class="min-w-0 flex-1"><span class="block font-semibold text-amber-900">Solde insuffisant pour votre prochain renouvellement</span><span class="block text-sm text-amber-900/80">Votre offre (${FW.money(b.next.amount)}) se renouvelle ${left > 0 ? 'dans ' + left + ' jour' + (left > 1 ? 's' : '') : 'aujourd’hui'} et votre solde est de ${FW.money(b.balance)}. Il manque ${FW.money(b.next.missing)} (hors frais de traitement de la recharge : 6 % avec MonCash ou NatCash).</span></span>
           <span class="btn btn-cta btn-sm shrink-0 hidden sm:inline-flex">Recharger<i data-lucide="arrow-right"></i></span>
         </a>`);
       FWUI.icons();

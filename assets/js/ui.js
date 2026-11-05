@@ -47,24 +47,70 @@
     img.replaceWith(span);
   }, true);
 
+  /* ---------- Libellés de l'en-tête et du pied de page, selon la langue de la page (fr / ht / en) ---------- */
+  const LANG = ((document.documentElement.lang || 'fr') + '').slice(0, 2).toLowerCase();
+  const TEXT = {
+    fr: {
+      nav: 'Navigation principale', homeAria: 'Freda Workspace, accueil', products: 'Produits', pricing: 'Tarifs', app: 'App Mobile', support: 'Support',
+      myspace: 'Mon espace', signup: 'Créer un compte', webmail: 'Connexion Webmail', login: 'Connexion', clientArea: 'Espace client', openMenu: 'Ouvrir le menu',
+      tagline: 'Freda Workspace, une marque de Freda Pay LLC : Freda Connect (noms de domaine) et Freda Mail (email professionnel), payables par carte, MonCash ou NatCash.',
+      colProducts: 'Produits', colGuides: 'Guides', colHelp: 'Assistance', colLegal: 'Légal',
+      connect: 'Freda Connect · Domaine et DNS', mail: 'Freda Mail · Email professionnel', mobileApp: 'Application mobile',
+      help: 'Centre d’aide', contact: 'Contacter le support', status: 'État des services', webmailLink: 'Webmail',
+      terms: 'Conditions d’utilisation', payments: 'Paiements et frais', privacy: 'Confidentialité', refund: 'Remboursement', cookies: 'Cookies', ip: 'Propriété intellectuelle', press: 'Presse', regulatory: 'Informations réglementaires', compliance: 'Conformité et sécurité',
+      rights: (y) => `© ${y} Freda Pay LLC. Tous droits réservés. Freda Workspace est une marque de Freda Pay LLC.`, powered: 'Propulsé par',
+    },
+    ht: {
+      nav: 'Navigasyon prensipal', homeAria: 'Freda Workspace, akèy', products: 'Pwodwi', pricing: 'Tarif', app: 'Aplikasyon mobil', support: 'Sipò',
+      myspace: 'Espas mwen', signup: 'Kreye yon kont', webmail: 'Koneksyon Webmail', login: 'Konekte', clientArea: 'Espas kliyan', openMenu: 'Louvri meni an',
+      tagline: 'Freda Workspace, yon mak Freda Pay LLC: Freda Connect (non domèn) ak Freda Mail (imèl pwofesyonèl), ou ka peye ak kat, MonCash oswa NatCash.',
+      colProducts: 'Pwodwi', colGuides: 'Gid', colHelp: 'Èd', colLegal: 'Legal',
+      connect: 'Freda Connect · Domèn ak DNS', mail: 'Freda Mail · Imèl pwofesyonèl', mobileApp: 'Aplikasyon mobil',
+      help: 'Sant èd', contact: 'Kontakte sipò a', status: 'Eta sèvis yo', webmailLink: 'Webmail',
+      terms: 'Kondisyon itilizasyon (an fransè)', payments: 'Peman ak frè (an fransè)', privacy: 'Konfidansyalite (an fransè)', refund: 'Ranbousman (an fransè)', cookies: 'Cookies (an fransè)', ip: 'Pwopriyete entelektyèl (an fransè)', press: 'Près (an fransè)', regulatory: 'Enfòmasyon reglemantè (an fransè)', compliance: 'Konfòmite ak sekirite (an fransè)',
+      rights: (y) => `© ${y} Freda Pay LLC. Tout dwa rezève. Freda Workspace se yon mak Freda Pay LLC.`, powered: 'Sipòte pa',
+    },
+    en: {
+      nav: 'Main navigation', homeAria: 'Freda Workspace, home', products: 'Products', pricing: 'Pricing', app: 'Mobile app', support: 'Support',
+      myspace: 'My account', signup: 'Create an account', webmail: 'Webmail sign-in', login: 'Sign in', clientArea: 'Client area', openMenu: 'Open menu',
+      tagline: 'Freda Workspace, a brand of Freda Pay LLC: Freda Connect (domain names) and Freda Mail (professional email), payable by card, MonCash or NatCash.',
+      colProducts: 'Products', colGuides: 'Guides', colHelp: 'Help', colLegal: 'Legal',
+      connect: 'Freda Connect · Domains and DNS', mail: 'Freda Mail · Professional email', mobileApp: 'Mobile app',
+      help: 'Help center', contact: 'Contact support', status: 'Service status', webmailLink: 'Webmail',
+      terms: 'Terms of use (in French)', payments: 'Payments and fees (in French)', privacy: 'Privacy (in French)', refund: 'Refunds (in French)', cookies: 'Cookies (in French)', ip: 'Intellectual property (in French)', press: 'Press', regulatory: 'Regulatory information (in French)', compliance: 'Compliance and security (in French)',
+      rights: (y) => `© ${y} Freda Pay LLC. All rights reserved. Freda Workspace is a brand of Freda Pay LLC.`, powered: 'Powered by',
+    },
+  };
+  const T = TEXT[LANG] || TEXT.fr;
+  // Pages produit / guides dans la langue de la page quand elles existent ; sinon la version française.
+  const SECTIONS = {
+    fr: { connect: 'freda-connect.html', mail: 'freda-mail.html', press: 'presse.html',
+      guides: [['qui-sommes-nous.html', 'Qui sommes-nous'], ['enregistrer-nom-de-domaine.html', 'Enregistrer un nom de domaine'], ['email-pro-gratuit.html', 'Email pro gratuit'], ['nom-de-domaine-haiti.html', 'Nom de domaine Haïti'], ['acheter-domaine-moncash.html', 'Payer avec MonCash ou NatCash'], ['freda-mail-vs-gmail-google-workspace-zoho.html', 'Freda Mail vs Gmail, Google Workspace, Zoho'], ['ht/imel-pwofesyonel-gratis.html', 'Kreyòl : imèl pwofesyonèl gratis'], ['en/free-business-email-haiti.html', 'English : free business email'], ['ht/kiyes-nou-ye.html', 'Kreyòl : kiyès nou ye']] },
+    ht: { connect: 'ht/freda-connect.html', mail: 'ht/freda-mail.html', press: 'presse.html',
+      guides: [['ht/kiyes-nou-ye.html', 'Kiyès nou ye'], ['ht/imel-pwofesyonel-gratis.html', 'Imèl pwofesyonèl gratis'], ['ht/non-domenn-ayiti.html', 'Non domèn pou Ayiti'], ['ht/peye-ak-moncash-natcash.html', 'Peye ak MonCash oswa NatCash'], ['ht/freda-mail-kont-gmail-google-workspace-zoho.html', 'Freda Mail kont Gmail, Google Workspace, Zoho'], ['index.html', 'Version française'], ['en/free-business-email-haiti.html', 'English : free business email']] },
+    en: { connect: 'en/freda-connect.html', mail: 'en/freda-mail.html', press: 'en/press.html',
+      guides: [['en/about-us.html', 'About us'], ['en/register-domain-name.html', 'Register a domain name'], ['en/free-business-email-haiti.html', 'Free business email'], ['en/freda-mail-vs-gmail-google-workspace-zoho.html', 'Freda Mail vs Gmail, Google Workspace, Zoho'], ['index.html', 'Version française'], ['ht/imel-pwofesyonel-gratis.html', 'Kreyòl : imèl pwofesyonèl gratis']] },
+  };
+  const SEC = SECTIONS[LANG] || SECTIONS.fr;
+
   /* ---------- En-tête du site public ---------- */
   function renderHeader(active = '') {
     const el = document.getElementById('site-header');
     if (!el) return;
     const home = BASE + 'index.html';
     const links = [
-      { href: home + '#produits', label: 'Produits', id: 'produits' },
-      { href: home + '#tarifs', label: 'Tarifs', id: 'tarifs' },
-      { href: home + '#app', label: 'App Mobile', id: 'app' },
-      { href: BASE + 'support.html', label: 'Support', id: 'support' },
+      { href: home + '#produits', label: T.products, id: 'produits' },
+      { href: home + '#tarifs', label: T.pricing, id: 'tarifs' },
+      { href: home + '#app', label: T.app, id: 'app' },
+      { href: BASE + 'support.html', label: T.support, id: 'support' },
     ];
     const session = FW.auth.current();
     el.className = 'sticky z-40 bg-white/85 backdrop-blur border-b border-line';
     el.style.top = 'env(safe-area-inset-top, 0px)';
     el.innerHTML = `
       <div class="gutter">
-        <nav class="max-w-site mx-auto h-16 flex items-center justify-between gap-4" aria-label="Navigation principale">
-          <a href="${home}" class="flex items-center shrink-0 focus-ring rounded-md" aria-label="Freda Workspace, accueil">
+        <nav class="max-w-site mx-auto h-16 flex items-center justify-between gap-4" aria-label="${T.nav}">
+          <a href="${home}" class="flex items-center shrink-0 focus-ring rounded-md" aria-label="${T.homeAria}">
             <img src="${BASE}assets/img/logo-horizontal.svg" alt="Freda Workspace" class="h-10 w-auto">
           </a>
           <ul class="hidden lg:flex items-center gap-1">
@@ -72,12 +118,12 @@
           </ul>
           <div class="hidden lg:flex items-center gap-2">
             ${session
-              ? `<a href="${BASE}espace/index.html" class="btn btn-ghost btn-sm"><i data-lucide="layout-dashboard"></i>Mon espace</a>`
-              : `<a href="${BASE}inscription.html" class="btn btn-ghost btn-sm">Créer un compte</a>`}
-            ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy btn-sm"><i data-lucide="mail"></i>Connexion Webmail</a>` : `<a href="${BASE}connexion.html" class="btn btn-navy btn-sm"><i data-lucide="log-in"></i>Connexion</a>`}
+              ? `<a href="${BASE}espace/index.html" class="btn btn-ghost btn-sm"><i data-lucide="layout-dashboard"></i>${T.myspace}</a>`
+              : `<a href="${BASE}inscription.html" class="btn btn-ghost btn-sm">${T.signup}</a>`}
+            ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy btn-sm"><i data-lucide="mail"></i>${T.webmail}</a>` : `<a href="${BASE}connexion.html" class="btn btn-navy btn-sm"><i data-lucide="log-in"></i>${T.login}</a>`}
           </div>
           <div class="lg:hidden">
-            <button type="button" id="menu-toggle" class="btn btn-ghost btn-icon" aria-expanded="false" aria-controls="mobile-menu" aria-label="Ouvrir le menu">
+            <button type="button" id="menu-toggle" class="btn btn-ghost btn-icon" aria-expanded="false" aria-controls="mobile-menu" aria-label="${T.openMenu}">
               <i data-lucide="menu"></i>
             </button>
           </div>
@@ -87,8 +133,8 @@
         <ul class="max-w-site mx-auto py-3 flex flex-col">
           ${links.map((l) => `<li><a href="${l.href}" class="flex items-center justify-between py-3 text-base font-medium text-ink border-b border-line/70">${l.label}<i data-lucide="chevron-right" class="w-4 h-4 text-muted"></i></a></li>`).join('')}
           <li class="pt-4 grid gap-2">
-            ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy w-full"><i data-lucide="mail"></i>Connexion Webmail</a>` : ""}
-            <a href="${session ? BASE + 'espace/index.html' : BASE + 'connexion.html'}" class="btn btn-outline w-full"><i data-lucide="${session ? 'layout-dashboard' : 'log-in'}"></i>${session ? 'Mon espace' : 'Espace client'}</a>
+            ${C.WEBMAIL_URL ? `<a href="${BASE}connexion.html?mode=webmail" class="btn btn-navy w-full"><i data-lucide="mail"></i>${T.webmail}</a>` : ""}
+            <a href="${session ? BASE + 'espace/index.html' : BASE + 'connexion.html'}" class="btn btn-outline w-full"><i data-lucide="${session ? 'layout-dashboard' : 'log-in'}"></i>${session ? T.myspace : T.clientArea}</a>
           </li>
         </ul>
       </div>`;
@@ -120,20 +166,20 @@
         <div class="max-w-site mx-auto py-14 grid gap-10 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
           <div class="max-w-sm">
             <img src="${BASE}assets/img/logo-horizontal-blanc.svg" alt="Freda Workspace" class="h-10 w-auto">
-            <p class="mt-4 text-sm leading-relaxed text-slate-400">Freda Workspace, une marque de Freda Pay LLC : Freda Connect (noms de domaine) et Freda Mail (email professionnel), payables par carte, MonCash ou NatCash.</p>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400">${T.tagline}</p>
             <div class="mt-5 flex gap-2">
               ${[['facebook', 'Facebook'], ['instagram', 'Instagram'], ['linkedin', 'LinkedIn'], ['youtube', 'YouTube']].map(([i, n]) =>
                 `<a href="#" aria-label="${n}" class="w-9 h-9 rounded-lg grid place-items-center bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"><i data-lucide="${i}" class="w-4 h-4"></i></a>`).join('')}
             </div>
           </div>
-          ${col('Produits', [[BASE + 'freda-connect.html', 'Freda Connect · Domaine et DNS'], [BASE + 'freda-mail.html', 'Freda Mail · Email professionnel'], [BASE + 'index.html#app', 'Application mobile'], [BASE + 'index.html#tarifs', 'Tarifs']])}
-          ${col('Guides', [[BASE + 'qui-sommes-nous.html', 'Qui sommes-nous'], [BASE + 'enregistrer-nom-de-domaine.html', 'Enregistrer un nom de domaine'], [BASE + 'email-pro-gratuit.html', 'Email pro gratuit'], [BASE + 'nom-de-domaine-haiti.html', 'Nom de domaine Haïti'], [BASE + 'acheter-domaine-moncash.html', 'Payer avec MonCash ou NatCash'], [BASE + 'ht/imel-pwofesyonel-gratis.html', 'Kreyòl : imèl pwofesyonèl gratis'], [BASE + 'en/free-business-email-haiti.html', 'English : free business email'], [BASE + 'ht/kiyes-nou-ye.html', 'Kreyòl : kiyès nou ye']])}
-          ${col('Assistance', [[BASE + 'support.html', 'Centre d’aide'], [BASE + 'support.html#contact', 'Contacter le support'], [BASE + 'support.html#statut', 'État des services']].concat(C.WEBMAIL_URL ? [[BASE + 'connexion.html?mode=webmail', 'Webmail']] : []))}
-          ${col('Légal', [[BASE + 'legal.html#cgu', 'Conditions d’utilisation'], [BASE + 'legal.html#paiements', 'Paiements et frais'], [BASE + 'legal.html#confidentialite', 'Confidentialité'], [BASE + 'legal.html#remboursement', 'Remboursement'], [BASE + 'legal.html#cookies', 'Cookies'], [BASE + 'legal.html#propriete', 'Propriété intellectuelle'], [BASE + 'presse.html', 'Presse'], [BASE + 'legal.html#reglementaire', 'Informations réglementaires'], [BASE + 'legal.html#conformite', 'Conformité et sécurité']])}
+          ${col(T.colProducts, [[BASE + SEC.connect, T.connect], [BASE + SEC.mail, T.mail], [BASE + 'index.html#app', T.mobileApp], [BASE + 'index.html#tarifs', T.pricing]])}
+          ${col(T.colGuides, SEC.guides.map(([h, l]) => [BASE + h, l]))}
+          ${col(T.colHelp, [[BASE + 'support.html', T.help], [BASE + 'support.html#contact', T.contact], [BASE + 'support.html#statut', T.status]].concat(C.WEBMAIL_URL ? [[BASE + 'connexion.html?mode=webmail', T.webmailLink]] : []))}
+          ${col(T.colLegal, [[BASE + 'legal.html#cgu', T.terms], [BASE + 'legal.html#paiements', T.payments], [BASE + 'legal.html#confidentialite', T.privacy], [BASE + 'legal.html#remboursement', T.refund], [BASE + 'legal.html#cookies', T.cookies], [BASE + 'legal.html#propriete', T.ip], [BASE + SEC.press, T.press], [BASE + 'legal.html#reglementaire', T.regulatory], [BASE + 'legal.html#conformite', T.compliance]])}
         </div>
         <div class="max-w-site mx-auto py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-slate-400" style="padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px))">
-          <p>© ${year} Freda Pay LLC. Tous droits réservés. Freda Workspace est une marque de Freda Pay LLC.</p>
-          <p class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>Propulsé par <span class="text-white font-semibold">Freda Pay LLC</span> · Freda Group</p>
+          <p>${T.rights(year)}</p>
+          <p class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>${T.powered} <span class="text-white font-semibold">Freda Pay LLC</span> · Freda Group</p>
         </div>
       </div>`;
   }

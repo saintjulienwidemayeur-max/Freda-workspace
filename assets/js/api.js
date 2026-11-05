@@ -375,10 +375,11 @@
           ...tpl.map(mk),
           mk({ type: 'TXT', name: '@', value: 'purelymail_ownership_proof=7f3c9a12b8e4', managed: true, role: 'Vérification' }),
         ],
-        // Domaine volontairement incomplet (pas de DKIM 3 ni DMARC) pour montrer la réparation auto.
+        // Zone complète (6 / 6 enregistrements email), comme promis par « DNS automatique dès l’achat » sur la page d’accueil.
         'monentreprise.net': [
           mk({ type: 'A', name: '@', value: '185.199.108.153' }),
-          ...tpl.filter((r) => r.name !== 'purelymail3._domainkey' && r.role !== 'DMARC').map(mk),
+          ...tpl.map(mk),
+          mk({ type: 'TXT', name: '@', value: 'purelymail_ownership_proof=2d81e6c05a9b', managed: true, role: 'Vérification' }),
         ],
       },
       mailboxes: [
@@ -397,7 +398,7 @@
       invoices: [
         { id: 'FW-2026-0118', date: '2026-11-01', label: 'Business — mensuel', amount: 9.99, method: 'Visa •••• 4242', status: 'paid' },
         { id: 'FW-2026-0094', date: '2026-10-01', label: 'Business — mensuel', amount: 9.99, method: 'MonCash', status: 'paid' },
-        { id: 'FW-2026-0081', date: '2026-09-02', label: 'Domaine monentreprise.net (1 an)', amount: 13.99, method: 'NatCash', status: 'paid' },
+        { id: 'FW-2026-0081', date: '2026-09-02', label: 'Domaine monentreprise.net (1 an) · 13,99 $ + 6 % de frais NatCash', amount: 14.83, method: 'NatCash', status: 'paid' },
         { id: 'FW-2026-0067', date: '2026-09-01', label: 'Business — mensuel', amount: 9.99, method: 'Visa •••• 4242', status: 'paid' },
         { id: 'FW-2026-0042', date: '2026-08-01', label: 'Business — mensuel', amount: 9.99, method: 'Visa •••• 4242', status: 'refunded' },
       ],
