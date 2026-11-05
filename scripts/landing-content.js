@@ -75,12 +75,12 @@ const pages = [
     id: 'domaine-haiti', geo: true, lang: FR, path: 'nom-de-domaine-haiti.html', alt: { ht: 'ht/non-domenn-ayiti.html' },
     breadcrumb: 'Nom de domaine Haïti',
     title: 'Nom de domaine pour Haïti (.com, .net, .org) · Freda Workspace',
-    description: 'Achetez le nom de domaine de votre entreprise haïtienne et payez en MonCash, NatCash ou carte. Vous avez un .ht ? Connectez-le et ajoutez un email pro.',
+    description: 'Achetez le nom de domaine de votre entreprise haïtienne et payez en MonCash, NatCash ou carte. Le .ht arrive bientôt ; vous en avez un ? Connectez-le.',
     h1: 'Nom de domaine pour une entreprise en Haïti',
-    lead: 'Pour une entreprise haïtienne, le plus simple est un nom de domaine en .com, .net ou .org : vous pouvez l’acheter sur Freda Workspace à partir de {domain_from} la première année et le payer en MonCash, NatCash ou par carte. Vous possédez déjà un domaine en .ht ? Freda Workspace ne le vend pas, mais vous pouvez le connecter et lui ajouter une adresse email professionnelle.',
+    lead: 'Pour une entreprise haïtienne, le plus simple est un nom de domaine en .com, .net ou .org : vous pouvez l’acheter sur Freda Workspace à partir de {domain_from} la première année et le payer en MonCash, NatCash ou par carte. Le domaine en .ht arrive bientôt chez Freda Connect ; si vous en possédez déjà un, vous pouvez dès maintenant le connecter et lui ajouter une adresse email professionnelle.',
     facts: [
       ['Extensions vendues', '.com, .net, .org, .co, .store, .online, .site, .tech, .io'],
-      ['Domaine en .ht', 'Non vendu par Freda Workspace ; vous pouvez connecter un .ht existant et y créer vos adresses email'],
+      ['Domaine en .ht', 'Bientôt disponible chez Freda Connect ; en attendant, vous pouvez connecter un .ht existant et y créer vos adresses email'],
       ['Prix', 'À partir de {domain_from} la première année, selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher que la première année'],
       ['Moyens de paiement', 'MonCash, NatCash ou carte ; montants convertis en gourdes (HTG) au taux indiqué au paiement'],
       ['Durée', 'De 1 à 10 ans à l’achat'],
@@ -96,7 +96,7 @@ const pages = [
             ['.com', 'Oui', 'Entreprises, commerces, services : l’extension la plus connue'],
             ['.net', 'Oui', 'Réseaux, services en ligne, alternative au .com'],
             ['.org', 'Oui', 'Associations, ONG, fondations, églises'],
-            ['.ht', 'Non (connexion d’un .ht existant possible)', 'Identité haïtienne ; géré par son registre national'],
+            ['.ht', 'Bientôt (connexion d’un .ht existant déjà possible)', 'Identité haïtienne ; géré par son registre national'],
             ['.co, .store, .online, .site, .tech, .io', 'Oui', 'Boutiques en ligne, projets numériques, startups'],
           ],
         },
@@ -110,8 +110,8 @@ const pages = [
         ],
       },
       {
-        h2: 'Le .ht : pourquoi nous conseillons de le connecter plutôt que de l’acheter ici',
-        paragraphs: ['Le .ht est géré par NIC Haïti (nic.ht). Il est ouvert à tous, mais chez les registraires étrangers il coûte nettement plus cher qu’un .com ou un .net : par exemple environ 112 € par an chez Gandi (prix constaté en novembre 2026, donné à titre indicatif et susceptible de changer). Freda Workspace ne vend pas le .ht ; si vous en possédez déjà un, gardez-le chez votre registraire et connectez-le à Freda Workspace pour y ajouter une adresse email professionnelle.'],
+        h2: 'Le nom de domaine .ht arrive bientôt chez Freda Connect',
+        paragraphs: ['Le .ht est géré par NIC Haïti (nic.ht). Il est ouvert à tous, mais chez les registraires étrangers il coûte nettement plus cher qu’un .com ou un .net : par exemple environ 112 € par an chez Gandi (prix constaté en novembre 2026, donné à titre indicatif et susceptible de changer). Freda Connect prépare l’enregistrement des noms de domaine en .ht : vous pourrez bientôt l’obtenir au même endroit que votre email professionnel. La date de lancement et les prix seront annoncés ici ; aucun prix n’est fixé pour l’instant. En attendant, si vous possédez déjà un .ht, vous pouvez le connecter à Freda Workspace dès maintenant pour y ajouter une adresse email professionnelle, ou écrire à support@fredaworkspace.com pour être prévenu du lancement.'],
       },
       {
         h2: 'Connecter un domaine .ht que vous possédez déjà',
@@ -123,7 +123,7 @@ const pages = [
       },
     ],
     faq: [
-      ['Freda Workspace vend-il des noms de domaine en .ht ?', 'Non. Freda Workspace vend des .com, .net, .org, .co, .store, .online, .site, .tech et .io. Si vous possédez déjà un domaine en .ht, vous pouvez le connecter et y ajouter une adresse email professionnelle.'],
+      ['Freda Workspace vend-il des noms de domaine en .ht ?', 'Pas encore : le .ht arrive bientôt chez Freda Connect, sans date ni prix annoncés pour l’instant. Aujourd’hui, Freda Workspace vend des .com, .net, .org, .co, .store, .online, .site, .tech et .io. Si vous possédez déjà un domaine en .ht, vous pouvez le connecter dès maintenant et y ajouter une adresse email professionnelle.'],
       ['Combien coûte un nom de domaine pour Haïti ?', 'Les prix commencent à {domain_from} la première année selon l’extension. Le prix exact, ainsi que le prix de renouvellement, est affiché avant tout paiement. Il n’y a pas de nom de domaine gratuit.'],
       ['Puis-je payer mon nom de domaine en MonCash ou NatCash ?', 'Oui. Vous pouvez aussi payer par carte. Les montants en dollars sont convertis en gourdes au taux indiqué sur la page de paiement.'],
       ['Combien de temps faut-il pour activer mon domaine ?', 'L’enregistrement est lancé dès que le paiement est confirmé. La propagation DNS mondiale peut prendre de quelques minutes à 24 heures.'],
@@ -252,12 +252,12 @@ const pages = [
     id: 'domaine-haiti-ht', geo: true, lang: HT, path: 'ht/non-domenn-ayiti.html', alt: { fr: 'nom-de-domaine-haiti.html' },
     breadcrumb: 'Non domèn pou Ayiti',
     title: 'Non domèn pou Ayiti (.com, .net, .org) · Freda Workspace',
-    description: 'Achte non domèn biznis ayisyen ou epi peye ak MonCash, NatCash oswa kat. Ou gen yon .ht? Konekte l epi ajoute yon imèl pwofesyonèl.',
+    description: 'Achte non domèn biznis ayisyen ou epi peye ak MonCash, NatCash oswa kat. .ht la ap vini byento; ou gen youn deja? Konekte l.',
     h1: 'Non domèn pou yon biznis nan Ayiti',
-    lead: 'Pou yon biznis ayisyen, sa ki pi senp se yon non domèn .com, .net oswa .org: ou ka achte l sou Freda Workspace a pati de {domain_from} premye ane a epi peye l ak MonCash, NatCash oswa kat. Ou genyen deja yon domèn .ht? Freda Workspace pa vann li, men ou ka konekte l epi ajoute yon adrès imèl pwofesyonèl sou li.',
+    lead: 'Pou yon biznis ayisyen, sa ki pi senp se yon non domèn .com, .net oswa .org: ou ka achte l sou Freda Workspace a pati de {domain_from} premye ane a epi peye l ak MonCash, NatCash oswa kat. Domèn .ht la ap vini byento nan Freda Connect; si ou genyen youn deja, ou ka konekte l depi kounye a epi ajoute yon adrès imèl pwofesyonèl sou li.',
     facts: [
       ['Ekstansyon nou vann', '.com, .net, .org, .co, .store, .online, .site, .tech, .io'],
-      ['Domèn .ht', 'Freda Workspace pa vann li; ou ka konekte yon .ht ou genyen deja epi kreye adrès imèl sou li'],
+      ['Domèn .ht', 'Ap vini byento nan Freda Connect; annatandan, ou ka konekte yon .ht ou genyen deja epi kreye adrès imèl sou li'],
       ['Pri', 'A pati de {domain_from} premye ane a, dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè pase premye ane a'],
       ['Mwayen peman', 'MonCash, NatCash oswa kat; montan yo konvèti an goud (HTG) ak to ki endike lè ou peye'],
       ['Dire', 'De 1 a 10 an lè ou achte'],
@@ -273,7 +273,7 @@ const pages = [
             ['.com', 'Wi', 'Biznis, boutik, sèvis: ekstansyon ki pi konnen an'],
             ['.net', 'Wi', 'Rezo, sèvis sou entènèt, altènativ a .com'],
             ['.org', 'Wi', 'Asosyasyon, ONG, fondasyon, legliz'],
-            ['.ht', 'Non (ou ka konekte yon .ht ou genyen deja)', 'Idantite ayisyen; rejis nasyonal li jere l'],
+            ['.ht', 'Byento (ou ka konekte yon .ht ou genyen deja depi kounye a)', 'Idantite ayisyen; rejis nasyonal li jere l'],
             ['.co, .store, .online, .site, .tech, .io', 'Wi', 'Boutik sou entènèt, pwojè nimerik, startup'],
           ],
         },
@@ -287,8 +287,8 @@ const pages = [
         ],
       },
       {
-        h2: 'Domèn .ht la: poukisa nou konseye w konekte l olye w achte l isit la',
-        paragraphs: ['NIC Ayiti (nic.ht) jere .ht la. Li louvri pou tout moun, men nan men rejistrè etranje li koute pi chè pase yon .com oswa yon .net: pa egzanp apeprè 112 € pa ane nan Gandi (pri nou te wè an novanm 2026, se yon endikasyon sèlman epi li ka chanje). Freda Workspace pa vann .ht la; si ou genyen youn deja, kenbe l kote ou achte l la epi konekte l ak Freda Workspace pou ajoute yon adrès imèl pwofesyonèl.'],
+        h2: 'Non domèn .ht la ap vini byento nan Freda Connect',
+        paragraphs: ['NIC Ayiti (nic.ht) jere .ht la. Li louvri pou tout moun, men nan men rejistrè etranje li koute pi chè pase yon .com oswa yon .net: pa egzanp apeprè 112 € pa ane nan Gandi (pri nou te wè an novanm 2026, se yon endikasyon sèlman epi li ka chanje). Freda Connect ap prepare enskripsyon non domèn .ht yo: byento ou pral ka jwenn li nan menm kote ak imèl pwofesyonèl ou. Nou pral anonse dat lansman an ak pri yo isit la; pa gen pri ki fikse pou kounye a. Annatandan, si ou genyen yon .ht deja, ou ka konekte l ak Freda Workspace depi kounye a pou ajoute yon adrès imèl pwofesyonèl, oswa ekri nan support@fredaworkspace.com pou yo avèti w lè l lanse.'],
       },
       {
         h2: 'Konekte yon domèn .ht ou genyen deja',
@@ -300,7 +300,7 @@ const pages = [
       },
     ],
     faq: [
-      ['Èske Freda Workspace vann non domèn .ht?', 'Non. Freda Workspace vann .com, .net, .org, .co, .store, .online, .site, .tech ak .io. Si ou genyen deja yon domèn .ht, ou ka konekte l epi ajoute yon adrès imèl pwofesyonèl sou li.'],
+      ['Èske Freda Workspace vann non domèn .ht?', 'Poko: .ht la ap vini byento nan Freda Connect, san dat ni pri anonse pou kounye a. Jodi a, Freda Workspace vann .com, .net, .org, .co, .store, .online, .site, .tech ak .io. Si ou genyen deja yon domèn .ht, ou ka konekte l depi kounye a epi ajoute yon adrès imèl pwofesyonèl sou li.'],
       ['Konbyen yon non domèn pou Ayiti koute?', 'Pri yo kòmanse a {domain_from} premye ane a dapre ekstansyon an. Pri egzak la, ansanm ak pri renouvèlman an, parèt anvan ou peye. Pa gen non domèn gratis.'],
       ['Èske mwen ka peye non domèn mwen ak MonCash oswa NatCash?', 'Wi. Ou ka peye ak kat tou. Montan an dola konvèti an goud ak to ki endike sou paj peman an.'],
       ['Konbyen tan sa pran pou domèn mwen an aktive?', 'Enskripsyon an kòmanse le peman an konfime. Pwopagasyon DNS mondyal la ka pran de kèk minit a 24 è.'],
@@ -376,7 +376,7 @@ const pages = [
       ['What you get', '{free_mailboxes} professional mailbox, 1 GB storage'],
       ['What you need', 'A domain name (bought from Freda Workspace, or one you already own)'],
       ['Is the domain name free?', 'No: from {domain_from} for the first year depending on the extension (price shown before payment; renewal can cost more)'],
-      ['Domains sold', '.com, .net, .org, .co, .store, .online, .site, .tech, .io (not .ht, but an existing .ht domain can be connected)'],
+      ['Domains sold', '.com, .net, .org, .co, .store, .online, .site, .tech, .io (.ht is coming soon; an existing .ht domain can already be connected)'],
       ['Payment', 'MonCash, NatCash or card; MonCash and NatCash cannot auto-debit, so a prepaid Freda balance ($5 to $500) pays subscriptions automatically'],
       ['Language and support', 'French and Haitian Creole, Monday to Saturday, 8am to 6pm (Haiti time)'],
     ],
@@ -410,7 +410,7 @@ const pages = [
     faq: [
       ['Is the business email really free?', 'Yes. Without any subscription or bank card, your account includes {free_mailboxes} free professional mailbox (1 GB) on your own domain name. For more mailboxes or storage there are Starter ({starter_price}/month, 2 mailboxes), Business ({business_price}/month, 5 mailboxes) and Enterprise ({enterprise_price}/month, unlimited mailboxes).'],
       ['Is there a free domain name?', 'No. Freda Workspace does not sell free domain names: prices start at {domain_from} for the first year depending on the extension, and the exact price is shown before you pay. If you already own a domain, the mailbox is free.'],
-      ['Does Freda Workspace sell .ht domains?', 'No. It sells .com, .net, .org, .co, .store, .online, .site, .tech and .io. You can connect a .ht domain you already own and add a professional email address to it.'],
+      ['Does Freda Workspace sell .ht domains?', 'Not yet: .ht is coming soon to Freda Connect, with no date or price announced yet. Today it sells .com, .net, .org, .co, .store, .online, .site, .tech and .io. If you already own a .ht domain you can connect it now and add a professional email address to it.'],
       ['Can I pay with MonCash or NatCash?', 'Yes, or with a bank card. MonCash and NatCash do not allow automatic charges, so you top up a Freda balance that then pays your subscription automatically.'],
       ['Which languages does support speak?', 'French and Haitian Creole. Write to support@fredaworkspace.com, Monday to Saturday, 8am to 6pm (Haiti time).'],
     ],
@@ -425,11 +425,12 @@ const homeFaq = [
   ['J’ai déjà un nom de domaine. Puis-je l’utiliser ?', 'Oui. Depuis votre espace, choisissez « Connecter un domaine existant ». Vous pouvez soit pointer vos serveurs DNS vers les nôtres, soit ajouter les enregistrements MX, SPF et DKIM que nous affichons. Cela fonctionne aussi avec un domaine en .ht.'],
   ['L’email professionnel est-il gratuit ?', 'Chaque compte a droit à {free_mailboxes} boîte email professionnelle gratuite (1 Go) sur son propre nom de domaine, sans abonnement ni carte bancaire. Le nom de domaine, lui, est payant (à partir de {domain_from} la première année selon l’extension). Les offres Starter, Business et Enterprise ajoutent des boîtes et du stockage.'],
   ['Comment payer avec MonCash ou NatCash ?', 'Au paiement, choisissez MonCash ou NatCash : vous êtes redirigé vers la page de paiement, vous confirmez avec votre code PIN et vous revenez sur Freda Workspace. MonCash et NatCash ne permettent pas de prélèvement automatique : rechargez un solde Freda (de 5 $ à 500 $), qui paie ensuite votre offre et vos renouvellements automatiquement.'],
-  ['Vendez-vous des noms de domaine en .ht ?', 'Non. Nous vendons des .com, .net, .org, .co, .store, .online, .site, .tech et .io. Si vous possédez déjà un domaine en .ht, vous pouvez le connecter et y ajouter une adresse email professionnelle.'],
+  ['Vendez-vous des noms de domaine en .ht ?', 'Pas encore : le .ht arrive bientôt chez Freda Connect, sans date ni prix annoncés pour l’instant. Nous vendons aujourd’hui des .com, .net, .org, .co, .store, .online, .site, .tech et .io. Si vous possédez déjà un domaine en .ht, vous pouvez le connecter dès maintenant et y ajouter une adresse email professionnelle.'],
   ['Puis-je utiliser Gmail, Outlook ou Apple Mail ?', 'Oui, vos boîtes fonctionnent avec tout logiciel compatible IMAP et SMTP. Les paramètres de connexion sont affichés dans votre espace, rubrique Boîtes mail.'],
   ['Que se passe-t-il si j’annule ?', 'Votre domaine vous appartient. Vous gardez l’accès jusqu’à la fin de la période payée et pouvez transférer le domaine chez un autre registraire avec le code d’autorisation fourni dans votre espace.'],
 ];
 
 pages.push(...require('./landing-more'));
+pages.push(...require('./landing-brands'));
 
 module.exports = { pages, homeFaq };

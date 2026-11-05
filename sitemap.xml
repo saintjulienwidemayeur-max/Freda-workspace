@@ -70,4 +70,40 @@
     <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/kiyes-nou-ye.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/qui-sommes-nous.html"/>
   </url>
+  <url><loc>https://fredaworkspace.com/freda-mail.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-mail.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/ht/freda-mail.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-mail.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/en/freda-mail.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-mail.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-mail.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/freda-connect.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-connect.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/ht/freda-connect.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-connect.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/en/freda-connect.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-connect.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-connect.html"/>
+  </url>
 </urlset>

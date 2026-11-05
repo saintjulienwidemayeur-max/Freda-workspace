@@ -11,13 +11,13 @@ Objectif : être le premier résultat (et la réponse citée par les assistants 
 3. **Support et contenu en français, kreyòl et anglais.**
 4. **Prix transparents** : un domaine .com / .net / .org à partir de quelques dollars, alors que le .ht coûte souvent plus de 100 € par an chez les registraires étrangers (prix constatés, non officiels).
 
-À ne jamais écrire : « domaine gratuit », « nous vendons le .ht » (le .ht est géré par NIC Haïti, nic.ht ; nous proposons seulement de **connecter** un .ht existant), « classé n° 1 ».
+À ne jamais écrire : « domaine gratuit », « nous vendons le .ht » (le .ht arrive bientôt chez Freda Connect : annoncer « bientôt disponible », sans date ni prix ; aujourd’hui on peut seulement **connecter** un .ht existant), « classé n° 1 ».
 
 ## 2. Ce qui est en place (dépôt `Freda-workspace`)
 
 | Élément | Où | Détail |
 |---|---|---|
-| 12 pages d’atterrissage | `email-pro-gratuit.html`, `nom-de-domaine-haiti.html`, `acheter-domaine-moncash.html`, `enregistrer-nom-de-domaine.html` (international), `qui-sommes-nous.html`, 4 pages kreyòl (`ht/…`), 3 pages anglaises (`en/…`) | Réponse dès la première phrase, tableau « En bref », étapes, FAQ visible, mise à jour datée |
+| 18 pages d’atterrissage (dont les pages de marque Freda Mail et Freda Connect en FR/HT/EN) | `email-pro-gratuit.html`, `nom-de-domaine-haiti.html`, `acheter-domaine-moncash.html`, `enregistrer-nom-de-domaine.html` (international), `qui-sommes-nous.html`, 4 pages kreyòl (`ht/…`), 3 pages anglaises (`en/…`) | Réponse dès la première phrase, tableau « En bref », étapes, FAQ visible, mise à jour datée |
 | Source unique | `scripts/landing-content.js` → `npm run build:landing` | Génère les pages, le JSON-LD, `sitemap.xml`, `llms.txt`, `llms-full.txt`, la FAQ et le JSON-LD de l’accueil. La CI refuse un dépôt dont les fichiers générés ne sont pas à jour |
 | Données structurées | JSON-LD | Organization (zone : Haïti ; langues fr, ht), WebSite + SearchAction, Product + offres (prix, devise, disponibilité), FAQPage identique au texte visible (testé), BreadcrumbList |
 | Langues | `hreflang` fr / ht / en + `x-default`, réciproques (testées), `<html lang>` correct | |
