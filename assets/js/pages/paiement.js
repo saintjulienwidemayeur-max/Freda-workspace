@@ -34,6 +34,8 @@
 
     if (PAGE === 'domain') {
       if (!(cart.domain || cart.ownDomain)) return null;
+      // Le .ht n'est pas encore vendu : un panier trafiqué ne passe jamais au paiement
+      if ([cart.domain, ...(cart.extras || [])].some((d) => d && /\.ht$/i.test(String(d.domain || '')))) { FW.cart.clear && FW.cart.clear(); location.replace('domaines.html'); return false; }
       // Connexion (ou création de compte) sur sa propre page, puis retour ici pour payer
       if (!session) { location.replace('connexion.html?next=paiement.html'); return false; }
       // Domaine déjà payé, ou domaine existant avec compte : on passe directement à l'email pro
@@ -251,7 +253,7 @@
     const amount = amountNow();
     /* Frais de traitement : carte 3,5 % + 0,40 $ ; MonCash / NatCash 6 % (ajoutés au montant, affichés avant paiement ; recalculés côté serveur). */
     const fee = amount > 0 ? (m === 'card' ? Math.round(amount * 3.5 + 40) / 100 : Math.round(amount * 6) / 100) : 0;
-    let feeNote = $('#fee-note');
+    let feeNote = document.getElementById('fee-note');   // ($ renvoie un nœud vide quand l'élément manque : ne pas l'utiliser pour tester l'existence)
     if (!feeNote) { feeNote = document.createElement('p'); feeNote.id = 'fee-note'; feeNote.className = 'mt-3 text-sm text-slate-600 tabular'; $('#method-picker').insertAdjacentElement('afterend', feeNote); }
     feeNote.hidden = !fee;
     feeNote.textContent = fee ? 'Frais de traitement (' + (m === 'card' ? '3,5 % + 0,40 $' : '6 %') + ') : ' + FW.money(fee) + ' · Total à payer : ' + FW.money(amount + fee) : '';
@@ -260,7 +262,8 @@
       $('#mm-rate').textContent = FW.money(amount + fee) + ' (frais inclus) au taux indicatif de 1 USD = ' + C.HTG_RATE + ' HTG';
       $('#mm-steps').innerHTML = mmSteps[m].map((t, i) => `<li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-mist text-freda text-xs font-bold grid place-items-center shrink-0 tabular">${i + 1}</span><span>${t}</span></li>`).join('');
     }
-    const verb = stage === 'domain' ? (domainFree ? 'Créer mon compte' : 'Payer ' + FW.money(amount)) : 'Activer l’email pro · ' + FW.money(amount);
+    const total = amount + fee;   // frais de traitement inclus : le bouton affiche toujours ce qui sera débité
+    const verb = stage === 'domain' ? (domainFree ? 'Créer mon compte' : 'Payer ' + FW.money(total)) : 'Activer l’email pro · ' + FW.money(total);
     $('#pay-label').textContent = domainFree && stage === 'domain' ? verb : (useSaved() || m === 'card' ? verb : (stage === 'domain' ? 'Payer ' : 'Activer ') + 'avec ' + name);
     clearErrors();
   }
