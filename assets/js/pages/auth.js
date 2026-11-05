@@ -144,6 +144,7 @@
   /* ======================= INSCRIPTION ======================= */
   const signupForm = $('#signup-form');
   if (signupForm) {
+    const suPhone = FWUI.phoneInput($('#su-phone'));   // indicatif du pays au choix (Haïti par défaut)
     /* Force du mot de passe */
     const pass = $('#su-pass');
     pass.addEventListener('input', () => {
@@ -178,7 +179,7 @@
         await FW.auth.signup({
           name: $('#su-name').value.trim(),
           email: $('#su-email').value.trim(),
-          phone: $('#su-phone').value ? '+509' + $('#su-phone').value.replace(/\D/g, '') : '',
+          phone: suPhone.get(),
           password: pass.value,
         });
         FWUI.toast('Compte créé. Configurons maintenant votre entreprise.');
