@@ -24,7 +24,7 @@ module.exports = [
       ['Offres payantes', 'Starter {starter_price}/mois (2 boîtes), Business {business_price}/mois (5 boîtes), Enterprise {enterprise_price}/mois (illimité)'],
       ['Sécurité', 'SPF, DKIM et DMARC configurés automatiquement'],
       ['Compatibilité', 'Application Freda Mail, et tout logiciel IMAP / SMTP (Outlook, Apple Mail, Gmail)'],
-      ['Paiement', 'MonCash, NatCash, carte et autres moyens proposés par Stripe ; solde prépayé pour les abonnements'],
+      ['Paiement', 'MonCash, NatCash, carte et autres moyens de paiement disponibles ; solde prépayé pour les abonnements'],
       ['Produit associé', 'Freda Connect (noms de domaine et DNS)'],
     ],
     sections: [
@@ -84,7 +84,7 @@ module.exports = [
       ['Òf ki peye', 'Starter {starter_price}/mwa (2 bwat), Business {business_price}/mwa (5 bwat), Enterprise {enterprise_price}/mwa (san limit)'],
       ['Sekirite', 'SPF, DKIM ak DMARC konfigire otomatikman'],
       ['Konpatibilite', 'Aplikasyon Freda Mail, ak nenpòt lojisyèl IMAP / SMTP (Outlook, Apple Mail, Gmail)'],
-      ['Peman', 'MonCash, NatCash, kat ak lòt mwayen Stripe pwopoze; balans prepeye pou abònman yo'],
+      ['Peman', 'MonCash, NatCash, kat ak lòt mwayen peman; balans prepeye pou abònman yo. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
       ['Pwodwi asosye', 'Freda Connect (non domèn ak DNS)'],
     ],
     sections: [
@@ -144,7 +144,7 @@ module.exports = [
       ['Paid plans', 'Starter {starter_price}/month (2 mailboxes), Business {business_price}/month (5 mailboxes), Enterprise {enterprise_price}/month (unlimited)'],
       ['Security', 'SPF, DKIM and DMARC configured automatically'],
       ['Compatibility', 'Freda Mail app, and any IMAP / SMTP client (Outlook, Apple Mail, Gmail)'],
-      ['Payment', 'MonCash, NatCash, card and other methods offered by Stripe; prepaid balance for subscriptions'],
+      ['Payment', 'MonCash, NatCash, card and other payment methods; prepaid balance for subscriptions. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%'],
       ['Related product', 'Freda Connect (domain names and DNS)'],
     ],
     sections: [
@@ -201,7 +201,7 @@ module.exports = [
       ['Prix', 'À partir de {domain_from} la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher'],
       ['Inclus', 'Confidentialité Whois gratuite, verrouillage anti-transfert, éditeur DNS complet, rappels de renouvellement'],
       ['Domaine existant', 'Vous pouvez connecter un domaine que vous possédez déjà, y compris un .ht'],
-      ['Paiement', 'Carte et autres moyens Stripe selon votre pays ; MonCash et NatCash'],
+      ['Paiement', 'Carte et autres moyens selon votre pays ; MonCash et NatCash. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
       ['Produit associé', 'Freda Mail (email professionnel, 1 boîte gratuite sur votre domaine)'],
     ],
     sections: [
@@ -251,7 +251,7 @@ module.exports = [
       ['Pri', 'A pati de {domain_from} premye ane a dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè'],
       ['Sa ki enkli', 'Konfidansyalite Whois gratis, vèwouyaj kont transfè, editè DNS konplè, rapèl renouvèlman'],
       ['Domèn ki egziste deja', 'Ou ka konekte yon domèn ou genyen deja, menm yon .ht'],
-      ['Peman', 'Kat ak lòt mwayen Stripe dapre peyi w; MonCash ak NatCash'],
+      ['Peman', 'Kat ak lòt mwayen dapre peyi w; MonCash ak NatCash. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
       ['Pwodwi asosye', 'Freda Mail (imèl pwofesyonèl, 1 bwat gratis sou domèn ou)'],
     ],
     sections: [
@@ -297,7 +297,7 @@ module.exports = [
       ['Price', 'From {domain_from} for the first year depending on the extension; exact price shown before payment; renewal can cost more'],
       ['Included', 'Free WHOIS privacy, transfer lock, full DNS editor, renewal reminders'],
       ['Existing domain', 'You can connect a domain you already own, including a .ht'],
-      ['Payment', 'Card and other Stripe methods depending on your country; MonCash and NatCash'],
+      ['Payment', 'Card and other methods depending on your country; MonCash and NatCash. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%'],
       ['Related product', 'Freda Mail (professional email, 1 free mailbox on your domain)'],
     ],
     sections: [

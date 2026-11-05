@@ -129,10 +129,10 @@
           ${col('Produits', [[BASE + 'freda-connect.html', 'Freda Connect · Domaine et DNS'], [BASE + 'freda-mail.html', 'Freda Mail · Email professionnel'], [BASE + 'index.html#app', 'Application mobile'], [BASE + 'index.html#tarifs', 'Tarifs']])}
           ${col('Guides', [[BASE + 'qui-sommes-nous.html', 'Qui sommes-nous'], [BASE + 'enregistrer-nom-de-domaine.html', 'Enregistrer un nom de domaine'], [BASE + 'email-pro-gratuit.html', 'Email pro gratuit'], [BASE + 'nom-de-domaine-haiti.html', 'Nom de domaine Haïti'], [BASE + 'acheter-domaine-moncash.html', 'Payer avec MonCash ou NatCash'], [BASE + 'ht/imel-pwofesyonel-gratis.html', 'Kreyòl : imèl pwofesyonèl gratis'], [BASE + 'en/free-business-email-haiti.html', 'English : free business email'], [BASE + 'ht/kiyes-nou-ye.html', 'Kreyòl : kiyès nou ye']])}
           ${col('Assistance', [[BASE + 'support.html', 'Centre d’aide'], [BASE + 'support.html#contact', 'Contacter le support'], [BASE + 'support.html#statut', 'État des services']].concat(C.WEBMAIL_URL ? [[BASE + 'connexion.html?mode=webmail', 'Webmail']] : []))}
-          ${col('Légal', [[BASE + 'legal.html#cgu', 'Conditions d’utilisation'], [BASE + 'legal.html#confidentialite', 'Confidentialité'], [BASE + 'legal.html#remboursement', 'Remboursement'], [BASE + 'legal.html#cookies', 'Cookies'], [BASE + 'legal.html#reglementaire', 'Informations réglementaires'], [BASE + 'legal.html#conformite', 'Conformité et sécurité']])}
+          ${col('Légal', [[BASE + 'legal.html#cgu', 'Conditions d’utilisation'], [BASE + 'legal.html#paiements', 'Paiements et frais'], [BASE + 'legal.html#confidentialite', 'Confidentialité'], [BASE + 'legal.html#remboursement', 'Remboursement'], [BASE + 'legal.html#cookies', 'Cookies'], [BASE + 'legal.html#propriete', 'Propriété intellectuelle'], [BASE + 'presse.html', 'Presse'], [BASE + 'legal.html#reglementaire', 'Informations réglementaires'], [BASE + 'legal.html#conformite', 'Conformité et sécurité']])}
         </div>
         <div class="max-w-site mx-auto py-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-slate-400" style="padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px))">
-          <p>© ${year} Freda Workspace. Tous droits réservés.</p>
+          <p>© ${year} Freda Pay LLC. Tous droits réservés. Freda Workspace est une marque de Freda Pay LLC.</p>
           <p class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-cta"></i>Propulsé par <span class="text-white font-semibold">Freda Pay LLC</span> · Freda Group</p>
         </div>
       </div>`;
@@ -432,7 +432,7 @@
     const text = document.getElementById('proc-text');
     const link = res.redirectUrl ? '<a class="btn btn-cta mt-4" target="_blank" rel="noopener noreferrer" href="' + esc(res.redirectUrl) + '">Ouvrir la page de paiement</a>' : '';
     const card = /stripe\.com/.test(res.redirectUrl || '');
-    const msg = 'Terminez le paiement sur la page ' + (card ? 'sécurisée Stripe' : 'MonCash / NatCash') + ' qui vient de s’ouvrir, puis <strong>revenez ici</strong> : cette page se met à jour toute seule.';
+    const msg = 'Terminez le paiement sur la page ' + (card ? 'de paiement sécurisée' : 'MonCash / NatCash') + ' qui vient de s’ouvrir, puis <strong>revenez ici</strong> : cette page se met à jour toute seule.';
     if (text) text.innerHTML = msg + '<br>' + link;
     else {                                   // pages sans fenêtre « traitement » : bandeau fixe
       let b = document.getElementById('pay-wait-banner');
@@ -453,7 +453,7 @@
       const sc = document.createElement('script');
       sc.src = url; sc.async = true;
       sc.onload = () => resolve();
-      sc.onerror = () => reject(new Error('Impossible de charger le module de paiement Stripe. Vérifiez votre connexion et réessayez.'));
+      sc.onerror = () => reject(new Error('Impossible de charger le module de paiement. Vérifiez votre connexion et réessayez.'));
       document.head.appendChild(sc);
     });
   }
@@ -490,7 +490,7 @@
       + '<button type="button" data-fw-close aria-label="Fermer le paiement" style="border:0;background:transparent;font-size:26px;line-height:1;cursor:pointer;color:#64748b;padding:2px 8px">×</button></div>'
       + '<div id="fw-embedded-mount" style="min-height:360px"><p style="padding:24px;text-align:center;color:#64748b;font-size:14px">Chargement du paiement sécurisé…</p></div>'
       + '<p id="fw-embedded-status" role="status" style="margin:8px 4px 0;font-size:13px;color:#0f766e;font-weight:600"></p>'
-      + '<p style="margin:6px 4px 0;font-size:12px;color:#64748b">Paiement sécurisé par Stripe. Vos informations bancaires ne passent jamais par nos serveurs.</p></div>';
+      + '<p style="margin:6px 4px 0;font-size:12px;color:#64748b">Paiement sécurisé. Vos informations bancaires ne passent jamais par nos serveurs.</p></div>';
     const state = { overlay, checkout: null, prevOverflow: document.body.style.overflow, lastFocus: document.activeElement, res };
     const userClose = () => { closeEmbedded(); showResumeBanner(res); };
     state.onKey = (ev) => { if (ev.key === 'Escape') userClose(); };
