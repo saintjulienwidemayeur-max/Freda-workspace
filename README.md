@@ -50,9 +50,9 @@ assets/
 ## Passer en production
 
 1. **Backend** : ne modifiez pas `config.js` à la main : sur Render, définissez `FW_DEMO_MODE=false` et `FW_API_BASE=https://<api>/api` (voir « Déploiement » plus bas). Les routes attendues sont listées en tête de `assets/js/api.js`. Checklist complète de mise en production : README du backend.
-2. **Clés secrètes** : NameSilo, Purelymail, Stripe et Pay'm sont appelés uniquement depuis le backend. Aucune clé secrète dans le frontend (seule la clé publiable Stripe est envoyée par l'API).
+2. **Clés secrètes** : NameSilo, Purelymail, Stripe et Freda Pay Issuing sont appelés uniquement depuis le backend. Aucune clé secrète dans le frontend (seule la clé publiable Stripe est envoyée par l'API).
 3. **Carte bancaire** : Stripe Embedded Checkout (voir plus bas) : le numéro ne passe jamais par nos pages (PCI-DSS).
-4. **MonCash / NatCash** : le backend crée la transaction Pay'm et renvoie l'URL de redirection ; la confirmation vient du serveur.
+4. **MonCash / NatCash** : le backend crée la transaction Freda Pay Issuing et renvoie l'URL de redirection ; la confirmation vient du serveur.
 5. **Google** : `FW.auth.oauth()` redirige vers `/auth/oauth/google` (Apple n'est pas branché).
 6. **Régénérer le CSS / les icônes** après une modification de classes ou d'icônes : `npm install && npm run build` (thème dans `tailwind.config.js`).
 7. **À compléter dans `assets/js/config.js` avant le lancement** (tant qu'ils sont des espaces réservés, le site masque ou neutralise les éléments concernés) : `SUPPORT_WHATSAPP` (numéro réel ; sinon la mention WhatsApp disparaît des offres), `APP_STORE_URL` / `PLAY_STORE_URL` (liens réels ; sinon le bloc « Application mobile » est masqué), `WEBMAIL_URL` (vérifier que l'hôte existe), `BILLING.address` et `BILLING.taxId` (mentions de facture), textes légaux.
@@ -82,12 +82,12 @@ Les tests démarrent un serveur local avec **les mêmes en-têtes que la product
 
 ## Backend
 
-L'API est dans un dépôt séparé : [Freda-workspace-backend](https://github.com/saintjulienwidemayeur-max/Freda-workspace-backend) (comptes, domaines NameSilo, paiements Pay'm, DNS, Freda Mail, renouvellements).
+L'API est dans un dépôt séparé : [Freda-workspace-backend](https://github.com/saintjulienwidemayeur-max/Freda-workspace-backend) (comptes, domaines NameSilo, paiements MonCash/NatCash (Freda Pay Issuing), DNS, Freda Mail, renouvellements).
 
 **Passer le site en production** (quand l'API est en ligne) dans `assets/js/config.js` : `DEMO_MODE: false` et `API_BASE: 'https://api.fredaworkspace.com/api'` (la CSP de `render.yaml` autorise déjà cette origine). En production :
 - le jeton JWT est conservé dans `localStorage` (`fw:token`) et envoyé en `Authorization: Bearer` ;
 - l'espace client charge ses données avec `GET /workspace` avant de s'afficher (les scripts de page, balisés `data-page-script`, démarrent ensuite) ; aucune donnée de démonstration n'est jamais affichée ;
-- les paiements MonCash/NatCash sont **asynchrones** : `/checkout` renvoie l'URL de paiement Pay'm, la page l'ouvre et attend la confirmation (`GET /orders/:id`) ; le navigateur n'envoie que le choix (le serveur recalcule les prix) et aucune donnée de carte ;
+- les paiements MonCash/NatCash sont **asynchrones** : `/checkout` renvoie l'URL de paiement Freda Pay Issuing, la page l'ouvre et attend la confirmation (`GET /orders/:id`) ; le navigateur n'envoie que le choix (le serveur recalcule les prix) et aucune donnée de carte ;
 - les liens de renouvellement reçus par e-mail (`espace/domaines.html?renew=nom`, `espace/facturation.html?renew=1`) créent un paiement frais au clic ; Google renvoie vers `connexion.html#token=…` ; le lien de réinitialisation est `connexion.html?reset=JETON`.
 
 **Test de bout en bout** (vrai frontend en mode production contre le vrai backend et ses faux services) :

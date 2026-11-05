@@ -302,7 +302,7 @@
     },
 
     /**
-     * Pay'm (MonCash / NatCash) est asynchrone : /checkout répond « pending » avec l'URL de paiement ; on attend la confirmation
+     * Le paiement MonCash / NatCash (Freda Pay Issuing) est asynchrone : /checkout répond « pending » avec l'URL de paiement ; on attend la confirmation
      * (GET /orders/:id toutes les 3 s, 25 min maximum). `payments.onPending(res)` permet à l'interface d'afficher le lien de paiement.
      */
     async settle(res) {
@@ -540,7 +540,7 @@
       await wait(600);
       return { ok: true, demo: true };
     },
-    /** Renouvellement : paiement Pay'm puis renewDomain côté serveur. */
+    /** Renouvellement : paiement MonCash / NatCash puis renewDomain côté serveur. */
     async renew(name, years = 1) {
       if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'renewal', domain: name, years, ...preferredPayment() } }));
       await wait(1200);
@@ -576,7 +576,7 @@
   };
 
   /**
-   * Moyen de paiement par défaut du client : une carte enregistrée est débitée directement (Stripe) ; sinon MonCash / NatCash (Pay'm, avec page de paiement).
+   * Moyen de paiement par défaut du client : une carte enregistrée est débitée directement (Stripe) ; sinon MonCash / NatCash (Freda Pay Issuing, avec page de paiement).
    * Le serveur revérifie que le moyen appartient bien au compte ; le navigateur n'envoie jamais de montant.
    */
   function preferredPayment() {
@@ -585,7 +585,7 @@
     return d && d.type === 'card' ? { method: 'card', methodId: d.id } : { method: 'all' };
   }
 
-  /** Changement d'offre en production : nouvelle commande « subscription » (carte enregistrée si elle existe, sinon Pay'm). */
+  /** Changement d'offre en production : nouvelle commande « subscription » (carte enregistrée si elle existe, sinon MonCash / NatCash). */
   const plans = {
     async change({ plan, cycle }) { return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, ...preferredPayment() } })); },
     /** Résiliation : plus de prélèvement, boîtes utilisables jusqu'à la fin de la période payée ; reprise possible avant la fin. */

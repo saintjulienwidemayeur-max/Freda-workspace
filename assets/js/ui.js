@@ -424,7 +424,7 @@
   }
 
   /**
-   * Attente d'un paiement Pay'm (MonCash / NatCash) : affiche l'URL de paiement dans la fenêtre « traitement » (si présente)
+   * Attente d'un paiement MonCash / NatCash (Freda Pay Issuing) : affiche l'URL de paiement dans la fenêtre « traitement » (si présente)
    * et tente de l'ouvrir dans un nouvel onglet. La page reste ouverte et se met à jour dès que le serveur confirme.
    */
   function showPaymentLink(res) {
