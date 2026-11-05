@@ -96,5 +96,22 @@
       <div class="min-w-0"><p class="text-sm text-ink">${esc(a.text)}</p><p class="text-xs text-muted tabular">${FW.date(a.at.slice(0, 10))} · ${a.at.slice(11)}</p></div>
     </li>`).join('');
 
+  /* ---------- Solde bas : l'offre se renouvelle bientôt et le solde ne suffit pas (MonCash / NatCash ne prélèvent pas tout seuls) ---------- */
+  if (plan && ws.plan && !ws.plan.cancelAtPeriodEnd && FW.balance) {
+    FW.balance.get().then((b) => {
+      if (!b.next || !(b.next.missing > 0)) return;
+      const left = Math.ceil((new Date(b.next.renews + 'T00:00:00') - new Date()) / 86400000);
+      if (left > 10) return;
+      const amount = Math.max(b.min, Math.ceil(b.next.missing));
+      $('#stats').insertAdjacentHTML('beforebegin', `
+        <a href="facturation.html?topup=${amount}" class="flex items-center gap-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 sm:p-5 hover:border-amber-400 transition-colors">
+          <span class="w-11 h-11 rounded-xl bg-white text-amber-600 grid place-items-center shrink-0 shadow-sm"><i data-lucide="wallet"></i></span>
+          <span class="min-w-0 flex-1"><span class="block font-semibold text-amber-900">Solde insuffisant pour votre prochain renouvellement</span><span class="block text-sm text-amber-900/80">Votre offre (${FW.money(b.next.amount)}) se renouvelle ${left > 0 ? 'dans ' + left + ' jour' + (left > 1 ? 's' : '') : 'aujourd’hui'} et votre solde est de ${FW.money(b.balance)}. Il manque ${FW.money(b.next.missing)}.</span></span>
+          <span class="btn btn-cta btn-sm shrink-0 hidden sm:inline-flex">Recharger<i data-lucide="arrow-right"></i></span>
+        </a>`);
+      FWUI.icons();
+    }).catch(() => { /* solde indisponible : pas de bandeau */ });
+  }
+
   FWUI.icons();
 })();
