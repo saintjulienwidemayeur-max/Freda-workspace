@@ -111,6 +111,8 @@ test('espace client : acheter un domaine avec un moyen de paiement enregistré',
   await page.locator('[data-toggle]').first().click();
   assert.strictEqual(await page.isDisabled('#buy-pay'), false);
   await page.click('#buy-pay');
+  await page.waitForSelector('#cp-title');                       // le client choisit toujours son moyen de paiement
+  await page.click('.modal [data-ok]');
   await page.waitForSelector('#buy-done:not([hidden])');
   await page.goto(`${url}/espace/domaines.html`);
   assert.match(await page.textContent('#domain-cards'), /projet-test\./);
