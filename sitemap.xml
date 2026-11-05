@@ -4,7 +4,16 @@
   <url><loc>https://fredaworkspace.com/domaines.html</loc><lastmod>2026-11-02</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://fredaworkspace.com/support.html</loc><lastmod>2026-11-02</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://fredaworkspace.com/legal.html</loc><lastmod>2026-11-05</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://fredaworkspace.com/presse.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://fredaworkspace.com/presse.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/presse.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/press.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/presse.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/en/press.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/presse.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/press.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/presse.html"/>
+  </url>
   <url><loc>https://fredaworkspace.com/email-pro-gratuit.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/email-pro-gratuit.html"/>
     <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html"/>
@@ -106,5 +115,23 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-connect.html"/>
     <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-connect.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-connect.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-mail-kont-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-mail-vs-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/ht/freda-mail-kont-gmail-google-workspace-zoho.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-mail-kont-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-mail-vs-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html"/>
+  </url>
+  <url><loc>https://fredaworkspace.com/en/freda-mail-vs-gmail-google-workspace-zoho.html</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fredaworkspace.com/en/freda-mail-vs-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://fredaworkspace.com/ht/freda-mail-kont-gmail-google-workspace-zoho.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html"/>
   </url>
 </urlset>

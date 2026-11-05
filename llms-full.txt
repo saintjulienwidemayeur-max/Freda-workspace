@@ -19,8 +19,9 @@ Oui : Freda Workspace offre 1 boîte email professionnelle gratuite sur votre pr
 - Prix de la boîte gratuite : 0 $, sans abonnement, sans carte bancaire
 - Ce que vous obtenez : 1 boîte email professionnelle, 1 Go de stockage
 - Ce qu’il faut avoir : Un nom de domaine (acheté chez Freda Workspace ou déjà à vous)
-- Le nom de domaine est-il gratuit ? : Non : à partir de 2,99 $ la première année selon l’extension
+- Le nom de domaine est-il gratuit ? : Non : à partir de 2,99 $ (.com : 12,99 $) la première année selon l’extension
 - Sécurité de l’email : SPF, DKIM et DMARC configurés automatiquement
+- Frais de traitement : Carte 3,5 % + 0,40 $ ; MonCash et NatCash 6 % (pour les offres payantes et le domaine)
 - Pour aller plus loin : Starter 2,99 $/mois (2 boîtes), Business 9,99 $/mois (5 boîtes), Enterprise 30,00 $/mois (illimité)
 
 ## Ce qui est gratuit, et ce qui ne l’est pas
@@ -38,7 +39,7 @@ La boîte email gratuite est un vrai compte professionnel sur votre domaine, pas
 
 
 1. Créez votre compte Freda Workspace : c’est gratuit et ne demande pas de carte bancaire.
-2. Choisissez votre nom de domaine : achetez-en un (à partir de 2,99 $ la première année) ou connectez celui que vous possédez déjà, y compris un domaine en .ht.
+2. Choisissez votre nom de domaine : achetez-en un (à partir de 2,99 $ (.com : 12,99 $) la première année) ou connectez celui que vous possédez déjà, y compris un domaine en .ht.
 3. Freda Workspace ajoute les enregistrements MX, SPF, DKIM et DMARC, ou vous indique exactement quoi coller chez votre fournisseur de domaine, puis vérifie que le domaine est bien connecté.
 4. Créez votre adresse (par exemple contact@votre-entreprise.com) et lisez vos emails dans l’application Freda Mail ou dans n’importe quel logiciel compatible IMAP et SMTP (Outlook, Apple Mail, Gmail).
 
@@ -60,7 +61,7 @@ Oui. Une adresse professionnelle repose sur un nom de domaine, par exemple votre
 
 ### Existe-t-il un nom de domaine gratuit ?
 
-Non, Freda Workspace ne vend pas de nom de domaine gratuit : les prix commencent à 2,99 $ la première année selon l’extension, et le prix exact est affiché avant tout paiement. En revanche, si vous avez déjà un domaine, la boîte email est gratuite.
+Non, Freda Workspace ne vend pas de nom de domaine gratuit : les prix commencent à 2,99 $ (.com : 12,99 $) la première année selon l’extension, et le prix exact est affiché avant tout paiement. En revanche, si vous avez déjà un domaine, la boîte email est gratuite.
 
 ### Puis-je lire mes emails dans Gmail, Outlook ou Apple Mail ?
 
@@ -82,14 +83,14 @@ URL : https://fredaworkspace.com/nom-de-domaine-haiti.html
 Langue : français
 Mise à jour : 2026-11-05
 
-Pour une entreprise haïtienne, le plus simple est un nom de domaine en .com, .net ou .org : vous pouvez l’acheter sur Freda Workspace à partir de 2,99 $ la première année et le payer en MonCash, NatCash ou par carte. Le domaine en .ht arrive bientôt chez Freda Connect ; si vous en possédez déjà un, vous pouvez dès maintenant le connecter et lui ajouter une adresse email professionnelle.
+Pour une entreprise haïtienne, le plus simple est un nom de domaine en .com, .net ou .org : un .com coûte 12,99 $ la première année (14,99 $ au renouvellement), un .net 13,99 $ et un .org 11,99 $ ; les extensions les moins chères (comme le .site, 2,99 $) augmentent nettement au renouvellement. Vous pouvez l’acheter sur Freda Workspace et le payer en MonCash, NatCash ou par carte. Le domaine en .ht arrive bientôt chez Freda Connect ; si vous en possédez déjà un, vous pouvez dès maintenant le connecter et lui ajouter une adresse email professionnelle.
 
 ## En bref
 
 - Extensions vendues : .com, .net, .org, .co, .store, .online, .site, .tech, .io
 - Domaine en .ht : Bientôt disponible chez Freda Connect ; en attendant, vous pouvez connecter un .ht existant et y créer vos adresses email
-- Prix : À partir de 2,99 $ la première année, selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher que la première année
-- Moyens de paiement : MonCash, NatCash ou carte ; montants convertis en gourdes (HTG) au taux indiqué au paiement
+- Prix : À partir de 2,99 $ (.com : 12,99 $) la première année, selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher que la première année
+- Moyens de paiement : MonCash, NatCash ou carte ; montants convertis en gourdes (HTG) au taux indiqué au paiement. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Durée : De 1 à 10 ans à l’achat
 - Inclus : Confidentialité Whois gratuite, verrouillage anti-transfert, DNS géré dans votre espace
 
@@ -132,7 +133,7 @@ Pas encore : le .ht arrive bientôt chez Freda Connect, sans date ni prix annonc
 
 ### Combien coûte un nom de domaine pour Haïti ?
 
-Les prix commencent à 2,99 $ la première année selon l’extension. Le prix exact, ainsi que le prix de renouvellement, est affiché avant tout paiement. Il n’y a pas de nom de domaine gratuit.
+Les prix commencent à 2,99 $ (.com : 12,99 $) la première année selon l’extension. Le prix exact, ainsi que le prix de renouvellement, est affiché avant tout paiement. Il n’y a pas de nom de domaine gratuit.
 
 ### Puis-je payer mon nom de domaine en MonCash ou NatCash ?
 
@@ -165,6 +166,7 @@ Sur Freda Workspace, vous payez votre nom de domaine et votre offre email avec M
 - Moyens de paiement : MonCash, NatCash, carte
 - Devise affichée : Dollars américains ; conversion en gourdes (HTG) au taux indiqué au paiement
 - Paiement récurrent : Pas de prélèvement automatique avec MonCash / NatCash : on utilise le solde Freda Workspace
+- Frais de traitement : Carte 3,5 % + 0,40 $ ; MonCash et NatCash 6 % (ajoutés au montant et affichés avant le paiement)
 - Recharge du solde : De 5 $ à 500 $, par MonCash ou NatCash
 - Durée de l’offre : De 1 à 12 mois payés d’avance ; 12 mois = 2 mois offerts
 - Alertes solde bas : Email à l’adresse d’inscription et à votre boîte Freda Mail, 7, 3 et 1 jour avant l’échéance puis le jour même
@@ -224,15 +226,16 @@ URL : https://fredaworkspace.com/ht/imel-pwofesyonel-gratis.html
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
-Wi: Freda Workspace ba ou 1 bwat imèl pwofesyonèl gratis sou pwòp non domèn ou (pa egzanp kontak@biznis-ou.com), san abònman ak san kat bankè. Ou jis bezwen yon non domèn: swa ou achte l nan Freda Workspace, swa ou genyen l deja.
+Wi: Freda Workspace ba ou 1 bwat imèl pwofesyonèl gratis sou pwòp non domèn ou (pa egzanp kontak@biznis-ou.com), san abònman ak san kat labank. Ou jis bezwen yon non domèn: swa ou achte l nan Freda Workspace, swa ou genyen l deja.
 
 ## Rezime
 
-- Pri bwat gratis la : 0 $, san abònman, san kat bankè
+- Pri bwat gratis la : 0 $, san abònman, san kat labank
 - Sa ou jwenn : 1 bwat imèl pwofesyonèl, 1 Go espas
 - Sa ou bezwen : Yon non domèn (ou achte l nan Freda Workspace oswa ou genyen l deja)
-- Èske non domèn nan gratis? : Non: li koute a pati de 2,99 $ premye ane a, dapre ekstansyon an
+- Èske non domèn nan gratis? : Non: li koute a pati de 2,99 $ (.com: 12,99 $) premye ane a, dapre ekstansyon an
 - Sekirite imèl la : SPF, DKIM ak DMARC konfigire otomatikman
+- Frè pwosesis : Kat 3,5 % + 0,40 $; MonCash ak NatCash 6 % (pou òf ki peye yo ak domèn nan)
 - Pou ale pi lwen : Starter 2,99 $/mwa (2 bwat), Business 9,99 $/mwa (5 bwat), Enterprise 30,00 $/mwa (san limit)
 
 ## Sa ki gratis ak sa ki pa gratis
@@ -249,8 +252,8 @@ Bwat imèl gratis la se yon vrè kont pwofesyonèl sou domèn ou, se pa yon esè
 ## Kijan pou w jwenn imèl pwofesyonèl gratis ou nan 4 etap
 
 
-1. Kreye kont Freda Workspace ou: li gratis epi li pa mande kat bankè.
-2. Chwazi non domèn ou: achte youn (a pati de 2,99 $ premye ane a) oswa konekte youn ou genyen deja, menm yon domèn .ht.
+1. Kreye kont Freda Workspace ou: li gratis epi li pa mande kat labank.
+2. Chwazi non domèn ou: achte youn (a pati de 2,99 $ (.com: 12,99 $) premye ane a) oswa konekte youn ou genyen deja, menm yon domèn .ht.
 3. Freda Workspace ajoute enregistreman MX, SPF, DKIM ak DMARC yo, oswa li montre w egzakteman kisa pou w kole kote ou jere domèn ou, apre sa li verifye si domèn nan konekte.
 4. Kreye adrès ou (pa egzanp kontak@biznis-ou.com) epi li imèl ou nan aplikasyon Freda Mail la oswa nan nenpòt lojisyèl ki sipòte IMAP ak SMTP (Outlook, Apple Mail, Gmail).
 
@@ -264,7 +267,7 @@ Freda Workspace konfigire SPF, DKIM ak DMARC, twa pwoteksyon ki ede mesaj ou yo 
 
 ### Èske imèl pwofesyonèl Freda Workspace la vrèman gratis?
 
-Wi. San abònman ak san kat bankè, kont ou gen dwa a 1 bwat imèl pwofesyonèl gratis (1 Go) sou pwòp non domèn ou. Pou plis bwat oswa plis espas, gen òf Starter (2,99 $/mwa, 2 bwat), Business (9,99 $/mwa, 5 bwat) ak Enterprise (30,00 $/mwa, bwat san limit).
+Wi. San abònman ak san kat labank, kont ou gen dwa a 1 bwat imèl pwofesyonèl gratis (1 Go) sou pwòp non domèn ou. Pou plis bwat oswa plis espas, gen òf Starter (2,99 $/mwa, 2 bwat), Business (9,99 $/mwa, 5 bwat) ak Enterprise (30,00 $/mwa, bwat san limit).
 
 ### Èske mwen bezwen yon non domèn pou m gen imèl pwofesyonèl gratis?
 
@@ -272,7 +275,7 @@ Wi. Yon adrès pwofesyonèl baze sou yon non domèn, pa egzanp biznis-ou.com. Ou
 
 ### Èske gen non domèn gratis?
 
-Non, Freda Workspace pa vann non domèn gratis: pri yo kòmanse a 2,99 $ premye ane a dapre ekstansyon an, epi pri egzak la parèt anvan ou peye. Men si ou gen yon domèn deja, bwat imèl la gratis.
+Non, Freda Workspace pa vann non domèn gratis: pri yo kòmanse a 2,99 $ (.com: 12,99 $) premye ane a dapre ekstansyon an, epi pri egzak la parèt anvan ou peye. Men si ou gen yon domèn deja, bwat imèl la gratis.
 
 ### Èske mwen ka li imèl mwen nan Gmail, Outlook oswa Apple Mail?
 
@@ -284,7 +287,7 @@ Gratis: 1 bwat. Starter: 2 bwat. Business: 5 bwat. Enterprise: bwat san limit. A
 
 ### Èske mwen ka peye ak MonCash oswa NatCash?
 
-Wi. Òf ki peye yo ak non domèn yo peye ak MonCash, NatCash oswa kat. MonCash ak NatCash pa pèmèt prelèvman otomatik: ou rechaje yon balans Freda Workspace (de 5 $ a 500 $) ki peye òf ou a otomatikman apre.
+Wi. Òf ki peye yo ak non domèn yo peye ak MonCash, NatCash oswa kat. MonCash ak NatCash pa pèmèt retire lajan otomatikman: ou rechaje yon balans Freda Workspace (de 5 $ a 500 $) ki peye òf ou a otomatikman apre.
 
 ---
 
@@ -294,14 +297,14 @@ URL : https://fredaworkspace.com/ht/non-domenn-ayiti.html
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
-Pou yon biznis ayisyen, sa ki pi senp se yon non domèn .com, .net oswa .org: ou ka achte l sou Freda Workspace a pati de 2,99 $ premye ane a epi peye l ak MonCash, NatCash oswa kat. Domèn .ht la ap vini byento nan Freda Connect; si ou genyen youn deja, ou ka konekte l depi kounye a epi ajoute yon adrès imèl pwofesyonèl sou li.
+Pou yon biznis ayisyen, sa ki pi senp se yon non domèn .com, .net oswa .org: yon .com koute 12,99 $ premye ane a (14,99 $ nan renouvèlman), yon .net 13,99 $ ak yon .org 11,99 $; ekstansyon ki pi bon mache yo (tankou .site, 2,99 $) monte anpil nan renouvèlman. Ou ka achte l sou Freda Workspace epi peye l ak MonCash, NatCash oswa kat. Domèn .ht la ap vini byento nan Freda Connect; si ou genyen youn deja, ou ka konekte l depi kounye a epi ajoute yon adrès imèl pwofesyonèl sou li.
 
 ## Rezime
 
 - Ekstansyon nou vann : .com, .net, .org, .co, .store, .online, .site, .tech, .io
 - Domèn .ht : Ap vini byento nan Freda Connect; annatandan, ou ka konekte yon .ht ou genyen deja epi kreye adrès imèl sou li
-- Pri : A pati de 2,99 $ premye ane a, dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè pase premye ane a
-- Mwayen peman : MonCash, NatCash oswa kat; montan yo konvèti an goud (HTG) ak to ki endike lè ou peye
+- Pri : A pati de 2,99 $ (.com: 12,99 $) premye ane a, dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè pase premye ane a
+- Mwayen peman : MonCash, NatCash oswa kat; montan yo konvèti an goud (HTG) ak to ki endike lè ou peye. Frè pwosesis: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Dire : De 1 a 10 an lè ou achte
 - Sa ki enkli : Konfidansyalite Whois gratis, vèwouyaj kont transfè, DNS jere nan espas ou
 
@@ -321,8 +324,8 @@ Chwa a depann de sa ou bezwen. Pou li fasil pou sonje epi ekri sou yon telefòn,
 
 
 1. Tape non biznis ou nan rechèch domèn nan: Freda Workspace verifye ekstansyon ki disponib yo epi li pwopoze lòt chwa.
-2. Chwazi dire a (de 1 a 10 an) epi kkite konfidansyalite Whois gratis la aktive: enfòmasyon pèsonèl ou yo rete kache.
-3. Peye ak MonCash oswa NatCash: yo voye w sou paj peman an, ou konfime ak kòd PIN ou, epi ou retounen sou Freda Workspace. Yo anrejistre domèn nan le peman an konfime.
+2. Chwazi dire a (de 1 a 10 an) epi kite konfidansyalite Whois gratis la aktive: enfòmasyon pèsonèl ou yo rete kache.
+3. Peye ak MonCash oswa NatCash: yo voye w sou paj peman an, ou konfime ak kòd PIN ou, epi ou retounen sou Freda Workspace. Yo anrejistre domèn nan lè peman an konfime.
 
 ## Non domèn .ht la ap vini byento nan Freda Connect
 
@@ -330,11 +333,11 @@ NIC Ayiti (nic.ht) jere .ht la. Li louvri pou tout moun, men nan men rejistrè e
 
 ## Konekte yon domèn .ht ou genyen deja
 
-Nan espas ou, chwazi "Ajouter un domaine existant". Freda Workspace montre enregistreman DNS pou ajoute yo (MX, SPF, DKIM, DMARC ak yon prèv pwopriyete) kote ou jere domèn ou. Toutotan enregistreman sa yo pa nan plas, domèn nan make "non connecté": klike sou "Vérifier" lè ou fin ajoute yo, paske pwopagasyon an ka pran kèk minit rive kèk èdtan. Lè domèn nan konekte, ou ka kreye bwat imèl gratis ou sou li.
+Nan espas ou, chwazi "Ajouter un domaine existant". Freda Workspace montre enregistreman DNS pou ajoute yo (MX, SPF, DKIM, DMARC ak yon prèv pwopriyete) kote ou jere domèn ou. Toutotan enregistreman sa yo pa nan plas, domèn nan make "non connecté": klike sou "Vérifier" lè ou fin ajoute yo, paske pwopagasyon an ka pran kèk minit jiska plizyè èdtan. Lè domèn nan konekte, ou ka kreye bwat imèl gratis ou sou li.
 
 ## Domèn nan se pa w
 
-Yo anrejistre non domèn nan sou non ou. Ou ka transfere l nan yon lòt rejistrè ak kòd otorizasyon an (EPP) ki nan espas ou, dapre règ ICANN (an jeneral 60 jou apre enskripsyon an). Frè enskripsyon yo pa ranbousab yon fwa domèn nan anrejistre nan rejis la.
+Yo anrejistre non domèn nan sou non ou. Ou ka transfere l nan yon lòt rejistrè ak kòd otorizasyon an (EPP) ki nan espas ou, dapre règ ICANN (an jeneral 60 jou apre enskripsyon an). Frè enskripsyon yo, yo pa ranbouse yo yon fwa domèn nan anrejistre nan rejis la.
 
 ## Kesyon moun poze souvan
 
@@ -344,7 +347,7 @@ Poko: .ht la ap vini byento nan Freda Connect, san dat ni pri anonse pou kounye 
 
 ### Konbyen yon non domèn pou Ayiti koute?
 
-Pri yo kòmanse a 2,99 $ premye ane a dapre ekstansyon an. Pri egzak la, ansanm ak pri renouvèlman an, parèt anvan ou peye. Pa gen non domèn gratis.
+Pri yo kòmanse a 2,99 $ (.com: 12,99 $) premye ane a dapre ekstansyon an. Pri egzak la, ansanm ak pri renouvèlman an, parèt anvan ou peye. Pa gen non domèn gratis.
 
 ### Èske mwen ka peye non domèn mwen ak MonCash oswa NatCash?
 
@@ -352,7 +355,7 @@ Wi. Ou ka peye ak kat tou. Montan an dola konvèti an goud ak to ki endike sou p
 
 ### Konbyen tan sa pran pou domèn mwen an aktive?
 
-Enskripsyon an kòmanse le peman an konfime. Pwopagasyon DNS mondyal la ka pran de kèk minit a 24 è.
+Enskripsyon an kòmanse lè peman an konfime. Pwopagasyon DNS mondyal la ka pran de kèk minit a 24 è.
 
 ### Èske mwen ka gen yon imèl pwofesyonèl sou non domèn mwen?
 
@@ -360,7 +363,7 @@ Wi. Chak kont gen dwa a 1 bwat imèl gratis sou pwòp domèn li; òf Starter, Bu
 
 ### Kisa k pase lè domèn mwen an ekspire?
 
-Freda Workspace voye w rapèl anvan ekspirasyon an. MonCash ak NatCash pa pèmèt prelèvman otomatik: rechaje balans Freda Workspace ou pou renouvèlman an peye otomatikman ak balans sa a.
+Freda Workspace voye w rapèl anvan ekspirasyon an. MonCash ak NatCash pa pèmèt retire lajan otomatikman: rechaje balans Freda Workspace ou pou renouvèlman an peye otomatikman ak balans sa a.
 
 ---
 
@@ -370,13 +373,14 @@ URL : https://fredaworkspace.com/ht/peye-ak-moncash-natcash.html
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
-Sou Freda Workspace, ou peye non domèn ou ak òf imèl ou ak MonCash, NatCash oswa kat. Kòm MonCash ak NatCash pa pèmèt okenn prelèvman otomatik, ou rechaje yon balans Freda Workspace (de 5 $ a 500 $): abònman ou yo ak renouvèlman yo peye otomatikman ak balans sa a, epi nou ekri w si balans lan vin twò ba.
+Sou Freda Workspace, ou peye non domèn ou ak òf imèl ou ak MonCash, NatCash oswa kat. Kòm MonCash ak NatCash pa pèmèt okenn retire lajan otomatikman, ou rechaje yon balans Freda Workspace (de 5 $ a 500 $): abònman ou yo ak renouvèlman yo peye otomatikman ak balans sa a, epi nou ekri w si balans lan vin twò ba.
 
 ## Rezime
 
 - Mwayen peman : MonCash, NatCash, kat
 - Lajan yo afiche : Dola ameriken; konvèsyon an goud (HTG) ak to ki endike lè ou peye
-- Peman repete : Pa gen prelèvman otomatik ak MonCash / NatCash: nou sèvi ak balans Freda Workspace a
+- Peman repete : Pa gen retire lajan otomatikman ak MonCash / NatCash: nou sèvi ak balans Freda Workspace a
+- Frè pwosesis : Kat 3,5 % + 0,40 $; MonCash ak NatCash 6 % (ajoute sou montan an epi afiche anvan ou peye)
 - Rechaj balans : De 5 $ a 500 $, ak MonCash oswa NatCash
 - Dire òf la : De 1 a 12 mwa peye davans; 12 mwa = 2 mwa gratis
 - Alèt balans ba : Imèl sou adrès enskripsyon an ak sou bwat Freda Mail ou, 7, 3 ak 1 jou anvan dat la, epi jou a menm
@@ -386,17 +390,17 @@ Sou Freda Workspace, ou peye non domèn ou ak òf imèl ou ak MonCash, NatCash o
 
 1. Chwazi non domèn ou oswa òf ou, apre sa chwazi MonCash oswa NatCash kòm mwayen peman.
 2. Yo voye w sou paj peman MonCash oswa NatCash la, kote ou konfime ak kòd PIN ou.
-3. Ou retounen sou Freda Workspace: paj la mete tèt li ajou le peman an konfime. Ou resevwa yon resi pa imèl.
+3. Ou retounen sou Freda Workspace: paj la mete tèt li ajou lè peman an konfime. Ou resevwa yon resi pa imèl.
 
-## Balans Freda Workspace a: peye abònman san prelèvman
+## Balans Freda Workspace a: peye abònman san retire lajan otomatikman
 
-Yon abònman renouvle chak mwa oswa chak peryòd ou chwazi. Ak yon kat bankè, debi a ka otomatik. Ak MonCash ak NatCash, sa pa posib: se kliyan an ki konfime chak peman.
+Yon abònman renouvle chak mwa oswa chak peryòd ou chwazi. Ak yon kat labank, debi a ka otomatik. Ak MonCash ak NatCash, sa pa posib: se kliyan an ki konfime chak peman.
 
-Pou imèl ou pa janm koupe paske ou bliye, Freda Workspace ofri w yon balans prepeye. Ou rechaje l le ou vle ak MonCash oswa NatCash, epi li peye òf Freda Mail ou a otomatikman 2 jou anvan dat la ak non domèn ou yo 7 jou anvan yo ekspire. Ou ka dezaktive peman otomatik sa a nenpòt ki lè.
+Pou imèl ou pa janm koupe paske ou bliye, Freda Workspace ofri w yon balans prepeye. Ou rechaje l lè ou vle ak MonCash oswa NatCash, epi li peye òf Freda Mail ou a otomatikman 2 jou anvan dat la ak non domèn ou yo 7 jou anvan yo ekspire. Ou ka dezaktive peman otomatik sa a nenpòt ki lè.
 
 ## Kisa k pase si balans lan twò ba?
 
-Si balans ou pa kouvri pwochen dat la, Freda Workspace avèti w pa imèl, sou adrès enskripsyon ou ak nan bwat Freda Mail ou, 7, 3 ak 1 jou anvan dat la epi jou a menm, ak montan ki manke an dola ak an goud ak yon lyen pou rechaje. Le balans lan ase, òf la renouvle otomatikman. San peman, bwat imèl yo sispann apre kèk jou (mesaj ou yo kenbe) epi yo rouvri le òf la peye.
+Si balans ou pa kouvri pwochen dat la, Freda Workspace avèti w pa imèl, sou adrès enskripsyon ou ak nan bwat Freda Mail ou, 7, 3 ak 1 jou anvan dat la epi jou a menm, ak montan ki manke an dola ak an goud ak yon lyen pou rechaje. Lè balans lan ase, òf la renouvle otomatikman. San peman, bwat imèl yo sispann apre kèk jou (mesaj ou yo kenbe) epi yo rouvri lè òf la peye.
 
 ## Konbyen mwa pou w peye davans?
 
@@ -410,7 +414,7 @@ Wi. Lè ou peye, chwazi MonCash: yo voye w sou MonCash pou konfime ak kòd PIN o
 
 ### Èske renouvèlman an otomatik ak MonCash oswa NatCash?
 
-Pa dirèkteman: MonCash ak NatCash pa pèmèt prelèvman otomatik. Rechaje balans Freda Workspace ou; òf ou ak domèn ou yo peye otomatikman ak balans sa a, epi ou resevwa alèt pa imèl si balans lan twò ba.
+Pa dirèkteman: MonCash ak NatCash pa pèmèt retire lajan otomatikman. Rechaje balans Freda Workspace ou; òf ou ak domèn ou yo peye otomatikman ak balans sa a, epi ou resevwa alèt pa imèl si balans lan twò ba.
 
 ### Ki minimòm pou rechaje balans mwen?
 
@@ -420,9 +424,9 @@ Minimòm lan se 5 $ epi maksimòm lan se 500 $ pa rechaj, ou peye an goud ak Mon
 
 Si yo pa ka bay enskripsyon an oswa sèvis la apre peman an, montan an retounen sou balans Freda Workspace ou, ou ka itilize l ankò pou yon lòt acha.
 
-### Èske mwen ka peye ak kat bankè tou?
+### Èske mwen ka peye ak kat labank tou?
 
-Wi, nou aksepte kat bankè. Kat ki anrejistre yo pèmèt renouvèlman otomatik.
+Wi, nou aksepte kat labank. Kat ki anrejistre yo pèmèt renouvèlman otomatik.
 
 ### Kijan pou m konnen montan an an goud?
 
@@ -443,10 +447,10 @@ Yes: Freda Workspace gives every account 1 free professional mailbox on your own
 - Free mailbox price : $0, no subscription, no bank card
 - What you get : 1 professional mailbox, 1 GB storage
 - What you need : A domain name (bought from Freda Workspace, or one you already own)
-- Is the domain name free? : No: from 2,99 $ for the first year depending on the extension (price shown before payment; renewal can cost more)
+- Is the domain name free? : No: from $2.99 (.com: $12.99) for the first year depending on the extension (price shown before payment; renewal can cost more)
 - Domains sold : .com, .net, .org, .co, .store, .online, .site, .tech, .io (.ht is coming soon; an existing .ht domain can already be connected)
-- Payment : MonCash, NatCash or card; MonCash and NatCash cannot auto-debit, so a prepaid Freda Workspace balance ($5 to $500) pays subscriptions automatically
-- Language and support : French and Haitian Creole, Monday to Saturday, 8am to 6pm (Haiti time)
+- Payment : MonCash, NatCash or card; MonCash and NatCash cannot auto-debit, so a prepaid Freda Workspace balance ($5 to $500) pays subscriptions automatically. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%
+- Language and support : French, Haitian Creole and English, Monday to Saturday, 8am to 6pm (Haiti time)
 
 ## What is free and what is not
 
@@ -454,9 +458,10 @@ The free mailbox is a real professional account on your own domain, not a time-l
 
 |  | Free | Starter | Business | Enterprise |
 | --- | --- | --- | --- | --- |
-| Price | $0 | 2,99 $/month | 9,99 $/month | 30,00 $/month |
+| Price | $0 | $2.99/month | $9.99/month | $30.00/month |
 | Mailboxes | 1 | 2 | 5 | Unlimited |
 | Storage | 1 GB | 2 GB | 15 GB shared | 5 GB per mailbox |
+| Payment | None | MonCash, NatCash or card | MonCash, NatCash or card | MonCash, NatCash or card |
 
 ## How to get your free business email in 4 steps
 
@@ -466,6 +471,12 @@ The free mailbox is a real professional account on your own domain, not a time-l
 3. Freda Workspace adds the MX, SPF, DKIM and DMARC records, or shows exactly what to paste at your domain provider, then checks that the domain is connected.
 4. Create your address (for example contact@your-company.com) and read your email in the Freda Mail app or in any IMAP/SMTP client (Outlook, Apple Mail, Gmail).
 
+## Why an address on your own domain rather than a Gmail address
+
+An address like contact@your-company.com shows your customers who you are, stays yours whichever provider you use, and lets you add addresses for your team (sales@, admin@) the day you grow.
+
+Freda Workspace configures SPF, DKIM and DMARC, the three protections that help your messages reach the inbox rather than spam. A brand-new address on a brand-new domain can still be treated cautiously by some providers at first: write real messages, ask for replies and mark your first sends as “Not spam” to build your reputation.
+
 ## Paying from Haiti or from the diaspora
 
 Domain names and paid plans can be paid with MonCash, NatCash or a bank card. Prices are shown in US dollars; the amount in gourdes is calculated at the rate shown at checkout. Because MonCash and NatCash cannot charge you automatically, you top up a Freda Workspace balance whenever you like and it pays your plan and domain renewals automatically. If the balance is too low, we email you before the due date.
@@ -474,11 +485,11 @@ Domain names and paid plans can be paid with MonCash, NatCash or a bank card. Pr
 
 ### Is the business email really free?
 
-Yes. Without any subscription or bank card, your account includes 1 free professional mailbox (1 GB) on your own domain name. For more mailboxes or storage there are Starter (2,99 $/month, 2 mailboxes), Business (9,99 $/month, 5 mailboxes) and Enterprise (30,00 $/month, unlimited mailboxes).
+Yes. Without any subscription or bank card, your account includes 1 free professional mailbox (1 GB) on your own domain name. For more mailboxes or storage there are Starter ($2.99/month, 2 mailboxes), Business ($9.99/month, 5 mailboxes) and Enterprise ($30.00/month, unlimited mailboxes).
 
 ### Is there a free domain name?
 
-No. Freda Workspace does not sell free domain names: prices start at 2,99 $ for the first year depending on the extension, and the exact price is shown before you pay. If you already own a domain, the mailbox is free.
+No. Freda Workspace does not sell free domain names: prices start at $2.99 (.com: $12.99) for the first year depending on the extension, and the exact price is shown before you pay. If you already own a domain, the mailbox is free.
 
 ### Does Freda Workspace sell .ht domains?
 
@@ -490,7 +501,7 @@ Yes, or with a bank card. MonCash and NatCash do not allow automatic charges, so
 
 ### Which languages does support speak?
 
-French and Haitian Creole. Write to support@fredaworkspace.com, Monday to Saturday, 8am to 6pm (Haiti time).
+French, Haitian Creole and English. Write to support@fredaworkspace.com, Monday to Saturday, 8am to 6pm (Haiti time).
 
 ---
 
@@ -506,9 +517,9 @@ Freda Connect, la partie « noms de domaine » de Freda Workspace, vous permet d
 
 - Extensions : .com, .net, .org, .co, .store, .online, .site, .tech, .io
 - Durée d’enregistrement : De 1 à 10 ans
-- Prix : À partir de 2,99 $ la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher que la première année
+- Prix : À partir de 2,99 $ (.com : 12,99 $) la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher que la première année
 - Inclus : Confidentialité Whois gratuite, verrouillage anti-transfert, gestion DNS complète, rappels de renouvellement
-- Paiement : Carte bancaire et autres moyens affichés selon votre pays ; MonCash et NatCash pour les clients en Haïti
+- Paiement : Carte bancaire et autres moyens affichés selon votre pays ; MonCash et NatCash pour les clients en Haïti. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Transfert : Votre domaine vous appartient : code d’autorisation (EPP) disponible dans votre espace
 - Email : 1 boîte email professionnelle gratuite sur votre domaine
 
@@ -544,7 +555,7 @@ Oui. Le service n’est pas limité à Haïti : vous payez par carte bancaire ou
 
 ### Combien coûte un nom de domaine ?
 
-Les prix commencent à 2,99 $ la première année selon l’extension. Le prix de renouvellement peut être plus élevé ; il est affiché avant le paiement.
+Les prix commencent à 2,99 $ (.com : 12,99 $) la première année selon l’extension. Le prix de renouvellement peut être plus élevé ; il est affiché avant le paiement.
 
 ### Mon nom de domaine m’appartient-il ?
 
@@ -568,9 +579,9 @@ Freda Connect, the domain-name part of Freda Workspace, lets you register an int
 
 - Extensions : .com, .net, .org, .co, .store, .online, .site, .tech, .io
 - Registration length : 1 to 10 years
-- Price : From 2,99 $ for the first year depending on the extension; exact price shown before payment; renewal can cost more than the first year
+- Price : From $2.99 (.com: $12.99) for the first year depending on the extension; exact price shown before payment; renewal can cost more than the first year
 - Included : Free WHOIS privacy, transfer lock, full DNS management, renewal reminders
-- Payment : Bank card and other methods shown for your country; MonCash and NatCash for customers in Haiti
+- Payment : Bank card and other methods shown for your country; MonCash and NatCash for customers in Haiti. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%
 - Transfer : The domain is yours: authorization (EPP) code available in your account
 - Email : 1 free professional mailbox on your domain
 
@@ -590,6 +601,10 @@ Freda Connect registers domains through a partner registrar accredited by ICANN.
 
 Every Freda Workspace account includes 1 free professional mailbox on its own domain (the domain itself is paid). Starter, Business and Enterprise plans add mailboxes and storage, paid 1 to 12 months in advance.
 
+## Who is it for?
+
+Entrepreneurs, small businesses, associations and agencies, in Haiti and abroad, including the diaspora who register a domain for a relative or for their own business. The site and support work in French, Haitian Creole and English.
+
 ## Frequently asked questions
 
 ### Which domain extensions can I register?
@@ -602,7 +617,7 @@ Yes. The service is not limited to Haiti: you pay by bank card or other payment 
 
 ### How much does a domain name cost?
 
-Prices start at 2,99 $ for the first year depending on the extension. The renewal price can be higher; it is shown before payment.
+Prices start at $2.99 (.com: $12.99) for the first year depending on the extension. The renewal price can be higher; it is shown before payment.
 
 ### Do I own my domain name?
 
@@ -666,7 +681,7 @@ Non. Le service accepte MonCash et NatCash pour les clients en Haïti, mais les 
 
 ### Quelle est la différence entre Freda Workspace et Freda Pay ?
 
-Freda Pay LLC est la société. Freda Workspace est sa marque dédiée aux noms de domaine et à l’email professionnel. Les paiements MonCash et NatCash sont traités par Freda Pay Issuing, de la même société.
+Freda Pay LLC est la société. Freda Workspace est sa marque dédiée aux noms de domaine et à l’email professionnel. Les paiements MonCash et NatCash sont traités par le service de paiement de la même société.
 
 ### Comment contacter le support ?
 
@@ -687,10 +702,10 @@ Freda Workspace se yon mak Freda Pay LLC. Li reyini de pwodwi: Freda Connect (no
 - Mak : Freda Workspace
 - Konpayi : Freda Pay LLC, konpayi ki anrejistre nan Eta Wyoming (Etazini), manm Freda Group
 - Pwodwi : Freda Connect (non domèn ak DNS) ak Freda Mail (imèl pwofesyonèl ak aplikasyon mobil)
-- Peman : MonCash ak NatCash, kat labank ak pòtfèy nimerik. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
+- Peman : MonCash ak NatCash, kat labank ak pòtfèy nimerik. Frè pwosesis: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Kliyan : Antreprenè, ti biznis, asosyasyon ak ajans, nan Ayiti ak aletranje
 - Lang : Fransè, kreyòl ayisyen ak anglè
-- Kontak : support@fredaworkspace.com, de lendi a samdi, de 8 è a 6 è (lè Ayiti)
+- Kontak : support@fredaworkspace.com, de lendi a samdi, de 8 è nan maten rive 6 è nan aswè (lè Ayiti)
 
 ## De pwodwi nou yo
 
@@ -702,13 +717,13 @@ Freda Mail: kreye adrès imèl pwofesyonèl sou pwòp domèn ou (kontak@biznis-o
 
 Senplisite: domèn nan ak imèl la konfigire ansanm, san konesans teknik; nou ajoute enregistreman DNS yo pou ou oswa nou eksplike yo klèman.
 
-Peman lokal: anpil antreprenè pa gen kat entènasyonal. Freda Workspace aksepte MonCash ak NatCash, ansanm ak kat yo ak lòt mwayen peman ki disponib. Kòm MonCash ak NatCash pa pèmèt prelèvman otomatik, yon balans prepeye peye abònman ou yo epi nou avèti w pa imèl lè li vin twò ba.
+Peman lokal: anpil antreprenè pa gen kat entènasyonal. Freda Workspace aksepte MonCash ak NatCash, ansanm ak kat yo ak lòt mwayen peman ki disponib. Kòm MonCash ak NatCash pa pèmèt retire lajan otomatikman, yon balans prepeye peye abònman ou yo epi nou avèti w pa imèl lè li vin twò ba.
 
 Transparans: nou afiche pri yo anvan ou peye, domèn nan se pa w, epi nou pa janm vann done ou yo.
 
 ## Kontakte nou
 
-Ekri nan support@fredaworkspace.com oswa itilize fòmilè sant èd la. Nou reponn an fransè, an kreyòl ayisyen ak an anglè, de lendi a samdi, de 8 è a 6 è (lè Ayiti). Freda Workspace se yon sèvis sou entènèt; kondisyon itilizasyon yo, politik konfidansyalite a ak politik ranbousman an pibliye sou paj mansyon legal yo.
+Ekri nan support@fredaworkspace.com oswa itilize fòmilè sant èd la. Nou reponn an fransè, an kreyòl ayisyen ak an anglè, de lendi a samdi, de 8 è nan maten rive 6 è nan aswè (lè Ayiti). Freda Workspace se yon sèvis sou entènèt; kondisyon itilizasyon yo, politik konfidansyalite a ak politik ranbousman an pibliye sou paj mansyon legal yo.
 
 ## Kesyon moun poze souvan
 
@@ -726,11 +741,11 @@ Non. Sèvis la aksepte MonCash ak NatCash pou kliyan nan Ayiti, men yo ka anreji
 
 ### Ki diferans ki genyen ant Freda Workspace ak Freda Pay?
 
-Freda Pay LLC se konpayi an. Freda Workspace se mak li pou non domèn ak imèl pwofesyonèl. Freda Pay Issuing, nan menm konpayi an, trete peman MonCash ak NatCash yo.
+Freda Pay LLC se konpayi an. Freda Workspace se mak li pou non domèn ak imèl pwofesyonèl. Sèvis peman nan menm konpayi an trete peman MonCash ak NatCash yo.
 
 ### Kijan pou m kontakte sipò a?
 
-Pa imèl nan support@fredaworkspace.com oswa pa fòmilè sant èd la, de lendi a samdi, de 8 è a 6 è (lè Ayiti), an fransè, an kreyòl ayisyen oswa an anglè.
+Pa imèl nan support@fredaworkspace.com oswa pa fòmilè sant èd la, de lendi a samdi, de 8 è nan maten rive 6 è nan aswè (lè Ayiti), an fransè, an kreyòl ayisyen oswa an anglè.
 
 ---
 
@@ -762,13 +777,13 @@ Freda Mail: create professional email addresses on your own domain (contact@your
 
 Simplicity: the domain and the email are set up together, without technical skills; DNS records are added for you or clearly explained.
 
-Local payment: many entrepreneurs do not have an international card. Freda Workspace accepts MonCash and NatCash, as well as cards and other available payment methods. Because MonCash and NatCash cannot charge you automatically, a prepaid balance pays your subscriptions and we email you when it runs low.
+Paying locally: many entrepreneurs do not have an international card. Freda Workspace accepts MonCash and NatCash, as well as cards and other available payment methods. Because MonCash and NatCash cannot charge you automatically, a prepaid balance pays your subscriptions and we email you when it runs low.
 
 Transparency: prices are shown before you pay, the domain is yours and we never sell your data.
 
 ## Contact us
 
-Write to support@fredaworkspace.com or use the help-centre form. We answer in French, Haitian Creole and English, Monday to Saturday, 8am to 6pm (Haiti time). Freda Workspace is an online service; the terms of use, privacy policy and refund policy are published on the legal page.
+Write to support@fredaworkspace.com or use the help center form. We answer in French, Haitian Creole and English, Monday to Saturday, 8am to 6pm (Haiti time). Freda Workspace is an online service; the terms of use, privacy policy and refund policy are published on the legal page.
 
 ## Frequently asked questions
 
@@ -786,11 +801,11 @@ No. The service accepts MonCash and NatCash for customers in Haiti, but internat
 
 ### What is the difference between Freda Workspace and Freda Pay?
 
-Freda Pay LLC is the company. Freda Workspace is its brand for domain names and professional email. MonCash and NatCash payments are processed by Freda Pay Issuing, from the same company.
+Freda Pay LLC is the company. Freda Workspace is its brand for domain names and professional email. MonCash and NatCash payments are processed by the payment service of the same company.
 
 ### How do I contact support?
 
-By email at support@fredaworkspace.com or through the help-centre form, Monday to Saturday, 8am to 6pm (Haiti time), in French, Haitian Creole or English.
+By email at support@fredaworkspace.com or through the help center form, Monday to Saturday, 8am to 6pm (Haiti time), in French, Haitian Creole or English.
 
 ---
 
@@ -810,7 +825,7 @@ Freda Mail est le produit d’email professionnel de Freda Workspace, une marque
 - Offres payantes : Starter 2,99 $/mois (2 boîtes), Business 9,99 $/mois (5 boîtes), Enterprise 30,00 $/mois (illimité)
 - Sécurité : SPF, DKIM et DMARC configurés automatiquement
 - Compatibilité : Application Freda Mail, et tout logiciel IMAP / SMTP (Outlook, Apple Mail, Gmail)
-- Paiement : MonCash, NatCash, carte et autres moyens de paiement disponibles ; solde prépayé pour les abonnements
+- Paiement : MonCash, NatCash, carte et autres moyens de paiement disponibles ; solde prépayé pour les abonnements. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Produit associé : Freda Connect (noms de domaine et DNS)
 
 ## Ce que fait Freda Mail
@@ -865,6 +880,10 @@ Gratuit : 1 boîte. Starter : 2 boîtes. Business : 5 boîtes. Enterprise : illi
 
 Oui. MonCash et NatCash ne permettent pas de prélèvement automatique : vous rechargez un solde Freda Workspace qui paie ensuite votre offre automatiquement.
 
+### Avis clients ?
+
+Les avis clients apparaîtront ici après les premiers achats réels. Nous n’en affichons aucun pour l’instant et nous n’en inventons jamais.
+
 ---
 
 # Freda Mail: imèl pwofesyonèl sou pwòp non domèn ou
@@ -879,11 +898,11 @@ Freda Mail se pwodwi imèl pwofesyonèl Freda Workspace, yon mak Freda Pay LLC. 
 
 - Pwodwi : Freda Mail, imèl pwofesyonèl Freda Workspace (Freda Pay LLC)
 - Kisa li ye : Adrès imèl sou pwòp non domèn ou, pa egzanp kontak@biznis-ou.com
-- Òf gratis : 1 bwat (1 Go) pou chak kont, san abònman ni kat bankè; non domèn nan peye
+- Òf gratis : 1 bwat (1 Go) pou chak kont, san abònman ni kat labank; non domèn nan peye
 - Òf ki peye : Starter 2,99 $/mwa (2 bwat), Business 9,99 $/mwa (5 bwat), Enterprise 30,00 $/mwa (san limit)
 - Sekirite : SPF, DKIM ak DMARC konfigire otomatikman
 - Konpatibilite : Aplikasyon Freda Mail, ak nenpòt lojisyèl IMAP / SMTP (Outlook, Apple Mail, Gmail)
-- Peman : MonCash, NatCash, kat ak lòt mwayen peman; balans prepeye pou abònman yo. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
+- Peman : MonCash, NatCash, kat ak lòt mwayen peman; balans prepeye pou abònman yo. Frè pwosesis: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Pwodwi asosye : Freda Connect (non domèn ak DNS)
 
 ## Sa Freda Mail fè
@@ -903,7 +922,7 @@ Ou peye òf ki peye yo pou 1 a 12 mwa davans; 12 mwa = de mwa gratis. Pri yo ka 
 ## Kijan pou kòmanse ak Freda Mail
 
 
-1. Kreye kont Freda Workspace ou (gratis, san kat bankè).
+1. Kreye kont Freda Workspace ou (gratis, san kat labank).
 2. Chwazi non domèn ou ak Freda Connect, oswa konekte youn ou genyen deja.
 3. Kreye premye adrès imèl ou: enregistreman MX, SPF, DKIM ak DMARC yo ajoute oswa yo endike klèman.
 4. Konekte ak aplikasyon Freda Mail la oswa ak lojisyèl imèl ou abitye ak li a.
@@ -920,7 +939,7 @@ Freda Mail se pwodwi imèl pwofesyonèl Freda Workspace, yon mak Freda Pay LLC. 
 
 ### Èske Freda Mail gratis?
 
-Chak kont gen dwa a 1 bwat Freda Mail gratis (1 Go) sou pwòp domèn li, san abònman ni kat bankè. Non domèn nan, li menm, peye. Òf Starter, Business ak Enterprise yo ajoute plis bwat ak plis espas.
+Chak kont gen dwa a 1 bwat Freda Mail gratis (1 Go) sou pwòp domèn li, san abònman ni kat labank. Non domèn nan, li menm, peye. Òf Starter, Business ak Enterprise yo ajoute plis bwat ak plis espas.
 
 ### Ki diferans ki genyen ant Freda Mail ak Freda Workspace?
 
@@ -936,7 +955,11 @@ Gratis: 1 bwat. Starter: 2 bwat. Business: 5 bwat. Enterprise: san limit. Alyas 
 
 ### Èske mwen ka peye Freda Mail ak MonCash oswa NatCash?
 
-Wi. MonCash ak NatCash pa pèmèt prelèvman otomatik: ou rechaje yon balans Freda Workspace ki peye òf ou a otomatikman apre.
+Wi. MonCash ak NatCash pa pèmèt retire lajan otomatikman: ou rechaje yon balans Freda Workspace ki peye òf ou a otomatikman apre.
+
+### Èske gen avi kliyan?
+
+Avi kliyan yo pral parèt isit la apre premye acha reyèl yo. Nou pa afiche okenn pou kounye a, epi nou pa janm envante yo.
 
 ---
 
@@ -953,7 +976,7 @@ Freda Mail is the professional email product of Freda Workspace, a brand of Fred
 - Product : Freda Mail, the professional email of Freda Workspace (Freda Pay LLC)
 - What it is : Email addresses on your own domain name, for example contact@your-company.com
 - Free plan : 1 mailbox (1 GB) per account, no subscription, no bank card; the domain name is paid
-- Paid plans : Starter 2,99 $/month (2 mailboxes), Business 9,99 $/month (5 mailboxes), Enterprise 30,00 $/month (unlimited)
+- Paid plans : Starter $2.99/month (2 mailboxes), Business $9.99/month (5 mailboxes), Enterprise $30.00/month (unlimited)
 - Security : SPF, DKIM and DMARC configured automatically
 - Compatibility : Freda Mail app, and any IMAP / SMTP client (Outlook, Apple Mail, Gmail)
 - Payment : MonCash, NatCash, card and other payment methods; prepaid balance for subscriptions. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%
@@ -961,15 +984,15 @@ Freda Mail is the professional email product of Freda Workspace, a brand of Fred
 
 ## What Freda Mail does
 
-Freda Mail hosts your professional mailboxes and links them to your domain name. You create your addresses (contact@, sales@, management@), read and send messages in the Freda Mail app or in any IMAP and SMTP client, and manage aliases and passwords from your account. The SPF, DKIM and DMARC protections, which help your messages reach the inbox, are configured for you.
+Freda Mail hosts your professional mailboxes and links them to your domain name. You create your addresses (contact@, sales@, admin@), read and send messages in the Freda Mail app or in any IMAP and SMTP client, and manage aliases and passwords from your account. The SPF, DKIM and DMARC protections, which help your messages reach the inbox, are configured for you.
 
 ## Freda Mail plans
 
-Paid plans are paid 1 to 12 months in advance; 12 months = two months free. Prices may change: the pricing page is authoritative.
+Paid plans are paid 1 to 12 months in advance; 12 months = two months free. Prices may change: see the pricing page for current prices.
 
 |  | Free | Starter | Business | Enterprise |
 | --- | --- | --- | --- | --- |
-| Price | $0 | 2,99 $/month | 9,99 $/month | 30,00 $/month |
+| Price | $0 | $2.99/month | $9.99/month | $30.00/month |
 | Mailboxes | 1 | 2 | 5 | Unlimited |
 | Storage | 1 GB | 2 GB | 15 GB shared | 5 GB per mailbox |
 
@@ -980,6 +1003,10 @@ Paid plans are paid 1 to 12 months in advance; 12 months = two months free. Pric
 2. Choose your domain name with Freda Connect, or connect one you already own.
 3. Create your first email address: the MX, SPF, DKIM and DMARC records are added or clearly shown.
 4. Sign in with the Freda Mail app or your usual email client.
+
+## Freda Mail and Freda Connect, together
+
+Freda Mail works with any domain name, but it is simplest with Freda Connect: the domain and the email are set up in the same place, and the email DNS is prepared automatically.
 
 ## Frequently asked questions
 
@@ -999,9 +1026,17 @@ Freda Workspace is the brand. It includes Freda Mail (professional email) and Fr
 
 With the Freda Mail app, or any IMAP and SMTP client such as Outlook, Apple Mail or Gmail. The settings are shown in your account.
 
+### How many Freda Mail mailboxes can I have?
+
+Free: 1 mailbox. Starter: 2 mailboxes. Business: 5 mailboxes. Enterprise: unlimited. Aliases are free.
+
 ### Can I pay for Freda Mail with MonCash or NatCash?
 
 Yes. MonCash and NatCash do not allow automatic charges, so you top up a Freda Workspace balance that then pays your plan automatically.
+
+### Are there customer reviews?
+
+Not yet. Customer reviews will appear here after the first real purchases. We do not display any for now and we never invent any.
 
 ---
 
@@ -1018,7 +1053,7 @@ Freda Connect est le produit de noms de domaine de Freda Workspace, une marque d
 - Produit : Freda Connect, noms de domaine et DNS de Freda Workspace (Freda Pay LLC)
 - Extensions : .com, .net, .org, .co, .store, .online, .site, .tech, .io ; le .ht arrive bientôt
 - Durée : De 1 à 10 ans
-- Prix : À partir de 2,99 $ la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher
+- Prix : À partir de 2,99 $ (.com : 12,99 $) la première année selon l’extension ; prix exact affiché avant paiement ; le renouvellement peut coûter plus cher
 - Inclus : Confidentialité Whois gratuite, verrouillage anti-transfert, éditeur DNS complet, rappels de renouvellement
 - Domaine existant : Vous pouvez connecter un domaine que vous possédez déjà, y compris un .ht
 - Paiement : Carte et autres moyens selon votre pays ; MonCash et NatCash. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %
@@ -1031,6 +1066,22 @@ Freda Connect vous permet de chercher un nom de domaine, de l’enregistrer pour
 ## Le nom de domaine .ht arrive bientôt
 
 Freda Connect prépare l’enregistrement des noms de domaine en .ht (domaine national d’Haïti, géré par NIC Haïti). La date de lancement et les prix seront annoncés ici ; aucun prix n’est fixé pour l’instant. Si vous possédez déjà un .ht, vous pouvez le connecter dès maintenant à Freda Workspace pour y créer des adresses email professionnelles. Pour être prévenu du lancement, écrivez à support@fredaworkspace.com.
+
+## Prix par extension
+
+Prix en dollars américains par an. Le prix de la première année est souvent plus bas que celui du renouvellement : regardez les deux colonnes avant de choisir. Le prix exact est affiché avant tout paiement ; des frais de traitement s’ajoutent selon le moyen de paiement (carte 3,5 % + 0,40 $, MonCash/NatCash 6 %). Mise à jour : 2026-11-05.
+
+| Extension | 1re année | Renouvellement |
+| --- | --- | --- |
+| .com | 12,99 $ | 14,99 $ |
+| .net | 13,99 $ | 15,99 $ |
+| .org | 11,99 $ | 13,99 $ |
+| .co | 24,99 $ | 29,99 $ |
+| .io | 39,99 $ | 49,99 $ |
+| .store | 6,99 $ | 49,99 $ |
+| .online | 3,99 $ | 29,99 $ |
+| .site | 2,99 $ | 27,99 $ |
+| .tech | 9,99 $ | 49,99 $ |
 
 ## Démarrer avec Freda Connect
 
@@ -1055,7 +1106,7 @@ Freda Connect propose .com, .net, .org, .co, .store, .online, .site, .tech et .i
 
 ### Combien coûte un nom de domaine avec Freda Connect ?
 
-Les prix commencent à 2,99 $ la première année selon l’extension. Le prix exact et le prix de renouvellement sont affichés avant le paiement.
+Les prix commencent à 2,99 $ (.com : 12,99 $) la première année selon l’extension. Le prix exact et le prix de renouvellement sont affichés avant le paiement.
 
 ### Puis-je connecter un domaine que je possède déjà ?
 
@@ -1080,10 +1131,10 @@ Freda Connect se pwodwi non domèn Freda Workspace, yon mak Freda Pay LLC. Li p�
 - Pwodwi : Freda Connect, non domèn ak DNS Freda Workspace (Freda Pay LLC)
 - Ekstansyon : .com, .net, .org, .co, .store, .online, .site, .tech, .io; .ht la ap vini byento
 - Dire : De 1 a 10 an
-- Pri : A pati de 2,99 $ premye ane a dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè
+- Pri : A pati de 2,99 $ (.com: 12,99 $) premye ane a dapre ekstansyon an; pri egzak la parèt anvan ou peye; renouvèlman an ka koute pi chè
 - Sa ki enkli : Konfidansyalite Whois gratis, vèwouyaj kont transfè, editè DNS konplè, rapèl renouvèlman
 - Domèn ki egziste deja : Ou ka konekte yon domèn ou genyen deja, menm yon .ht
-- Peman : Kat ak lòt mwayen dapre peyi w; MonCash ak NatCash. Frè tretman: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
+- Peman : Kat ak lòt mwayen dapre peyi w; MonCash ak NatCash. Frè pwosesis: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
 - Pwodwi asosye : Freda Mail (imèl pwofesyonèl, 1 bwat gratis sou domèn ou)
 
 ## Sa Freda Connect fè
@@ -1093,6 +1144,22 @@ Freda Connect pèmèt ou chèche yon non domèn, anrejistre l pou 1 a 10 an, jer
 ## Non domèn .ht la ap vini byento
 
 Freda Connect ap prepare enskripsyon non domèn .ht yo (domèn nasyonal Ayiti, NIC Ayiti jere l). Nou pral anonse dat lansman an ak pri yo isit la; pa gen pri ki fikse pou kounye a. Si ou genyen yon .ht deja, ou ka konekte l ak Freda Workspace depi kounye a pou kreye adrès imèl pwofesyonèl sou li. Pou yo avèti w lè l lanse, ekri nan support@fredaworkspace.com.
+
+## Pri pa ekstansyon
+
+Pri yo an dola ameriken pa ane. Pri premye ane a souvan pi ba pase pri renouvèlman an: gade de kolòn yo anvan ou chwazi. Pri egzak la parèt anvan ou peye; gen frè pwosesis ki ajoute dapre mwayen peman an (kat 3,5 % + 0,40 $, MonCash/NatCash 6 %). Mizajou: 2026-11-05.
+
+| Ekstansyon | Premye ane | Renouvèlman |
+| --- | --- | --- |
+| .com | 12,99 $ | 14,99 $ |
+| .net | 13,99 $ | 15,99 $ |
+| .org | 11,99 $ | 13,99 $ |
+| .co | 24,99 $ | 29,99 $ |
+| .io | 39,99 $ | 49,99 $ |
+| .store | 6,99 $ | 49,99 $ |
+| .online | 3,99 $ | 29,99 $ |
+| .site | 2,99 $ | 27,99 $ |
+| .tech | 9,99 $ | 49,99 $ |
 
 ## Kijan pou kòmanse ak Freda Connect
 
@@ -1113,7 +1180,7 @@ Freda Connect ofri .com, .net, .org, .co, .store, .online, .site, .tech ak .io. 
 
 ### Konbyen yon non domèn koute ak Freda Connect?
 
-Pri yo kòmanse a 2,99 $ premye ane a dapre ekstansyon an. Pri egzak la ak pri renouvèlman an parèt anvan ou peye.
+Pri yo kòmanse a 2,99 $ (.com: 12,99 $) premye ane a dapre ekstansyon an. Pri egzak la ak pri renouvèlman an parèt anvan ou peye.
 
 ### Èske mwen ka konekte yon domèn mwen genyen deja?
 
@@ -1137,8 +1204,8 @@ Freda Connect is the domain-name product of Freda Workspace, a brand of Freda Pa
 
 - Product : Freda Connect, domain names and DNS from Freda Workspace (Freda Pay LLC)
 - Extensions : .com, .net, .org, .co, .store, .online, .site, .tech, .io; .ht is coming soon
-- Length : 1 to 10 years
-- Price : From 2,99 $ for the first year depending on the extension; exact price shown before payment; renewal can cost more
+- Term : 1 to 10 years
+- Price : From $2.99 (.com: $12.99) for the first year depending on the extension; exact price shown before payment; renewal can cost more
 - Included : Free WHOIS privacy, transfer lock, full DNS editor, renewal reminders
 - Existing domain : You can connect a domain you already own, including a .ht
 - Payment : Card and other methods depending on your country; MonCash and NatCash. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%
@@ -1151,6 +1218,22 @@ Freda Connect lets you search for a domain name, register it for 1 to 10 years, 
 ## The .ht domain name is coming soon
 
 Freda Connect is preparing registration of .ht domain names (Haiti’s national domain, managed by NIC Haiti). The launch date and prices will be announced here; no price is set yet. If you already own a .ht you can connect it to Freda Workspace now and create professional email addresses on it. To be told when it launches, write to support@fredaworkspace.com.
+
+## Price by extension
+
+Prices are in US dollars per year. The first-year price is often lower than the renewal price, so check both columns before choosing. The exact price is shown before any payment; processing fees are added depending on the payment method (card 3.5% + $0.40, MonCash/NatCash 6%). Updated: 2026-11-05.
+
+| Extension | First year | Renewal |
+| --- | --- | --- |
+| .com | $12.99 | $14.99 |
+| .net | $13.99 | $15.99 |
+| .org | $11.99 | $13.99 |
+| .co | $24.99 | $29.99 |
+| .io | $39.99 | $49.99 |
+| .store | $6.99 | $49.99 |
+| .online | $3.99 | $29.99 |
+| .site | $2.99 | $27.99 |
+| .tech | $9.99 | $49.99 |
 
 ## Getting started with Freda Connect
 
@@ -1171,7 +1254,7 @@ Freda Connect offers .com, .net, .org, .co, .store, .online, .site, .tech and .i
 
 ### How much does a domain name cost with Freda Connect?
 
-Prices start at 2,99 $ for the first year depending on the extension. The exact price and the renewal price are shown before payment.
+Prices start at $2.99 (.com: $12.99) for the first year depending on the extension. The exact price and the renewal price are shown before payment.
 
 ### Can I connect a domain I already own?
 
@@ -1180,3 +1263,222 @@ Yes, including a .ht domain. Freda Connect shows the DNS records to add at your 
 ### What is the difference between Freda Connect and Freda Mail?
 
 Freda Connect manages domain names and DNS; Freda Mail manages professional mailboxes. Both are Freda Workspace products.
+
+---
+
+# Freda Mail vs Gmail / Google Workspace / Zoho : quelle différence ?
+
+URL : https://fredaworkspace.com/freda-mail-vs-gmail-google-workspace-zoho.html
+Langue : français
+Mise à jour : 2026-11-05
+
+Freda Mail est une messagerie professionnelle sur votre propre nom de domaine, pensée pour les entrepreneurs d’Haïti et d’ailleurs : 1 boîte gratuite par compte, paiement en MonCash ou NatCash, support en trois langues. Gmail, Google Workspace et Zoho Mail sont de bons produits qui font plus de choses ; cette page explique honnêtement qui devrait choisir quoi. Nous ne citons pas les prix de ces fournisseurs, car ils changent : consultez leurs sites officiels.
+
+## En bref
+
+- Ce qu’est Freda Mail : Une messagerie professionnelle (adresses sur votre domaine, application mobile, IMAP/SMTP), pas une suite bureautique
+- Boîte gratuite : 1 boîte (1 Go) par compte, sans abonnement ni carte bancaire ; le nom de domaine, lui, est payant
+- Offres payantes : Starter 2,99 $/mois, Business 9,99 $/mois, Enterprise 30,00 $/mois
+- Paiement : MonCash, NatCash, carte ; solde prépayé pour les abonnements. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %
+- Support : Français, créole haïtien et anglais, du lundi au samedi, de 8 h à 18 h (heure d’Haïti)
+- Quand choisir un autre : Si vous avez besoin d’une suite bureautique, d’agendas partagés ou de visioconférence intégrés : Google Workspace ou Zoho
+- Prix des concurrents : Non indiqués ici : ils changent, consultez les sites de Google et de Zoho
+
+## Les différences en un coup d’œil
+
+Les cellules « À vérifier » signifient que nous ne l’affirmons pas : consultez le site du fournisseur pour la situation actuelle.
+
+|  | Freda Mail | Gmail (compte gratuit) | Google Workspace | Zoho Mail |
+| --- | --- | --- | --- | --- |
+| Adresse sur votre propre domaine | Oui | Non : adresse @gmail.com | Oui | Oui |
+| Boîte gratuite | 1 boîte (1 Go) par compte ; domaine payant | Oui, avec une adresse @gmail.com | Non : offre payante | À vérifier |
+| Suite bureautique, agenda, visioconférence | Non : messagerie seulement | Services Google grand public | Oui, suite complète | Selon l’offre |
+| Paiement en MonCash ou NatCash | Oui | Sans objet (gratuit) | À vérifier | À vérifier |
+| Support en créole haïtien | Oui | À vérifier | À vérifier | À vérifier |
+| Prix | Voir la page des tarifs de Freda Workspace | Gratuit | Voir le site de Google | Voir le site de Zoho |
+
+## Quand choisir Freda Mail
+
+Choisissez Freda Mail si vous voulez surtout une adresse professionnelle sur votre propre nom de domaine (contact@votre-entreprise.com), sans abonnement pour démarrer, et si vous payez plus facilement en MonCash ou NatCash qu’avec une carte internationale. Le domaine et l’email se configurent au même endroit, avec SPF, DKIM et DMARC ajoutés pour vous.
+
+Vos boîtes fonctionnent aussi avec n’importe quel logiciel compatible IMAP et SMTP, y compris Gmail, Outlook et Apple Mail : vous n’êtes pas obligé de changer vos habitudes de lecture.
+
+## Quand choisir Gmail, Google Workspace ou Zoho
+
+Choisissez Gmail si vous n’avez besoin que d’une adresse personnelle gratuite et que l’adresse @gmail.com vous suffit.
+
+Choisissez Google Workspace ou Zoho si votre équipe a besoin d’une suite complète : documents et tableurs partagés, agendas communs, visioconférence, stockage de fichiers et outils d’administration avancés. Freda Mail ne les propose pas.
+
+Les deux démarches se combinent : vous pouvez acheter votre nom de domaine chez Freda Connect et l’utiliser avec le fournisseur de messagerie de votre choix, ou garder un outil collaboratif de votre côté et prendre uniquement vos adresses chez Freda Mail.
+
+## Comment comparer les prix
+
+Pour une adresse sur votre propre domaine, il faut dans tous les cas un nom de domaine, qui est payant chez tous les fournisseurs. Comparez ensuite le coût par boîte et par mois sur les sites officiels, à la date où vous décidez. Chez Freda Workspace, les prix sont ceux de la page des tarifs, en dollars américains, avec conversion en gourdes au taux indiqué avant le paiement.
+
+## Questions fréquentes
+
+### Freda Mail remplace-t-il Google Workspace ?
+
+Pas entièrement. Freda Mail est une messagerie professionnelle : adresses sur votre domaine, application mobile, compatibilité IMAP et SMTP. Si votre équipe a besoin de documents partagés, d’agendas communs ou de visioconférence intégrés, Google Workspace ou Zoho conviennent mieux.
+
+### Pourquoi ne pas simplement utiliser Gmail ?
+
+Gmail gratuit vous donne une adresse @gmail.com. Une adresse sur votre propre domaine (contact@votre-entreprise.com) inspire plus confiance à vos clients et reste la vôtre quel que soit le fournisseur. Si vous n’avez pas besoin de cela, Gmail suffit.
+
+### Puis-je lire mes emails Freda Mail dans Gmail ?
+
+Oui. Vos boîtes fonctionnent avec tout logiciel compatible IMAP et SMTP, dont Gmail, Outlook et Apple Mail, ainsi qu’avec l’application Freda Mail.
+
+### Freda Mail est-il moins cher que Google Workspace ou Zoho ?
+
+Nous ne publions pas leurs prix, car ils changent. Ce que nous pouvons dire : Freda Mail offre 1 boîte gratuite par compte, et les offres payantes commencent à 2,99 $/mois. Comparez avec les sites de Google et de Zoho au moment de décider.
+
+### Puis-je payer Freda Mail avec MonCash ou NatCash ?
+
+Oui. MonCash et NatCash ne permettent pas de prélèvement automatique : vous rechargez un solde Freda Workspace qui paie ensuite votre offre automatiquement. Frais de traitement : MonCash et NatCash 6 %, carte 3,5 % + 0,40 $.
+
+---
+
+# Freda Mail kont Gmail / Google Workspace / Zoho: ki diferans?
+
+URL : https://fredaworkspace.com/ht/freda-mail-kont-gmail-google-workspace-zoho.html
+Langue : créole haïtien
+Mise à jour : 2026-11-05
+
+Freda Mail se yon imèl pwofesyonèl sou pwòp non domèn ou, fèt pou antreprenè Ayiti ak lòt kote: 1 bwat gratis pou chak kont, peman ak MonCash oswa NatCash, sipò nan twa lang. Gmail, Google Workspace ak Zoho Mail se bon pwodwi ki fè plis bagay; paj sa a esplike onètman ki moun ki ta dwe chwazi kisa. Nou pa site pri founisè sa yo, paske yo chanje: gade sit ofisyèl yo.
+
+## Rezime
+
+- Sa Freda Mail ye : Yon imèl pwofesyonèl (adrès sou domèn ou, aplikasyon mobil, IMAP/SMTP), se pa yon suit biwotik
+- Bwat gratis : 1 bwat (1 Go) pou chak kont, san abònman ni kat labank; non domèn nan, li menm, peye
+- Òf ki peye : Starter 2,99 $/mwa, Business 9,99 $/mwa, Enterprise 30,00 $/mwa
+- Peman : MonCash, NatCash, kat; balans prepeye pou abònman yo. Frè pwosesis: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %
+- Sipò : Fransè, kreyòl ayisyen ak anglè, de lendi a samdi, de 8 è nan maten rive 6 è nan aswè (lè Ayiti)
+- Ki lè pou chwazi yon lòt : Si w bezwen yon suit biwotik, ajanda pataje oswa videyokonferans entegre: Google Workspace oswa Zoho
+- Pri konkiran yo : Nou pa site yo isit la: yo chanje, gade sit Google ak sit Zoho
+
+## Diferans yo yon kout je
+
+Selil ki di “Verifye” vle di nou pa afime sa: gade sit founisè a pou sitiyasyon jodi a.
+
+|  | Freda Mail | Gmail (kont gratis) | Google Workspace | Zoho Mail |
+| --- | --- | --- | --- | --- |
+| Adrès sou pwòp domèn ou | Wi | Non: adrès @gmail.com | Wi | Wi |
+| Bwat gratis | 1 bwat (1 Go) pou chak kont; domèn nan peye | Wi, ak yon adrès @gmail.com | Non: òf ki peye | Verifye |
+| Suit biwotik, ajanda, videyokonferans | Non: imèl sèlman | Sèvis Google pou piblik la | Wi, suit konplè | Dapre òf la |
+| Peman ak MonCash oswa NatCash | Wi | Pa konsène (gratis) | Verifye | Verifye |
+| Sipò an kreyòl ayisyen | Wi | Verifye | Verifye | Verifye |
+| Pri | Gade paj tarif Freda Workspace | Gratis | Gade sit Google | Gade sit Zoho |
+
+## Ki lè pou chwazi Freda Mail
+
+Chwazi Freda Mail si ou vle sitou yon adrès pwofesyonèl sou pwòp non domèn ou (kontak@biznis-ou.com), san abònman pou kòmanse, epi si ou peye pi fasil ak MonCash oswa NatCash pase ak yon kat entènasyonal. Domèn nan ak imèl la konfigire nan menm kote, ak SPF, DKIM ak DMARC ajoute pou ou.
+
+Bwat ou yo mache tou ak nenpòt lojisyèl ki sipòte IMAP ak SMTP, ansanm ak Gmail, Outlook ak Apple Mail: ou pa oblije chanje fason ou abitye li imèl ou.
+
+## Ki lè pou chwazi Gmail, Google Workspace oswa Zoho
+
+Chwazi Gmail si ou bezwen sèlman yon adrès pèsonèl gratis epi adrès @gmail.com an ase pou ou.
+
+Chwazi Google Workspace oswa Zoho si ekip ou a bezwen yon suit konplè: dokiman ak tablo pataje, ajanda an komen, videyokonferans, stokaj fichye ak zouti administrasyon avanse. Freda Mail pa ofri yo.
+
+De demach yo ka melanje: ou ka achte non domèn ou nan Freda Connect epi sèvi ak li ak founisè imèl ou chwazi a, oswa kenbe yon zouti kolaboratif sou kote ou epi pran adrès ou yo sèlman nan Freda Mail.
+
+## Kijan pou konpare pri yo
+
+Pou yon adrès sou pwòp domèn ou, ou toujou bezwen yon non domèn, ki peye nan tout founisè. Apre sa, konpare kou pa bwat ak pa mwa sou sit ofisyèl yo, nan dat ou deside a. Nan Freda Workspace, pri yo se sa ki sou paj tarif la, an dola ameriken, ak konvèsyon an goud ak to ki endike anvan ou peye.
+
+## Kesyon moun poze souvan
+
+### Èske Freda Mail ranplase Google Workspace?
+
+Pa nèt. Freda Mail se yon imèl pwofesyonèl: adrès sou domèn ou, aplikasyon mobil, konpatibilite IMAP ak SMTP. Si ekip ou a bezwen dokiman pataje, ajanda an komen oswa videyokonferans entegre, Google Workspace oswa Zoho pi bon.
+
+### Poukisa pa sèvi ak Gmail senpleman?
+
+Gmail gratis ba ou yon adrès @gmail.com. Yon adrès sou pwòp domèn ou (kontak@biznis-ou.com) bay kliyan ou plis konfyans epi li rete pa w kèlkeswa founisè a. Si ou pa bezwen sa, Gmail ase.
+
+### Èske mwen ka li imèl Freda Mail mwen nan Gmail?
+
+Wi. Bwat ou yo mache ak nenpòt lojisyèl ki sipòte IMAP ak SMTP, tankou Gmail, Outlook ak Apple Mail, ansanm ak aplikasyon Freda Mail la.
+
+### Èske Freda Mail pi bon mache pase Google Workspace oswa Zoho?
+
+Nou pa pibliye pri yo, paske yo chanje. Sa nou ka di: Freda Mail ofri 1 bwat gratis pou chak kont, epi òf ki peye yo kòmanse a 2,99 $/mwa. Konpare ak sit Google ak sit Zoho lè ou pral deside.
+
+### Èske mwen ka peye Freda Mail ak MonCash oswa NatCash?
+
+Wi. MonCash ak NatCash pa pèmèt retire lajan otomatikman: ou rechaje yon balans Freda Workspace ki peye òf ou a otomatikman apre. Frè pwosesis: MonCash ak NatCash 6 %, kat 3,5 % + 0,40 $.
+
+---
+
+# Freda Mail vs Gmail / Google Workspace / Zoho: what is the difference?
+
+URL : https://fredaworkspace.com/en/freda-mail-vs-gmail-google-workspace-zoho.html
+Langue : anglais
+Mise à jour : 2026-11-05
+
+Freda Mail is professional email on your own domain name, built for entrepreneurs in Haiti and elsewhere: 1 free mailbox per account, payment with MonCash or NatCash, support in three languages. Gmail, Google Workspace and Zoho Mail are good products that do more; this page explains honestly who should choose what. We do not quote those providers’ prices because they change: check their official websites.
+
+## At a glance
+
+- What Freda Mail is : Professional email (addresses on your domain, mobile app, IMAP/SMTP), not an office suite
+- Free mailbox : 1 mailbox (1 GB) per account, no subscription, no bank card; the domain name is paid
+- Paid plans : Starter $2.99/month, Business $9.99/month, Enterprise $30.00/month
+- Payment : MonCash, NatCash, card; prepaid balance for subscriptions. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%
+- Support : French, Haitian Creole and English, Monday to Saturday, 8am to 6pm (Haiti time)
+- When to choose another : If you need a built-in office suite, shared calendars or video meetings: Google Workspace or Zoho
+- Competitors’ prices : Not listed here because they change; see the Google and Zoho websites
+
+## The differences at a glance
+
+“Check” means we do not claim it either way: see the provider’s website for the current situation.
+
+|  | Freda Mail | Gmail (free account) | Google Workspace | Zoho Mail |
+| --- | --- | --- | --- | --- |
+| Address on your own domain | Yes | No: @gmail.com address | Yes | Yes |
+| Free mailbox | 1 mailbox (1 GB) per account; domain is paid | Yes, with an @gmail.com address | No: paid plans | Check |
+| Office suite, calendar, video meetings | No: email only | Consumer Google services | Yes, full suite | Depends on the plan |
+| Pay with MonCash or NatCash | Yes | Not applicable (free) | Check | Check |
+| Support in Haitian Creole | Yes | Check | Check | Check |
+| Price | See the Freda Workspace pricing page | Free | See Google’s website | See Zoho’s website |
+
+## When to choose Freda Mail
+
+Choose Freda Mail if what you mainly want is a professional address on your own domain name (contact@your-company.com), with no subscription to start, and if paying with MonCash or NatCash is easier for you than an international card. The domain and the email are set up in one place, with SPF, DKIM and DMARC added for you.
+
+Your mailboxes also work with any IMAP and SMTP client, including Gmail, Outlook and Apple Mail, so you do not have to change how you read your email.
+
+## When to choose Gmail, Google Workspace or Zoho
+
+Choose Gmail if you only need a free personal address and an @gmail.com address is enough.
+
+Choose Google Workspace or Zoho if your team needs a full suite: shared documents and spreadsheets, shared calendars, video meetings, file storage and advanced admin tools. Freda Mail does not offer these.
+
+The two approaches can be combined: you can buy your domain name from Freda Connect and use it with the email provider of your choice, or keep a collaboration tool elsewhere and take only your addresses from Freda Mail.
+
+## How to compare prices
+
+For an address on your own domain you always need a domain name, which every provider charges for. Then compare the cost per mailbox per month on the official websites, on the day you decide. At Freda Workspace, prices are those on the pricing page, in US dollars, with conversion to gourdes at the rate shown before you pay.
+
+## Frequently asked questions
+
+### Does Freda Mail replace Google Workspace?
+
+Not entirely. Freda Mail is professional email: addresses on your domain, a mobile app, IMAP and SMTP compatibility. If your team needs shared documents, shared calendars or built-in video meetings, Google Workspace or Zoho fit better.
+
+### Why not just use Gmail?
+
+Free Gmail gives you an @gmail.com address. An address on your own domain (contact@your-company.com) builds more trust with customers and stays yours whichever provider you use. If you do not need that, Gmail is enough.
+
+### Can I read my Freda Mail email in Gmail?
+
+Yes. Your mailboxes work with any IMAP and SMTP client, including Gmail, Outlook and Apple Mail, as well as the Freda Mail app.
+
+### Is Freda Mail cheaper than Google Workspace or Zoho?
+
+We do not publish their prices because they change. What we can say: Freda Mail includes 1 free mailbox per account, and paid plans start at $2.99/month. Compare with Google’s and Zoho’s websites when you decide.
+
+### Can I pay for Freda Mail with MonCash or NatCash?
+
+Yes. MonCash and NatCash do not allow automatic charges, so you top up a Freda Workspace balance that then pays your plan automatically. Processing fees: MonCash and NatCash 6%, card 3.5% + $0.40.
