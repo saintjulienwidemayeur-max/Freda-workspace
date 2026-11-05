@@ -2,9 +2,10 @@
   "name": "freda-workspace-frontend",
   "private": true,
   "scripts": {
+    "build:landing": "node scripts/build-landing.js",
     "build:css": "tailwindcss -c tailwind.config.js -i src/tailwind.css -o assets/css/tailwind.css --minify",
     "build:icons": "node scripts/build-icons.js",
-    "build": "npm run build:css && npm run build:icons",
+    "build": "npm run build:landing && npm run build:css && npm run build:icons",
     "test": "node --test tests/*.test.js",
     "test:static": "node --test tests/static.test.js"
   },

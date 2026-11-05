@@ -8,5 +8,11 @@ Disallow: /inscription.html
 Disallow: /entreprise.html
 Disallow: /configurer-email.html
 Disallow: /email-pro.html
+Disallow: /admin-prix.html
+
+# Moteurs de recherche et assistants IA : le groupe « * » ci-dessus les autorise tous (Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User,
+# Claude-SearchBot, Claude-User, PerplexityBot…). Les robots d'ENTRAÎNEMENT des modèles (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended,
+# CCBot) sont autorisés aussi : pour les refuser, ajouter un groupe « User-agent: GPTBot / Disallow: / » par robot. Bloquer l'entraînement
+# n'empêche pas d'être cité dans les réponses des moteurs de recherche IA.
 
 Sitemap: https://fredaworkspace.com/sitemap.xml
