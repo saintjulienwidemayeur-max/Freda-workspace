@@ -284,3 +284,16 @@ h1, h2, h3, h4 { font-family: 'Manrope', 'Inter', system-ui, sans-serif; color: 
 #diag-head { min-height: 160px; }
 @media (min-width: 768px) { #diag-head { min-height: 112px; } }
 @media (min-width: 1280px) { #diag-head { min-height: 96px; } }
+
+/* Maquette ordinateur portable (capture de la version web de Freda Mail) */
+.laptop { position: relative; width: 100%; max-width: 640px; }
+.laptop-screen { background: #0B1533; border-radius: 16px 16px 6px 6px; padding: 12px 12px 14px; box-shadow: var(--fw-shadow-lg); position: relative; }
+.laptop-screen::before { content: ''; position: absolute; top: 5px; left: 50%; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: #2a3558; }
+.laptop-screen img { display: block; width: 100%; height: auto; border-radius: 4px; background: #fff; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; }
+.laptop-base { height: 14px; margin: 0 -4.5%; border-radius: 0 0 18px 18px; background: linear-gradient(#cfd6e6, #aab3c8); position: relative; box-shadow: 0 14px 24px -12px rgba(11, 21, 51, .45); }
+.laptop-base::after { content: ''; position: absolute; top: 0; left: 50%; width: 16%; height: 5px; margin-left: -8%; border-radius: 0 0 8px 8px; background: #8f99b3; }
+.laptop-phone { position: absolute; right: -18px; bottom: -34px; width: 118px; z-index: 3; }
+.laptop-phone .phone { width: 100%; border-radius: 22px; padding: 5px; aspect-ratio: 9 / 19; }
+.laptop-phone .phone-screen { border-radius: 17px; }
+.laptop-phone .phone-notch { top: 8px; width: 38px; height: 10px; }
+@media (max-width: 640px) { .laptop-phone { width: 92px; right: -6px; bottom: -26px; } }
