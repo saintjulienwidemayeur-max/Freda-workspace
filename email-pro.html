@@ -104,7 +104,7 @@
 
             <div class="mt-4 grid grid-cols-3 gap-2 sm:gap-3" role="radiogroup" aria-label="Moyen de paiement" id="method-picker">
               <button type="button" role="radio" data-method="card" class="method-btn">
-                <i data-lucide="credit-card" class="w-6 h-6"></i><span>Carte et portefeuilles</span><span class="block text-[11px] leading-tight font-normal text-muted">Visa, Mastercard, Apple Pay, Link…</span>
+                <span class="method-mark flex gap-1 items-center justify-center"><span data-mark="visa"></span><span data-mark="mastercard"></span></span><span>Carte bancaire</span><span class="block text-[11px] leading-tight font-normal text-muted">Visa, Mastercard, Amex, portefeuilles…</span>
               </button>
               <button type="button" role="radio" data-method="moncash" class="method-btn">
                 <span class="method-mark" data-mark="moncash"></span><span>MonCash</span>
@@ -113,6 +113,7 @@
                 <span class="method-mark" data-mark="natcash"></span><span>NatCash</span>
               </button>
             </div>
+            <p class="mt-2 text-xs text-muted">Frais de traitement : carte bancaire 3,5 % + 0,40 $ ; MonCash et NatCash 6 %. Le total à payer est affiché avant la validation.</p>
 
             <!-- Carte -->
             <div data-panel="card" class="mt-6">
@@ -236,8 +237,7 @@
     .method-btn[aria-checked="true"] { border-color: var(--fw-blue); background: var(--fw-mist); box-shadow: 0 0 0 3px rgba(43, 100, 228, .12); }
     .method-btn:focus-visible { outline: 3px solid rgba(43, 100, 228, .45); outline-offset: 2px; }
     .method-btn > span:last-child { line-height: 1.2; }
-    /* Logos de paiement masqués ici, en attendant les logos officiels */
-    .method-mark, #cc-brand, #saved-mark { display: none !important; }
+    .method-mark { min-height: 28px; display: inline-flex; align-items: center; justify-content: center; }
   </style>
 
 

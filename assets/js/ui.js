@@ -527,11 +527,11 @@
     overlay.id = 'fw-embedded-overlay'; overlay.setAttribute('role', 'dialog'); overlay.setAttribute('aria-modal', 'true'); overlay.setAttribute('aria-label', 'Paiement sécurisé');
     overlay.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,.6);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px';
     overlay.innerHTML = '<div style="width:min(560px,100%);background:#fff;border-radius:16px;box-shadow:0 30px 70px rgba(15,23,42,.45);padding:16px 16px 12px">'
-      + '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 4px 10px"><strong style="font-size:16px;color:#0f172a">Paiement sécurisé</strong>'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 4px 10px"><strong style="font-size:16px;color:#0f172a">Paiement sécurisé par Freda Pay</strong>'
       + '<button type="button" data-fw-close aria-label="Fermer le paiement" style="border:0;background:transparent;font-size:26px;line-height:1;cursor:pointer;color:#64748b;padding:2px 8px">×</button></div>'
       + '<div id="fw-embedded-mount" style="min-height:360px"><p style="padding:24px;text-align:center;color:#64748b;font-size:14px">Chargement du paiement sécurisé…</p></div>'
       + '<p id="fw-embedded-status" role="status" style="margin:8px 4px 0;font-size:13px;color:#0f766e;font-weight:600"></p>'
-      + '<p style="margin:6px 4px 0;font-size:12px;color:#64748b">Paiement sécurisé. Vos informations bancaires ne passent jamais par nos serveurs.</p></div>';
+      + '<p style="margin:6px 4px 0;font-size:12px;color:#64748b">Paiement sécurisé par Freda Pay. Frais de traitement : carte 3,5 % + 0,40 $. Vos informations bancaires ne passent jamais par nos serveurs.</p></div>';
     const state = { overlay, checkout: null, prevOverflow: document.body.style.overflow, lastFocus: document.activeElement, res };
     const userClose = () => { closeEmbedded(); showResumeBanner(res); };
     state.onKey = (ev) => { if (ev.key === 'Escape') userClose(); };
