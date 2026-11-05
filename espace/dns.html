@@ -59,7 +59,7 @@
           <!-- Enregistrements -->
           <section class="card p-5 sm:p-6" id="dns-help" aria-labelledby="help-title">
             <h2 id="help-title" class="text-lg font-bold">Comment lire et utiliser ces enregistrements</h2>
-            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Un enregistrement DNS dit au monde où aller pour votre domaine. Chaque ligne du tableau a quatre champs, à recopier tels quels là où votre DNS est géré (chez Freda, ou chez votre registrar si le domaine n’est pas encore connecté) : <strong>Type</strong>, <strong>Nom</strong> (parfois appelé « Host » ou « Hôte » ; <span class="mono">@</span> veut dire le domaine lui-même), <strong>Valeur</strong> (parfois « Cible » ou « Contenu ») et, seulement pour MX, la <strong>Priorité</strong>. Le bouton de copie à côté de la valeur évite les fautes de frappe.</p>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Un enregistrement DNS dit au monde où aller pour votre domaine. Chaque ligne du tableau a quatre champs, à recopier tels quels là où votre DNS est géré (chez Freda Workspace, ou chez votre registrar si le domaine n’est pas encore connecté) : <strong>Type</strong>, <strong>Nom</strong> (parfois appelé « Host » ou « Hôte » ; <span class="mono">@</span> veut dire le domaine lui-même), <strong>Valeur</strong> (parfois « Cible » ou « Contenu ») et, seulement pour MX, la <strong>Priorité</strong>. Le bouton de copie à côté de la valeur évite les fautes de frappe.</p>
             <dl class="mt-4 grid gap-3 sm:grid-cols-2 text-sm">
               <div class="rounded-xl bg-mist p-4"><dt class="font-semibold text-ink">MX · réception des emails</dt><dd class="mt-1 text-slate-600">Indique le serveur qui reçoit les emails du domaine. Le nombre devant le serveur est la <strong>priorité</strong> : plus il est petit, plus le serveur est essayé en premier. Avec un seul serveur, la valeur (par exemple 50) n’a pas d’importance : mettez exactement celle qui est affichée dans le champ « Priorité ».</dd></div>
               <div class="rounded-xl bg-mist p-4"><dt class="font-semibold text-ink">SPF · expéditeur autorisé</dt><dd class="mt-1 text-slate-600">Enregistrement TXT au nom <span class="mono">@</span> qui liste les serveurs autorisés à envoyer en votre nom. Un seul SPF par domaine : s’il en existe déjà un, fusionnez-les au lieu d’en créer un deuxième.</dd></div>
@@ -68,7 +68,7 @@
               <div class="rounded-xl bg-mist p-4"><dt class="font-semibold text-ink">TXT de vérification</dt><dd class="mt-1 text-slate-600">Texte qui prouve que le domaine est à vous. À ajouter une fois ; la création des boîtes devient possible après la vérification.</dd></div>
               <div class="rounded-xl bg-mist p-4"><dt class="font-semibold text-ink">TTL · durée</dt><dd class="mt-1 text-slate-600">Le temps pendant lequel un changement peut rester en mémoire dans le réseau (1 h par défaut). Après une modification, la propagation prend de quelques minutes à quelques heures.</dd></div>
             </dl>
-            <p class="mt-4 text-sm text-slate-600"><strong>Le cadenas</strong> signale un enregistrement géré par Freda : il est nécessaire à vos emails, et se modifie seulement en mode avancé.</p>
+            <p class="mt-4 text-sm text-slate-600"><strong>Le cadenas</strong> signale un enregistrement géré par Freda Workspace : il est nécessaire à vos emails, et se modifie seulement en mode avancé.</p>
           </section>
 
           <section class="card" aria-labelledby="rec-title">
@@ -98,7 +98,7 @@
             <div class="p-5 sm:p-6 border-t border-line flex items-center justify-between gap-3 flex-wrap">
               <label class="flex items-center gap-3 text-sm text-slate-700">
                 <span class="switch"><input type="checkbox" id="advanced-toggle"><span></span></span>
-                Mode avancé : autoriser la modification des enregistrements gérés par Freda
+                Mode avancé : autoriser la modification des enregistrements gérés par Freda Workspace
               </label>
               <span class="text-xs text-muted flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5"></i>= géré automatiquement</span>
             </div>

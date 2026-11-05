@@ -490,7 +490,7 @@
 
   /* ---------- Domaines existants (hébergés chez un autre registraire) ---------- */
   const domains = {
-    /** Vérification du domaine pour l'email : enregistrement TXT à publier + état (pending | dns_ok | verified). Zone Freda : publié automatiquement ; domaine externe : à ajouter chez l'hébergeur DNS. */
+    /** Vérification du domaine pour l'email : enregistrement TXT à publier + état (pending | dns_ok | verified). Zone Freda Workspace : publié automatiquement ; domaine externe : à ajouter chez l'hébergeur DNS. */
     async mailOwnership(domain) {
       if (C.DEMO_MODE) return { domain, external: false, managedByFreda: true, status: 'verified', record: null };
       return request('/domains/' + encodeURIComponent(domain) + '/mail-ownership');
@@ -549,7 +549,7 @@
       workspace.save(s);
       return d;
     },
-    /** Code de transfert (EPP) : en production NameSilo l'envoie au support Freda, qui le transmet au client. */
+    /** Code de transfert (EPP) : en production NameSilo l'envoie au support Freda Workspace, qui le transmet au client. */
     async requestTransferCode(name) {
       if (!C.DEMO_MODE) return request('/domains/' + name + '/auth-code', { method: 'POST' });
       await wait(600);
@@ -570,7 +570,7 @@
       workspace.save(s);
       return { status: 'succeeded', amount, reference: 'FP-' + Date.now().toString().slice(-8) };
     },
-    /** Vérifie que le domaine pointe bien vers Freda (simulé en mode démo). */
+    /** Vérifie que le domaine pointe bien vers Freda Workspace (simulé en mode démo). */
     async verify(domain) {
       if (!C.DEMO_MODE) { const r = await request('/domains/' + domain + '/verify', { method: 'POST' }); await workspace.load(); return r; }
       await wait(1600);
@@ -805,6 +805,7 @@
   /** Production : les prix des offres sont ceux du serveur (modifiables par l'administrateur). Les pages se redessinent à l'événement « fw:plans ». */
   const plansReady = C.DEMO_MODE ? Promise.resolve(false) : request('/plans').then((r) => {
     let changed = false;
+    if (Number.isFinite(r.htgRate) && r.htgRate > 0 && r.htgRate !== C.HTG_RATE) { C.HTG_RATE = r.htgRate; changed = true; }   // taux HTG fixé dans l'administration
     for (const [id, v] of Object.entries(r.plans || {})) {
       const p = C.PLANS[id];
       if (!p) continue;

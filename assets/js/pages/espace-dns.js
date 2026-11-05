@@ -20,7 +20,7 @@
   /* ---------- Sélecteur de domaine ---------- */
   const sel = $('#domain-select');
   sel.innerHTML = ws.domains.map((d) => `<option value="${esc(d.name)}" ${d.name === domain ? 'selected' : ''}>${esc(d.name)}${d.status === 'pending' ? ' (non connecté)' : ''}</option>`).join('');
-  /** Domaine ajouté mais pas encore vérifié : il ne pointe pas vers Freda, ses enregistrements ne sont PAS actifs. */
+  /** Domaine ajouté mais pas encore vérifié : il ne pointe pas vers Freda Workspace, ses enregistrements ne sont PAS actifs. */
   const isPending = () => { const d = ws.domains.find((x) => x.name === domain); return !!d && d.status === 'pending'; };
   sel.addEventListener('change', () => {
     domain = sel.value;
@@ -38,7 +38,7 @@
   /* ---------- Diagnostic ---------- */
   const DIAG = {
     MX: { title: 'Réception (MX)', desc: 'Les emails envoyés à @' + '{d} arrivent dans vos boîtes.' },
-    SPF: { title: 'Expéditeur autorisé (SPF)', desc: 'Les serveurs de Freda peuvent envoyer en votre nom.' },
+    SPF: { title: 'Expéditeur autorisé (SPF)', desc: 'Les serveurs de Freda Workspace peuvent envoyer en votre nom.' },
     DKIM: { title: 'Signature (DKIM)', desc: 'Vos messages sont signés pour prouver leur origine.' },
     DMARC: { title: 'Protection (DMARC)', desc: 'Les faux emails à votre nom sont bloqués.' },
   };
@@ -52,7 +52,7 @@
     if (isPending()) {
       $('#diag-head').innerHTML = `<div class="flex items-center gap-4">
           <span class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 grid place-items-center shrink-0"><i data-lucide="plug-zap"></i></span>
-          <div><h2 id="diag-title" class="text-lg font-bold">${esc(domain)} n’est pas encore connecté à Freda</h2><p class="text-sm text-muted">Le domaine ne pointe pas vers nous : les enregistrements ci-dessous ne sont pas actifs. Ajoutez-les chez le service qui gère votre domaine (registrar, hébergeur DNS), puis vérifiez la connexion.</p></div>
+          <div><h2 id="diag-title" class="text-lg font-bold">${esc(domain)} n’est pas encore connecté à Freda Workspace</h2><p class="text-sm text-muted">Le domaine ne pointe pas vers nous : les enregistrements ci-dessous ne sont pas actifs. Ajoutez-les chez le service qui gère votre domaine (registrar, hébergeur DNS), puis vérifiez la connexion.</p></div>
         </div>
         <button type="button" id="verify-btn" class="btn btn-cta shrink-0"><i data-lucide="refresh-cw"></i>Vérifier maintenant</button>`;
       $('#diag-grid').innerHTML = '';
@@ -138,7 +138,7 @@
       const locked = r.managed && !advanced;
       return `<tr>
         <td><span class="inline-flex px-2 py-0.5 rounded-md text-xs font-bold mono ${TYPE_COLORS[r.type] || ''}">${r.type}</span></td>
-        <td class="mono text-sm whitespace-nowrap">${esc(r.name)}${r.managed ? ` <i data-lucide="lock" class="inline w-3.5 h-3.5 text-muted -mt-0.5" aria-label="Géré par Freda"></i>` : ''}</td>
+        <td class="mono text-sm whitespace-nowrap">${esc(r.name)}${r.managed ? ` <i data-lucide="lock" class="inline w-3.5 h-3.5 text-muted -mt-0.5" aria-label="Géré par Freda Workspace"></i>` : ''}</td>
         <td class="mono text-xs text-slate-600 max-w-[340px]">
           <div class="flex items-center gap-2">
             ${r.priority !== undefined ? `<span class="badge badge-neutral tabular shrink-0">${r.priority}</span>` : ''}
@@ -163,7 +163,7 @@
   function renderNs() {
     const nsCfg = FW.dnsConfig();
     const nsCard = document.getElementById('ns-card');
-    if (nsCard) nsCard.hidden = !nsCfg.nameserversAvailable;   // pas de serveurs de noms Freda : on n'affiche pas de faux serveurs
+    if (nsCard) nsCard.hidden = !nsCfg.nameserversAvailable;   // pas de serveurs de noms Freda Workspace : on n'affiche pas de faux serveurs
     $('#ns-list').innerHTML = nsCfg.nameservers.map((ns, i) => `
       <li class="flex items-center gap-3 rounded-lg border border-line px-4 py-3">
         <span class="text-xs text-muted w-10 tabular">NS${i + 1}</span>

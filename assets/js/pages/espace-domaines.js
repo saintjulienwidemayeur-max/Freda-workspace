@@ -20,7 +20,7 @@
                 ${d.primary ? '<span class="badge badge-info">Principal</span>' : ''}
                 ${d.status === 'pending' ? '<span class="badge badge-warn"><span class="dot bg-amber-500"></span>À connecter</span>' : '<span class="badge badge-success"><span class="dot bg-cta"></span>Actif</span>'}
               </div>
-              <p class="text-sm text-muted mt-0.5 tabular">${d.expires ? `Enregistré le ${FW.date(d.registered)} · expire le ${FW.date(d.expires)} <span class="${days < 30 ? 'text-red-600 font-semibold' : ''}">(${days} j)</span>` : (d.status === 'pending' ? 'Domaine externe · en attente de connexion' : 'Domaine externe · ' + (d.dnsMode === 'records' ? 'DNS conservé chez votre fournisseur' : 'DNS géré par Freda'))}</p>
+              <p class="text-sm text-muted mt-0.5 tabular">${d.expires ? `Enregistré le ${FW.date(d.registered)} · expire le ${FW.date(d.expires)} <span class="${days < 30 ? 'text-red-600 font-semibold' : ''}">(${days} j)</span>` : (d.status === 'pending' ? 'Domaine externe · en attente de connexion' : 'Domaine externe · ' + (d.dnsMode === 'records' ? 'DNS conservé chez votre fournisseur' : 'DNS géré par Freda Workspace'))}</p>
               ${d.external ? `<p class="text-xs text-muted mt-1">Renouvellement et verrouillage se gèrent chez le registraire où le domaine est enregistré.</p>` : ''}
             </div>
           </div>
@@ -90,7 +90,7 @@
     $('#connect-form').hidden = true;
     $('#connect-name').textContent = name;
     const cfgDns = FW.dnsConfig();
-    if (!cfgDns.nameserversAvailable) mode = 'records';   // pas de serveurs de noms Freda réels : seule la méthode « enregistrements » est sûre
+    if (!cfgDns.nameserversAvailable) mode = 'records';   // pas de serveurs de noms Freda Workspace réels : seule la méthode « enregistrements » est sûre
     const nsRadio = document.querySelector('[name="connect-mode"][value="nameservers"]');
     if (nsRadio) nsRadio.closest('label').hidden = !cfgDns.nameserversAvailable;
     document.querySelector(`[name="connect-mode"][value="${mode}"]`).checked = true;

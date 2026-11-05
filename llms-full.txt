@@ -72,7 +72,7 @@ Gratuit : 1 boîte. Starter : 2 boîtes. Business : 5 boîtes. Enterprise : boî
 
 ### Puis-je payer en MonCash ou NatCash ?
 
-Oui. Les offres payantes et les noms de domaine se paient avec MonCash, NatCash ou carte. MonCash et NatCash ne permettent pas de prélèvement automatique : vous rechargez un solde Freda (de 5 $ à 500 $) qui paie ensuite votre offre automatiquement.
+Oui. Les offres payantes et les noms de domaine se paient avec MonCash, NatCash ou carte. MonCash et NatCash ne permettent pas de prélèvement automatique : vous rechargez un solde Freda Workspace (de 5 $ à 500 $) qui paie ensuite votre offre automatiquement.
 
 ---
 
@@ -148,7 +148,7 @@ Oui. Chaque compte a droit à 1 boîte email gratuite sur son propre domaine ; l
 
 ### Que se passe-t-il à l’expiration de mon domaine ?
 
-Freda Workspace vous envoie des rappels avant l’expiration. MonCash et NatCash ne permettent pas de prélèvement automatique : rechargez votre solde Freda pour que le renouvellement soit payé automatiquement avec ce solde.
+Freda Workspace vous envoie des rappels avant l’expiration. MonCash et NatCash ne permettent pas de prélèvement automatique : rechargez votre solde Freda Workspace pour que le renouvellement soit payé automatiquement avec ce solde.
 
 ---
 
@@ -158,13 +158,13 @@ URL : https://fredaworkspace.com/acheter-domaine-moncash.html
 Langue : français
 Mise à jour : 2026-11-05
 
-Sur Freda Workspace, vous payez votre nom de domaine et votre offre email avec MonCash, NatCash ou par carte. Comme MonCash et NatCash ne permettent aucun prélèvement automatique, vous rechargez un solde Freda (de 5 $ à 500 $) : vos abonnements et renouvellements sont ensuite payés automatiquement avec ce solde, et nous vous écrivons si le solde devient trop bas.
+Sur Freda Workspace, vous payez votre nom de domaine et votre offre email avec MonCash, NatCash ou par carte. Comme MonCash et NatCash ne permettent aucun prélèvement automatique, vous rechargez un solde Freda Workspace (de 5 $ à 500 $) : vos abonnements et renouvellements sont ensuite payés automatiquement avec ce solde, et nous vous écrivons si le solde devient trop bas.
 
 ## En bref
 
 - Moyens de paiement : MonCash, NatCash, carte
 - Devise affichée : Dollars américains ; conversion en gourdes (HTG) au taux indiqué au paiement
-- Paiement récurrent : Pas de prélèvement automatique avec MonCash / NatCash : on utilise le solde Freda
+- Paiement récurrent : Pas de prélèvement automatique avec MonCash / NatCash : on utilise le solde Freda Workspace
 - Recharge du solde : De 5 $ à 500 $, par MonCash ou NatCash
 - Durée de l’offre : De 1 à 12 mois payés d’avance ; 12 mois = 2 mois offerts
 - Alertes solde bas : Email à l’adresse d’inscription et à votre boîte Freda Mail, 7, 3 et 1 jour avant l’échéance puis le jour même
@@ -176,7 +176,7 @@ Sur Freda Workspace, vous payez votre nom de domaine et votre offre email avec M
 2. Vous êtes redirigé vers la page de paiement de MonCash ou de NatCash, où vous confirmez avec votre code PIN.
 3. Vous revenez sur Freda Workspace : la page se met à jour toute seule dès que le paiement est confirmé. Vous recevez un reçu par email.
 
-## Le solde Freda : payer les abonnements sans prélèvement
+## Le solde Freda Workspace : payer les abonnements sans prélèvement
 
 Un abonnement se renouvelle chaque mois ou chaque période choisie. Avec une carte bancaire, le débit peut être automatique. Avec MonCash et NatCash, ce n’est pas possible : c’est le client qui valide chaque paiement.
 
@@ -198,7 +198,7 @@ Oui. Au paiement, choisissez MonCash : vous êtes redirigé vers MonCash pour co
 
 ### Le renouvellement est-il automatique avec MonCash ou NatCash ?
 
-Pas directement : MonCash et NatCash ne permettent pas de prélèvement automatique. Rechargez votre solde Freda ; votre offre et vos domaines sont ensuite payés automatiquement avec ce solde, et vous recevez des alertes par email si le solde est trop bas.
+Pas directement : MonCash et NatCash ne permettent pas de prélèvement automatique. Rechargez votre solde Freda Workspace ; votre offre et vos domaines sont ensuite payés automatiquement avec ce solde, et vous recevez des alertes par email si le solde est trop bas.
 
 ### Quel est le montant minimum pour recharger mon solde ?
 
@@ -206,7 +206,7 @@ Le minimum est de 5 $ et le maximum de 500 $ par recharge, payables en gourdes a
 
 ### Mon paiement MonCash a échoué après avoir payé : suis-je remboursé ?
 
-Si l’enregistrement ou le service ne peut pas être livré après paiement, le montant est recrédité sur votre solde Freda, que vous pouvez réutiliser pour un autre achat.
+Si l’enregistrement ou le service ne peut pas être livré après paiement, le montant est recrédité sur votre solde Freda Workspace, que vous pouvez réutiliser pour un autre achat.
 
 ### Puis-je aussi payer par carte bancaire ?
 
@@ -284,7 +284,7 @@ Gratis: 1 bwat. Starter: 2 bwat. Business: 5 bwat. Enterprise: bwat san limit. A
 
 ### Èske mwen ka peye ak MonCash oswa NatCash?
 
-Wi. Òf ki peye yo ak non domèn yo peye ak MonCash, NatCash oswa kat. MonCash ak NatCash pa pèmèt prelèvman otomatik: ou rechaje yon balans Freda (de 5 $ a 500 $) ki peye òf ou a otomatikman apre.
+Wi. Òf ki peye yo ak non domèn yo peye ak MonCash, NatCash oswa kat. MonCash ak NatCash pa pèmèt prelèvman otomatik: ou rechaje yon balans Freda Workspace (de 5 $ a 500 $) ki peye òf ou a otomatikman apre.
 
 ---
 
@@ -360,7 +360,7 @@ Wi. Chak kont gen dwa a 1 bwat imèl gratis sou pwòp domèn li; òf Starter, Bu
 
 ### Kisa k pase lè domèn mwen an ekspire?
 
-Freda Workspace voye w rapèl anvan ekspirasyon an. MonCash ak NatCash pa pèmèt prelèvman otomatik: rechaje balans Freda ou pou renouvèlman an peye otomatikman ak balans sa a.
+Freda Workspace voye w rapèl anvan ekspirasyon an. MonCash ak NatCash pa pèmèt prelèvman otomatik: rechaje balans Freda Workspace ou pou renouvèlman an peye otomatikman ak balans sa a.
 
 ---
 
@@ -370,13 +370,13 @@ URL : https://fredaworkspace.com/ht/peye-ak-moncash-natcash.html
 Langue : créole haïtien
 Mise à jour : 2026-11-05
 
-Sou Freda Workspace, ou peye non domèn ou ak òf imèl ou ak MonCash, NatCash oswa kat. Kòm MonCash ak NatCash pa pèmèt okenn prelèvman otomatik, ou rechaje yon balans Freda (de 5 $ a 500 $): abònman ou yo ak renouvèlman yo peye otomatikman ak balans sa a, epi nou ekri w si balans lan vin twò ba.
+Sou Freda Workspace, ou peye non domèn ou ak òf imèl ou ak MonCash, NatCash oswa kat. Kòm MonCash ak NatCash pa pèmèt okenn prelèvman otomatik, ou rechaje yon balans Freda Workspace (de 5 $ a 500 $): abònman ou yo ak renouvèlman yo peye otomatikman ak balans sa a, epi nou ekri w si balans lan vin twò ba.
 
 ## Rezime
 
 - Mwayen peman : MonCash, NatCash, kat
 - Lajan yo afiche : Dola ameriken; konvèsyon an goud (HTG) ak to ki endike lè ou peye
-- Peman repete : Pa gen prelèvman otomatik ak MonCash / NatCash: nou sèvi ak balans Freda a
+- Peman repete : Pa gen prelèvman otomatik ak MonCash / NatCash: nou sèvi ak balans Freda Workspace a
 - Rechaj balans : De 5 $ a 500 $, ak MonCash oswa NatCash
 - Dire òf la : De 1 a 12 mwa peye davans; 12 mwa = 2 mwa gratis
 - Alèt balans ba : Imèl sou adrès enskripsyon an ak sou bwat Freda Mail ou, 7, 3 ak 1 jou anvan dat la, epi jou a menm
@@ -388,7 +388,7 @@ Sou Freda Workspace, ou peye non domèn ou ak òf imèl ou ak MonCash, NatCash o
 2. Yo voye w sou paj peman MonCash oswa NatCash la, kote ou konfime ak kòd PIN ou.
 3. Ou retounen sou Freda Workspace: paj la mete tèt li ajou le peman an konfime. Ou resevwa yon resi pa imèl.
 
-## Balans Freda a: peye abònman san prelèvman
+## Balans Freda Workspace a: peye abònman san prelèvman
 
 Yon abònman renouvle chak mwa oswa chak peryòd ou chwazi. Ak yon kat bankè, debi a ka otomatik. Ak MonCash ak NatCash, sa pa posib: se kliyan an ki konfime chak peman.
 
@@ -410,7 +410,7 @@ Wi. Lè ou peye, chwazi MonCash: yo voye w sou MonCash pou konfime ak kòd PIN o
 
 ### Èske renouvèlman an otomatik ak MonCash oswa NatCash?
 
-Pa dirèkteman: MonCash ak NatCash pa pèmèt prelèvman otomatik. Rechaje balans Freda ou; òf ou ak domèn ou yo peye otomatikman ak balans sa a, epi ou resevwa alèt pa imèl si balans lan twò ba.
+Pa dirèkteman: MonCash ak NatCash pa pèmèt prelèvman otomatik. Rechaje balans Freda Workspace ou; òf ou ak domèn ou yo peye otomatikman ak balans sa a, epi ou resevwa alèt pa imèl si balans lan twò ba.
 
 ### Ki minimòm pou rechaje balans mwen?
 
@@ -418,7 +418,7 @@ Minimòm lan se 5 $ epi maksimòm lan se 500 $ pa rechaj, ou peye an goud ak Mon
 
 ### Peman MonCash mwen an echwe apre m fin peye: èske yo ranbouse m?
 
-Si yo pa ka bay enskripsyon an oswa sèvis la apre peman an, montan an retounen sou balans Freda ou, ou ka itilize l ankò pou yon lòt acha.
+Si yo pa ka bay enskripsyon an oswa sèvis la apre peman an, montan an retounen sou balans Freda Workspace ou, ou ka itilize l ankò pou yon lòt acha.
 
 ### Èske mwen ka peye ak kat bankè tou?
 
@@ -445,7 +445,7 @@ Yes: Freda Workspace gives every account 1 free professional mailbox on your own
 - What you need : A domain name (bought from Freda Workspace, or one you already own)
 - Is the domain name free? : No: from 2,99 $ for the first year depending on the extension (price shown before payment; renewal can cost more)
 - Domains sold : .com, .net, .org, .co, .store, .online, .site, .tech, .io (.ht is coming soon; an existing .ht domain can already be connected)
-- Payment : MonCash, NatCash or card; MonCash and NatCash cannot auto-debit, so a prepaid Freda balance ($5 to $500) pays subscriptions automatically
+- Payment : MonCash, NatCash or card; MonCash and NatCash cannot auto-debit, so a prepaid Freda Workspace balance ($5 to $500) pays subscriptions automatically
 - Language and support : French and Haitian Creole, Monday to Saturday, 8am to 6pm (Haiti time)
 
 ## What is free and what is not
@@ -468,7 +468,7 @@ The free mailbox is a real professional account on your own domain, not a time-l
 
 ## Paying from Haiti or from the diaspora
 
-Domain names and paid plans can be paid with MonCash, NatCash or a bank card. Prices are shown in US dollars; the amount in gourdes is calculated at the rate shown at checkout. Because MonCash and NatCash cannot charge you automatically, you top up a Freda balance whenever you like and it pays your plan and domain renewals automatically. If the balance is too low, we email you before the due date.
+Domain names and paid plans can be paid with MonCash, NatCash or a bank card. Prices are shown in US dollars; the amount in gourdes is calculated at the rate shown at checkout. Because MonCash and NatCash cannot charge you automatically, you top up a Freda Workspace balance whenever you like and it pays your plan and domain renewals automatically. If the balance is too low, we email you before the due date.
 
 ## Frequently asked questions
 
@@ -486,7 +486,7 @@ Not yet: .ht is coming soon to Freda Connect, with no date or price announced ye
 
 ### Can I pay with MonCash or NatCash?
 
-Yes, or with a bank card. MonCash and NatCash do not allow automatic charges, so you top up a Freda balance that then pays your subscription automatically.
+Yes, or with a bank card. MonCash and NatCash do not allow automatic charges, so you top up a Freda Workspace balance that then pays your subscription automatically.
 
 ### Which languages does support speak?
 
@@ -863,7 +863,7 @@ Gratuit : 1 boîte. Starter : 2 boîtes. Business : 5 boîtes. Enterprise : illi
 
 ### Puis-je payer Freda Mail avec MonCash ou NatCash ?
 
-Oui. MonCash et NatCash ne permettent pas de prélèvement automatique : vous rechargez un solde Freda qui paie ensuite votre offre automatiquement.
+Oui. MonCash et NatCash ne permettent pas de prélèvement automatique : vous rechargez un solde Freda Workspace qui paie ensuite votre offre automatiquement.
 
 ---
 
@@ -936,7 +936,7 @@ Gratis: 1 bwat. Starter: 2 bwat. Business: 5 bwat. Enterprise: san limit. Alyas 
 
 ### Èske mwen ka peye Freda Mail ak MonCash oswa NatCash?
 
-Wi. MonCash ak NatCash pa pèmèt prelèvman otomatik: ou rechaje yon balans Freda ki peye òf ou a otomatikman apre.
+Wi. MonCash ak NatCash pa pèmèt prelèvman otomatik: ou rechaje yon balans Freda Workspace ki peye òf ou a otomatikman apre.
 
 ---
 
@@ -1001,7 +1001,7 @@ With the Freda Mail app, or any IMAP and SMTP client such as Outlook, Apple Mail
 
 ### Can I pay for Freda Mail with MonCash or NatCash?
 
-Yes. MonCash and NatCash do not allow automatic charges, so you top up a Freda balance that then pays your plan automatically.
+Yes. MonCash and NatCash do not allow automatic charges, so you top up a Freda Workspace balance that then pays your plan automatically.
 
 ---
 
