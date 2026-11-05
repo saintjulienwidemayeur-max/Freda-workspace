@@ -221,6 +221,47 @@
     });
   }
 
+
+  /**
+   * Choix du moyen de paiement avant TOUT achat (domaine, offre, renouvellement) : le client choisit toujours, le solde n'est jamais imposé.
+   * Retourne { method, methodId? } ('balance' | 'card' | 'moncash' | 'natcash') ou null s'il annule. Les frais sont affichés ; le serveur les recalcule.
+   */
+  async function choosePayment({ amount, title = 'Choisir le moyen de paiement' }) {
+    let bal = 0, saved = [];
+    try { const b = await FW.balance.get(); bal = (b && b.balance) || 0; } catch (_) {}
+    try { saved = ((FW.workspace.get() || {}).paymentMethods || []).filter((m) => m.type === 'card'); } catch (_) {}
+    const usd = (n) => FW.money(n);
+    const cardFee = Math.round(amount * 3.5 + 40) / 100, mobFee = Math.round(amount * 6) / 100;
+    const opts = [];
+    saved.forEach((m) => opts.push({ k: 'card:' + m.id, method: 'card', methodId: m.id, icon: 'credit-card', label: (m.brand || 'Carte') + ' •••• ' + m.last4, sub: 'Carte enregistrée · frais ' + usd(cardFee) + ' (3,5 % + 0,40 $) · total ' + usd(amount + cardFee) }));
+    opts.push({ k: 'card', method: 'card', icon: 'credit-card', label: 'Carte bancaire', sub: 'Frais ' + usd(cardFee) + ' (3,5 % + 0,40 $) · total ' + usd(amount + cardFee) });
+    opts.push({ k: 'moncash', method: 'moncash', icon: 'smartphone', label: 'MonCash', sub: 'Frais ' + usd(mobFee) + ' (6 %) · total ' + usd(amount + mobFee) + ' ≈ ' + FW.money((amount + mobFee) * FW.config.HTG_RATE, 'HTG') });
+    opts.push({ k: 'natcash', method: 'natcash', icon: 'smartphone', label: 'NatCash', sub: 'Frais ' + usd(mobFee) + ' (6 %) · total ' + usd(amount + mobFee) + ' ≈ ' + FW.money((amount + mobFee) * FW.config.HTG_RATE, 'HTG') });
+    if (bal >= amount && amount > 0) opts.push({ k: 'balance', method: 'balance', icon: 'wallet', label: 'Solde Freda (' + usd(bal) + ')', sub: 'Sans frais · total ' + usd(amount) });
+    return new Promise((resolve) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'modal';
+      wrap.innerHTML = `
+        <div class="modal-backdrop" data-cancel></div>
+        <div class="modal-panel p-6" role="dialog" aria-modal="true" aria-labelledby="cp-title">
+          <h2 id="cp-title" class="text-lg font-bold">${esc(title)}</h2>
+          <p class="mt-1 text-sm text-muted">Montant : <strong class="text-ink">${usd(amount)}</strong>. Les frais de traitement du moyen choisi s’ajoutent.</p>
+          <div class="mt-4" style="display:grid;gap:8px">${opts.map((o, i) => `<label class="flex items-center gap-3 rounded-lg border border-line px-3 py-2.5 cursor-pointer has-[:checked]:border-freda has-[:checked]:bg-mist"><input type="radio" name="cp-m" value="${i}" ${i === 0 ? 'checked' : ''}><i data-lucide="${o.icon}"></i><span style="min-width:0"><span class="font-semibold text-ink block">${esc(o.label)}</span><span class="text-xs text-muted">${esc(o.sub)}</span></span></label>`).join('')}</div>
+          <div class="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+            <button type="button" class="btn btn-outline" data-cancel>Annuler</button>
+            <button type="button" class="btn btn-cta" data-ok>Continuer</button>
+          </div>
+        </div>`;
+      document.body.appendChild(wrap);
+      icons();
+      const done = (v) => { wrap.remove(); resolve(v); };
+      wrap.addEventListener('click', (e) => {
+        if (e.target.closest('[data-ok]')) { const o = opts[Number((wrap.querySelector('input[name="cp-m"]:checked') || {}).value || 0)]; done(o.methodId ? { method: o.method, methodId: o.methodId } : { method: o.method }); }
+        else if (e.target.closest('[data-cancel]')) done(null);
+      });
+    });
+  }
+
   /* ---------- Copier dans le presse-papiers ---------- */
   async function copy(text, label = 'Copié') {
     try { await navigator.clipboard.writeText(text); toast(label + ' dans le presse-papiers'); }
@@ -543,7 +584,7 @@
     return render;
   }
 
-  window.FWUI = { liveRules, bindWhoisPrivacy, showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, copy, setLoading, esc, icons };
+  window.FWUI = { liveRules, bindWhoisPrivacy, showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, choosePayment, copy, setLoading, esc, icons };
 
   /* Initialisation automatique */
   document.addEventListener('DOMContentLoaded', () => {

@@ -68,8 +68,15 @@
       });
       return;
     }
-    if (!ws.plan) {
+    const hasPlan = !!FWSpace.plan();
+    const hasMail = (ws.mailboxes || []).some((m) => String(m.address).toLowerCase().endsWith('@' + domain.toLowerCase()));
+    if (!hasPlan) {
       $('#diag-head').innerHTML = `<div class="flex items-center gap-4"><span class="w-12 h-12 rounded-xl bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="mail-plus"></i></span><div><h2 id="diag-title" class="text-lg font-bold">Email pro non activé</h2><p class="text-sm text-muted">Les enregistrements MX, SPF, DKIM et DMARC seront ajoutés automatiquement à l’activation.</p></div></div><a href="../configurer-email.html" class="btn btn-cta shrink-0"><i data-lucide="mail-plus"></i>Activer l’email pro</a>`;
+      $('#diag-grid').innerHTML = '';
+      return;
+    }
+    if (!hasMail) {
+      $('#diag-head').innerHTML = `<div class="flex items-center gap-4"><span class="w-12 h-12 rounded-xl bg-mist text-freda grid place-items-center shrink-0"><i data-lucide="mail-plus"></i></span><div><h2 id="diag-title" class="text-lg font-bold">Aucune boîte mail sur ${esc(domain)}</h2><p class="text-sm text-muted">Créez une adresse (contact@${esc(domain)}) : les enregistrements MX, SPF, DKIM et DMARC sont alors ajoutés automatiquement. Vous pourrez choisir le domaine parmi ceux de votre compte.</p></div></div><a href="emails.html?new=1&domain=${encodeURIComponent(domain)}" class="btn btn-cta shrink-0"><i data-lucide="mail-plus"></i>Créer une boîte mail</a>`;
       $('#diag-grid').innerHTML = '';
       return;
     }
@@ -109,6 +116,7 @@
 
   /* ---------- Tableau ---------- */
   const TYPE_COLORS = { A: 'bg-blue-50 text-blue-700', AAAA: 'bg-indigo-50 text-indigo-700', CNAME: 'bg-violet-50 text-violet-700', MX: 'bg-emerald-50 text-emerald-700', TXT: 'bg-amber-50 text-amber-800', SRV: 'bg-pink-50 text-pink-700', CAA: 'bg-slate-100 text-slate-700' };
+  const ROLE_HELP = { MX: 'reçoit vos emails', SPF: 'serveurs autorisés à envoyer', DKIM: 'signature de vos messages', DMARC: 'protection contre l’usurpation', OWNERSHIP: 'prouve que le domaine est à vous' };
   const ttlLabel = (t) => t >= 86400 ? (t / 86400) + ' j' : t >= 3600 ? (t / 3600) + ' h' : (t / 60) + ' min';
 
   function renderFilter() {
@@ -137,7 +145,8 @@
             <span class="truncate" title="${esc(r.value)}">${esc(r.value)}</span>
             <button type="button" class="p-1 text-muted hover:text-freda shrink-0" data-copy="${esc(r.value)}" data-copy-label="Valeur copiée" aria-label="Copier la valeur"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
           </div>
-          ${r.role ? `<span class="text-[11px] text-muted font-sans">${esc(r.role === 'OWNERSHIP' ? 'Vérification email' : r.role)}</span>` : ''}
+          ${r.role ? `<span class="text-[11px] text-muted font-sans block">${esc(r.role === 'OWNERSHIP' ? 'Vérification email' : r.role)}${ROLE_HELP[r.role] ? ' · ' + esc(ROLE_HELP[r.role]) : ''}</span>` : ''}
+          ${r.type === 'MX' && r.priority !== undefined ? `<span class="text-[11px] text-muted font-sans block">Le ${esc(r.priority)} est la priorité : à saisir dans le champ « Priorité », puis le serveur dans « Valeur ».</span>` : ''}
         </td>
         <td class="text-sm text-muted tabular whitespace-nowrap">${ttlLabel(r.ttl)}</td>
         <td>${pend ? '<span class="badge badge-warn"><span class="dot bg-amber-500"></span>À ajouter</span>' : '<span class="badge badge-success"><span class="dot bg-cta"></span>Actif</span>'}</td>
