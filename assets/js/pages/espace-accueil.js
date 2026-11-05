@@ -45,6 +45,20 @@
       <p class="mt-1.5 text-xs text-muted tabular">${s.sub}</p>
     </a>`).join('');
 
+  /* ---------- Adresse email non confirmée : achats et boîtes bloqués jusqu'à la confirmation ---------- */
+  if (!FW.config.DEMO_MODE && (ws.user || {}).emailVerified === false) {
+    $('#stats').insertAdjacentHTML('beforebegin', `
+      <div class="rounded-2xl border border-amber-300 bg-amber-50 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 justify-between" id="verify-banner" role="status">
+        <p class="text-sm text-amber-900"><strong>Confirmez votre adresse email.</strong> Un lien vous a été envoyé : il active vos achats et la création de vos boîtes mail. Pensez à vérifier le dossier spam.</p>
+        <button type="button" class="btn btn-outline btn-sm shrink-0" id="verify-resend">Renvoyer le lien</button>
+      </div>`);
+    $('#verify-resend').addEventListener('click', async (ev) => {
+      FWUI.setLoading(ev.currentTarget, true, 'Envoi...');
+      try { await FW.auth.resendVerification(); FWUI.toast('Lien envoyé. Vérifiez votre boîte email.'); } catch (err) { FWUI.toast(err.message, 'error'); }
+      FWUI.setLoading(ev.currentTarget, false);
+    });
+  }
+
   /* ---------- Profil entreprise incomplet : invitation à le compléter (utilisé sur les factures) ---------- */
   const profile = ws.user || {};
   const missing = [!profile.company && 'la raison sociale', !profile.address && 'l’adresse'].filter(Boolean);

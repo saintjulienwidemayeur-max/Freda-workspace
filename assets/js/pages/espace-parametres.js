@@ -59,25 +59,7 @@
       .catch((er) => { err.textContent = er.message; err.classList.add('show'); });
   });
 
-  const linked = { google: true, apple: false };
-  function renderOauth() {
-    $('#oauth-list').innerHTML = ['google', 'apple'].map((p) => `
-      <li class="p-5 sm:p-6 flex items-center gap-4">
-        <span class="w-10 h-10 rounded-lg border border-line grid place-items-center shrink-0 ${p === 'apple' ? 'text-ink' : ''}">${FWUI.BRAND[p]}</span>
-        <div class="flex-1 min-w-0"><p class="font-semibold text-ink">${p === 'google' ? 'Google' : 'Apple'}</p><p class="text-sm text-muted truncate">${linked[p] ? 'Connecté · ' + FWUI.esc(u.email) : 'Non connecté'}</p></div>
-        <button type="button" class="btn ${linked[p] ? 'btn-ghost' : 'btn-outline'} btn-sm" data-link="${p}">${linked[p] ? 'Dissocier' : 'Connecter'}</button>
-      </li>`).join('');
-  }
-  $('#oauth-list').addEventListener('click', async (e) => {
-    const b = e.target.closest('[data-link]');
-    if (!b) return;
-    const p = b.dataset.link;
-    if (!linked[p]) { FWUI.setLoading(b, true, 'Connexion...'); await FW.wait(800); }
-    linked[p] = !linked[p];
-    renderOauth();
-    FWUI.toast((p === 'google' ? 'Google' : 'Apple') + (linked[p] ? ' connecté' : ' dissocié'));
-  });
-  renderOauth();
+  /* Comptes connectés (Google / Apple) : retirés tant qu'il n'y a pas de vraie liaison de comptes côté serveur */
 
   $('#delete-account').addEventListener('click', async () => {
     const ok = await FWUI.confirmDialog({ title: 'Supprimer définitivement le compte ?', message: 'Toutes vos boîtes mail et leurs messages seront effacés sous 30 jours. Cette action ne peut pas être annulée.', confirmLabel: 'Je comprends, supprimer', danger: true });
