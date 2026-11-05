@@ -286,6 +286,7 @@ h1, h2, h3, h4 { font-family: 'Manrope', 'Inter', system-ui, sans-serif; color: 
 @media (min-width: 1280px) { #diag-head { min-height: 96px; } }
 
 /* Maquette ordinateur portable (capture de la version web de Freda Mail) */
+#store-block[hidden], #webapp-cta[hidden] { display: none !important; }
 .laptop { position: relative; width: 100%; max-width: 640px; }
 .laptop-screen { background: #0B1533; border-radius: 16px 16px 6px 6px; padding: 12px 12px 14px; box-shadow: var(--fw-shadow-lg); position: relative; }
 .laptop-screen::before { content: ''; position: absolute; top: 5px; left: 50%; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: #2a3558; }

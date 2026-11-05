@@ -87,9 +87,10 @@
   /* ---------- Application mobile ---------- */
   $('#appstore-link').href = C.APP_STORE_URL;
   $('#playstore-link').href = C.PLAY_STORE_URL;
-  // Tant que les liens sont les pages d'accueil génériques des stores (app pas encore publiée), on ne promet pas de téléchargement.
+  // Tant que les liens sont les pages d'accueil génériques des stores (app pas encore publiée), on ne promet pas de téléchargement :
+  // on retire seulement QR code et boutons des stores, jamais la section (maquettes + version web restent visibles) et on propose la version web.
   const genericStore = (u) => !u || /^https:\/\/(apps\.apple\.com|play\.google\.com)\/(store\/)?$/.test(u);
-  if (!C.DEMO_MODE && (genericStore(C.APP_STORE_URL) || genericStore(C.PLAY_STORE_URL))) { const sec = $('#appstore-link').closest('section'); if (sec) sec.hidden = true; }
+  if (!C.DEMO_MODE && (genericStore(C.APP_STORE_URL) || genericStore(C.PLAY_STORE_URL))) { const store = $('#store-block'), web = $('#webapp-cta'); if (store) store.hidden = true; if (web) web.hidden = false; }
   function drawQR(el, cell) {
     if (!window.qrcode || !el) return;
     const qr = qrcode(0, 'M');
