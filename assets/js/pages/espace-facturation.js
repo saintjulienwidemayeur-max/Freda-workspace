@@ -59,12 +59,14 @@
     const p = C.PLANS[b.dataset.switch];
     const ok = await FWUI.confirmDialog({
       title: 'Changer d’offre',
-      message: `Passer à <strong>${p.name}</strong> pour ${FW.cycleSpan(viewCycle)} : ${FW.money(FW.planPrice(p.id, viewCycle))}. Le paiement se fait avec votre solde s’il suffit, sinon avec MonCash / NatCash.`,
+      message: `Passer à <strong>${p.name}</strong> pour ${FW.cycleSpan(viewCycle)} : ${FW.money(FW.planPrice(p.id, viewCycle))}. Vous choisirez ensuite le moyen de paiement.`,
       confirmLabel: 'Confirmer le changement',
     });
     if (!ok) return;
     if (!FW.config.DEMO_MODE) {
-      try { await FW.plans.change({ plan: p.id, cycle: viewCycle }); FWUI.toast('Votre offre est maintenant ' + p.name); setTimeout(() => location.reload(), 700); }
+      const pay = await FWUI.choosePayment({ amount: FW.planPrice(p.id, viewCycle), title: 'Payer l’offre ' + p.name });
+      if (!pay) return;
+      try { await FW.plans.change({ plan: p.id, cycle: viewCycle, pay }); FWUI.toast('Votre offre est maintenant ' + p.name); setTimeout(() => location.reload(), 700); }
       catch (err) { FWUI.toast(err.message, 'error'); }
       return;
     }

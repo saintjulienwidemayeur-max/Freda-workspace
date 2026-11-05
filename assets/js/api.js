@@ -496,9 +496,9 @@
       return request('/domains/' + encodeURIComponent(domain) + '/mail-ownership');
     },
     /** Achat d'un ou plusieurs domaines depuis l'espace client (moyen de paiement déjà enregistré). */
-    async buy({ items, years, methodId, whoisPrivacy = true }) {
+    async buy({ items, years, methodId, pay, whoisPrivacy = true }) {
       const amount = +items.reduce((sum, d) => sum + cart.priceOf(d, years), 0).toFixed(2);
-      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', methodId, domains: items.map((d) => d.domain), years, whoisPrivacy: whoisPrivacy !== false } }));
+      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'domain', ...(pay || { methodId }), domains: items.map((d) => d.domain), years, whoisPrivacy: whoisPrivacy !== false } }));
       await wait(1600);
       const s = workspace.get();
       const pm = s.paymentMethods.find((m) => m.id === methodId) || s.paymentMethods[0];
@@ -556,8 +556,8 @@
       return { ok: true, demo: true };
     },
     /** Renouvellement : paiement MonCash / NatCash puis renewDomain côté serveur. */
-    async renew(name, years = 1) {
-      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'renewal', domain: name, years, ...preferredPayment() } }));
+    async renew(name, years = 1, pay) {
+      if (!C.DEMO_MODE) return payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'renewal', domain: name, years, ...(pay || preferredPayment()) } }));
       await wait(1200);
       const s = workspace.get();
       const d = s.domains.find((x) => x.name === name);
@@ -631,9 +631,9 @@
 
   /** Changement d'offre en production : nouvelle commande « subscription » (carte enregistrée si elle existe, sinon MonCash / NatCash). */
   const plans = {
-    async change({ plan, cycle }) {
+    async change({ plan, cycle, pay: chosen }) {
       const b = balance.cached;                                                                 // le solde couvre l'offre : payée avec le solde, sans redirection
-      const pay = b && b.balance >= planPrice(plan, cycle) ? { method: 'balance' } : preferredPayment();
+      const pay = chosen || (b && b.balance >= planPrice(plan, cycle) ? { method: 'balance' } : preferredPayment());
       const r = await payments.settle(await request('/checkout', { method: 'POST', idempotencyKey: newKey(), body: { kind: 'subscription', plan, cycle, ...pay } }));
       balance.get().catch(() => {});
       return r;

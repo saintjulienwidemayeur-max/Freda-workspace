@@ -56,9 +56,11 @@
     const d = FWSpace.ws().domains.find((x) => x.name === name);
     if (!d || d.external) return;
     const tld = C.TLDS.find((t) => name.endsWith(t.tld));
-    const ok = await FWUI.confirmDialog({ title: 'Renouveler ' + name, message: `Renouvellement d’un an${tld ? ' pour <strong>' + FW.money(tld.renew) + '</strong>' : ''}, réglé par MonCash ou NatCash.`, confirmLabel: 'Renouveler' });
+    const ok = await FWUI.confirmDialog({ title: 'Renouveler ' + name, message: `Renouvellement d’un an${tld ? ' pour <strong>' + FW.money(tld.renew) + '</strong>' : ''}.`, confirmLabel: 'Continuer' });
     if (!ok) return;
-    try { await FW.domains.renew(name, 1); FWUI.toast('Domaine ' + name + ' renouvelé.'); render(); }
+    const pay = await FWUI.choosePayment({ amount: tld ? tld.renew : 0, title: 'Renouveler ' + name });
+    if (!pay) return;
+    try { await FW.domains.renew(name, 1, pay); FWUI.toast('Domaine ' + name + ' renouvelé.'); render(); }
     catch (err) { FWUI.toast(err.message, 'error'); }
   }
   document.addEventListener('click', (e) => { const b = e.target.closest('[data-renew-btn]'); if (b) renewDomain(b.dataset.renewBtn); });

@@ -66,11 +66,11 @@
     $('#buy-years').innerHTML = [1, 2, 3, 4, 5].map((n) => `<option value="${n}" ${n === years ? 'selected' : ''}>${n} an${n > 1 ? 's' : ''}</option>`).join('');
     const pms = ws.paymentMethods;
     if (!methodId || !pms.some((m) => m.id === methodId)) methodId = (pms.find((m) => m.default) || pms[0] || {}).id || null;
-    $('#buy-methods').innerHTML = pms.length ? pms.map((m) => `<label class="flex items-center gap-3 rounded-lg border border-line px-3 py-2.5 cursor-pointer has-[:checked]:border-freda has-[:checked]:bg-mist"><input type="radio" name="buy-method" value="${m.id}" ${m.id === methodId ? 'checked' : ''}><span class="shrink-0">${FWUI.payMark(m.type === 'card' ? m.brand.toLowerCase() : m.type, 'sm')}</span><span class="text-sm">${esc(methodName(m))}</span></label>`).join('') : '<p class="text-sm text-slate-600">Aucun moyen de paiement enregistré. <a class="text-freda font-semibold hover:underline" href="facturation.html">Ajouter un moyen de paiement</a></p>';
+    $('#buy-methods').innerHTML = '<p class="text-sm text-muted">Vous choisirez le moyen de paiement (MonCash, NatCash, carte ou solde) en cliquant sur « Payer ».</p>';
     const total = +selected.reduce((s, d) => s + FW.cart.priceOf(d, years), 0).toFixed(2);
     $('#buy-total').textContent = FW.money(total);
     $('#buy-htg').textContent = total ? '≈ ' + FW.money(total * C.HTG_RATE, 'HTG') : '';
-    $('#buy-pay').disabled = !selected.length || !methodId;
+    $('#buy-pay').disabled = !selected.length;
     $('#buy-pay span').textContent = total ? 'Payer ' + FW.money(total) : 'Payer';
     FWUI.icons();
   }
@@ -80,10 +80,13 @@
 
   $('#buy-pay').addEventListener('click', async (e) => {
     const btn = e.currentTarget;
+    const total0 = +selected.reduce((s, d) => s + FW.cart.priceOf(d, years), 0).toFixed(2);
+    const pay = await FWUI.choosePayment({ amount: total0, title: 'Payer ' + (selected.length > 1 ? 'les domaines' : 'le domaine') });
+    if (!pay) return;
     FWUI.setLoading(btn, true, 'Paiement en cours...');
     try {
       const items = selected.slice();
-      await FW.domains.buy({ items, years, methodId, whoisPrivacy });
+      await FW.domains.buy({ items, years, pay, whoisPrivacy });
       $('#buy-form').hidden = true; $('#buy-done').hidden = false;
       $('#buy-done-text').innerHTML = items.map((d) => `<span class="mono font-semibold text-ink">${esc(d.domain)}</span>`).join(', ') + (items.length > 1 ? ' sont enregistrés' : ' est enregistré') + ' sur votre compte.';
       $('#buy-done-dns').href = 'dns.html?domain=' + encodeURIComponent(items[0].domain);

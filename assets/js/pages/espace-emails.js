@@ -131,7 +131,9 @@
   ownBox.addEventListener('click', (e) => { const b = e.target.closest('[data-copy-own]'); if (b) FWUI.copy(ownBox.dataset[b.dataset.copyOwn], 'Copié'); });
 
   function showBoxForm() {
+    const wanted = new URLSearchParams(location.search).get('domain');
     $('#box-form').reset();
+    if (wanted && [...$('#box-domain').options].some((o) => o.value === wanted)) $('#box-domain').value = wanted;
     $('#box-pass').value = FW.generatePassword();
     renderPassRules();
     $('#box-error').classList.remove('show');
