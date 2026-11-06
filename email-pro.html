@@ -84,9 +84,12 @@
             </div>
             <div class="mt-4">
               <label for="mail-pass" class="label">Mot de passe de votre boîte</label>
-              <input id="mail-pass" type="password" class="input" autocomplete="new-password" placeholder="8 caractères minimum">
+              <div class="relative">
+                <input id="mail-pass" type="password" class="input pr-11" autocomplete="new-password" placeholder="8 caractères minimum" spellcheck="false">
+                <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-muted hover:text-ink" data-toggle-password="mail-pass" aria-label="Afficher le mot de passe"><i data-lucide="eye" class="w-[18px] h-[18px]"></i></button>
+              </div>
               <ul id="mail-pass-rules" class="mt-2 text-xs space-y-0.5" aria-live="polite"></ul>
-              <p class="hint">Vous l’utiliserez avec cette adresse pour ouvrir votre email dans l’application Freda Mail. Il ne vous sera jamais envoyé par e-mail.</p>
+              <p class="hint">Vous l’utiliserez avec cette adresse pour ouvrir votre email dans l’application Freda Mail. Cliquez sur l’œil pour le voir pendant que vous le tapez. Il ne vous sera jamais envoyé par e-mail ; vous pourrez le changer à tout moment depuis votre espace client (rubrique Emails, bouton « Mot de passe »).</p>
               <p class="field-error" data-for="mail-pass">Ce mot de passe ne respecte pas les règles ci-dessus.</p>
             </div>
           </section>
