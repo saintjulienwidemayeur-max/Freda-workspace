@@ -25,7 +25,7 @@
     return;
   }
 
-  if (C.WEBMAIL_URL) $('#webmail-link').href = C.WEBMAIL_URL; else $('#webmail-link').hidden = true;
+  if (C.MAIL_APP_URL || C.WEBMAIL_URL) $('#webmail-link').href = C.MAIL_APP_URL || C.WEBMAIL_URL; else $('#webmail-link').hidden = true;   // application web Freda Mail en priorité
 
   function render() {
     ws = FWSpace.ws();
