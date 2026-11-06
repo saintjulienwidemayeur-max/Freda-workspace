@@ -124,12 +124,13 @@
         <div>
           <label for="box-pass" class="label">Mot de passe de la boîte</label>
           <div class="flex gap-2">
-            <input id="box-pass" class="input mono flex-1 min-w-0" autocomplete="new-password">
+            <input id="box-pass" type="password" class="input mono flex-1 min-w-0" autocomplete="new-password" spellcheck="false">
+            <button type="button" class="btn btn-outline btn-icon" id="show-pass" data-toggle-password="box-pass" aria-label="Afficher le mot de passe"><i data-lucide="eye"></i></button>
             <button type="button" class="btn btn-outline btn-icon" id="regen-pass" aria-label="Générer un autre mot de passe"><i data-lucide="refresh-cw"></i></button>
             <button type="button" class="btn btn-outline btn-icon" id="copy-pass" aria-label="Copier le mot de passe"><i data-lucide="copy"></i></button>
           </div>
           <ul id="box-pass-rules" class="mt-2 text-xs space-y-0.5" aria-live="polite"></ul>
-          <p class="hint">L’utilisateur se connecte à l’application Freda Mail avec cette adresse et ce mot de passe : communiquez-le lui de façon sûre.</p>
+          <p class="hint">L’utilisateur se connecte à l’application Freda Mail avec cette adresse et ce mot de passe : communiquez-le lui de façon sûre. Cliquez sur l’œil pour l’afficher ; vous pouvez le modifier avant de créer la boîte, et le changer plus tard à tout moment avec le bouton « Mot de passe » de la boîte. Une fois la boîte créée, il ne peut plus être réaffiché (il n’est conservé nulle part en clair) : copiez-le ou notez-le maintenant.</p>
         </div>
         <p class="field-error p-3 rounded-lg bg-red-50" id="box-error" role="alert"></p>
       </div>

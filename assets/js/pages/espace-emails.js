@@ -137,6 +137,8 @@
     $('#box-form').reset();
     if (wanted && [...$('#box-domain').options].some((o) => o.value === wanted)) $('#box-domain').value = wanted;
     $('#box-pass').value = FW.generatePassword();
+    $('#box-pass').type = 'password';   // masqué à l'ouverture : l'œil l'affiche
+    const eye = $('#show-pass'); eye.setAttribute('aria-label', 'Afficher le mot de passe'); eye.innerHTML = '<i data-lucide="eye"></i>'; FWUI.icons();
     renderPassRules();
     $('#box-error').classList.remove('show');
     FWUI.openModal('modal-box');
