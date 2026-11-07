@@ -82,7 +82,7 @@
           <p class="text-sm text-slate-600">Ajoutez ces enregistrements dans la zone DNS chez votre fournisseur actuel :</p>
           <ul class="mt-2 text-xs text-slate-600 list-disc pl-5 space-y-1"><li><strong>Supprimez vos anciens enregistrements MX</strong> (Google, OVH, etc.) et tout ancien SPF : un domaine ne doit avoir qu’un seul SPF.</li><li>Sur <strong>Cloudflare</strong>, mettez les CNAME en « DNS only » (nuage gris), sinon la signature DKIM échoue.</li><li>À la racine du domaine (@), utilisez le type indiqué (MX, TXT) ; un CNAME n’y est pas permis.</li></ul>
           <div class="mt-3 table-wrap rounded-xl border border-line">
-            <table class="table"><thead><tr><th>Type</th><th>Nom</th><th>Valeur</th></tr></thead><tbody id="connect-records"></tbody></table>
+            <table class="table"><thead><tr><th>Type</th><th>Hôte (nom)</th><th>Priorité</th><th>Valeur</th><th>TTL</th><th class="text-right"><span class="sr-only">Tout copier</span></th></tr></thead><tbody id="connect-records"></tbody></table>
           </div>
         </div>
 

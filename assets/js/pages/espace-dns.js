@@ -135,8 +135,8 @@
       return;
     }
     /* Chaque champ se copie séparément (type, hôte, priorité, valeur, TTL) ; « Copier l'enregistrement » les copie tous, avec leur nom. */
-    const cp = (text, label, aria) => `<button type="button" class="p-1 text-muted hover:text-freda shrink-0" data-copy="${esc(text)}" data-copy-label="${esc(label)}" aria-label="${esc(aria)}" title="${esc(aria)}"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>`;
-    const whole = (r) => ['Type : ' + r.type, 'Hôte : ' + r.name, ...(r.priority !== undefined ? ['Priorité : ' + r.priority] : []), 'Valeur : ' + r.value, 'TTL : ' + r.ttl].join('\n');
+    const cp = FWUI.copyBtn;
+    const whole = FWUI.recordText;
     $('#rec-body').innerHTML = rows.map((r) => {
       const locked = r.managed && !advanced;
       return `<tr>

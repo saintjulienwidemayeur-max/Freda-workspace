@@ -653,7 +653,11 @@
     return render;
   }
 
-  window.FWUI = { liveRules, bindWhoisPrivacy, showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, choosePayment, phoneInput, copy, setLoading, esc, icons };
+  /* Bouton de copie d'un champ d'enregistrement DNS (délégué par le gestionnaire « data-copy » ci-dessus) et texte complet d'un enregistrement. */
+  const copyBtn = (text, label, aria) => `<button type="button" class="p-1 text-muted hover:text-freda shrink-0" data-copy="${esc(text)}" data-copy-label="${esc(label)}" aria-label="${esc(aria)}" title="${esc(aria)}"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>`;
+  const recordText = (r) => ['Type : ' + r.type, 'Hôte : ' + r.name, ...(r.priority !== undefined ? ['Priorité : ' + r.priority] : []), 'Valeur : ' + r.value, 'TTL : ' + (r.ttl || 3600)].join('\n');
+
+  window.FWUI = { copyBtn, recordText, liveRules, bindWhoisPrivacy, showPaymentLink, hidePaymentLink, showEmbeddedCheckout, confetti, renderUpsell, attachSuggest, BASE, BRAND, payMark, renderHeader, renderFooter, toast, openModal, closeModal, confirmDialog, choosePayment, phoneInput, copy, setLoading, esc, icons };
 
   /* Initialisation automatique */
   document.addEventListener('DOMContentLoaded', () => {
