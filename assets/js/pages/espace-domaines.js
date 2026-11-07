@@ -85,6 +85,15 @@
   /* Ajout d'un domaine existant */
   let current = null;
   const copyRow = (v) => `<button type="button" class="p-1 text-muted hover:text-freda" data-copy="${esc(v)}" aria-label="Copier"><i data-lucide="copy" class="w-4 h-4"></i></button>`;
+  /* Une ligne d'enregistrement à recopier chez le fournisseur : type, hôte, priorité, valeur et TTL se copient chacun, et un bouton copie tout. */
+  const recRow = (r) => `<tr>
+    <td class="whitespace-nowrap"><span class="inline-flex items-center gap-1"><span class="mono text-xs font-bold">${esc(r.type)}</span>${FWUI.copyBtn(r.type, 'Type copié', 'Copier le type')}</span></td>
+    <td class="mono text-xs"><span class="inline-flex items-center gap-1 [overflow-wrap:anywhere]">${esc(r.name)}${FWUI.copyBtn(r.name, 'Hôte copié', 'Copier l’hôte (nom)')}</span></td>
+    <td class="mono text-xs whitespace-nowrap">${r.priority !== undefined ? `<span class="inline-flex items-center gap-1">${esc(r.priority)}${FWUI.copyBtn(String(r.priority), 'Priorité copiée', 'Copier la priorité')}</span>` : '<span class="text-muted" aria-label="Pas de priorité">—</span>'}</td>
+    <td class="mono text-xs min-w-[200px]"><span class="inline-flex items-start gap-1 [overflow-wrap:anywhere]">${esc(r.value)}${FWUI.copyBtn(r.value, 'Valeur copiée', 'Copier la valeur')}</span></td>
+    <td class="mono text-xs whitespace-nowrap"><span class="inline-flex items-center gap-1">${esc(r.ttl || 3600)}${FWUI.copyBtn(String(r.ttl || 3600), 'TTL copié (en secondes)', 'Copier le TTL (en secondes)')}</span></td>
+    <td class="text-right"><button type="button" class="p-1 text-muted hover:text-freda" data-copy="${esc(FWUI.recordText(r))}" data-copy-label="Enregistrement copié" aria-label="Copier tout l’enregistrement" title="Copier tout l’enregistrement"><i data-lucide="clipboard-copy" class="w-4 h-4"></i></button></td>
+  </tr>`;
   function showSteps(name, mode) {
     current = name;
     $('#connect-form').hidden = true;
@@ -95,7 +104,7 @@
     if (nsRadio) nsRadio.closest('label').hidden = !cfgDns.nameserversAvailable;
     document.querySelector(`[name="connect-mode"][value="${mode}"]`).checked = true;
     $('#connect-ns').innerHTML = cfgDns.nameservers.map((ns) => `<li class="flex items-center justify-between rounded-lg border border-line px-4 py-2.5"><span class="mono text-sm">${ns}</span>${copyRow(ns)}</li>`).join('');
-    $('#connect-records').innerHTML = (cfgDns.mailTemplate || C.MAIL_DNS_TEMPLATE).map((r) => `<tr><td class="mono text-xs font-bold">${r.type}</td><td class="mono text-xs">${esc(r.name)}</td><td class="mono text-xs"><span class="inline-flex items-center gap-2">${r.priority !== undefined ? r.priority + ' ' : ''}${esc(r.value)}${copyRow(r.value)}</span></td></tr>`).join('');
+    $('#connect-records').innerHTML = (cfgDns.mailTemplate || C.MAIL_DNS_TEMPLATE).map(recRow).join('');
     toggleMode(mode);
     $('#connect-steps').hidden = false;
     FWUI.icons();
@@ -107,7 +116,7 @@
     try {
       const r = await FW.domains.mailOwnership(name);
       if (current !== name || !r || !r.record || r.status === 'verified') return;
-      const row = `<tr><td class="mono text-xs font-bold">${esc(r.record.type)}</td><td class="mono text-xs">${esc(r.record.name)}</td><td class="mono text-xs"><span class="inline-flex items-center gap-2">${esc(r.record.value)}${copyRow(r.record.value)}</span></td></tr>`;
+      const row = recRow(r.record);
       $('#connect-records').insertAdjacentHTML('afterbegin', row);
       FWUI.icons();
     } catch (e) { /* messagerie non configurée : la page Emails affichera l'enregistrement quand nécessaire */ }

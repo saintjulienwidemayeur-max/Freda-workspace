@@ -59,7 +59,7 @@
           <!-- Enregistrements -->
           <section class="card p-5 sm:p-6" id="dns-help" aria-labelledby="help-title">
             <h2 id="help-title" class="text-lg font-bold">Comment lire et utiliser ces enregistrements</h2>
-            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Un enregistrement DNS dit au monde où aller pour votre domaine. Chaque ligne du tableau a quatre champs, à recopier tels quels là où votre DNS est géré (chez Freda Workspace, ou chez votre registrar si le domaine n’est pas encore connecté) : <strong>Type</strong>, <strong>Nom</strong> (parfois appelé « Host » ou « Hôte » ; <span class="mono">@</span> veut dire le domaine lui-même), <strong>Valeur</strong> (parfois « Cible » ou « Contenu ») et, seulement pour MX, la <strong>Priorité</strong>. Le bouton de copie à côté de la valeur évite les fautes de frappe.</p>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Un enregistrement DNS dit au monde où aller pour votre domaine. Chaque ligne du tableau a quatre champs, à recopier tels quels là où votre DNS est géré (chez Freda Workspace, ou chez votre registrar si le domaine n’est pas encore connecté) : <strong>Type</strong>, <strong>Nom</strong> (parfois appelé « Host » ou « Hôte » ; <span class="mono">@</span> veut dire le domaine lui-même), <strong>Valeur</strong> (parfois « Cible » ou « Contenu ») et, seulement pour MX, la <strong>Priorité</strong>. Chaque champ (type, hôte, priorité, valeur, TTL) a son propre bouton de copie, et le bouton à droite de la ligne copie l’enregistrement complet : cela évite les fautes de frappe.</p>
             <dl class="mt-4 grid gap-3 sm:grid-cols-2 text-sm">
               <div class="rounded-xl bg-mist p-4"><dt class="font-semibold text-ink">MX · réception des emails</dt><dd class="mt-1 text-slate-600">Indique le serveur qui reçoit les emails du domaine. Le nombre devant le serveur est la <strong>priorité</strong> : plus il est petit, plus le serveur est essayé en premier. Avec un seul serveur, la valeur (par exemple 50) n’a pas d’importance : mettez exactement celle qui est affichée dans le champ « Priorité ».</dd></div>
               <div class="rounded-xl bg-mist p-4"><dt class="font-semibold text-ink">SPF · expéditeur autorisé</dt><dd class="mt-1 text-slate-600">Enregistrement TXT au nom <span class="mono">@</span> qui liste les serveurs autorisés à envoyer en votre nom. Un seul SPF par domaine : s’il en existe déjà un, fusionnez-les au lieu d’en créer un deuxième.</dd></div>
@@ -90,7 +90,7 @@
             <div class="table-wrap">
               <table class="table">
                 <thead>
-                  <tr><th>Type</th><th>Nom</th><th>Valeur</th><th>TTL</th><th>Statut</th><th class="text-right"><span class="sr-only">Actions</span></th></tr>
+                  <tr><th>Type</th><th>Hôte (nom)</th><th>Priorité</th><th>Valeur</th><th>TTL</th><th>Statut</th><th class="text-right"><span class="sr-only">Actions</span></th></tr>
                 </thead>
                 <tbody id="rec-body"></tbody>
               </table>

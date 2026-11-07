@@ -131,26 +131,30 @@
     $('#rec-count').textContent = records.length + ' enregistrement' + (records.length > 1 ? 's' : '') + (pend ? ' à ajouter chez votre registrar (pas encore actifs)' : '');
     $('#rec-ttl-note').hidden = pend;
     if (!rows.length) {
-      $('#rec-body').innerHTML = `<tr><td colspan="6" class="!py-10 text-center text-muted">Aucun enregistrement ne correspond au filtre.</td></tr>`;
+      $('#rec-body').innerHTML = `<tr><td colspan="7" class="!py-10 text-center text-muted">Aucun enregistrement ne correspond au filtre.</td></tr>`;
       return;
     }
+    /* Chaque champ se copie séparément (type, hôte, priorité, valeur, TTL) ; « Copier l'enregistrement » les copie tous, avec leur nom. */
+    const cp = FWUI.copyBtn;
+    const whole = FWUI.recordText;
     $('#rec-body').innerHTML = rows.map((r) => {
       const locked = r.managed && !advanced;
       return `<tr>
-        <td><span class="inline-flex px-2 py-0.5 rounded-md text-xs font-bold mono ${TYPE_COLORS[r.type] || ''}">${r.type}</span></td>
-        <td class="mono text-sm whitespace-nowrap">${esc(r.name)}${r.managed ? ` <i data-lucide="lock" class="inline w-3.5 h-3.5 text-muted -mt-0.5" aria-label="Géré par Freda Workspace"></i>` : ''}</td>
-        <td class="mono text-xs text-slate-600 max-w-[340px]">
-          <div class="flex items-center gap-2">
-            ${r.priority !== undefined ? `<span class="badge badge-neutral tabular shrink-0">${r.priority}</span>` : ''}
-            <span class="truncate" title="${esc(r.value)}">${esc(r.value)}</span>
-            <button type="button" class="p-1 text-muted hover:text-freda shrink-0" data-copy="${esc(r.value)}" data-copy-label="Valeur copiée" aria-label="Copier la valeur"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+        <td><div class="flex items-center gap-1"><span class="inline-flex px-2 py-0.5 rounded-md text-xs font-bold mono ${TYPE_COLORS[r.type] || ''}">${r.type}</span>${cp(r.type, 'Type copié', 'Copier le type')}</div></td>
+        <td class="mono text-sm whitespace-nowrap"><div class="flex items-center gap-1"><span>${esc(r.name)}</span>${r.managed ? ` <i data-lucide="lock" class="inline w-3.5 h-3.5 text-muted" aria-label="Géré par Freda Workspace"></i>` : ''}${cp(r.name, 'Hôte copié', 'Copier l’hôte (nom)')}</div></td>
+        <td class="mono text-sm whitespace-nowrap">${r.priority !== undefined ? `<div class="flex items-center gap-1"><span class="badge badge-neutral tabular">${esc(r.priority)}</span>${cp(String(r.priority), 'Priorité copiée', 'Copier la priorité')}</div>` : '<span class="text-muted" aria-label="Pas de priorité">—</span>'}</td>
+        <td class="mono text-xs text-slate-600 min-w-[240px] max-w-[420px]">
+          <div class="flex items-start gap-2">
+            <span class="[overflow-wrap:anywhere]" title="${esc(r.value)}">${esc(r.value)}</span>
+            ${cp(r.value, 'Valeur copiée', 'Copier la valeur')}
           </div>
           ${r.role ? `<span class="text-[11px] text-muted font-sans block">${esc(r.role === 'OWNERSHIP' ? 'Vérification email' : r.role)}${ROLE_HELP[r.role] ? ' · ' + esc(ROLE_HELP[r.role]) : ''}</span>` : ''}
-          ${r.type === 'MX' && r.priority !== undefined ? `<span class="text-[11px] text-muted font-sans block">Le ${esc(r.priority)} est la priorité : à saisir dans le champ « Priorité », puis le serveur dans « Valeur ».</span>` : ''}
+          ${r.type === 'MX' && r.priority !== undefined ? `<span class="text-[11px] text-muted font-sans block">À saisir : « Priorité » = ${esc(r.priority)}, « Valeur » (serveur) = la valeur ci-dessus.</span>` : ''}
         </td>
-        <td class="text-sm text-muted tabular whitespace-nowrap">${ttlLabel(r.ttl)}</td>
+        <td class="text-sm text-muted tabular whitespace-nowrap"><div class="flex items-center gap-1"><span title="${esc(r.ttl)} secondes">${ttlLabel(r.ttl)}</span>${cp(String(r.ttl), 'TTL copié (en secondes)', 'Copier le TTL (en secondes)')}</div></td>
         <td>${pend ? '<span class="badge badge-warn"><span class="dot bg-amber-500"></span>À ajouter</span>' : '<span class="badge badge-success"><span class="dot bg-cta"></span>Actif</span>'}</td>
         <td class="text-right whitespace-nowrap">
+          <button type="button" class="btn btn-ghost btn-icon" data-copy="${esc(whole(r))}" data-copy-label="Enregistrement copié" aria-label="Copier tout l’enregistrement (type, hôte, priorité, valeur, TTL)" title="Copier tout l’enregistrement"><i data-lucide="clipboard-copy"></i></button>
           <button type="button" class="btn btn-ghost btn-icon" data-edit="${r.id}" ${locked ? 'disabled title="Activez le mode avancé pour modifier"' : ''} aria-label="Modifier"><i data-lucide="pencil"></i></button>
           <button type="button" class="btn btn-ghost btn-icon hover:!text-red-600 hover:!bg-red-50" data-del="${r.id}" ${locked ? 'disabled title="Activez le mode avancé pour supprimer"' : ''} aria-label="Supprimer"><i data-lucide="trash-2"></i></button>
         </td>
