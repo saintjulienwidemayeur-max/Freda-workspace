@@ -90,11 +90,21 @@
   // Tant que les liens sont les pages d'accueil génériques des stores (app pas encore publiée), on ne promet pas de téléchargement :
   // on retire seulement QR code et boutons des stores, jamais la section (maquettes + version web restent visibles) et on propose la version web.
   const genericStore = (u) => !u || /^https:\/\/(apps\.apple\.com|play\.google\.com)\/(store\/)?$/.test(u);
-  if (!C.DEMO_MODE && (genericStore(C.APP_STORE_URL) || genericStore(C.PLAY_STORE_URL))) { const store = $('#store-block'), web = $('#webapp-cta'); if (store) store.hidden = true; if (web) web.hidden = false; }
+  const iosLive = !genericStore(C.APP_STORE_URL), androidLive = !genericStore(C.PLAY_STORE_URL);
+  // QR code : le lien commun si les deux stores sont publiés, sinon directement la fiche de la seule app publiée.
+  const qrUrl = iosLive && androidLive ? C.APP_DOWNLOAD_URL : (androidLive ? C.PLAY_STORE_URL : (iosLive ? C.APP_STORE_URL : C.APP_DOWNLOAD_URL));
+  if (!C.DEMO_MODE && !iosLive && !androidLive) { const store = $('#store-block'), web = $('#webapp-cta'); if (store) store.hidden = true; if (web) web.hidden = false; }
+  else if (!C.DEMO_MODE) {
+    // Une seule plateforme publiée : on ne montre que son bouton et on le dit.
+    if (!iosLive) { const x = $('#appstore-link'); if (x) x.hidden = true; }
+    if (!androidLive) { const x = $('#playstore-link'); if (x) x.hidden = true; }
+    const note = $('#store-note'); if (note) { note.textContent = iosLive ? 'Android arrive bientôt.' : 'Disponible sur Android. La version iOS arrive bientôt : en attendant, utilisez la version web.'; note.hidden = iosLive && androidLive; }
+    const nt = $('#qr-note'); if (nt) nt.textContent = iosLive && androidLive ? 'Disponible sur iOS 14+ et Android 8+' : (androidLive ? 'Disponible sur Android 8+' : 'Disponible sur iOS 14+');
+  }
   function drawQR(el, cell) {
     if (!window.qrcode || !el) return;
     const qr = qrcode(0, 'M');
-    qr.addData(C.APP_DOWNLOAD_URL);
+    qr.addData(qrUrl);
     qr.make();
     el.innerHTML = qr.createSvgTag({ cellSize: cell, margin: 0, scalable: true });
     const svg = el.querySelector('svg');

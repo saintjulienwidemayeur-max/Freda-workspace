@@ -17,7 +17,11 @@
   $('#dl-ios').href = C.APP_STORE_URL;
   $('#dl-android').href = C.PLAY_STORE_URL;
   const genericStore = (u) => !u || /^https:\/\/(apps\.apple\.com|play\.google\.com)\/(store\/)?$/.test(u);
-  if (!C.DEMO_MODE && (genericStore(C.APP_STORE_URL) || genericStore(C.PLAY_STORE_URL))) { const sec = $('#dl-ios').closest('section'); if (sec) sec.hidden = true; }
+  if (!C.DEMO_MODE) {
+    const iosLive = !genericStore(C.APP_STORE_URL), androidLive = !genericStore(C.PLAY_STORE_URL);
+    if (!iosLive && !androidLive) { const sec = $('#dl-ios').closest('section'); if (sec) sec.hidden = true; }
+    else { if (!iosLive) $('#dl-ios').hidden = true; if (!androidLive) $('#dl-android').hidden = true; }
+  }
 
   /* ---------- Indicateurs ---------- */
   const used = ws.mailboxes.reduce((s, m) => s + m.usedGb, 0);
