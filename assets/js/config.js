@@ -52,7 +52,7 @@ window.FW_CONFIG = {
 
   /* Liens des stores (à remplacer après publication de l'app Flutter). */
   APP_STORE_URL: 'https://apps.apple.com/',
-  PLAY_STORE_URL: 'https://play.google.com/store/',
+  PLAY_STORE_URL: 'https://play.google.com/store/apps/details?id=com.fredapay.fredamail',   // app Android publiée
   APP_DOWNLOAD_URL: 'https://fredaworkspace.com/app',
 
   /* Taux indicatif USD -> HTG pour MonCash / NatCash.
