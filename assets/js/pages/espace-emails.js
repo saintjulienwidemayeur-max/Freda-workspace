@@ -27,6 +27,12 @@
 
   if (C.MAIL_APP_URL || C.WEBMAIL_URL) $('#webmail-link').href = C.MAIL_APP_URL || C.WEBMAIL_URL; else $('#webmail-link').hidden = true;   // application web Freda Mail en priorité
 
+  { // boutons des applications (Android = Google Play, iPhone = version web installable)
+    const isStore = (u) => u && !/^https:\/\/play\.google\.com\/(store\/)?$/.test(u);
+    const a = $('#app-android'); if (a && isStore(C.PLAY_STORE_URL)) { a.href = C.PLAY_STORE_URL; a.hidden = false; }
+    const i = $('#app-ios'); if (i && C.MAIL_APP_URL) i.href = C.MAIL_APP_URL; else if (i) i.hidden = true;
+  }
+
   function render() {
     ws = FWSpace.ws();
     const used = ws.mailboxes.reduce((s, m) => s + m.usedGb, 0);

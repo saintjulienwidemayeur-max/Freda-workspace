@@ -20,7 +20,7 @@
   if (!C.DEMO_MODE) {
     const iosLive = !genericStore(C.APP_STORE_URL), androidLive = !genericStore(C.PLAY_STORE_URL);
     if (!iosLive && !androidLive) { const sec = $('#dl-ios').closest('section'); if (sec) sec.hidden = true; }
-    else { if (!iosLive) $('#dl-ios').hidden = true; if (!androidLive) $('#dl-android').hidden = true; }
+    else { if (!iosLive) { if (C.MAIL_APP_URL) { $('#dl-ios').href = C.MAIL_APP_URL; $('#dl-ios').innerHTML = '<i data-lucide="monitor-smartphone"></i>iPhone (web)'; if (window.FWUI) FWUI.icons(); } else $('#dl-ios').hidden = true; } if (!androidLive) $('#dl-android').hidden = true; }
   }
 
   /* ---------- Indicateurs ---------- */
