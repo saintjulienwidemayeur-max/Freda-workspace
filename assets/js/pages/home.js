@@ -96,9 +96,10 @@
   if (!C.DEMO_MODE && !iosLive && !androidLive) { const store = $('#store-block'), web = $('#webapp-cta'); if (store) store.hidden = true; if (web) web.hidden = false; }
   else if (!C.DEMO_MODE) {
     // Une seule plateforme publiée : on ne montre que son bouton et on le dit.
-    if (!iosLive) { const x = $('#appstore-link'); if (x) x.hidden = true; }
+    if (!iosLive && C.MAIL_APP_URL) { const x = $('#appstore-link'); if (x) { x.href = C.MAIL_APP_URL; x.innerHTML = '<i data-lucide="monitor-smartphone"></i>iPhone : version web'; if (window.lucide || window.FWUI) (window.FWUI ? FWUI.icons() : lucide.createIcons()); } }
+    else if (!iosLive) { const x = $('#appstore-link'); if (x) x.hidden = true; }
     if (!androidLive) { const x = $('#playstore-link'); if (x) x.hidden = true; }
-    const note = $('#store-note'); if (note) { note.textContent = iosLive ? 'Android arrive bientôt.' : 'Disponible sur Android. La version iOS arrive bientôt : en attendant, utilisez la version web.'; note.hidden = iosLive && androidLive; }
+    const note = $('#store-note'); if (note) { note.textContent = iosLive ? 'Android arrive bientôt.' : 'Android : application sur Google Play. iPhone : ouvrez la version web (PWA) et ajoutez-la à l’écran d’accueil.'; note.hidden = iosLive && androidLive; }
     const nt = $('#qr-note'); if (nt) nt.textContent = iosLive && androidLive ? 'Disponible sur iOS 14+ et Android 8+' : (androidLive ? 'Disponible sur Android 8+' : 'Disponible sur iOS 14+');
   }
   function drawQR(el, cell) {
