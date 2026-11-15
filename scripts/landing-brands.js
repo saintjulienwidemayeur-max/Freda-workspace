@@ -39,6 +39,7 @@ module.exports = [
       ['Offres payantes', 'Starter {starter_price}/mois (2 boîtes), Business {business_price}/mois (5 boîtes), Enterprise {enterprise_price}/mois (illimité)'],
       ['Sécurité', 'SPF, DKIM et DMARC configurés automatiquement'],
       ['Compatibilité', 'Application Freda Mail, et tout logiciel IMAP / SMTP (Outlook, Apple Mail, Gmail)'],
+      ['API pour agents IA', 'Clés API personnelles (lecture seule ou lecture et envoi), webhook de nouveau message en temps réel, documentation OpenAPI : un agent IA peut lire vos messages et y répondre'],
       ['Paiement', 'MonCash, NatCash, carte et autres moyens de paiement disponibles ; solde prépayé pour les abonnements. Frais de traitement : carte 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
       ['Produit associé', 'Freda Connect (noms de domaine et DNS)'],
     ],
@@ -46,6 +47,13 @@ module.exports = [
       {
         h2: 'Ce que fait Freda Mail',
         paragraphs: ['Freda Mail héberge vos boîtes email professionnelles et les relie à votre nom de domaine. Vous créez vos adresses (contact@, ventes@, direction@), vous lisez et envoyez vos messages dans l’application Freda Mail ou dans n’importe quel logiciel compatible IMAP et SMTP, et vous gérez les alias et les mots de passe depuis votre espace client. Les protections SPF, DKIM et DMARC, qui aident vos messages à arriver en boîte de réception, sont configurées pour vous.'],
+      },
+      {
+        h2: 'Un agent IA qui lit et répond à votre place',
+        paragraphs: [
+          'Freda Mail propose une API pour les agents IA et les automatisations (Zapier, Make, n8n, ChatGPT, Claude, Gemini ou votre propre script). Dans le webmail (Paramètres › Intégrations & API), vous créez une clé personnelle en lecture seule ou en lecture et envoi. L’agent peut alors lister vos messages non lus, lire un message et y répondre dans le même fil de discussion. Un webhook peut aussi lui envoyer chaque nouveau message en temps réel.',
+          'La clé ne donne accès qu’à la boîte concernée, elle n’est affichée qu’une seule fois et vous pouvez la supprimer à tout moment ; des limites de débit protègent votre boîte. La documentation (OpenAPI) est publique : fredaworkspace.com/api/v1/docs.',
+        ],
       },
       {
         h2: 'Les offres Freda Mail',
@@ -100,6 +108,7 @@ module.exports = [
       ['Òf ki peye', 'Starter {starter_price}/mwa (2 bwat), Business {business_price}/mwa (5 bwat), Enterprise {enterprise_price}/mwa (san limit)'],
       ['Sekirite', 'SPF, DKIM ak DMARC konfigire otomatikman'],
       ['Konpatibilite', 'Aplikasyon Freda Mail, ak nenpòt lojisyèl IMAP / SMTP (Outlook, Apple Mail, Gmail)'],
+      ['API pou ajan AI', 'Kle API pèsonèl (lekti sèlman oswa lekti ak voye), webhook nouvo mesaj an tan reyèl, dokimantasyon OpenAPI: yon ajan AI ka li mesaj ou yo epi reponn yo'],
       ['Peman', 'MonCash, NatCash, kat ak lòt mwayen peman; balans prepeye pou abònman yo. Frè pwosesis: kat 3,5 % + 0,40 $, MonCash/NatCash 6 %'],
       ['Pwodwi asosye', 'Freda Connect (non domèn ak DNS)'],
     ],
@@ -107,6 +116,13 @@ module.exports = [
       {
         h2: 'Sa Freda Mail fè',
         paragraphs: ['Freda Mail eberje bwat imèl pwofesyonèl ou yo epi li konekte yo ak non domèn ou. Ou kreye adrès ou yo (kontak@, lavant@, direksyon@), ou li epi voye mesaj ou yo nan aplikasyon Freda Mail la oswa nan nenpòt lojisyèl ki sipòte IMAP ak SMTP, epi ou jere alyas ak modpas yo depi nan espas kliyan ou. Pwoteksyon SPF, DKIM ak DMARC yo, ki ede mesaj ou yo rive nan bwat resepsyon, konfigire pou ou.'],
+      },
+      {
+        h2: 'Yon ajan AI ki li epi reponn pou ou',
+        paragraphs: [
+          'Freda Mail gen yon API pou ajan AI ak otomatizasyon (Zapier, Make, n8n, ChatGPT, Claude, Gemini oswa pwòp script ou). Nan webmail la (Paramètres › Intégrations & API), ou kreye yon kle pèsonèl: lekti sèlman oswa lekti ak voye. Apre sa ajan an ka wè mesaj ou poko li yo, li yon mesaj epi reponn li nan menm fil diskisyon an. Yon webhook ka voye chak nouvo mesaj ba li an tan reyèl.',
+          'Kle a bay aksè sèlman a bwat sa a, li parèt yon sèl fwa, epi ou ka efase l nenpòt lè; limit vitès pwoteje bwat ou. Dokimantasyon an (OpenAPI) piblik: fredaworkspace.com/api/v1/docs.',
+        ],
       },
       {
         h2: 'Òf Freda Mail yo',
@@ -161,6 +177,7 @@ module.exports = [
       ['Paid plans', 'Starter {starter_price}/month (2 mailboxes), Business {business_price}/month (5 mailboxes), Enterprise {enterprise_price}/month (unlimited)'],
       ['Security', 'SPF, DKIM and DMARC configured automatically'],
       ['Compatibility', 'Freda Mail app, and any IMAP / SMTP client (Outlook, Apple Mail, Gmail)'],
+      ['AI agent API', 'Personal API keys (read-only or read and send), real-time new-message webhook, OpenAPI documentation: an AI agent can read your messages and reply to them'],
       ['Payment', 'MonCash, NatCash, card and other payment methods; prepaid balance for subscriptions. Processing fees: card 3.5% + $0.40, MonCash/NatCash 6%'],
       ['Related product', 'Freda Connect (domain names and DNS)'],
     ],
@@ -168,6 +185,13 @@ module.exports = [
       {
         h2: 'What Freda Mail does',
         paragraphs: ['Freda Mail hosts your professional mailboxes and links them to your domain name. You create your addresses (contact@, sales@, admin@), read and send messages in the Freda Mail app or in any IMAP and SMTP client, and manage aliases and passwords from your account. The SPF, DKIM and DMARC protections, which help your messages reach the inbox, are configured for you.'],
+      },
+      {
+        h2: 'An AI agent that reads and replies for you',
+        paragraphs: [
+          'Freda Mail offers an API for AI agents and automations (Zapier, Make, n8n, ChatGPT, Claude, Gemini or your own script). In the webmail (Paramètres › Intégrations & API) you create a personal key, read-only or read and send. The agent can then list your unread messages, read a message and reply in the same conversation thread. A webhook can also push each new message to it in real time.',
+          'The key only gives access to that one mailbox, it is shown only once, and you can delete it at any time; rate limits protect your mailbox. The documentation (OpenAPI) is public: fredaworkspace.com/api/v1/docs.',
+        ],
       },
       {
         h2: 'Freda Mail plans',

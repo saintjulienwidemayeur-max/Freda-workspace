@@ -9,6 +9,7 @@
 - Offres : Starter 2,99 $/mois (2 boîtes, 2 Go), Business 9,99 $/mois (5 boîtes, 15 Go partagés), Enterprise 30,00 $/mois (boîtes illimitées, 5 Go par boîte). Durée au choix de 1 à 12 mois ; 12 mois = 2 mois offerts. Les prix peuvent changer : la page https://fredaworkspace.com/#tarifs fait foi.
 - Paiement : MonCash, NatCash, carte bancaire. Frais de traitement : carte 3,5 % + 0,40 $ ; MonCash et NatCash 6 %. MonCash et NatCash ne permettent pas de prélèvement automatique : le client recharge un solde Freda Workspace (5 $ à 500 $) qui paie ensuite l’offre automatiquement ; des alertes email sont envoyées si le solde est trop bas.
 - Sécurité de l’email : SPF, DKIM et DMARC configurés automatiquement. Compatible IMAP/SMTP (Outlook, Apple Mail, Gmail) et application Freda Mail.
+- API pour agents IA (Zapier, Make, n8n, ChatGPT, Claude…) : clés personnelles en lecture seule ou en lecture et envoi, webhook de nouveau message, documentation OpenAPI sur https://fredaworkspace.com/api/v1/docs.
 - Support : support@fredaworkspace.com, du lundi au samedi, 8 h à 18 h (heure d’Haïti), en français, en créole haïtien et en anglais.
 
 ## Pages principales
