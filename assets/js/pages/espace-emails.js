@@ -58,6 +58,7 @@
         <td class="min-w-[160px]">${C.DEMO_MODE ? `<div class="flex items-center gap-2"><div class="meter flex-1"><span style="width:${pct}%;${pct > 85 ? 'background:#DC2626' : ''}"></span></div><span class="text-xs text-muted tabular whitespace-nowrap">${m.usedGb.toFixed(1)} / ${perBox.toFixed(0)} Go</span></div>` : `<span class="text-xs text-muted tabular whitespace-nowrap">${perBox.toFixed(0)} Go inclus</span>`}</td>
         <td class="text-sm text-muted tabular whitespace-nowrap">${m.lastLogin ? FW.date(m.lastLogin) : 'Jamais'}</td>
         <td class="text-right whitespace-nowrap">
+          <button type="button" class="btn btn-ghost btn-sm" data-reveal="${m.id}" aria-label="Voir le mot de passe de ${esc(m.address)}"><i data-lucide="eye"></i><span class="hidden md:inline">Voir</span></button>
           <button type="button" class="btn btn-ghost btn-sm" data-reset="${m.id}"><i data-lucide="key-round"></i><span class="hidden md:inline">Mot de passe</span></button>
           <button type="button" class="btn btn-ghost btn-icon hover:!text-red-600 hover:!bg-red-50" data-del="${m.id}" ${m.role === 'Propriétaire' ? 'disabled title="La boîte propriétaire ne peut pas être supprimée"' : ''} aria-label="Supprimer"><i data-lucide="trash-2"></i></button>
         </td>
@@ -207,8 +208,42 @@
     } finally { FWUI.setLoading(btn, false); }
   });
 
+  /* ---------- Revoir le mot de passe d'une boîte ---------- */
+  let revealId = null;
+  const resetRevealForm = () => {
+    $('#reveal-ask').hidden = false; $('#reveal-result').hidden = true; $('#reveal-change').hidden = true; $('#reveal-submit').hidden = false;
+    $('#reveal-account-pass').value = ''; $('#reveal-pass').value = ''; $('#reveal-pass').type = 'password'; $('#reveal-error').classList.remove('show');
+  };
+  $('#reveal-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = $('#reveal-submit');
+    $('#reveal-error').classList.remove('show');
+    FWUI.setLoading(btn, true);
+    try {
+      const r = await FW.mailboxes.revealPassword(revealId, $('#reveal-account-pass').value);
+      $('#reveal-pass').value = r.password;
+      $('#reveal-account-pass').value = '';
+      $('#reveal-ask').hidden = true; $('#reveal-result').hidden = false; btn.hidden = true;
+    } catch (err) {
+      $('#reveal-error').textContent = err.message;
+      $('#reveal-error').classList.add('show');
+      if (err.code === 'password_unknown') { $('#reveal-ask').hidden = true; $('#reveal-change').hidden = false; btn.hidden = true; }
+    } finally { FWUI.setLoading(btn, false); }
+  });
+  $('#reveal-copy').addEventListener('click', () => FWUI.copy($('#reveal-pass').value, 'Mot de passe copié'));
+  $('#reveal-change').addEventListener('click', () => { const id = revealId; FWUI.closeModal('modal-reveal'); const b = document.querySelector(`[data-reset="${id}"]`); if (b) b.click(); });
+
   /* ---------- Actions sur les lignes ---------- */
   document.addEventListener('click', async (e) => {
+    const rev = e.target.closest('[data-reveal]');
+    if (rev) {
+      const m = ws.mailboxes.find((x) => x.id === rev.dataset.reveal);
+      revealId = m.id; resetRevealForm();
+      $('#reveal-address').textContent = m.address;
+      if (m.passwordStored === false) { $('#reveal-error').textContent = 'Le mot de passe de cette boîte n’est pas conservé. Définissez-en un nouveau : il pourra ensuite être revu ici.'; $('#reveal-error').classList.add('show'); $('#reveal-ask').hidden = true; $('#reveal-change').hidden = false; $('#reveal-submit').hidden = true; }
+      FWUI.openModal('modal-reveal');
+      FWUI.icons();
+    }
     const reset = e.target.closest('[data-reset]');
     if (reset) {
       const m = ws.mailboxes.find((x) => x.id === reset.dataset.reset);

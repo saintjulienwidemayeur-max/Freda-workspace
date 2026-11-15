@@ -180,6 +180,39 @@
     </form>
   </div>
 
+  <div class="modal" id="modal-reveal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <form class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="reveal-title" id="reveal-form" novalidate>
+      <div class="p-6 border-b border-line flex items-center justify-between">
+        <h2 id="reveal-title" class="text-lg font-bold">Mot de passe de la boîte</h2>
+        <button type="button" class="btn btn-ghost btn-icon" data-close aria-label="Fermer"><i data-lucide="x"></i></button>
+      </div>
+      <div class="p-6 space-y-4">
+        <p class="text-sm text-slate-600">Boîte : <span class="mono font-semibold text-ink break-all" id="reveal-address"></span></p>
+        <div id="reveal-ask" class="space-y-2">
+          <label for="reveal-account-pass" class="label">Votre mot de passe Freda Workspace</label>
+          <input id="reveal-account-pass" type="password" class="input" autocomplete="current-password" placeholder="Mot de passe de votre compte">
+          <p class="text-xs text-muted">Par sécurité, nous vous le redemandons avant d’afficher le mot de passe de la boîte. Connecté avec Google ? Laissez ce champ vide.</p>
+        </div>
+        <div id="reveal-result" class="space-y-2" hidden>
+          <label for="reveal-pass" class="label">Mot de passe de la boîte</label>
+          <div class="flex gap-2">
+            <input id="reveal-pass" type="password" class="input mono flex-1 min-w-0" readonly spellcheck="false">
+            <button type="button" class="btn btn-outline btn-icon" data-toggle-password="reveal-pass" aria-label="Afficher le mot de passe"><i data-lucide="eye"></i></button>
+            <button type="button" class="btn btn-outline btn-icon" id="reveal-copy" aria-label="Copier le mot de passe"><i data-lucide="copy"></i></button>
+          </div>
+          <p class="text-xs text-muted">Utilisez-le avec l’adresse complète dans l’application ou le webmail Freda Mail. Vous pouvez le changer à tout moment avec le bouton « Mot de passe » : le nouveau s’affichera ici.</p>
+        </div>
+        <p class="field-error p-3 rounded-lg bg-red-50" id="reveal-error" role="alert"></p>
+      </div>
+      <div class="p-6 pt-0 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+        <button type="button" class="btn btn-outline" data-close>Fermer</button>
+        <button type="button" class="btn btn-outline" id="reveal-change" hidden><i data-lucide="key-round"></i>Définir un nouveau mot de passe</button>
+        <button type="submit" class="btn btn-primary" id="reveal-submit"><i data-lucide="eye"></i>Afficher</button>
+      </div>
+    </form>
+  </div>
+
   <script src="../assets/js/icons.js" defer></script>
   <script src="../assets/js/config.js" defer></script>
   <script src="../assets/js/monitor.js" defer></script>
