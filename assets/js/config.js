@@ -27,7 +27,7 @@ window.FW_CONFIG = {
   WEBMAIL_URL: '',
   /* Application web Freda Mail (PWA) : le bouton « Ouvrir ma boîte » de l'espace client (rubrique Emails) y envoie le client, qui s'y connecte avec l'adresse
      complète et le mot de passe de sa boîte. Indépendant de WEBMAIL_URL ci-dessus (ancien webmail, qui masque ses fonctions tant qu'il est vide). */
-  MAIL_APP_URL: 'https://freda-mail-web.onrender.com',
+  MAIL_APP_URL: 'https://webmail.fredaworkspace.com/',
   /* Émetteur des factures PDF. Complétez l'adresse légale et le numéro fiscal (affichés seulement s'ils sont renseignés). */
   BILLING: {
     legalName: 'Freda Pay LLC',
