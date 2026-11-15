@@ -744,6 +744,11 @@
       return box;
     },
     /** Le titulaire du compte change le mot de passe d'une boîte (l'utilisateur de l'application se reconnecte avec le nouveau). */
+    /** Revoir le mot de passe d'une boîte (le mot de passe du compte est redemandé). Renvoie { address, password }. */
+    async revealPassword(id, accountPassword) {
+      if (C.DEMO_MODE) throw new Error('Disponible avec un vrai compte Freda Workspace.');
+      return await request('/mailboxes/' + encodeURIComponent(id) + '/reveal-password', { method: 'POST', body: { password: accountPassword } });
+    },
     async setPassword(id, password) { if (!C.DEMO_MODE) await request('/mailboxes/' + id + '/password', { method: 'POST', body: { password } }); },
     async remove(id) {
       if (!C.DEMO_MODE) { await request('/mailboxes/' + id, { method: 'DELETE' }); await workspace.load(); return; }
